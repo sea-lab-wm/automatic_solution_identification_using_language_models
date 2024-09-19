@@ -1,13 +1,10 @@
 This is the replication package for the paper "A Case Study on Automatically Identifying Solution-Related Content in Issue Report Discussions via Language Models".
 
-Will update the replication package soon.
-
-This is a test commit.
-
 # Installation Process
 
 ## Prerequisite: 
-1. Conda 
+1. Conda or
+2. Python 3.10.4 (Jump to Environment Setup:Step 4 if you have this version of python installed)
 
 ## Environment Setup
 
