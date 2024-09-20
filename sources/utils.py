@@ -1,4 +1,5 @@
 import csv
+from tqdm import tqdm
 import json
 import os
 import os
@@ -240,7 +241,7 @@ mismatched_annotations_path = 'solution_localization/dataset_construction/senten
 
 mapped_comment_data = 'datasets/actual_comment_data.csv'
 embedding_comment_data = 'solution_localization/dataset_construction/comment_data/actual_comment_data_with_embeddings.csv'
-promt_comment_data = 'solution_localization/dataset_construction/comment_data/comment_data.csv'
+promt_comment_data = 'datasets/comment_data.csv'
 preprocess_comment_data = 'solution_localization/dataset_construction/comment_data/preprocess_comment_data.csv'
 preprocess_sentence_data = 'solution_localization/dataset_construction/sentence_data/preprocess_sentence_data.csv'
 manual_comment_mapping_path = "datasets/manual_comment_mapping.csv"
@@ -260,7 +261,7 @@ train_nos_embedding = 'solution_localization/dataset_construction/comment_data/f
 train_os_embedding = 'solution_localization/dataset_construction/comment_data/folds/<run>/train_os_embedding.joblib'
 
 train_test_data_directory = 'datasets/train_test_data'
-train_test_comment_data = 'solution_localization/dataset_construction/comment_data/train_test_comment_data.json'
+train_test_comment_data = 'datasets/train_test_comment_data.json'
 comment_data_result = "solution_localization/dataset_construction/comment_data/ml/fold/<run>/comment_data_results.csv"
 sentence_data_result = "solution_localization/dataset_construction/sentence_data/sentence_data_result.csv"
 comment_data_dl_result = "solution_localization/dataset_construction/comment_data/"

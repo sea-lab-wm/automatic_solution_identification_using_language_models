@@ -1,7 +1,6 @@
 import re
 
 from sklearn.model_selection import StratifiedKFold
-import tqdm
 import validators
 
 from utils import *
@@ -563,18 +562,18 @@ def map_issue_annotations_comments(issue_data, annotation_data, mapping_data, mi
     # Manual Mapping
 
     if manual_mapping_path is not None:
-        issue_data, mismatched_annotations_df = map_manual(mismatched_annotations_df, issue_data, manual_mapping_path,
+        issue_data = map_manual(mismatched_annotations_df, issue_data, manual_mapping_path,
                                                        "MANUAL")
 
     issue_data['label'] = issue_data['code'].apply(lambda x: 1 if x in solution_codes else 0)
     issue_data.drop('is_matched', axis=1, inplace=True)
     issue_data.drop_duplicates(subset=['text', 'label'], keep='first', inplace=True)
 
-    stat = issue_data['label'].value_counts()
-    with open(data_distribution_path, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['Issue_Annotation_Data', stat.get(1, 0), stat.get(0, 0),
-                         'Merged Data after issue and annotation are mapped including mismatched annotation'])
+    # stat = issue_data['label'].value_counts()
+    # with open(data_distribution_path, 'w', newline='') as file:
+    #     writer = csv.writer(file)
+    #     writer.writerow(['Issue_Annotation_Data', stat.get(1, 0), stat.get(0, 0),
+    #                      'Merged Data after issue and annotation are mapped including mismatched annotation'])
 
     print('=' * 30)
     print(f"Annotations Count: {annotation_data.shape[0]}")
@@ -598,9 +597,9 @@ def create_comment_dataset():
     flatten_issue_comment(issue_data_path, flatten_issue_comment_data)
     map_issue_annotations_comments(flatten_issue_comment_data, flatten_annotation_comment, mapped_comment_data, mismatched_annotations_comments, manual_comment_mapping_path)
     # create_prompt_example_index(
-    #     "solution_localization/dataset_construction/comment_data/example_actual_comment_data.csv",
-    #     "solution_localization/dataset_construction/comment_data/train_test_example_comment_data.json")
-    # save_mapped_data(promt_comment_data, train_test_comment_data, 42)
+    #     "datasets/example_actual_comment_data.csv",
+    #     "datasets/train_test_example_comment_data.json")
+    save_mapped_data("datasets/example_actual_comment_data.csv", train_test_comment_data, 42)
 
 def create_prompt_example_index(input_path, output_path):
     data = pd.read_csv(input_path)
