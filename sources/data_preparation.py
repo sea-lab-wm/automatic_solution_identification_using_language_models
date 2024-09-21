@@ -591,40 +591,11 @@ def map_issue_annotations_comments(issue_data, annotation_data, mapping_data, mi
 
     print("File saved successfully")
       
-
 def create_comment_dataset():
     flatten_annotation_comment_data(annotation_data_path, flatten_annotation_comment)
     flatten_issue_comment(issue_data_path, flatten_issue_comment_data)
     map_issue_annotations_comments(flatten_issue_comment_data, flatten_annotation_comment, mapped_comment_data, mismatched_annotations_comments, manual_comment_mapping_path)
-    # create_prompt_example_index(
-    #     "datasets/example_actual_comment_data.csv",
-    #     "datasets/train_test_example_comment_data.json")
-    save_mapped_data("datasets/example_actual_comment_data.csv", train_test_comment_data, 42)
-
-def create_prompt_example_index(input_path, output_path):
-    data = pd.read_csv(input_path)
-    data = data[data['prompt_use'] == 1]
-    print(f"Prompt Examples Data Length: {len(data)}")
-
-    res = {
-        "run1": {
-            "test": []
-        }
-    }
-
-    for index, row in data.iterrows():
-        issue_id = row['issue_id']
-        text_id = row['text_id']
-        res["run1"]["test"].append({
-            "issue_id": issue_id,
-            "text_id": text_id
-        })
-
-    print(res)
-
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    with open(output_path, 'w') as json_file:
-        json.dump(res, json_file, indent=4)
+    save_mapped_data(data_split_comment_data, train_test_comment_data, 42)
 
 def save_mapped_data(input_path, output_path, random_state=42):
     data = pd.read_csv(input_path)
@@ -653,7 +624,6 @@ def save_mapped_data(input_path, output_path, random_state=42):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w') as json_file:
         json.dump(all_runs, json_file, indent=4)
-
 
 if __name__ == '__main__':
     create_comment_dataset()

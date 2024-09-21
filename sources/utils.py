@@ -8,6 +8,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import recall_score, precision_score, f1_score
+from sklearn.model_selection import train_test_split
 import pandas as pd
 import pandas as pd
 import tensorflow as tf
@@ -21,11 +22,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import recall_score, precision_score, f1_score
 from sklearn.metrics import confusion_matrix
+from multiprocessing import Pool
 
 nlp = en_core_web_lg.load()
 
 
-# Function to calculate cosine similarity
 def calculate_cosine_similarity(sentence1, sentence2):
     vectorizer = CountVectorizer(tokenizer=word_tokenize)
     vectors = vectorizer.fit_transform([sentence1, sentence2])
@@ -210,68 +211,124 @@ def get_experiment_config():
     return experiments
 
 
+def clean_dataframe(data_path):
+    data = pd.read_csv(data_path)
+    required_columns = ['issue_id', 'text_id', 'text', 'code', 'label']
+    optional_columns = ['bert_embedding', 'gpt_embedding', 'llama_embedding']
+    columns_to_keep = required_columns + [col for col in optional_columns if col in data.columns]
+    data = data[columns_to_keep]
+    
+    return data
+
+def process_run(run, data, indexes, paths):
+    dev_data_path, test_data_path, train_data_path, val_data_path, train_os_data_path, dev_os_df_path = paths
+
+    test_df, dev_df = get_train_test_data(data, indexes, run)
+
+    X_dev, y_dev = dev_df.drop('label', axis=1), dev_df['label']
+    X_train, X_val, y_train, y_val = train_test_split(X_dev, y_dev, test_size=0.1, stratify=y_dev, shuffle=True, random_state=42)
+
+    train_df = pd.concat([X_train, y_train], axis=1)
+    val_df = pd.concat([X_val, y_val], axis=1)
+
+    train_df_os = balance_classes(train_df, 'label', output_type='df')
+    dev_df_os = balance_classes(dev_df, 'label', output_type='df')
+    
+    os.makedirs(os.path.dirname(dev_data_path.replace('<run>', f'{run}')), exist_ok=True)
+
+    dev_df.to_csv(dev_data_path.replace('<run>', f'{run}'), index=False)
+    test_df.to_csv(test_data_path.replace('<run>', f'{run}'), index=False)
+    train_df.to_csv(train_data_path.replace('<run>', f'{run}'), index=False)
+    val_df.to_csv(val_data_path.replace('<run>', f'{run}'), index=False)
+    train_df_os.to_csv(train_os_data_path.replace('<run>', f'{run}'), index=False)
+    dev_df_os.to_csv(dev_os_df_path.replace('<run>', f'{run}'), index=False)
+
+    print(f"\n\nAll datas are saved successfully to {os.path.dirname(dev_data_path.replace('<run>', f'{run}'))}.")
+
+def prepare_data(data_path, index_path):
+    data = clean_dataframe(data_path)
+
+    print(data['label'].value_counts())
+
+    with open(index_path, 'r') as f:
+        indexes = json.load(f)
+
+    paths = [
+        dev_data_path,
+        test_data_path,
+        train_data_path,
+        val_data_path,
+        train_os_data_path,
+        dev_os_df_path
+    ]
+
+    # Create a pool of workers
+    with Pool() as pool:
+        pool.starmap(process_run, [(run, data, indexes, paths) for run in range(10)])
+
+
 
 solution_codes = ["POTENTIAL_SOLUTION_DESIGN", "SOLUTION_REVIEW", "CODE_IMPLEMENTATION"]
 data_setting = ["all", "filtered"]
 
-experiment_file = 'solution_localization/experiments.json'
+experiment_file = 'experiments.json'
 
-issue_data_path = "datasets/coded_issue_data.json"
-issue_statistics = "datasets/issue_statistics.csv"
-issue_comment_sentence = "datasets/issue_comment_sentence.json"
+issue_data_path = "dataset_construction/comment_data/coded_issue_data.json"
+issue_statistics = "dataset_construction/comment_data/issue_statistics.csv"
+issue_comment_sentence = "dataset_construction/comment_data/issue_comment_sentence.json"
 
-annotation_data_path = "datasets/annotation_data_all_codes.json"
-annotation_statistics = "datasets/annotation_data/annotation_statistics.csv"
-issue_annotation_sentence = "datasets/annotation_data/issue_annotation_sentence.json"
+annotation_data_path = "dataset_construction/comment_data/annotation_data_all_codes.json"
+annotation_statistics = "dataset_construction/comment_data/annotation_statistics.csv"
+issue_annotation_sentence = "dataset/annotation_data/issue_annotation_sentence.json"
 
-data_distribution_path = 'datasets/data_distribution.csv'
+data_distribution_path = 'dataset_construction/comment_data/data_distribution.csv'
 
-parsed_issue_data = 'solution_localization/dataset_construction/sentence_data/parsed_issue_data.csv'
-flatten_issue_data = 'datasets/flatten_issue_data.csv'
-flatten_issue_comment_data = 'datasets/flatten_issue_comment_data.csv'
+parsed_issue_data = 'dataset_construction/sentence_data/parsed_issue_data.csv'
+flatten_issue_data = 'dataset_construction/comment_data/flatten_issue_data.csv'
+flatten_issue_comment_data = 'dataset_construction/comment_data/flatten_issue_comment_data.csv'
 
-parsed_annotation_data = 'solution_localization/dataset_construction/sentence_data/parsed_annotation_data.csv'
-flatten_annotation_data = 'datasets/annotation_data/flatten_annotation_data.csv'
-flatten_annotation_comment = 'datasets/flatten_annotation_comment_data.csv'
-annotation_matching_data = "datasets/annotation_data/annotation_matching_data.csv"
+parsed_annotation_data = 'dataset_construction/sentence_data/parsed_annotation_data.csv'
+flatten_annotation_data = 'dataset_construction/comment_data/flatten_annotation_data.csv'
+flatten_annotation_comment = 'dataset_construction/comment_data/flatten_annotation_comment_data.csv'
+annotation_matching_data = "dataset_construction/comment_data/annotation_matching_data.csv"
 
-mapped_sentence_data = 'solution_localization/dataset_construction/sentence_data/actual_sentence_data.csv'
-manual_sentence_mapping_path = "solution_localization/dataset_construction/sentence_data/manual_sentence_mapping.csv"
-mismatched_annotations_path = 'solution_localization/dataset_construction/sentence_data/mismatched_annotations_sentences.csv'
+mapped_sentence_data = 'dataset_construction/sentence_data/actual_sentence_data.csv'
+manual_sentence_mapping_path = "dataset_construction/sentence_data/manual_sentence_mapping.csv"
+mismatched_annotations_path = 'dataset_construction/sentence_data/mismatched_annotations_sentences.csv'
 
-mapped_comment_data = 'datasets/actual_comment_data.csv'
-embedding_comment_data = 'solution_localization/dataset_construction/comment_data/actual_comment_data_with_embeddings.csv'
-promt_comment_data = 'datasets/comment_data.csv'
-preprocess_comment_data = 'solution_localization/dataset_construction/comment_data/preprocess_comment_data.csv'
-preprocess_sentence_data = 'solution_localization/dataset_construction/sentence_data/preprocess_sentence_data.csv'
-manual_comment_mapping_path = "datasets/manual_comment_mapping.csv"
-mismatched_annotations_comments = 'datasets/mismatched_annotations_comments.csv'
+mapped_comment_data = 'dataset_construction/comment_data/actual_comment_data.csv'
+data_split_comment_data = "dataset_construction/comment_data/example_actual_comment_data.csv"
+embedding_comment_data = 'dataset_construction/comment_data/actual_comment_data_with_embeddings.csv'
+promt_comment_data = 'dataset_construction/comment_data/comment_data.csv'
+preprocess_comment_data = 'dataset_construction/comment_data/preprocess_comment_data.csv'
+preprocess_sentence_data = 'dataset_construction/sentence_data/preprocess_sentence_data.csv'
+manual_comment_mapping_path = "dataset_construction/comment_data/manual_comment_mapping.csv"
+mismatched_annotations_comments = 'dataset_construction/comment_data/mismatched_annotations_comments.csv'
 
-dataset_path = 'datasets'
-dev_data_path = 'solution_localization/dataset_construction/comment_data/folds/<run>/comment_dev_data.csv'
-test_data_path = 'solution_localization/dataset_construction/comment_data/folds/<run>/comment_test_data.csv'
-train_data_path = 'solution_localization/dataset_construction/comment_data/folds/<run>/comment_train_data.csv'
-val_data_path = 'solution_localization/dataset_construction/comment_data/folds/<run>/comment_val_data.csv'
-train_os_data_path = 'solution_localization/dataset_construction/comment_data/folds/<run>/comment_oversampled_train_data.csv'
-dev_os_df_path = 'solution_localization/dataset_construction/comment_data/folds/<run>/comment_oversampled_dev_data.csv'
+dataset_path = 'dataset'
+dev_data_path = 'dataset_construction/comment_data/folds/<run>/comment_dev_data.csv'
+test_data_path = 'dataset_construction/comment_data/folds/<run>/comment_test_data.csv'
+train_data_path = 'dataset_construction/comment_data/folds/<run>/comment_train_data.csv'
+val_data_path = 'dataset_construction/comment_data/folds/<run>/comment_val_data.csv'
+train_os_data_path = 'dataset_construction/comment_data/folds/<run>/comment_oversampled_train_data.csv'
+dev_os_df_path = 'dataset_construction/comment_data/folds/<run>/comment_oversampled_dev_data.csv'
 
-dev_nos_embedding = 'solution_localization/dataset_construction/comment_data/folds/<run>/dev_nos_embedding.joblib'
-dev_os_embedding = 'solution_localization/dataset_construction/comment_data/folds/<run>/dev_os_embedding.joblib'
-train_nos_embedding = 'solution_localization/dataset_construction/comment_data/folds/<run>/train_nos_embedding.joblib'
-train_os_embedding = 'solution_localization/dataset_construction/comment_data/folds/<run>/train_os_embedding.joblib'
+dev_nos_embedding = 'dataset_construction/comment_data/folds/<run>/dev_nos_embedding.joblib'
+dev_os_embedding = 'dataset_construction/comment_data/folds/<run>/dev_os_embedding.joblib'
+train_nos_embedding = 'dataset_construction/comment_data/folds/<run>/train_nos_embedding.joblib'
+train_os_embedding = 'dataset_construction/comment_data/folds/<run>/train_os_embedding.joblib'
 
-train_test_data_directory = 'datasets/train_test_data'
-train_test_comment_data = 'datasets/train_test_comment_data.json'
-comment_data_result = "solution_localization/dataset_construction/comment_data/ml/fold/<run>/comment_data_results.csv"
-sentence_data_result = "solution_localization/dataset_construction/sentence_data/sentence_data_result.csv"
-comment_data_dl_result = "solution_localization/dataset_construction/comment_data/"
-comment_data_dl_metrics = "solution_localization/dataset_construction/comment_data/metrics.csv"
-comment_data_llama_result = "solution_localization/dataset_construction/comment_data/llama/folds/<run>/mac_th/results.csv"
-comment_data_llama_prediction = "solution_localization/dataset_construction/comment_data/llama/folds/<run>/mac_th/"
-ml_prediction_comment_dir = "solution_localization/dataset_construction/comment_data/predictions/"
-ml_prediction_sentence_dir = "solution_localization/dataset_construction/sentence_data/predictions/"
-lm_prediction_dir = "solution_localization/dataset_construction/comment_data/predictions/lm/"
-lm_saved_model = "solution_localization/dataset_construction/comment_data/models/"
+train_test_data_directory = 'dataset/train_test_data'
+train_test_comment_data = 'dataset_construction/comment_data/train_test_comment_data.json'
+comment_data_result = "results/ml/fold/<run>/comment_data_results.csv"
+sentence_data_result = "dataset_construction/sentence_data/sentence_data_result.csv"
+comment_data_dl_result = "results/plm/comment_data_results.csv"
+comment_data_llama_result = "dataset_construction/comment_data/llama/folds/<run>/mac_th/results.csv"
+comment_data_llama_prediction = "results/predictions/llm/folds/<run>/"
+ml_prediction_comment_dir = "results/predictions/ml"
+ml_prediction_sentence_dir = "dataset_construction/sentence_data/predictions/"
+lm_prediction_dir = "dataset_construction/comment_data/predictions/lm/"
+lm_saved_model = "dataset_construction/comment_data/models/"
 
 annotated_issues_id_list = [538721, 551837, 552914, 554061, 558970, 561168, 576837, 577462, 590389, 596726, 597389,
                             601912, 601999, 626855, 627984, 634654, 642412, 659018, 670853, 674446, 674609, 675961,

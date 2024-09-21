@@ -1,0 +1,123 @@
+{
+  "folds": {
+    "start": 1,
+    "end": 2
+  },
+  "preprocess" : [
+    "none",
+    "all"
+  ],
+  "embedding" : [
+    "tfidf", "bert", "llama", "gpt"
+  ],
+  "model_type" : [
+    "tuned", "base"
+  ],
+  "oversampling": [
+    true, false
+  ],
+  "models": [
+    {
+      "model_name": "Logistic_Regression",
+      "params": {
+        "C": [1000, 100, 10, 1.0, 0.01],
+        "penalty": ["l2"],
+        "solver": ["sag", "newton-cg", "lbfgs", "liblinear"],
+        "class_weight": [null, "balanced"]
+      }
+    },
+    {
+      "model_name": "Naive_Bayes",
+      "params": {
+        "var_smoothing": [1e-11, 1e-10, 1e-9, 0.0001, 0.001, 0.01, 0.1]
+      }
+    },
+    {
+      "model_name": "K_Nearest_Neighbors",
+      "params": {
+        "n_neighbors": [3, 5, 7],
+        "weights": ["uniform", "distance"],
+        "metric": ["euclidean", "manhattan"]
+      }
+    },
+    {
+      "model_name": "Decision_Tree",
+      "params": {
+        "criterion": ["gini", "entropy", "log_loss"],
+        "max_depth": [3, 4, null],
+        "min_samples_split": [2, 5],
+        "class_weight": [null, "balanced"]
+      }
+    },
+    {
+      "model_name": "SVC",
+      "params": {
+        "C": [10, 1.0, 0.01],
+        "kernel": ["poly", "rbf", "sigmoid"],
+        "class_weight": [null, "balanced"]
+      }
+    },
+    {
+      "model_name": "Random_Forest",
+      "params": {
+        "criterion": ["gini", "entropy", "log_loss"],
+        "n_estimators": [100, 1000],
+        "min_samples_leaf": [1, 2, 4],
+        "class_weight": [null, "balanced"]
+      }
+    }
+  ],
+  "lm_model": [
+    {
+      "model_name": "distilbert-base-uncased",
+      "params": {
+        "batch_size": [32, 16],
+        "learning_rate": [5e-5, 3e-5, 2e-5],
+        "epoch": [2,3,4]
+      }
+    },
+    {
+      "model_name": "bert-base-uncased",
+      "params": {
+        "batch_size": [32, 16],
+        "learning_rate": [5e-5, 3e-5, 2e-5],
+        "epoch": [2,3,4]
+      }
+    },
+    {
+      "model_name": "roberta-base",
+      "params": {
+        "batch_size": [32, 16],
+        "learning_rate": [1e-5, 2e-5, 3e-5],
+        "epoch": [5, 10]
+      }
+    },
+    {
+      "model_name": "xlnet-base-cased",
+      "params": {
+        "batch_size": [32, 16],
+        "learning_rate": [1e-5, 2e-05, 3e-05],
+        "epoch": [3, 5]
+      }
+    }
+  ],
+  "llm_model":[
+    {
+      "model_name": "meta-llama/Meta-Llama-3-8B",
+      "params": {
+        "batch_size": [8, 16],
+        "learning_rate": [1e-5],
+        "epoch": [3, 5]
+      }
+    }
+  ],
+  "llm_model_conf": {
+    "model_name": "meta-llama/Meta-Llama-3-8B",
+    "params": {
+      "batch_size": 8,
+      "learning_rate": 1e-5,
+      "epoch": 5,
+      "oversample": true
+    }
+  }
+}
