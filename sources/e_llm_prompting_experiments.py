@@ -123,14 +123,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Paths to the CSV file containing the prompt templates
-    prompt_templates_path = './prompt_templates.csv'
+    prompt_templates_path = '../prompting/prompt_templates.csv'
     issue_data_path = '../dataset/issue_data/issue_title_and_comments.json'
     dataset_path = '../dataset_construction/comment_data/labeled_comment_data.csv'
 
     if args.dataset_type == "development":
         data_split_path = '../dataset/solution_identification_data/train_test_split_prompt_set.json'
-        prompt_folder_path = './generated_prompts_dev_set'
-        response_folder_path = './generated_responses_dev_set'
+        prompt_folder_path = '../prompting/generated_prompts_dev_set'
+        response_folder_path = '../prompting/generated_responses_dev_set'
     elif args.dataset_type == "test":
         data_split_path = '../dataset/solution_identification_data/train_test_split.json'
         prompt_folder_path = './generated_prompts'

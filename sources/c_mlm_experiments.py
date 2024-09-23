@@ -8,7 +8,7 @@ import pandas as pd
 import ktrain
 import pandas as pd
 import joblib
-from preprocess_data import text_preprocess
+from b_preprocess_data import text_preprocess
 # import wandb
 
 from imblearn.over_sampling import SMOTE
