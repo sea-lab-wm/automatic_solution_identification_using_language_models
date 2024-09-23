@@ -125,7 +125,7 @@ if __name__ == "__main__":
     # Paths to the CSV file containing the prompt templates
     prompt_templates_path = '../prompting/prompt_templates.csv'
     issue_data_path = '../dataset/issue_data/issue_title_and_comments.json'
-    dataset_path = '../dataset_construction/comment_data/labeled_comment_data.csv'
+    dataset_path = '../dataset/solution_identification_data/labeled_comment_data.csv'
 
     if args.dataset_type == "development":
         data_split_path = '../dataset/solution_identification_data/train_test_split_prompt_set.json'
@@ -133,8 +133,8 @@ if __name__ == "__main__":
         response_folder_path = '../prompting/generated_responses_dev_set'
     elif args.dataset_type == "test":
         data_split_path = '../dataset/solution_identification_data/train_test_split.json'
-        prompt_folder_path = './generated_prompts'
-        response_folder_path = './generated_responses'
+        prompt_folder_path = '../prompting/generated_prompts_test_set'
+        response_folder_path = '../prompting/generated_responses_test_set_original'
 
     if not os.path.exists(prompt_folder_path):
         os.makedirs(prompt_folder_path)

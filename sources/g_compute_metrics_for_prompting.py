@@ -300,15 +300,15 @@ if __name__ == '__main__':
 
     # Set file paths based on dataset type
     if args.dataset_type == "development":
-        data_split_path = '../../dataset_construction/comment_data/train_test_example_comment_data.json'
-        response_folder_path = './generated_responses_dev_set'
-        result_file_path = '../results/prompt_engineering_results_dev_set.csv'
-        aggregated_result_file_path = '../results/prompt_engineering_results_aggregated_dev_set.csv'
+        data_split_path = '../dataset/solution_identification_data/train_test_split_prompt_set.json'
+        response_folder_path = '../prompting/generated_responses_dev_set'
+        result_file_path = '../results/llm_prompting/dev_set_results_all_folds.csv'
+        aggregated_result_file_path = '../results/llm_prompting/dev_set_results_aggregated.csv'
     elif args.dataset_type == "test":
-        data_split_path = '../../dataset_construction/comment_data/train_test_split.json'
-        response_folder_path = './generated_responses'
-        result_file_path = '../results/prompt_engineering_results.csv'
-        aggregated_result_file_path = '../results/prompt_engineering_results_aggregated.csv'
+        data_split_path = '../dataset/solution_identification_data/train_test_split.json'
+        response_folder_path = '../prompting/generated_responses_test_set_original'
+        result_file_path = '../results/llm_prompting/test_set_results_all_folds.csv'
+        aggregated_result_file_path = '../results/llm_prompting/test_set_results_aggregated.csv'
 
     prompt_versions = ["1.1.0.3", "1.1.1.3", "1.2.0.3", "1.2.0.4", "1.2.1.3", "1.2.1.4", "1.3.0.3", "1.3.1.3",
                        "1.3.0.4", "1.3.1.4"]

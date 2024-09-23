@@ -26,24 +26,23 @@ This is the replication package for the paper "A Case Study on Automatically Ide
 ## dataset
 This folder contains all the dataset used in the paper. The folder contains following subfolders:
 1. ```dataset/annotation_data```: This folder contains the annotation data, i.e., all the comments for all the 356 issues with the annotated code assigned by human annotators.
-2. ```dataset/issue_data```: This folder contains the issue title, summary, and meta-data information.
-3.
+2. ```dataset/issue_data```: This folder contains the issue title, summary, and meta-data information for the 356 issues.
+3. ```solution_identification_data```: This folder contains the solution identification data, i.e., the issue comments labeled as either solution or non-solution and dataset split (prompt set, train set, and test set).
 
-### dataset_construction/comment_data 
+## prompting
+This folder contains 10 prompts templates used for the prompting experiments. It also contains the generated prompts and responses for all the 10 prompts with all the 10 folds test dataset for three runs.
 
-This folder contains:
-1. dataset_construction/comment_data/annotation_data_all_codes.json:    All Annotation Data
-2. dataset_construction/comment_data/coded_issue_data.json:             All Issue Comment Data
-3. dataset_construction/comment_data/example_actual_comment_data.csv:   Prompt Data
-4. dataset_construction/comment_data/manual_comment_mapping.csv:        Manually Mapped Data
+## results
+This folder contains results of MLMs, PLMs, LLM-prompting, and LLM-fine-tuning experiments.
 
-### dataset_construction/comment_data/folds
+## results_analysis
+This folder contains the ensembled models analysis and the results analysis across issue types and problems categories.
 
-This folder contains all comment data with 3 embeddings(LLama, BERT, GPT). These data are splitted in 10 folds for cross validation. Each fold have development dataset, train dataset, test dataset, validation dataset.
-
-### results
-
-This folder contains results of MLMs(results/ml), PLMs(results/plm) & LLM(results/llm).
+## sources
+This folder contains the source code for the data preparation, training, and evaluation of the models for all experiments. This folder contains the following files:
+TODO: Mehedi, please update the list of files here.
+1. ```a_annotation_and_issue_data_mapping.py```: This script will map the annotation data with the issue data and assign each issue comment an annotation code according to annotation data.
+2. 
 
 # Run Models (To Run All Models, Run from Step #5):
 
