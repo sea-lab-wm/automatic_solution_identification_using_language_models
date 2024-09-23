@@ -273,11 +273,11 @@ data_setting = ["all", "filtered"]
 
 experiment_file = 'experiments.json'
 
-issue_data_path = "dataset_construction/comment_data/coded_issue_data.json"
+issue_data_path = "dataset_construction/comment_data/issue_title_and_comments.json"
 issue_statistics = "dataset_construction/comment_data/issue_statistics.csv"
 issue_comment_sentence = "dataset_construction/comment_data/issue_comment_sentence.json"
 
-annotation_data_path = "dataset_construction/comment_data/annotation_data_all_codes.json"
+annotation_data_path = "dataset_construction/comment_data/annotation_data.json"
 annotation_statistics = "dataset_construction/comment_data/annotation_statistics.csv"
 issue_annotation_sentence = "dataset/annotation_data/issue_annotation_sentence.json"
 
@@ -296,7 +296,7 @@ mapped_sentence_data = 'dataset_construction/sentence_data/actual_sentence_data.
 manual_sentence_mapping_path = "dataset_construction/sentence_data/manual_sentence_mapping.csv"
 mismatched_annotations_path = 'dataset_construction/sentence_data/mismatched_annotations_sentences.csv'
 
-mapped_comment_data = 'dataset_construction/comment_data/actual_comment_data.csv'
+mapped_comment_data = 'dataset_construction/comment_data/labeled_comment_data.csv'
 data_split_comment_data = "dataset_construction/comment_data/example_actual_comment_data.csv"
 embedding_comment_data = 'dataset_construction/comment_data/actual_comment_data_with_embeddings.csv'
 promt_comment_data = 'dataset_construction/comment_data/comment_data.csv'
@@ -319,7 +319,7 @@ train_nos_embedding = 'dataset_construction/comment_data/folds/<run>/train_nos_e
 train_os_embedding = 'dataset_construction/comment_data/folds/<run>/train_os_embedding.joblib'
 
 train_test_data_directory = 'dataset/train_test_data'
-train_test_comment_data = 'dataset_construction/comment_data/train_test_comment_data.json'
+train_test_comment_data = 'dataset_construction/comment_data/train_test_split.json'
 comment_data_result = "results/ml/fold/<run>/comment_data_results.csv"
 sentence_data_result = "dataset_construction/sentence_data/sentence_data_result.csv"
 comment_data_dl_result = "results/plm/comment_data_results.csv"

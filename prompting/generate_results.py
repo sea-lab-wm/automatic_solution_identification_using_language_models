@@ -305,7 +305,7 @@ if __name__ == '__main__':
         result_file_path = '../results/prompt_engineering_results_dev_set.csv'
         aggregated_result_file_path = '../results/prompt_engineering_results_aggregated_dev_set.csv'
     elif args.dataset_type == "test":
-        data_split_path = '../../dataset_construction/comment_data/train_test_comment_data.json'
+        data_split_path = '../../dataset_construction/comment_data/train_test_split.json'
         response_folder_path = './generated_responses'
         result_file_path = '../results/prompt_engineering_results.csv'
         aggregated_result_file_path = '../results/prompt_engineering_results_aggregated.csv'
@@ -322,19 +322,7 @@ if __name__ == '__main__':
                 continue
             fold = int(fold_folder.split('fold')[-1])
             response_file_path = os.path.join(response_folder_path, fold_folder, f"responses-{prompt_version}.csv")
-            # Process each response file in the response folder
-            # for file in os.listdir(response_folder_path):
-            #     if not file.endswith('.csv'):
-            #         continue
-            # if not file.startswith('gpt4_turbo'):
-            #     continue
-            # response_file_path = os.path.join(response_folder_path, file)
             response_df = pd.read_csv(response_file_path)
-
-            # prompt_version = file.split('-')[1].replace('.csv', '')
-
-            # if prompt_version != "1.3.0.6":
-            #     continue
 
             # Convert labels to a list of integers
             labels = response_df['label']
@@ -342,7 +330,6 @@ if __name__ == '__main__':
 
             # Define the prediction columns for each model
             models = {
-                # "GPT": ['gpt4_prediction_0', 'gpt4_prediction_1', 'gpt4_prediction_2'],
                 "LLAMA": ['llama_prediction_0', 'llama_prediction_1', 'llama_prediction_2'],
             }
 
@@ -352,7 +339,6 @@ if __name__ == '__main__':
                     model_metrics = []
                     for col in prediction_columns:
                         predictions = response_df[col]
-                        # predictions = [convert_to_int(prediction) for prediction in predictions.tolist()]
                         run = col.split('_')[-1]
                         # Compute metrics for each set of predictions
                         cm, accuracy, precision, recall, f1, f2 = compute_metrics(labels, predictions)
@@ -387,8 +373,6 @@ if __name__ == '__main__':
                     # Check if model_metrics is not empty before averaging and calculating variance
                     if model_metrics:
                         avg_metrics = average_metrics(model_metrics)
-                        # print(model_metrics)
-                        # sys.exit()
                         std_metrics = stddev_metrics(model_metrics)
                         var_metrics = variance_metrics(model_metrics)
                         # Store the averaged metrics

@@ -124,16 +124,15 @@ if __name__ == "__main__":
 
     # Paths to the CSV file containing the prompt templates
     prompt_templates_path = './prompt_templates.csv'
-    issue_data_path = '../../../dataset/issue_data/coded_issue_data.json'
-    dataset_path = '../../dataset_construction/comment_data/actual_comment_data.csv'
-    # dataset_path = '../../dataset_construction/comment_data/masked_comment_data_test_set.csv'
+    issue_data_path = '../dataset/issue_data/issue_title_and_comments.json'
+    dataset_path = '../dataset_construction/comment_data/labeled_comment_data.csv'
 
     if args.dataset_type == "development":
-        data_split_path = '../../dataset_construction/comment_data/train_test_example_comment_data.json'
+        data_split_path = '../dataset/solution_identification_data/train_test_split_prompt_set.json'
         prompt_folder_path = './generated_prompts_dev_set'
         response_folder_path = './generated_responses_dev_set'
     elif args.dataset_type == "test":
-        data_split_path = '../../dataset_construction/comment_data/train_test_comment_data.json'
+        data_split_path = '../dataset/solution_identification_data/train_test_split.json'
         prompt_folder_path = './generated_prompts'
         response_folder_path = './generated_responses'
 

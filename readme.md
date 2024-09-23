@@ -2,7 +2,7 @@ This is the replication package for the paper "A Case Study on Automatically Ide
 
 # Installation Process
 
-## Prerequisite: 
+## Prerequisites
 1. Conda or
 2. Python 3.10.4 (Jump to Environment Setup:Step 4 if you have this version of python installed)
 
@@ -21,9 +21,14 @@ This is the replication package for the paper "A Case Study on Automatically Ide
 ### Install python required package
 4. pip install -r requirements.txt
 
-# Files:
+# Directorie Structure
 
-## Dataset:
+## dataset
+This folder contains all the dataset used in the paper. The folder contains following subfolders:
+1. ```dataset/annotation_data```: This folder contains the annotation data, i.e., all the comments for all the 356 issues with the annotated code assigned by human annotators.
+2. ```dataset/issue_data```: This folder contains the issue title, summary, and meta-data information.
+3.
+
 ### dataset_construction/comment_data 
 
 This folder contains:
