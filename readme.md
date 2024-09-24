@@ -42,35 +42,19 @@ This folder contains the ensembled models analysis and the results analysis acro
 This folder contains the source code for the data preparation, training, and evaluation of the models for all experiments. This folder contains the following files:
 TODO: Mehedi, please update the list of files here.
 1. ```a_annotation_and_issue_data_mapping.py```: This script will map the annotation data with the issue data and assign each issue comment an annotation code according to annotation data.
-2. 
+2. ```b_preprocess_data.py```: This script will preprocess the comment data to be used in MLMs experiments. 
+3. ```c_generate_embeddings.py```: This script will generate LM embeddings (Llama, GPT, BERT) to be used in MLMs experiments.
+4. ```d_mlm_experiments.py```: This script will run all MLMs and save the results to ```results/ml``` folder.
+5. ```e_plm_experiments.py```: This script will run all PLMs and save the results to ```results/plm``` folder.
+6. ```f_llm_prompting_experiments.py```: This script will run the LLM prompting experiments.
+7. ```g_compute_metrics_for_prompting.py```: This script will save the results to ```results/llm_prompting``` folder.
+8. ```h_llm_fine_tuning_experiments.py```: This script will run the LLM finetuning experiments and save results to ```results/llm_fine_tuning``` folder.
 
-# Run Models (To Run All Models, Run from Step #5):
-
-## Data Preparation
-1. python sources/data_preparation.py
-
-This will create dataset_construction/comment_data/folds folder. 
-
-## Run MLMs
-2. python sources/mlm_train.py
-
-This will only run MLMs and save the results in results/ml folder.
-
-## Run PLMs
-3. python sources/plm_train.py
-
-This will only run PLMs and save the results in results/plm folder.
-
-## Run LLM
-4. python sources/llm_train.py
-
-This will only run LLMs and save the results in results/llm folder.
-
-## Run All
-5. chmod +x solution_localization.sh
+# Run Models:
+1. chmod +x solution_localization.sh
 
 Provile User Permission to The solution_localization.sh File.
 
-6. ./solution_localization.sh
+2. ./solution_localization.sh
 
 Run solution_localization.sh 

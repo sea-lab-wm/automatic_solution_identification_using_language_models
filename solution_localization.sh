@@ -1,22 +1,26 @@
 #!/bin/bash
 
-# Run data preparation
-python sources/data_preparation.py
+# Mapping Annotation and Issue Data
+# =================================
+# Run Mapping and Dataset Creation
+python sources/a_annotation_and_issue_data_mapping.py
+
+# Generate LM Embeddings
+python sources/c_generate_embeddings.py
 
 # Run the MLM models
-python sources/mlm_train.py
-
+python sources/d_mlm_experiments.py
 # Run the PLM models
-python sources/plm_train.py
+python sources/e_plm_experiments.py
 
 # Run the LLM prompting experiments
 # =================================
 # Run experiments with prompt set
-python3 sources/f_llm_prompting_experiments.py development
-python3 sources/g_compute_metrics_for_prompting development
+python sources/f_llm_prompting_experiments.py development
+python sources/g_compute_metrics_for_prompting development
 # Run experiments with test set
-python3 sources/f_llm_prompting_experiments.py test
-python3 sources/g_compute_metrics_for_prompting test
+python sources/f_llm_prompting_experiments.py test
+python sources/g_compute_metrics_for_prompting test
 
 # Run the LLM Fine-tuning experiments
-python sources/llm_train.py
+python sources/h_llm_fine_tuning_experiments.py
