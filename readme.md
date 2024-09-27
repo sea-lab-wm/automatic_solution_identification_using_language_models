@@ -21,7 +21,7 @@ This is the replication package for the paper "A Case Study on Automatically Ide
 ### Install python required package
 4. pip install -r requirements.txt
 
-# Directorie Structure
+# Directory Structure
 
 ## dataset
 This folder contains all the dataset used in the paper. The folder contains following subfolders:
@@ -40,15 +40,15 @@ This folder contains the ensembled models analysis and the results analysis acro
 
 ## sources
 This folder contains the source code for the data preparation, training, and evaluation of the models for all experiments. This folder contains the following files:
-TODO: Mehedi, please update the list of files here.
-1. ```a_annotation_and_issue_data_mapping.py```: This script will map the annotation data with the issue data and assign each issue comment an annotation code according to annotation data.
-2. ```b_preprocess_data.py```: This script will preprocess the comment data to be used in MLMs experiments. 
-3. ```c_generate_embeddings.py```: This script will generate LM embeddings (Llama, GPT, BERT) to be used in MLMs experiments.
-4. ```d_mlm_experiments.py```: This script will run all MLMs and save the results to ```results/ml``` folder.
-5. ```e_plm_experiments.py```: This script will run all PLMs and save the results to ```results/plm``` folder.
-6. ```f_llm_prompting_experiments.py```: This script will run the LLM prompting experiments.
-7. ```g_compute_metrics_for_prompting.py```: This script will save the results to ```results/llm_prompting``` folder.
-8. ```h_llm_fine_tuning_experiments.py```: This script will run the LLM finetuning experiments and save results to ```results/llm_fine_tuning``` folder.
+
+1. ```a_annotation_and_issue_data_mapping.py```: This script map the annotation data with the issue data and assign each issue comment an annotation code according to annotation data.
+2. ```b_preprocess_data.py```: This script preprocess the comment data to be used in MLMs experiments. 
+3. ```c_generate_embeddings.py```: This script generate LM embeddings (Llama, GPT, BERT) to be used in MLMs experiments.
+4. ```d_mlm_experiments.py```: This script run all MLMs and save the results to ```results/ml``` folder.
+5. ```e_plm_experiments.py```: This script run all PLMs and save the results to ```results/plm``` folder.
+6. ```f_llm_prompting_experiments.py```: This script run the LLM prompting experiments.
+7. ```g_compute_metrics_for_prompting.py```: This script save the results to ```results/llm_prompting``` folder.
+8. ```h_llm_fine_tuning_experiments.py```: This script run the LLM finetuning experiments and save results to ```results/llm_fine_tuning``` folder.
 
 # Run Models:
 1. chmod +x solution_localization.sh
