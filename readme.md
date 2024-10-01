@@ -58,3 +58,11 @@ Provile User Permission to The solution_localization.sh File.
 2. ./solution_localization.sh
 
 Run solution_localization.sh 
+
+## Machine Information
+To run MLMs we have used CPUs and for PLM and LLM we have used GPUs. Since We have used cross validation, to put less time on training models we have used multiple GPUs. Below we mentioned the GPU information of the machine we have used to train and evaluate our models.
+
+1. ```GPU 1```: Name: NVIDIA H100, Storage: 95830 MiB
+2. ```GPU 2```: Name: NVIDIA A40, Storage: 46068 MiB (x8)
+3. ```GPU 3```: Name: NVIDIA A100, Storage: 40960 MiB
+
