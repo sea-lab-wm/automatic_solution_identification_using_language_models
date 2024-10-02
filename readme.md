@@ -63,12 +63,12 @@ Run solution_localization.sh
 To run MLMs we have used CPUs and for PLM and LLM we have used GPUs. Since We have used cross validation, to put less time on training models we have used multiple GPUs. Below we mentioned the machine information we have used to train and evaluate our models.
 
 #### 1. ```Machine 1```: 
-    1.1. CPU: AMD EPYC 7532
-    1.2. GPU: NVIDIA H100, Memory: 95830 MiB
-#### 2. ```Machine 3```: 
-    2.1. CPU: AMD EPYC 7543
-    2.2. GPU: NVIDIA A40, Memory: 46068 MiB (x8)
+    1.1. CPU: AMD EPYC 7532, Memory: 1.5 TB
+    1.2. GPU: NVIDIA H100, Memory: 95830 MB
+#### 2. ```Machine 2```: 
+    2.1. CPU: AMD EPYC 7543, Memory: 2.0 TB
+    2.2. GPU: NVIDIA A40, Memory: 46068 MB (x8)
 #### 3. ```Machine 3```: 
-    3.1. CPU: AMD EPYC 9354
-    3.2. GPU: NVIDIA A100, Memory: 40960 MiB
+    3.1. CPU: AMD EPYC 9354, Memory: 1.0 TB
+    3.2. GPU: NVIDIA A100, Memory: 40960 MB
 
