@@ -1,0 +1,156 @@
+
+
+Issue Data Length(Before Filter): 5313
+
+Total empty issue data: 29
+Empty data distribution: label
+-1    29
+Name: count, dtype: int64
+
+Issue Data Length(After Filter): 5284
+
+
+Annotation Data Length(Before Filter): 5934
+Annotation data label distribution: label
+0    4618
+1    1316
+Name: count, dtype: int64
+Annotation data length(after filter): 5934
+Annotation data label distribution
+label
+0    5045
+1     889
+Name: count, dtype: int64
+(Annotation Data) Max Value: 3386
+(Annotation Data) Median Value: 17.0
+(Annotation Data) Min Value: 1
+(Annotation Data) Q1 (25th percentile): 9.0
+(Annotation Data) Q3 (75th percentile): 35.0
+(Annotation Data) Upper Bound: 74.0
+(Annotation Data) Lower Bound: -30.0
+==================================================
+(Issue Data) Max Value: 3402
+(Issue Data) Median Value: 20.0
+(Issue Data) Min Value: 1
+(Issue Data) Q1 (25th percentile): 10.0
+(Issue Data) Q3 (75th percentile): 43.0
+(Issue Data) Upper Bound: 92.5
+(Issue Data) Lower Bound: -39.5
+-------------------- FULL_TEXT --------------------
+
+Total invalid annotations: 3
+
+Total invalid Issues: 1
+
+Total Matched Annotations: 4496
+Total Matched Annotations (SOLUTION): 644
+Total Matched Annotations (NON-SOLUTION): 3852
+
+Total Mis-matched Annotations: 1438
+Total Mis-matched Annotations (SOLUTION): 245
+Total Mis-matched Annotations (NON-SOLUTION): 1193
+
+Total Multiple Annotation Match Count: 236
+Total Multiple Annotation Match Count (SOLUTION): 20
+Total Multiple Annotation Match Count (NON-SOLUTION): 216
+-------------------- FULL_TOKEN --------------------
+
+Total invalid annotations: 3
+
+Total invalid Issues: 1
+
+Total Matched Annotations: 985
+Total Matched Annotations (SOLUTION): 207
+Total Matched Annotations (NON-SOLUTION): 778
+
+Total Mis-matched Annotations: 453
+Total Mis-matched Annotations (SOLUTION): 38
+Total Mis-matched Annotations (NON-SOLUTION): 415
+
+Total Multiple Annotation Match Count: 4
+Total Multiple Annotation Match Count (SOLUTION): 0
+Total Multiple Annotation Match Count (NON-SOLUTION): 4
+Mapped Comments Length: 5284
+Mismatched Annotation Length: 453
+
+-------------------- 90_PCT_MATCH --------------------
+Total invalid annotations: 3
+
+Total invalid Issues: 1
+
+Total Matched Annotations: 40
+Total Matched Annotations (SOLUTION): 11
+Total Matched Annotations (NON-SOLUTION): 29
+
+Total Mis-matched Annotations: 413
+Total Mis-matched Annotations (SOLUTION): 27
+Total Mis-matched Annotations (NON-SOLUTION): 386
+
+Total Multiple Annotation Match Count: 0
+Total Multiple Annotation Match Count (SOLUTION): 0
+Total Multiple Annotation Match Count (NON-SOLUTION): 0
+Mapped Comments Length: 5284
+Mismatched Annotation Length: 413
+
+-------------------- 80_PCT_MATCH --------------------
+Total invalid annotations: 3
+
+Total invalid Issues: 1
+
+Total Matched Annotations: 45
+Total Matched Annotations (SOLUTION): 3
+Total Matched Annotations (NON-SOLUTION): 42
+
+Total Mis-matched Annotations: 368
+Total Mis-matched Annotations (SOLUTION): 24
+Total Mis-matched Annotations (NON-SOLUTION): 344
+
+Total Multiple Annotation Match Count: 8
+Total Multiple Annotation Match Count (SOLUTION): 0
+Total Multiple Annotation Match Count (NON-SOLUTION): 8
+Mapped Comments Length: 5284
+Mismatched Annotation Length: 368
+
+-------------------- 95_PCT_MATCH_PROCESSED --------------------
+Total invalid annotations: 3
+
+Total invalid Issues: 0
+
+Total Matched Annotations: 34
+Total Matched Annotations (SOLUTION): 20
+Total Matched Annotations (NON-SOLUTION): 14
+
+Total Mis-matched Annotations: 334
+Total Mis-matched Annotations (SOLUTION): 4
+Total Mis-matched Annotations (NON-SOLUTION): 330
+
+Total Multiple Annotation Match Count: 2
+Total Multiple Annotation Match Count (SOLUTION): 2
+Total Multiple Annotation Match Count (NON-SOLUTION): 0
+Mapped Comments Length: 5284
+Mismatched Annotation Length: 334
+
+Annotation with issue_id=1456911 and text_id=6 not found.
+==============================
+Annotations Count: 5934
+Annotation labels count: label
+0    5045
+1     889
+Name: count, dtype: int64
+Issue data Count: 5271
+Issue data labels count: label
+0    5269
+1       2
+Name: count, dtype: int64
+Mapped data Count: 5271
+Mapped data labels Count: label
+0    5269
+1       2
+Name: count, dtype: int64
+Mismatched Comment Count: 334
+Mismatched Comments labels Count: label
+0    330
+1      4
+Name: count, dtype: int64
+==============================
+File saved successfully
