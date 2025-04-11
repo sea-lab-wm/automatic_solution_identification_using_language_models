@@ -1,0 +1,543 @@
+issue_id,issue_type,issue_class,issue_category,text_id,text,code,label
+799437,,,,1,Crash deleting and recreating an SX with the scheduled transaction editor open,,0
+799437,,,,2,"Created attachment 375152 [details]
+Example of crash steps
+
+GnuCash crashes when deleting and recreating a scheduled transaction with the scheduled transaction editor open.
+
+1. Create a scheduled transaction from an existing transaction with the default settings
+2. Open the scheduled transaction editor
+3. Delete the scheduled transaction
+4. Create the same scheduled transaction again
+
+The recreated scheduled transaction must be for the same accounts and the editor must remain open. Step 1 can be performed in an earlier execution of the application.
+
+
+The change in this commit is causing additional validation of an access to free'd memory when the SchedXaction* is cast retrieving it from the list:
+
+commit 93afa1b3adb05714a1d18cc83f55e304fdc8f00b
+Date:   Sun Feb 25 22:09:48 2024 +0800
+
+    [gnc-plugin-page-sx-list.cpp] convert to cpp",ANALYSIS,0
+799437,,,,3,"Simon,
+
+Thanks for the report. Want to have a go at fixing it? The problem is that the three signals connected at https://github.com/Gnucash/gnucash/blob/3dd60e904c3445e1bb49cbfb3aff956724c6a838/gnucash/gnome-utils/gnc-sx-list-tree-model-adapter.c#L557 need to be disconnected in 
+gnc_sx_list_tree_model_adapter_dispose that starts at line 598.",ANALYSIS,0
+799437,,,,4,"https://github.com/Gnucash/gnucash/compare/stable...nomis:gnucash:bug-799437
+
+gnc_sx_list_tree_model_adapter_dispose() isn't being called until I exit GnuCash",IMPLEMENTATION,1
+799437,,,,5,"The tree_model_adapter isn't getting unreffed in gnc_plugin_page_sx_list_dispose and it should be. But you're not closing the SX tab so I'm chasing the wrong callback anyway.
+
+It looks like the problem is that we're putting the to-be-deleted transactions on the selected_list (line 947) and then looping through that list (line 355). Since it contains deleted transactions 
+
+This is BobIT's doing in his fix for bug 753283: https://github.com/Gnucash/gnucash/commit/c2a7b8eaaf9aada2f9fe78828113f7da0e79e2ee#diff-0ff0d070c389053b9e603e73bcf22a95f47771147191cbfa9c53022536560f9eR880 (gnc-plugin-page-sx-list.c line 880). Bob, did you miss that the SXes in that function are being deleted?",ANALYSIS,0
+799437,,,,6,"I think it was a copy and paste error, fixed and pushed to stable.
+
+Strangely my Gentoo build VM would not fail so tried on my Windows build machine to confirm fix and all looks OK.
+
+Simon, if you would like to test so we can close much appreciated.
+
+
+For information, the tree model adapter is being disposed when the SX editor is closed.",,0
+799437,,,,7,5a71d7ad15fa3ba28e1e64e344e7827c3a19cfe0 fixes the crash,IMPLEMENTATION,1
+799047,,,,1,AutoComplete Only Considers Visible Transactions,,0
+799047,,,,2,"The recent improvements to autocomplete are very nice! However, it only seems to consider now visible transactions. So e.g. if I hide reconciled transactions (as I often do), the autocomplete does not consider those, which makes it much less useful. Previous versions did not have this issue.",,0
+799047,,,,3,How are you hiding the transaction?,,0
+799047,,,,4,"Using the filter. So View>Filter By, then uncheck ""Reconciled"". I usually do this because it's easier to see what the 'active' transactions are, so to speak.",,0
+799047,,,,5,"That's what I thought you may be doing. With the recent changes, the auto-complete list of the description is recreated on every register update from the list of transactions so it can get the most recent order correct and also to reflect any changes to descriptions and possible deletions.
+
+As you exclude the reconciled transactions, they will not be in the list to load in the register and hence those descriptions will not be in the list.
+
+Not sure what can be done here but will have a think.",ANALYSIS,0
+799047,,,,6,"Does GnuCash not have all the transactions in memory somewhere? I.e., does it only load the ones that meet the filter condition? If so, I see the problem, but if they are all loaded, and only the filtered ones are displayed, then this seems solvable.",ANALYSIS,0
+799047,,,,7,Yes all of the Gnucash data is held in memory. The problem is that the auto-complete description list is generated as part of the register view. The register is created from an incoming list of splits which has already been filtered to remove the reconciled ones and so the descriptions are not available.,ANALYSIS,0
+799047,,,,8,Got it.,,0
+799047,,,,9,"One weirder thing: If I enter the description manually, then it will find the last category used. So that part actually does autocomplete.",,0
+799047,,,,10,That's because it is really two separate actions. The first is to populate the description field with the text you want and then when you Tab this description text is used to do a search for the corresponding transaction and then do the autocomplete.,,0
+799047,,,,11,"Sorry I'm a bit late to this but I've only just updated to 5.3, missing out 5.2, and have noticed this behaviour as well.
+
+I do the same as Richard, filtering out reconciled transactions, and was wondering why autocomplete 'no longer works' as previously.",REPRODUCTION,0
+799047,,,,12,"I also noticed this bug on version 5.3. I filter my transactions to the past 30 days, but I expect the description autocomplete to consider my entire transaction history. Hoping to see a fix soon.",REPRODUCTION,0
+799047,,,,13,I have the same problem as Richard with this change. I generally don't want to see reconciled transactions but I do want GC to search them for the convenience of autocomplete. Maybe I'm missing something here but it seems to me that the logic of this list update shouldn't be affected by whether or not a category is visible.,SOLUTION_DESIGN,1
+799047,,,,14,"I agree. Bob, you should compose the autocomplete lists from the account instead of the register in order to bypass filters.",SOLUTION_DESIGN,1
+799047,,,,15,I have the same problem here. I always hide reconciled transactions.,,0
+799047,,,,16,Created PR1961 with a possible fix.,IMPLEMENTATION,1
+799047,,,,17,"PR has been pushed to stable and will be in the next release 5.7
+
+As I think I have fixed this and can reproduce will close but if you find it not fixed in next release please reopen and update.",,0
+799047,,,,18,"I cloned and built github version 5.6-269-gad7a51a6ef+(2024-06-27) which contains the fix and can confirm that autocomplete now provides lists including filter-hidden, historic items. I have not done rigorous testing but will report if anything crops up.
+Many thanks to the developer(s) for sorting this out. Gnucash continues to be a fantastic piece of kit and I will be donating to the project in the near future.",VERIFICATION,0
+799047,,,,19,Thanks! I'll wait for 5.7 to hit Fedora but will also check and report back if there are any issues.,,0
+799047,,,,20,"I've just installed 5.8 and can confirm it works as expected now.
+
+Many thanks for resolving this.",VERIFICATION,0
+798680,,,,1,Not able to match a reverse transaction of a previously matched transaction,,0
+798680,,,,2,Make sure the the online id is unset in the reverse transaction,,0
+798680,,,,3,"As an example, consider an imported credit card purchase transaction for items you subsequently decide to return.  If you use reverse transaction to enter the reimbursement, the new transaction erroneously maintains the original online id which will prevent the new transaction from being available to be matched on a subsequent import.  To work-around the issue, you may use duplicate transaction to clear the online id.",SOLUTION_DESIGN,1
+798680,,,,4,"This is IMHO a worthwhile oneline change. Any further thoughts from more experienced devs?
+
+modified   libgnucash/engine/Transaction.c
+@@ -2907,7 +2907,7 @@ xaccTransReverse (Transaction *orig)
+     qof_instance_set_dirty (QOF_INSTANCE (orig));
+     xaccTransCommitEdit (orig);
+ 
+-    trans = xaccTransClone(orig);
++    trans = xaccTransCloneNoKvp (orig);
+     g_return_val_if_fail (trans, NULL);
+     xaccTransBeginEdit(trans);",SOLUTION_DESIGN,1
+798680,,,,5,"That makes sense, but please either regenerate your patch with git format-patch or create a github pull request.",SOLUTION_DESIGN,1
+798680,,,,6,"Oops. For clarity comment 4 was directed at Sherlock.
+
+Chris, NoKvp is too much. Transactions and splits have a lot of associated slots besides online-id and it might be important in some cases for reversals to preserve them.",SOLUTION_DESIGN,1
+798680,,,,7,Here you go: https://github.com/Gnucash/gnucash/pull/1478,IMPLEMENTATION,1
+798680,,,,8,Fixed for GnuCash 4.13.,VERIFICATION,0
+798159,,,,1,Keyboard shortcut bug in 'manage document link',,0
+798159,,,,2,"Hello,
+When using keyboard shortcut to navigate to the 'Manage Document Link', focus is lost and you are then required to switch to a mouse to regain focus.
+
+To recreate:
+1. When working on a transaction in the account register, enter ALT+N to bring up the transaction menu and then press 'M' to bring up the 'Manage Document Link' popup.
+2. Try to continue to navigate with the keyboard and you'll see there is no focus and you can't tab or enter. You have to then use the mouse to navigate
+
+Expected behavior:
+After the popup, you should be able to continue to use the keyboard for navigation.
+
+Thank you",,0
+798159,,,,3,"remove grab_focus
+
+Glenn: thank you for bug; the keyboard shortcuts were not completely considered when building the UI. Please file more bugs as you find them!
+
+Bob, the attached patch fixes this. I also generally prefer explicitly controlling focus myself. Agree this is a suitable fix?",IMPLEMENTATION,1
+798159,,,,4,"Chris give this a spin...
+
+diff --git a/gnucash/gnome/dialog-doclink.c b/gnucash/gnome/dialog-doclink.c
+index f6525af0f..289c575ba 100644
+--- a/gnucash/gnome/dialog-doclink.c
++++ b/gnucash/gnome/dialog-doclink.c
+@@ -165,7 +165,11 @@ uri_type_selected_cb (GtkToggleButton *button, GtkWidget *widget)
+ 
+         gtk_window_resize (GTK_WINDOW(top), 600, 10); // width, height
+     }
+-    gtk_widget_grab_focus (GTK_WIDGET(widget));
++    // for some reason it does not like grabbing focus on fcb so use button instead
++    if (g_strcmp0 (gtk_buildable_get_name (GTK_BUILDABLE(button)), ""linked_file"") == 0)
++        gtk_widget_grab_focus (GTK_WIDGET(button));
++    else
++        gtk_widget_grab_focus (GTK_WIDGET(widget));
+ }
+
+The issue seems to be that you can not set the focus on the GtkFileChooserButton which is what was happening for files and the GtkEntry for locations so instead test for which button is being toggled and if files use the toggle button for focus.
+
+I do not like the way the GtkFileChooser returns not giving focus back to the window and as the GtkFileChooserButton is no longer in Gtk4 I may have a rethink of this later.",SOLUTION_DESIGN,1
+798159,,,,5,"Bob: that's entirely up to you. IMV:
+
+Alt-N, M will bring the doclink dialog.
+
+With your change, <Right> will choose Linked Location then focus to GtkEntry. I do like being able to press <Right> and <Left> if I change my mind.
+
+If there's ever another doclink option eg. GnuCash scanned document BLOB, then it won't be easily reachable via keyboard.",SOLUTION_DESIGN,1
+798159,,,,6,"I built the current version on my fedora VM and this is what I see with my change.
+
+No existing linked document...
+Alt-N,M 'Linked File' has grab focus.
+Tab to file chooser button or right to 'Linked Location'
+
+Existing Linked Location...
+Alt+N.M straight to Location Entry which has focus.
+Tab will tab round items and if required change to 'Linked File'
+
+Existing Linked File...
+Alt-N,M 'Linked File' has grab focus.
+Tab to file chooser button or right to 'Linked Location'
+
+I think this is a good compromise, I think ideally for existing linked files, the file chooser button should have focus and you would simply SHIFT-Tab to go bact to top and change to 'Linked Location' if required.",SOLUTION_DESIGN,1
+798159,,,,7,"Do not understand this, it would just be another option at the top.",,0
+798159,,,,8,Turns out this does not happen on my fedora VM. Still might look at creating a GncFileChooserButton widget that would replace this one and be able to grab the focus and possibly be used in other places as the good thing about it it tries to use the OS specific file browser interface but that would probably be for 5.0.,SOLUTION_DESIGN,1
+798159,,,,9,"I meant that a third option would usually be selectable by pressing <Right> twice, however if the focus jumps after the first <Right> then it makes the mouse compulsory to select the third option.
+
+Ultimately I don't use doclinks so I'm rather uninvested in this decision.",SOLUTION_DESIGN,1
+798159,,,,10,"From the GtkWidget documentation:
+""More precisely, [the widget] must have the GTK_CAN_FOCUS flag set. Use gtk_widget_set_can_focus() to modify that flag.""
+
+If you check our glade file, this flag is not set for the GtkFileChooserButton. Additionally, you are unconditionally calling gtk_widget_grab_focus (in the original code that is), while you probably only want to call it on the widget that's being activated.
+
+Neither of these changes will fix the issue though, but I figured I'd point these out anyway as they could also obscure the real issue.",SOLUTION_DESIGN,1
+798159,,,,11,"I agree this is at the heart of the issue. When doing keyboard navigation it's very uncomfortable if focus jumps away from the action you're performing. The two radio buttons should be considered as one group. If that group has focus it should keep the focus even when a different button is selected. Only a (shift-)tab or mouse-click should move to another widget (not part of the radio button group). The simple reason is that a user may have several reasons to try to switch buttons more than once before wanting to continue:
+- learning the interface (what does each radiobutton do)  ?
+- changing your mind (hit arrow key by accident, want to return to previous state)
+
+So to me Chris' original proposal to remove the focus grab is correct. From there we could try to figure out what's needed to get a tab key to properly focus on the GtkFileChooser if you like.",SOLUTION_DESIGN,1
+798159,,,,12,"I noticed that and was one of the first things I tried but it did not make any difference.
+You are right about the focus grab, it should be in the active if statement, (not sure why I did not see that), but I also noticed the CB was not being called any way when it was the default of 'file' on initial load. As the default toggle select is file, the CB was not being triggered so need to call if the initial load is a 'file'.",SOLUTION_DESIGN,1
+798159,,,,13,"I understand what Chris/You are saying so will remove the grab focus. I suppose its the mouse user in me that would of liked the entry to be focused when the 'Linked Location' was toggled but that's no important any way I will bet some time down the line someone will request it.
+
+As for the GtkFileChooserButton, 'fcb' not accepting keyboard focus, I think it may have to do with the GtkFileChooser dialog is already created but hidden in the background. Using inspector I can see that when I have tabbed to the fcb, the focus widget for the dialog is the fcb and according to the inspector, can-focus is TRUE, has-focus is TRUE, is-focus is TRUE but there is no indication.
+
+I am inclined to leave it at that unless you can see something else I have missed.
+
+I will add my changes as a patch files...
+The first removes the grab_focus from the toggle selection CB and as we are not grabbing focus here the other change I pointed out is no longer required.
+
+The second is my version of a working fcb as a demo, could be added here as is, will need to check it again for errors but my idea was to use it as a basis for a GncFileChooser widget that maybe could be used in other places as it employs the native OS file chooser.",SOLUTION_DESIGN,1
+798159,,,,14,"Created attachment 374046 [details]
+Suggested patch",IMPLEMENTATION,1
+798159,,,,15,"Created attachment 374047 [details]
+My changes for a working fcb",IMPLEMENTATION,1
+798159,,,,16,"I understand your idea as well. Things are a bit complicated here because the GtkEntry is not visible when the dialog is first opened. What would have been perfectly fine would be that the GtkEntry would grab focus on opening the dialog and then requiring a mouse-click or tabbing to go to the radio buttons. Unfortunately in the default scenario the file chooser is visible and not the GtkEntry. And as we have established the file chooser doesn't have keyboard sensitivity.
+
+That's good enough. I just read in Gtk4 this button has been removed anyway. The suggestion is to use a normal button that opens the GtkFileChooser and update the button's name upon return.
+
+And I see the Gtk4 suggestion exactly what you have implemented in your second patch. I'm not sure it's worth making it a custom widget. There's really not that much common code to it so we  can just implement the whole of the button with GtkFileChooser callback in all other places where we currently have a GtkFileChooserButton still.",SOLUTION_DESIGN,1
+798159,,,,17,"OK, for now will double check my two patches and then push them so this bug can be closed.
+
+I still might look at creating a GNCFileChooserButton that incorporates these changes, a clear button and the full path label. As it would launch the 'native' version of the FileChooser, it would be the same as the OS version of file browser and as such would be more familiar to the user. This button could be used for all import/export dialogs and maybe other places, any way that was what I was thinking and would require more thought if I decided to do it.",SOLUTION_DESIGN,1
+798159,,,,18,"The Open and Save dialogs use a modified GtkFileChooser, having a listbox at the top to select the backend. Having the native file chooser show up everywhere else is sure to generate complaints. It's of course possible to create native dialogs with the extra listbox and wire them in the same way that GtkNativeFileChooser does, but it's a potential maintenance headache.",SOLUTION_DESIGN,1
+798159,,,,19,"OK, I have pushed a fix for this based on the two patches here.
+Glenn, the fix will be in the next release 4.6 and the next nightly seen here...
+https://code.gnucash.org/builds/win32/maint/
+
+If you can test and confirm fixed it would be appreciated so bug can be closed.",IMPLEMENTATION,1
+798159,,,,20,"Hi,
+
+I have tested and can confirm the fix is working as expected... thank you!!",VERIFICATION,0
+797997,,,,1,File gnucash could note be found,,0
+797997,,,,2,"Created attachment 373900 [details]
+screenshot ""file could not be found""
+
+After upgrade to version 4.2, 2-3 days ago, gnucash won't open a file stored on google drive. worked fine with previous version. See attachment screenshot. Then today. I decided to change path file ""Comptabilité"" (french) to ""Comptabilite"" without the accent on the ""e"". this worked fine! It would like to change back to the french word with the accent on the ""e"" in the word ""Comptabilité"".",,0
+797997,,,,3,"I'm not able to reproduce this. Here's what I did:
+
+1. Installed Google Backup and Sync in my Windows VM.
+2. Set it up to sync a folder that I have in Google Drive.
+3. Once synced added a folder named Compatibilité to that folder.
+4. Copied a book file into Google Drive\My Folder\Compatibilité
+5. Installed GnuCash 3.8, started it, loaded the book in ...\Compatibilité, quit GnuCash
+6. Installed GnuCash 4.2 and started it. It loaded the book from ...\Compatibilité without complaint.
+
+So try putting the directory name back to Compatibilité and see if it again fails to open. If it does look at the trace file for that run (see https://wiki.gnucash.org/wiki/Tracefile) to see if there are any errors logged. If not, try running GnuCash from a CMD or Powershell prompt:
+  C:\Program Files (x86)\gnucash\bin\gnucash.exe --debug
+and attach the resulting log here.",SOLUTION_DESIGN,1
+797997,,,,4,"Created attachment 373910 [details]
+gnucash.trace file
+
+Still not working after renaming folder ""Comptabilité"" with the accent on the ""e"".",REPRODUCTION,0
+797997,,,,5,"Then I deinstalled 4.2 and installed 3.8. Works just fine with 3.8. Reinstalled 4.2. Problem is back!
+
+Thank you John!",REPRODUCTION,0
+797997,,,,6,"To help identify the cause, you might try and down load some versions in between 3.8 and 4.2, you will find them here..
+https://code.gnucash.org/builds/win32/maint/
+
+Maybe version 3.11 and 4.1",,0
+797997,,,,7,"Hi there. I ""retrograded"" to previous version starting with 4.1 to 4.0. All of them ""failed"" with same error message. Installed version 3.11. Works fine!",REPRODUCTION,0
+797997,,,,8,"OK, then the change must of been in the master branch for 3.90x which led to 4.0
+
+I had a look at that branch but nothing obvious stood out, so if you have time can you try some versions from here...
+https://code.gnucash.org/builds/win32/master/
+
+Make sure you have backed up your file as by the nature of the branch things may break.
+
+Also, did you ever try doing a 'File->Open' and select the file that way?",ANALYSIS,0
+797997,,,,9,"Hi there
+I stumbled over this bug after upgrading to V4.4 from V3.8
+
+So i did some testing this morning using the following commands
+DOS-Box : ""C:\Program Files (x86)\gnucash\bin\gnucash.exe"" L:\Dev\PowerShell\GnuCash\Test\Comité\TestOHDS.gnucash
+Powershell 7.1.1 script : C:\Program Files (x86)\gnucash\bin\gnucash.exe L:\Dev\PowerShell\GnuCash\Test\Comité\TestOHDS.gnucash
+
+Results are the same in both cases :
+
+gnucash-3.902-2020-05-29-git-3.902-217-g5091d7a67+.setup	OK
+gnucash-3.902-2020-05-31-git-3.902-289-g2a42078e9+.setup	doesn't run (complains about a missing DLL : libboost_program_options-mt.dll)
+After copying the DLL from the previous version (902-217) GNUCash runs but doesn't find the file anymore.
+
+So it looks like the bug introduced in that version.
+
+Hope this helps
+
+Michel
+Windows 10 Home 20H2 Build 19042.746 x64",ANALYSIS,0
+797997,,,,10,"Thank you for this, I will try and have a look at commits in the area.",,0
+797997,,,,11,"Mike,
+
+Could you confirm whether the menu option 'File->Open' works and then whether on the next start of Gnucash which would use the file history it opens also. Just trying to identify possible code paths.",ANALYSIS,0
+797997,,,,12,"Hi Bob
+
+Yes both work",ANALYSIS,0
+797997,,,,13,I have pushed a fix for this and will be in the next release 4.5 or next nightly. Please test and confirm the bug is fixed so it can be closed.,IMPLEMENTATION,1
+797997,,,,14,"Hi
+The last nightly i could find is dates 2020-03-07.
+I don't know if your fix is included, but if it is, it does not work, still got the same error message.",VERIFICATION,0
+797997,,,,15,Unfortunately that build was just before my commit and as you say there has not been a new one since. From the logs it looks like there was a build last night but web site can not see it. If you can have a look later in week or 4.5 should be released at end of month.,,0
+797997,,,,16,"I just tested with the nightly from yesterday.
+
+It works !
+
+Thanks for your quick fix, you can close the bug.",VERIFICATION,0
+797585,,,,1,New-owner - mismatch between 'Total Due' and bracketed total,,0
+797585,,,,2,"Created attachment 373535 [details]
+Screenshot illustrating the totals mismatch
+
+In the sample report attached you will find a Total Due of 286,67 which is correct. The bracketed total below that however shows 185,67. That is wrong.
+
+I traced this back to an improper prepayments calculation in the bracketed summary. For my report that should have been 29 instead of 130.
+
+Note the current report (while with fully expanded details) won't help me finding this difference as there is no way to tell how much of each payment applies to each bill in the details. It only shows payment and bill totals everywhere.",ANALYSIS,0
+797585,,,,3,"Created attachment 373536 [details]
+Payment windows for vendor Adfisc
+
+If I open the payment Window on vendor Adfisc it will show the proper details as I'm expecting them: there's a 29,00 pre-payment left (which in reality is part of a payment, not the complete one) and two unpaid bills. The total of the bills matches the 91+ bracketed total, so that part is correct.",REPRODUCTION,0
+797585,,,,4,"What's the 29,00 (or 150,00) transaction split list comprised of?",,0
+797585,,,,5,"I was still trying to figure that out.
+
+It turns out this has to do with a lot link transaction being linked to a normal payment transaction, something that won't happen any more in current gnucash, but can have happened in the past. A workaround is to run Check & Repair on the account. That will eliminate the stray lot link transaction in this context.
+
+
+I'll get back to this later, but for now you can just ignore it.",SOLUTION_DESIGN,1
+797585,,,,6,*** Bug 797586 has been marked as a duplicate of this bug. ***,,0
+797585,,,,7,"As the new aging uses the same code to calculate totals, that obviously has the same issue, hence the duplicate bug.
+
+I still have to figure out how to reproduce in a new book though.",,0
+797585,,,,8,"I think this one is easy
+
+modified   gnucash/report/report-system/report-utilities.scm
+@@ -1174,7 +1174,7 @@ flawed. see report-utilities.scm. please update reports."")
+                 (fold
+                  (lambda (a b)
+                    (if (null? (gncInvoiceGetInvoiceFromLot (xaccSplitGetLot a)))
+-                       (- b (xaccSplitGetAmount a))
++                       (- b (gnc-lot-get-balance (xaccSplitGetLot a)))
+                        b))
+                  0 splitlist)))
+           (gnc:msg ""next "" (gnc:strify (car splits)) "" payment "" payment",IMPLEMENTATION,1
+797585,,,,9,"ummm, the report is doing the subtotals wrong.
+
+https://bugs.gnucash.org/attachment.cgi?id=373535
+
+use a calculator and add and subtract the payment and bill amounts, you'll notice the Balance amount is wrong some of the time :(
+
+and, the Bill column doesn't add up, it is 101 out :(
+
+I am also concerned (from an accounting POV) that absolute debits and credits on the linked details side don't always use plus and minus correctly.  also: what are the UNPAID amounts in the linked details?  are they to do with how payments have been allocated?
+
+no-one likes a report that doesn't add up :(",,0
+797585,,,,10,Wonder if this bug is still an issue?,,0
+797585,,,,11,"Chris, did you commit your comment 6 change? If so, let's close this as fixed.",,0
+797585,,,,12,I didn't merge it in. gjanssens's datafile was IIRC an old one with obsolete transaction structure. Not entirely sure if it fixes it.,,0
+797585,,,,13,"I checked and can't reproduce this any more with current maint. The odd transaction structure is still in place but the bracketed total is now correct.
+
+So whatever you did, one of the changes fixed it.",VERIFICATION,0
+798133,,,,1,Gnucash crash when any custom action is entered,,0
+798133,,,,2,"In a register, if one enter any custom action which it's not listed it will crash GnuCash",,0
+798133,,,,3,"Sorry, that doesn't make sense. Please write a step-by-step procedure to reproduce the crash.",,0
+798133,,,,4,"Unable to reproduce the obvious (entering something into the split action field that's not in the drop-down list), no further information from reporter.
+
+Ruben Cheng, if at some point you're motivated to provide detailed information about how you induced the crash you may reopen the bug.",REPRODUCTION,0
+798133,,,,5,"Hi..
+
+I did these steps to reproduce the failure... With a new file
+
+1) Create a new file, with ""Common Accounts"" categories template. Save the file
+2) Open Cash in Wallet
+3) Enter a transaction, filling the fields Date, Description (Test), Transfer (with any categoriess. I tried Expense:Auto), Spend (20). Num, action and Notes are empty. 
+4) You will have a new empty transaction to enter. Above is the created in step (3)
+4) Select last new transaction
+5) Select Action field. It will list: Buy, Decrease, Increase, Sell.
+6) Instead select any, enter any word, for example ""crash""
+7) it will close GnuCash without error",REPRODUCTION,0
+798133,,,,6,"Perfect, I was able to easily reproduce and fix. It will be in tonight's nightly and GnuCash 4.6.",,0
+798506,,,,1,GnuCash 4.10 on MacOS has a possible memory leak,,0
+798506,,,,2,"Hi,
+
+I've installed today GnuCash 4.10-3 for MacOS (taken from the official download page: https://www.gnucash.org/download.phtml).
+
+After installing it (and replacing my previous 4.9 I believe), I didn't notice anything really strange, apart from the fact that it was kinda slow (but .... I'm used unfortunately used to it; GnuCash was always slow on MacOS [don't know how it behaves on other systems]).
+
+However, after spending about an hour importing some transactions from CSV, tweaking accounts and so on - I got a notice from the OS that it's running low on memory. I have 16 GB of RAM and I've never before seen this (even though I'm using fairly heaving IDEs, Docker, etc.)
+
+So when I looked at the total memory used by GnuCash - it showed up as 40 (forty) GB.
+
+I quit and reopened and looked the Activity Monitor specifically on GnuCash:
+
+* it started from fresh at around 250 MB
+* I started to go into accounts, scroll up-down and then close the account tab
+* immediately the amount of memory used would jump 300-400 MB
+* did this a few times with various accounts and in 5 minutes I got to 3-4 GB (again, just browsing, no modifications of any kind)
+* let the application sit idle for a few minutes - nothing changed, RAM usage didn't drop
+
+I deleted 4.10-3 and downloaded 4.10-2 (from Github) and repeated the above process. The experience was similar, although it seems like 4.10-2 was slower to grow in used memory. After 5 minutes I was able to go to 1.5-2 GB of RAM.
+
+I deleted 4.10-2 and installed 4.9 (from Github). Again repeated the above process:
+* in this case GnuCash started at around 100 MB of RAM. Browsing, scrolling through accounts and transactions didn't do much. Never exceeded 170 MB of RAM
+* after I let the application sit idle - RAM usage dropped even further, to currently 99 MB
+
+Let me know if there's other info that I can provide to root-cause the issue.
+
+GnuCash file: XML; 352 KB
+OS: MacOS BigSur (11.6.4)
+RAM: 16 GB",ANALYSIS,0
+798506,,,,3,"I am experiencing the same problem. Running build:
+Version: 4.10
+Build ID: 4.10+(2022-03-26)
+
+Just downloaded this build from the official download site yesterday.
+
+The import tool seems to create a very fast memory leak, sometimes freezing my Mac before I can complete an import of a QIF file.",REPRODUCTION,0
+798506,,,,4,Running MacOS 12.3.1,,0
+798506,,,,5,"Having the same problem.
+Version 4.10 
+
+Memory usage builds up to over 5Gb. Have gone back to v4.9 which has no such problem.
+
+Similar to previous post, appears to be increasing more rapidly with imports.",REPRODUCTION,0
+798506,,,,6,"Similar observation here with Version-ID: 4.10+(2022-03-26)on macOS 12.3.1.
+
+Every opening and closing the same account increases the memory consumption.",REPRODUCTION,0
+798506,,,,7,*** Bug 798517 has been marked as a duplicate of this bug. ***,,0
+798506,,,,8,"I think it's from https://gitlab.freedesktop.org/cairo/cairo/-/issues/562. I've packaged the fix for it and uploaded https://sourceforge.net/projects/gnucash/files/gnucash%20%28stable%29/4.10/Gnucash-Intel-4.10-4.dmg/download
+
+Please give it a try and say if it corrects the leak.",IMPLEMENTATION,1
+798506,,,,9,"Thanks, John.
+
+I have tried the fix you posted, but unfortunately the situation remained. I opened GnuCash, played a bit around (opened some accounts, scrolled up-down, started importing transactions from CSV - just opened the window, without actually importing anything): in less than 5 minutes memory was up to 3.5 GB. So it's not yet fixed.",VERIFICATION,0
+798506,,,,10,"OK, thanks.",,0
+798506,,,,11,"Because I screwed up and fixed it in my development build instead of the release build, then packaged up the release build with no changes.
+
+Now I've applied the cairo patch to the right build, packaged it, and put it at the same link on Sourceforge. Please have another go with it.",IMPLEMENTATION,1
+798506,,,,12,"Thank you!
+
+I did a limited round of testing just now, for a few minutes, and the issue looks fixed:
+
+* starting memory was around 120 MB
+* playing around with accounts, scrolling, etc. memory increased to a max. of 190 MB
+* starting the import wizard and playing there a bit took the max. memory to 250 MB
+* memory was immediately freed upon sitting idle for a few seconds, dropping back to ~120 MB
+
+Thanks!
+
+P.S. if anyone else can try on their end to make sure they see the same thing, that would be great.",VERIFICATION,0
+798506,,,,13,"Thanks John, your fix seems to have worked. I didn't do any imports, but playing around and generating reports did not see the memory increase past 200 MB and the memory was being released as I moved on to other features.
+
+Much appreciated!",VERIFICATION,0
+798506,,,,14,I can confirm that John's fix resolved the problem for me. Thank you!,VERIFICATION,0
+798506,,,,15,how does one trace the bug resolution to the correct build ?,,0
+798506,,,,16,"SO far,  i ve inferred that since there is only one new build (4.10-4) since the one that has the issue (4.10-3). so the new one is likely it. 
+
+but is there a more direct linkage between bugs squashed and their build ?
+ 
+Thanks - love the project. its my(Treasurer) 1 year anniversary of switching our local Non-Profit to DoubleEntry(via Gnucash) and the community loves the clear clarity of the reports. They have not seen anything like it in the last 20 years of our community. The last Treasurer has send me a congratulations note for moving us ahead. :-)",,0
+798506,,,,17,"You're correct about the build being 4.10-4. That should be apparent from the link in comment 6.
+
+For the bigger picture, there is no good way to track a packaging bug like this one to a particular build, particularly since the fix isn't even in a GnuCash repo, it's https://gitlab.gnome.org/GNOME/gtk-osx/-/commit/4914c8e17741a5311b70897bd0315105fdddb84c.",,0
+798506,,,,18,"I fully agree with you. Link in comment six was where I understood that this was in the background ( in another project) I am not conversant with these items and staying high-level. 
+Just for my understanding …will this  packaging fix, Make it into the older Mac intel Distributions through some scheduled rebuild.? 
+
+Thank you",,0
+798506,,,,19,"No.
+
+There's no point in repackaging older versions of GnuCash. Besides, this bug affects only 4.10.",,0
+798506,,,,20,Appears to be fixed. Thank you John!,VERIFICATION,0
+798506,,,,21,I gave it a few days but still notice Gnucash autodownload for Mac users is still downloading the buggy 4.10-3. Just an FYI.,,0
+798506,,,,22,I gave it a few days but still notice Gnucash autodownload for Mac users is still downloading the buggy 4.10-3. Just an FYI.,,0
+798506,,,,23,"Yes, I haven't updated the ""official"" release.",,0
+798506,,,,24,"Now updated, as well as added to the Github release page and links on www.gnucash.org and the wiki updated.",,0
+798885,,,,1,Accented character in folder name on Account Export,,0
+798885,,,,2,"When I try to do File > Export > Export Accounts into a folder whose name contains an accented character, I get a ""No such file or directory"" error.
+
+I tested it on GnuCash 5.0 and Windows 10.
+
+How to reproduce:
+* Create a folder with name Fólder (copy-paste it from here if you keyboard doesn't have this character).
+* Open any GnuCash file or create a new one.
+* Choose File > Export > Export Accounts
+* Navigate into Fólder and enter filename test.gnucash. Click Save As.
+* You get a popup saying: There was an error saving the file. No such file or directory
+[reply] [−]Comment 1",,0
+798885,,,,3,"Interesting, I tried it on version 4.0 and it did not work then.
+
+Will have a look...",REPRODUCTION,0
+798885,,,,4,"I have pushed a fix and will be in the next release.
+
+As I think I have fixed this and can reproduce will close but if you find it not fixed in next release please reopen and update.",IMPLEMENTATION,1
+798885,,,,5,"I reopen this bug because although the problem with Export Accounts is gone in 5.1, the menu item ""Export Transactions to CSV…"" has the same problem. If the folder name contains international characters, I get the following error on the last page (titled Export Summary) of the Export Assistant: There was a problem with the export, this could be due to lack of space, permissions or unable to access folder. Check the trace file for further logging! You may need to enable debugging.
+
+Could you please fix that, as well? And if possible, could you please find all other places in the code where the same problem could exist?
+
+Unfortunately, ""Export Transactions to CSV…"" has one additional problem. If the name of my exported file contains an international character, it will be incorrectly encoded. For example, if I enter the filename TestFóle.csv, the actual filename on disk will be TestFĂłle.csv.
+
+I tested this on GnuCash 5.1 and Windows 10.",VERIFICATION,0
+798885,,,,6,"I tested and the Export Account Tree to CSV… has the same problems:
+- International characters in folder names causes error message on last page of Assistant.
+- Filenames with international characters are saved in an incorrect encoding.",REPRODUCTION,0
+798885,,,,7,https://cplusplus.com/reference/ios/ios/imbue/ may be needed in csv-exp/ which uses <sstream> nowadays,SOLUTION_DESIGN,1
+798885,,,,8,"<fstream>, rather",,0
+798885,,,,9,"Unfortunately gcc's C++ standard library doesn't support localization on Windows, you have to use boost::locale.",SOLUTION_DESIGN,1
+798885,,,,10,"Allow me a remark, maybe it makes things easier. The problem with international characters in folder names has already been solved by Bob above. I can confirm his solution works. Maybe you can re-use his solution for ""Export Transactions to CSV…""?
+
+The problem with international characters in filenames only happens in ""Export Transactions to CSV…"". The encoding of filenames is perfect everywhere else I tried in GnuCash. Can it be that ""Export Transactions to CSV…"" uses a different method to encode filenames than the rest of GnuCash? The solution might be to use the same method that is used everywhere else?",SOLUTION_DESIGN,1
+798885,,,,11,"The underlying cause of the problem is that Windows uses 16-bit characters for Unicode (UTF-16) and assumes that 8-bit characters are encoded in the locale's code page. Code pages are an archaic encoding scheme invented 40 years ago by IBM for the original DOS.
+
+GnuCash uses an 8-bit multi-byte encoding called UTF-8; it's the standard encoding for Unix-based operating systems. That works fine except for path names on Windows that must be transcoded to utf-16. Windows takes the UTF-8 encoded file path and converts it to UTF-16 assuming that it's encoded in whatever your locale's code page is.
+
+Bob's fix in https://github.com/Gnucash/gnucash/commit/fb58959f9a8a46e70e0486359b658d2e3084110e simply uses the Glib file-open function that knows to convert UTF-8 to UTF-16 on Windows. But the CSV exporter uses a C++ file stream to write the file and that has to be explicitly told (via imbue as Chris suggested in comment 5) to use UTF-8->UTF-16. That would work if we built GnuCash with Microsoft's compiler, but GnuCash isn't written in a way that that would work, so we use gcc and gcc doesn't support C++ localization on Windows so we need a different approach.",ANALYSIS,0
+798885,,,,12,"Hmm, so there is a simple solution: Revert https://github.com/Gnucash/gnucash/commit/cb8cdd1b9930070cb9ddaf27661d14a62b25f7d1#diff-2f29f97b09caaba89c81c66a8e19be2761d36c18597a70a8a448931938c2d9eb.
+
+Otherwise the solution lies in https://en.cppreference.com/w/cpp/filesystem/path or https://cs.brown.edu/~jwicks/boost/libs/filesystem/doc/index.htm. libgnucash/core-utils/gnc-filepath-utils.c uses the latter. It's not pretty, but it does work. 
+
+Chris, what do you think?",SOLUTION_DESIGN,1
+798885,,,,13,This is done in a few places already in gnucash (like gnucash/gnucash-core-app.cpp). Perhaps this could be third possible solution for the CSV Exporter ?,SOLUTION_DESIGN,1
+798885,,,,14,I have no particular preference for the the solutions... Using boost is as good as any.,SOLUTION_DESIGN,1
+798885,,,,15,"I tried
+--- a/gnucash/import-export/csv-exp/csv-transactions-export.cpp
++++ b/gnucash/import-export/csv-exp/csv-transactions-export.cpp
+@@ -32,6 +32,7 @@
+ #include <string>
+ #include <unordered_set>
+
++#include <gnc-locale-utils.hpp>
+ #include ""gnc-commodity.h""
+ #include ""gnc-ui-util.h""
+ #include ""Query.h""
+@@ -351,7 +352,9 @@ void csv_transactions_export (CsvExportInfo *info)
+     DEBUG(""File name is : %s"", info->file_name);
+
+     /* Open File for writing */
+-    auto ss{std::ofstream (info->file_name, std::ofstream::out)};
++    std::ofstream ss;
++    ss.imbue(gnc_get_boost_locale());
++    ss.open(info->file_name,  std::ofstream::out);
+
+     StringVec headers;
+     bool num_action = qof_book_use_split_action_for_num_field (gnc_get_current_book());
+
+No Joy.",SOLUTION_DESIGN,1
+798885,,,,16,"Doesn't compile. My next try was the glib, using g_utf8_to_utf16(). std::ofstream doesn't have a constructor that takes a wchar_t*. That's std::wofstream, but then the file's contents have to be UTF-16 too. We don't want that.",SOLUTION_DESIGN,1
+798885,,,,17,"Can OP check that the following also fails? It's the same cpp output file stream code.
+
+gnucash-cli --report run --name ""Balance Sheet"" ~/datafile.gnucash --output-file C:\Users\Fólder\TestFóle.html",VERIFICATION,0
+798885,,,,18,"Oh, good catch. I'd somehow missed that when I grepped for ofstream.
+
+I have a fix and I can easily apply it to write_report_file.",,0
+798885,,,,19,"Fix pushed. It tests out OK for me, but csaba please test on tomorrow's nightly build.",IMPLEMENTATION,1
+798885,,,,20,"Good detective work John, thanks!",,0
+798885,,,,21,For csaba nightlies containing this bug fix are at https://code.gnucash.org/builds/win32/stable/ from 5.1-15 onwards.,,0
+798885,,,,22,"Similar issue with typing account names, might the above address it?
+
+https://bugzilla.redhat.com/show_bug.cgi?id=2196770",,0
+798885,,,,23,Not even close. Please open a new bug.,,0
+798885,,,,24,"No update from csaba, so tried a couple of exports to same folder and they worked so will close but if you find it not fixed in next release please reopen and update.",VERIFICATION,0
+799298,,,,1,Shortcut Ctrl-G does not work in the General Journal register for the default date value,,0
+799298,,,,2,"Using Release 6.1 in Windows:
+Start the Since Last Run druid. I am not sure this is needed, but this is the way that I discovered this problem.
+Open the General Journal window.
+Enter Ctrl-G.  The Goto date popup appears, but if the date is left at the current date, clicking OK only causes a pause while GnuCash spins its wheels, then nothing.
+
+Further experimentation proves that if the focus is explicitly returned to the General Journal window and with the focus on a transaction that is dated other than today, when Ctrl-G is selected with a date other than the current date, then the goto date function works as expected.  However, if starting with the focus on any transaction in the General Journal register and Ctrl-G is selected leaving the date at the default value, it fails.
+
+It might be interesting to test this when the blank transaction has a different date assigned after it has been used to create a transaction with a different date.",ANALYSIS,0
+799298,,,,3,"Happens on macOS too. The significant point here that David didn't emphasize is that today's date doesn't work even if there are transactions in the register dated today.
+
+BTW, trying to change the date on the blank transaction and using <ctrl>g brings up the ""save the changed transaction"" dialog and of course if you save it then it isn't the blank transaction anymore.",REPRODUCTION,0
+799298,,,,4,Created PR1939 with a possible fix.,IMPLEMENTATION,1
+799298,,,,5,"Fixed has been merged to stable and will be in the next release 5.7
+
+As I think I have fixed this and can reproduce will close but if you find it not fixed in next release please reopen and update.",VERIFICATION,0
