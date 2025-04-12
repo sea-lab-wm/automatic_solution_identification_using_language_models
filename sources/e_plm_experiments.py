@@ -55,7 +55,7 @@ def train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, BS, LR, 
 
     return y_pred
 
-def evaluate_model_plm(run, mod, result_path, oversample=True):
+def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
     test_df = pd.read_csv(test_data_path.replace('<run>', f'{run}'))
     train_df = pd.read_csv(train_data_path.replace('<run>', f'{run}'))
@@ -112,35 +112,40 @@ def evaluate_model_plm(run, mod, result_path, oversample=True):
     E = -1
     F1 = -1
 
-    for bs in mod['params']['batch_size']:
-        for lr in mod['params']['learning_rate']:
-            for e in mod['params']['epoch']:
-                y_pred = train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, bs, lr, e)
+    if not best_config:
+        for bs in mod['params']['batch_size']:
+            for lr in mod['params']['learning_rate']:
+                for e in mod['params']['epoch']:
+                    y_pred = train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, bs, lr, e)
 
-                FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_val)
+                    FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_val)
 
-                print("=" * 50, "Inside Validation", "=" * 50)
-                print(f"Validation batch_sizes: {bs}")
-                print(f"Validation total_epochs: {e}")
-                print(f"Validation learning_rate: {lr}")
-                print(f"Validation Model name: {model_name}")
-                print(f"Validation Oversampling: {oversample}")
-                print(f"Validation Run: {run}")
-                print(f"Validation Accuracy: {accuracy}")
-                print(f"Validation Precision: {precision}")
-                print(f"Validation Recall: {recall}")
-                print(f"Validation F1 Score: {f1}")
-                print(f"Validation True Positives (TP): {TP}")
-                print(f"Validation False Positives (FP): {FP}")
-                print(f"Validation True Negatives (TN): {TN}")
-                print(f"Validation False Negatives (FN): {FN}")
-                print("=" * 50)
+                    print("=" * 50, "Inside Validation", "=" * 50)
+                    print(f"Validation batch_sizes: {bs}")
+                    print(f"Validation total_epochs: {e}")
+                    print(f"Validation learning_rate: {lr}")
+                    print(f"Validation Model name: {model_name}")
+                    print(f"Validation Oversampling: {oversample}")
+                    print(f"Validation Run: {run}")
+                    print(f"Validation Accuracy: {accuracy}")
+                    print(f"Validation Precision: {precision}")
+                    print(f"Validation Recall: {recall}")
+                    print(f"Validation F1 Score: {f1}")
+                    print(f"Validation True Positives (TP): {TP}")
+                    print(f"Validation False Positives (FP): {FP}")
+                    print(f"Validation True Negatives (TN): {TN}")
+                    print(f"Validation False Negatives (FN): {FN}")
+                    print("=" * 50)
 
-                if f1 > F1:
-                    BS = bs
-                    LR = lr
-                    E = e
-                    F1 = f1
+                    if f1 > F1:
+                        BS = bs
+                        LR = lr
+                        E = e
+                        F1 = f1
+    else:
+        BS = best_config['batch_size']
+        LR = best_config['learning_Rate']
+        E = best_config['epoch']
 
 
     print("-" * 50)
@@ -150,7 +155,11 @@ def evaluate_model_plm(run, mod, result_path, oversample=True):
     print(f"Learning Rate:{LR}")
     print("-" * 50)
 
-    y_pred = train_evaluate(model_name, classes, X_dev, y_dev, X_test, y_test, BS, LR, E)
+    model_path_folder = f"models/plm/{run}"
+    model_file_name = f"{model_name}__BS_{BS}__LR_{LR}__E_{E}__Oversample_{'os' if oversample else 'nos'}.joblib"
+    model_path = os.path.join(model_path_folder, model_file_name)
+
+    y_pred = train_evaluate(model_name, classes, X_dev, y_dev, X_test, y_test, BS, LR, E, model_save=model_path)
     
     print(f"Predictions :\n{y_pred}")
 
@@ -186,16 +195,24 @@ def evaluate_model_plm(run, mod, result_path, oversample=True):
     test_df.to_csv(p, index=False)
     print(f"Predictions saved to: {p}")
 
-def dl_experiment(exp_config, res_path):
+def dl_experiment(exp_config, res_path, run_best_model):
+    runs = 1
     result = ["run", "oversample", "batch_size", "epoch", "learning_Rate", "model_name", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     append_row_to_csv(res_path, result)
 
-    for run in range(10):
-        for model in exp_config['lm_model']:
-            for oversampling in exp_config['oversampling']:
-                evaluate_model_plm(run, model, res_path, oversample=oversampling)
+    if not run_best_model:
+        for run in range(runs):
+            for model in exp_config['lm_model']:
+                for oversampling in exp_config['oversampling']:
+                    evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
+    else:
+        for run in range(runs):
+            for model in exp_config['lm_model']:
+                oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
+                model_config = exp_config['best_model_config'][str(run)][model['model_name']]
+                evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config=model_config)
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()
-    prepare_data(mapped_comment_data, train_test_comment_data)
-    dl_experiment(exp_config, comment_data_dl_result)
+    # prepare_data(mapped_comment_data, train_test_comment_data)
+    dl_experiment(exp_config, comment_data_dl_result, run_best_model=True)

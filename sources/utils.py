@@ -225,6 +225,9 @@ def process_run(run, data, indexes, paths):
 
     test_df, dev_df = get_train_test_data(data, indexes, run)
 
+    test_df = test_df.dropna()
+    dev_df = dev_df.dropna()
+
     X_dev, y_dev = dev_df.drop('label', axis=1), dev_df['label']
     X_train, X_val, y_train, y_val = train_test_split(X_dev, y_dev, test_size=0.1, stratify=y_dev, shuffle=True, random_state=42)
 
@@ -246,6 +249,7 @@ def process_run(run, data, indexes, paths):
     print(f"\n\nAll datas are saved successfully to {os.path.dirname(dev_data_path.replace('<run>', f'{run}'))}.")
 
 def prepare_data(data_path, index_path):
+    runs = 1
     data = clean_dataframe(data_path)
 
     print(data['label'].value_counts())
@@ -264,7 +268,7 @@ def prepare_data(data_path, index_path):
 
     # Create a pool of workers
     with Pool() as pool:
-        pool.starmap(process_run, [(run, data, indexes, paths) for run in range(10)])
+        pool.starmap(process_run, [(run, data, indexes, paths) for run in range(runs)])
 
 
 
@@ -296,22 +300,23 @@ mapped_sentence_data = 'dataset_construction/sentence_data/actual_sentence_data.
 manual_sentence_mapping_path = "dataset_construction/sentence_data/manual_sentence_mapping.csv"
 mismatched_annotations_path = 'dataset_construction/sentence_data/mismatched_annotations_sentences.csv'
 
-mapped_comment_data = 'dataset_construction/comment_data/labeled_comment_data.csv'
+mapped_comment_data = 'dataset/solution_identification_data/labeled_comment_data.csv'
 data_split_comment_data = "dataset_construction/comment_data/example_actual_comment_data.csv"
-embedding_comment_data = 'dataset_construction/comment_data/actual_comment_data_with_embeddings.csv'
+embedding_comment_data = 'dataset/embedding_data/actual_comment_data_with_embeddings.csv'
 promt_comment_data = 'dataset_construction/comment_data/comment_data.csv'
-preprocess_comment_data = 'dataset_construction/comment_data/preprocess_comment_data.csv'
+preprocess_comment_data = 'dataset/solution_identification_data/preprocess_comment_data.csv'
 preprocess_sentence_data = 'dataset_construction/sentence_data/preprocess_sentence_data.csv'
 manual_comment_mapping_path = "dataset_construction/comment_data/manual_comment_mapping.csv"
 mismatched_annotations_comments = 'dataset_construction/comment_data/mismatched_annotations_comments.csv'
 
 dataset_path = 'dataset'
-dev_data_path = 'dataset_construction/comment_data/folds/<run>/comment_dev_data.csv'
-test_data_path = 'dataset_construction/comment_data/folds/<run>/comment_test_data.csv'
-train_data_path = 'dataset_construction/comment_data/folds/<run>/comment_train_data.csv'
-val_data_path = 'dataset_construction/comment_data/folds/<run>/comment_val_data.csv'
-train_os_data_path = 'dataset_construction/comment_data/folds/<run>/comment_oversampled_train_data.csv'
-dev_os_df_path = 'dataset_construction/comment_data/folds/<run>/comment_oversampled_dev_data.csv'
+dataset_fold_path = "dataset/solution_identification_data/folds"
+dev_data_path = 'dataset/solution_identification_data/folds/<run>/comment_dev_data.csv'
+test_data_path = 'dataset/solution_identification_data/folds/<run>/comment_test_data.csv'
+train_data_path = 'dataset/solution_identification_data/folds/<run>/comment_train_data.csv'
+val_data_path = 'dataset/solution_identification_data/folds/<run>/comment_val_data.csv'
+train_os_data_path = 'dataset/solution_identification_data/folds/<run>/comment_oversampled_train_data.csv'
+dev_os_df_path = 'dataset/solution_identification_data/folds/<run>/comment_oversampled_dev_data.csv'
 
 dev_nos_embedding = 'dataset_construction/comment_data/folds/<run>/dev_nos_embedding.joblib'
 dev_os_embedding = 'dataset_construction/comment_data/folds/<run>/dev_os_embedding.joblib'
@@ -319,13 +324,14 @@ train_nos_embedding = 'dataset_construction/comment_data/folds/<run>/train_nos_e
 train_os_embedding = 'dataset_construction/comment_data/folds/<run>/train_os_embedding.joblib'
 
 train_test_data_directory = 'dataset/train_test_data'
-train_test_comment_data = 'dataset_construction/comment_data/train_test_split.json'
+train_test_comment_data = 'dataset/solution_identification_data/train_test_split.json'
 comment_data_result = "results/ml/fold/<run>/comment_data_results.csv"
 sentence_data_result = "dataset_construction/sentence_data/sentence_data_result.csv"
 comment_data_dl_result = "results/plm/comment_data_results.csv"
 comment_data_llama_result = "dataset_construction/comment_data/llama/folds/<run>/mac_th/results.csv"
 comment_data_llama_prediction = "results/predictions/llm/folds/<run>/"
 ml_prediction_comment_dir = "results/predictions/ml"
+ml_model_base_path = "models/ml"
 ml_prediction_sentence_dir = "dataset_construction/sentence_data/predictions/"
 lm_prediction_dir = "dataset_construction/comment_data/predictions/lm/"
 lm_saved_model = "dataset_construction/comment_data/models/"

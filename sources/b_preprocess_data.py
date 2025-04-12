@@ -152,7 +152,7 @@ def text_preprocess(text, mode):
 
 def check_null(data):
     null_rows = data[data.isnull().any(axis=1)]
-    data = data.dropna()  # Why null value?
+    data = data.dropna() 
 
     # Display the result
     print(f'Length of Null Value rows {len(null_rows)}')
@@ -186,3 +186,4 @@ def preprocess_comment():
     comment_data = check_null(comment_data)
     pre_data = preprocess_data(comment_data)
     pre_data.to_csv(preprocess_comment_data, index=False)
+    print(f"Preprocessed File saved to {preprocess_comment_data}")
