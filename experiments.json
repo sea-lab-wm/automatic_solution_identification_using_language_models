@@ -181,12 +181,6 @@
         "epoch": 3,
         "batch_size": 16,
         "oversample": false
-      },
-      "xlnet-base-cased":	{
-        "learning_Rate": 3.00E-05,
-        "epoch": 3,
-        "batch_size": 16,
-        "oversample": false
       }
     }
   }
