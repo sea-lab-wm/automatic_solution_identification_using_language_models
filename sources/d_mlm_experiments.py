@@ -281,6 +281,6 @@ def ml_run(exp_config, run_best_config=False):
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()
-    # prepare_data(embedding_comment_data, train_test_comment_data)
-    # prepare_data_for_ml()
+    prepare_data(embedding_comment_data, train_test_comment_data)
+    prepare_data_for_ml()
     ml_run(exp_config, True)

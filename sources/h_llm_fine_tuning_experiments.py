@@ -89,7 +89,8 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
         model_name,
         quantization_config=quantization_config,
         num_labels=2,
-        device_map='auto'
+        device_map='auto',
+        cache_dir="/scratch/mehedi/models"
     )
 
     ### Add LoRA Adaptation ###
@@ -246,8 +247,8 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample, hyperp
         E = exp_config['llm_model_conf']['params']['epoch']
         LR = exp_config['llm_model_conf']['params']['learning_rate']
 
-
-    y_pred = train_evaluate_llm(model_name, dev_df, test_df, BS, LR, E)
+    model_save_path = f"models/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
+    y_pred = train_evaluate_llm(model_name, dev_df, test_df, BS, LR, E, save_loc=model_save_path)
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, test_df[target_column])
 
     result_ft = [
@@ -351,12 +352,14 @@ if __name__ == "__main__":
 
     target_column = 'label'
 
-    res_path = "results/llm/comment_data_results.csv"
+    res_path = "results/llm_fine_tuning/comment_data_results.csv"
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
+    
+    runs = 1
     append_row_to_csv(res_path, result)
 
-    for run in range(10):
+    for run in range(runs):
         for model in exp_config['llm_model']:
             pred_path = comment_data_llama_prediction.replace("<run>", f'{run}')
             oversampling = True
