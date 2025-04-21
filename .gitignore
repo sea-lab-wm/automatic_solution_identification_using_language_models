@@ -2,6 +2,7 @@ dataset/comment_data/actual_comment_data_with_embeddings.csv
 dataset/comment_data/folds/[0-9]/
 output
 venv
+venv_*
 *.pyc
 models
 dataset/embedding_data/actual_comment_data_with_embeddings.csv

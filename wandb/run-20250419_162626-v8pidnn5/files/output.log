@@ -1,0 +1,19 @@
+/scratch/mehedi/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments.py:335: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.class_weights = torch.tensor(class_weights,
+wandb: WARNING The `run_name` is currently set to the same value as `TrainingArguments.output_dir`. If this was not intended, please specify a different run name by setting the `TrainingArguments.run_name` parameter.
+--------------------------------------------------
+TRAIN DATASET
+--------------------------------------------------
+Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 7342
+})
+  0%|          | 0/2754 [00:00<?, ?it/s]/scratch/mehedi/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/utils/checkpoint.py:464: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.4 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+  0%|          | 0/2754 [00:41<?, ?it/s]
+An error occurred: CUDA out of memory. Tried to allocate 448.00 MiB. GPU  has a total capacity of 14.56 GiB of which 378.00 MiB is free. Process 1779810 has 7.46 GiB memory in use. Including non-PyTorch memory, this process has 6.73 GiB memory in use. Of the allocated memory 6.21 GiB is allocated by PyTorch, and 356.64 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+**************************************************
+Model Name ::: meta-llama/Meta-Llama-3-8B
+Oversampling: True
+Run ::: 0
+**************************************************

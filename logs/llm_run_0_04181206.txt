@@ -1,0 +1,258 @@
+nohup: ignoring input
+2025-04-18 16:09:15.997858: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-18 16:09:16.012444: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-04-18 16:09:16.029007: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-04-18 16:09:16.034047: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-04-18 16:09:16.046216: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-04-18 16:09:16.794460: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+True
+
+
+
+Evaluating Model: meta-llama/Meta-Llama-3-8B
+
+
+
+Dev Data Length:                                                    text  label
+0     Just by adding "__arm__" to the i386 #ifdef in...      0
+1     Very nice. Do you think we should use your C v...      0
+2     Comment on attachment 441050\nOptimized Double...      0
+3     Yep, indeed, though I'm concerned about introd...      0
+4     http://hg.mozilla.org/tracemonkey/rev/e8dfe85f...      0
+...                                                 ...    ...
+7337      Created attachment 579934\nPatch. v1\nSimple.      1
+7338  Created attachment 565286\nTests\nTests I prom...      1
+7339  Created attachment 565389\nPatch v1 (minus tes...      1
+7340  Created attachment 575610\nDon't place pools i...      1
+7341  This is what I will do:\n* python client.py up...      1
+
+[7342 rows x 2 columns]
+Dev data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Dev data distribution: label
+0    3671
+1    3671
+Name: count, dtype: int64
+Test Data Length:                                                   text  label
+0    http://mxr.mozilla.org/mozilla-central/source/...      0
+1    Thanks for the report, Jesse!\nRobert is corre...      1
+2    I should add that the 5% improvement is on Sun...      1
+3    Replacing the focus manager with a mock (contr...      1
+4    Created attachment 435325\nPatch (v1)\nSo, Nei...      1
+..                                                 ...    ...
+482  Pushed by sclements@mozilla.com:\nhttps://hg.m...      0
+483  When the transport is closed or encounters an ...      1
+484  Pushed by bcampen@mozilla.com:\nhttps://hg.moz...      0
+485  https://hg.mozilla.org/mozilla-central/rev/ebc...      0
+486  I had to change this, because I got an excepti...      0
+
+[487 rows x 2 columns]
+Test data distribution: label
+0    0.837782
+1    0.162218
+Name: proportion, dtype: float64
+Test data distribution: label
+0    408
+1     79
+Name: count, dtype: int64
+Train Data Length:                                                    text  label
+0     (Note that I triggered landing for bug 1597120...      0
+1     Comment on attachment 777478\nRevert assert fi...      0
+2     But won't that cause the radio to start playin...      0
+3     If this is "just" OOM, then anything that caus...      0
+4           CCing espindola for last part of comment 1.      0
+...                                                 ...    ...
+6603  Created attachment 8477354\nDo not pause when ...      1
+6604  Created attachment 8520896\nPatch v1.1\nFixed ...      1
+6605  Created attachment 8516403\ntabstoolbar-overfl...      1
+6606  Hi Justin, i checked the patches of the bug749...      1
+6607  Created attachment 8772226\nApply ToString in ...      1
+
+[6608 rows x 2 columns]
+Train data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Train data distribution: label
+0    3304
+1    3304
+Name: count, dtype: int64
+Val Data Length:                                                   text  label
+0    test_workerUpdate.html was failing nearly acro...      1
+1    https://hg.mozilla.org/integration/mozilla-inb...      0
+2    Is this just on OS X? Do you have a crashrepor...      0
+3    OK, the loss of order and keywords happened be...      0
+4    Created attachment 8530242\n0001-Bug-1073339-E...      0
+..                                                 ...    ...
+433  https://hg.mozilla.org/mozilla-central/rev/4e1...      0
+434  I've been using e10s for a number of months, a...      0
+435  Setting qe-verify- based on Jon's assessment o...      0
+436  Comment on attachment 8551614\n1118597.patch v...      0
+437  The following testcase crashes on mozilla-cent...      0
+
+[438 rows x 2 columns]
+Val data distribution: label
+0    0.8379
+1    0.1621
+Name: proportion, dtype: float64
+Val data distribution: label
+0    367
+1     71
+Name: count, dtype: int64
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 7342
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 487
+    })
+})
+
+
+Class Weight: tensor([0.5000, 0.5000])
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:07,  2.61s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:05<00:05,  2.65s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:07<00:02,  2.64s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  1.72s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  2.06s/it]
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Map:   0%|          | 0/7342 [00:00<?, ? examples/s]Map:  14%|█▎        | 1000/7342 [00:00<00:02, 2135.85 examples/s]Map:  27%|██▋       | 2000/7342 [00:00<00:02, 2356.24 examples/s]Map:  41%|████      | 3000/7342 [00:01<00:01, 2452.55 examples/s]Map:  54%|█████▍    | 4000/7342 [00:01<00:01, 2442.18 examples/s]Map:  68%|██████▊   | 5000/7342 [00:02<00:00, 2518.84 examples/s]Map:  82%|████████▏ | 6000/7342 [00:02<00:00, 2654.46 examples/s]Map:  95%|█████████▌| 7000/7342 [00:02<00:00, 2502.62 examples/s]Map: 100%|██████████| 7342/7342 [00:02<00:00, 2474.51 examples/s]Map: 100%|██████████| 7342/7342 [00:02<00:00, 2467.25 examples/s]
+Map:   0%|          | 0/487 [00:00<?, ? examples/s]Map: 100%|██████████| 487/487 [00:00<00:00, 3129.15 examples/s]Map: 100%|██████████| 487/487 [00:00<00:00, 2984.82 examples/s]
+/scratch/mehedi/miniconda3/envs/myenv/lib/python3.10/site-packages/transformers/training_args.py:1525: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
+  warnings.warn(
+max_steps is given, it will override any value given in num_train_epochs
+/scratch/mehedi/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments.py:328: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.class_weights = torch.tensor(class_weights,
+--------------------------------------------------
+
+Tokenized Data
+
+--------------------------------------------------
+DatasetDict({
+    train: Dataset({
+        features: ['label', 'input_ids', 'attention_mask'],
+        num_rows: 7342
+    })
+    test: Dataset({
+        features: ['label', 'input_ids', 'attention_mask'],
+        num_rows: 487
+    })
+})
+--------------------------------------------------
+
+TRAIN DATASET
+
+--------------------------------------------------
+Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 7342
+})
+  0%|          | 0/50 [00:00<?, ?it/s]/scratch/mehedi/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/utils/checkpoint.py:464: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.4 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+  2%|▏         | 1/50 [00:22<18:06, 22.18s/it]  4%|▍         | 2/50 [00:43<17:22, 21.73s/it]  6%|▌         | 3/50 [01:05<16:55, 21.62s/it]  8%|▊         | 4/50 [01:26<16:35, 21.65s/it] 10%|█         | 5/50 [01:48<16:12, 21.61s/it]                                               10%|█         | 5/50 [01:48<16:12, 21.61s/it] 12%|█▏        | 6/50 [02:09<15:50, 21.61s/it] 14%|█▍        | 7/50 [02:31<15:32, 21.69s/it] 16%|█▌        | 8/50 [02:53<15:10, 21.67s/it] 18%|█▊        | 9/50 [03:15<14:48, 21.66s/it] 20%|██        | 10/50 [03:36<14:28, 21.70s/it]                                                20%|██        | 10/50 [03:36<14:28, 21.70s/it] 22%|██▏       | 11/50 [03:58<14:05, 21.69s/it] 24%|██▍       | 12/50 [04:20<13:42, 21.65s/it] 26%|██▌       | 13/50 [04:41<13:20, 21.63s/it] 28%|██▊       | 14/50 [05:03<12:58, 21.62s/it] 30%|███       | 15/50 [05:24<12:37, 21.66s/it]                                                30%|███       | 15/50 [05:24<12:37, 21.66s/it] 32%|███▏      | 16/50 [05:46<12:17, 21.69s/it] 34%|███▍      | 17/50 [06:08<11:54, 21.67s/it] 36%|███▌      | 18/50 [06:29<11:32, 21.65s/it] 38%|███▊      | 19/50 [06:51<11:10, 21.64s/it] 40%|████      | 20/50 [07:13<10:48, 21.62s/it]                                                40%|████      | 20/50 [07:13<10:48, 21.62s/it] 42%|████▏     | 21/50 [07:34<10:26, 21.61s/it] 44%|████▍     | 22/50 [07:56<10:05, 21.64s/it] 46%|████▌     | 23/50 [08:17<09:43, 21.60s/it] 48%|████▊     | 24/50 [08:39<09:21, 21.61s/it] 50%|█████     | 25/50 [09:01<09:01, 21.66s/it]                                                50%|█████     | 25/50 [09:01<09:01, 21.66s/it] 52%|█████▏    | 26/50 [09:22<08:39, 21.65s/it] 54%|█████▍    | 27/50 [09:44<08:18, 21.68s/it] 56%|█████▌    | 28/50 [10:06<07:56, 21.64s/it] 58%|█████▊    | 29/50 [10:27<07:34, 21.66s/it] 60%|██████    | 30/50 [10:49<07:12, 21.63s/it]                                                60%|██████    | 30/50 [10:49<07:12, 21.63s/it] 62%|██████▏   | 31/50 [11:11<06:50, 21.62s/it] 64%|██████▍   | 32/50 [11:32<06:28, 21.61s/it] 66%|██████▌   | 33/50 [11:54<06:07, 21.61s/it] 68%|██████▊   | 34/50 [12:15<05:45, 21.61s/it] 70%|███████   | 35/50 [12:37<05:24, 21.62s/it]                                                70%|███████   | 35/50 [12:37<05:24, 21.62s/it] 72%|███████▏  | 36/50 [12:59<05:02, 21.62s/it] 74%|███████▍  | 37/50 [13:20<04:41, 21.63s/it] 76%|███████▌  | 38/50 [13:42<04:19, 21.66s/it] 78%|███████▊  | 39/50 [14:04<03:57, 21.62s/it] 80%|████████  | 40/50 [14:25<03:36, 21.62s/it]                                                80%|████████  | 40/50 [14:25<03:36, 21.62s/it] 82%|████████▏ | 41/50 [14:47<03:14, 21.64s/it] 84%|████████▍ | 42/50 [15:08<02:52, 21.58s/it] 86%|████████▌ | 43/50 [15:30<02:30, 21.57s/it] 88%|████████▊ | 44/50 [15:52<02:09, 21.58s/it] 90%|█████████ | 45/50 [16:13<01:48, 21.68s/it]                                                90%|█████████ | 45/50 [16:13<01:48, 21.68s/it] 92%|█████████▏| 46/50 [16:35<01:26, 21.66s/it] 94%|█████████▍| 47/50 [16:57<01:04, 21.63s/it] 96%|█████████▌| 48/50 [17:18<00:43, 21.64s/it] 98%|█████████▊| 49/50 [17:40<00:21, 21.61s/it]100%|██████████| 50/50 [18:01<00:00, 21.60s/it]                                               100%|██████████| 50/50 [18:01<00:00, 21.60s/it]{'loss': 1.3483, 'grad_norm': 35.550453186035156, 'learning_rate': 9.600000000000001e-06, 'epoch': 0.01}
+{'loss': 1.9316, 'grad_norm': 67.36175537109375, 'learning_rate': 8.8e-06, 'epoch': 0.01}
+{'loss': 1.3067, 'grad_norm': 52.599361419677734, 'learning_rate': 7.800000000000002e-06, 'epoch': 0.02}
+{'loss': 1.8653, 'grad_norm': 25.715618133544922, 'learning_rate': 6.800000000000001e-06, 'epoch': 0.02}
+{'loss': 1.3777, 'grad_norm': 50.8414192199707, 'learning_rate': 5.8e-06, 'epoch': 0.03}
+{'loss': 0.9557, 'grad_norm': 70.66912841796875, 'learning_rate': 4.800000000000001e-06, 'epoch': 0.03}
+{'loss': 0.9883, 'grad_norm': 65.46353149414062, 'learning_rate': 3.8000000000000005e-06, 'epoch': 0.04}
+{'loss': 1.4961, 'grad_norm': 30.525039672851562, 'learning_rate': 2.8000000000000003e-06, 'epoch': 0.04}
+{'loss': 1.2316, 'grad_norm': 31.88703727722168, 'learning_rate': 1.8000000000000001e-06, 'epoch': 0.05}
+{'loss': 1.1511, 'grad_norm': 55.6375617980957, 'learning_rate': 8.000000000000001e-07, 'epoch': 0.05}
+
+  0%|          | 0/61 [00:00<?, ?it/s][A
+  3%|▎         | 2/61 [00:06<03:23,  3.45s/it][A
+  5%|▍         | 3/61 [00:13<04:42,  4.87s/it][A
+  7%|▋         | 4/61 [00:20<05:20,  5.63s/it][A
+  8%|▊         | 5/61 [00:27<05:40,  6.07s/it][A
+ 10%|▉         | 6/61 [00:34<05:49,  6.35s/it][A
+ 11%|█▏        | 7/61 [00:41<05:52,  6.54s/it][A
+ 13%|█▎        | 8/61 [00:48<05:52,  6.66s/it][A
+ 15%|█▍        | 9/61 [00:55<05:50,  6.74s/it][A
+ 16%|█▋        | 10/61 [01:02<05:47,  6.81s/it][A
+ 18%|█▊        | 11/61 [01:09<05:42,  6.85s/it][A
+ 20%|█▉        | 12/61 [01:16<05:37,  6.88s/it][A
+ 21%|██▏       | 13/61 [01:23<05:30,  6.89s/it][A
+ 23%|██▎       | 14/61 [01:29<05:24,  6.91s/it][A
+ 25%|██▍       | 15/61 [01:36<05:17,  6.91s/it][A
+ 26%|██▌       | 16/61 [01:43<05:10,  6.90s/it][A
+ 28%|██▊       | 17/61 [01:50<05:03,  6.90s/it][A
+ 30%|██▉       | 18/61 [01:57<04:56,  6.90s/it][A
+ 31%|███       | 19/61 [02:04<04:49,  6.89s/it][A
+ 33%|███▎      | 20/61 [02:11<04:43,  6.92s/it][A
+ 34%|███▍      | 21/61 [02:18<04:37,  6.93s/it][A
+ 36%|███▌      | 22/61 [02:25<04:30,  6.93s/it][A
+ 38%|███▊      | 23/61 [02:32<04:23,  6.93s/it][A
+ 39%|███▉      | 24/61 [02:39<04:16,  6.93s/it][A
+ 41%|████      | 25/61 [02:46<04:09,  6.93s/it][A
+ 43%|████▎     | 26/61 [02:53<04:02,  6.93s/it][A
+ 44%|████▍     | 27/61 [02:59<03:55,  6.93s/it][A
+ 46%|████▌     | 28/61 [03:06<03:48,  6.93s/it][A
+ 48%|████▊     | 29/61 [03:13<03:41,  6.92s/it][A
+ 49%|████▉     | 30/61 [03:20<03:34,  6.92s/it][A
+ 51%|█████     | 31/61 [03:27<03:27,  6.92s/it][A
+ 52%|█████▏    | 32/61 [03:34<03:20,  6.93s/it][A
+ 54%|█████▍    | 33/61 [03:41<03:13,  6.92s/it][A
+ 56%|█████▌    | 34/61 [03:48<03:06,  6.92s/it][A
+ 57%|█████▋    | 35/61 [03:55<02:59,  6.92s/it][A
+ 59%|█████▉    | 36/61 [04:02<02:53,  6.92s/it][A
+ 61%|██████    | 37/61 [04:09<02:45,  6.91s/it][A
+ 62%|██████▏   | 38/61 [04:16<02:39,  6.92s/it][A
+ 64%|██████▍   | 39/61 [04:22<02:32,  6.91s/it][A
+ 66%|██████▌   | 40/61 [04:29<02:25,  6.91s/it][A
+ 67%|██████▋   | 41/61 [04:36<02:18,  6.92s/it][A
+ 69%|██████▉   | 42/61 [04:43<02:11,  6.92s/it][A
+ 70%|███████   | 43/61 [04:50<02:04,  6.93s/it][A
+ 72%|███████▏  | 44/61 [04:57<01:57,  6.93s/it][A
+ 74%|███████▍  | 45/61 [05:04<01:50,  6.92s/it][A
+ 75%|███████▌  | 46/61 [05:11<01:43,  6.92s/it][A
+ 77%|███████▋  | 47/61 [05:18<01:36,  6.92s/it][A
+ 79%|███████▊  | 48/61 [05:25<01:30,  6.92s/it][A
+ 80%|████████  | 49/61 [05:32<01:23,  6.92s/it][A
+ 82%|████████▏ | 50/61 [05:39<01:16,  6.91s/it][A
+ 84%|████████▎ | 51/61 [05:45<01:08,  6.90s/it][A
+ 85%|████████▌ | 52/61 [05:52<01:02,  6.91s/it][A
+ 87%|████████▋ | 53/61 [05:59<00:55,  6.90s/it][A
+ 89%|████████▊ | 54/61 [06:06<00:48,  6.90s/it][A
+ 90%|█████████ | 55/61 [06:13<00:41,  6.89s/it][A
+ 92%|█████████▏| 56/61 [06:20<00:34,  6.90s/it][A
+ 93%|█████████▎| 57/61 [06:27<00:27,  6.90s/it][A
+ 95%|█████████▌| 58/61 [06:34<00:20,  6.90s/it][A
+ 97%|█████████▋| 59/61 [06:41<00:13,  6.91s/it][A
+ 98%|█████████▊| 60/61 [06:48<00:06,  6.91s/it][A
+100%|██████████| 61/61 [06:54<00:00,  6.66s/it][A                                               
+                                               [A100%|██████████| 50/50 [25:03<00:00, 21.60s/it]
+100%|██████████| 61/61 [06:54<00:00,  6.66s/it][A
+                                               [A                                               100%|██████████| 50/50 [25:04<00:00, 21.60s/it]100%|██████████| 50/50 [25:04<00:00, 30.09s/it]
+{'eval_loss': 1.289793610572815, 'eval_f1_score': 0.22525597269624573, 'eval_accuracy': 0.5338809034907598, 'eval_balanced_accuracy': 0.4870470340034748, 'eval_precision': 0.1542056074766355, 'eval_recall': 0.4177215189873418, 'eval_runtime': 421.0895, 'eval_samples_per_second': 1.157, 'eval_steps_per_second': 0.145, 'epoch': 0.05}
+{'train_runtime': 1504.5996, 'train_samples_per_second': 0.266, 'train_steps_per_second': 0.033, 'train_loss': 1.3652545261383056, 'epoch': 0.05}
+--------------------------------------------------
+
+TRAIN RESULT
+
+--------------------------------------------------
+TrainOutput(global_step=50, training_loss=1.3652545261383056, metrics={'train_runtime': 1504.5996, 'train_samples_per_second': 0.266, 'train_steps_per_second': 0.033, 'total_flos': 1.71865767149568e+16, 'train_loss': 1.3652545261383056, 'epoch': 0.054466230936819175})
+================================================== Fine tuned ==================================================
+Batch: 8 || E: 5 || LR: 1e-05 || Oversample: True
+Accuracy: 53.593429
+Precision: 15.492958
+Recall: 41.772152
+F1 Score: 22.60274
+True Positives (TP): 33
+False Positives (FP): 180
+True Negatives (TN): 228
+False Negatives (FN): 46
+==================================================
+
+\Results succesfully saved to results/llm_fine_tuning/comment_data_results.csv
+
+
+
+
+Predictions succesfully saved to results/predictions/llm/folds/0/model_name_os_predictions.csv
+
+

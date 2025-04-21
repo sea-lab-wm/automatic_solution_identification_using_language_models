@@ -1,24 +1,24 @@
+import wandb
 from utils import *
 
 import numpy as np
-import re
 import torch
 torch.cuda.empty_cache()
 print(torch.cuda.is_available()) 
 import torch.nn.functional as F
 
 from datasets import DatasetDict, Dataset
-from trl import SFTTrainer
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
-from sklearn.metrics import balanced_accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.metrics import balanced_accuracy_score
 from transformers import TrainingArguments
 from transformers import Trainer
 from transformers import DataCollatorWithPadding
 from transformers import TrainingArguments
 from transformers import BitsAndBytesConfig, AutoModelForSequenceClassification
 from transformers import AutoTokenizer
+
+rerun_count = 1
 
 def separator_print(text, chr='-', num=50):
     print(chr * num)
@@ -128,18 +128,22 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
 
     collate_fn = DataCollatorWithPadding(tokenizer=tokenizer)
 
+    wandb.init(
+        project="solution_loc_llm",
+    )   
+
     training_args = TrainingArguments(
         output_dir='output',
         learning_rate=lr,
         per_device_train_batch_size=bs,
         per_device_eval_batch_size=bs,
-        num_train_epochs=e,
+        num_train_epochs=3,
         logging_steps=logging_steps,
         weight_decay=weight_decay,
-        evaluation_strategy='epoch',
+        eval_strategy='epoch',
         save_strategy='epoch',
         load_best_model_at_end=True,
-        report_to="none"
+        report_to="wandb",
     )
 
     trainer = CustomTrainer(
@@ -164,6 +168,8 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
     if save_loc is not None:
         if not os.path.exists(save_loc):
             os.makedirs(save_loc)
+
+        separator_print("Saving Model ...")
         
         model.save_pretrained(save_loc)
         tokenizer.save_pretrained(save_loc)
@@ -247,7 +253,7 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample, hyperp
         E = exp_config['llm_model_conf']['params']['epoch']
         LR = exp_config['llm_model_conf']['params']['learning_rate']
 
-    model_save_path = f"models/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
+    model_save_path = f"models/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}_{rerun_count}"
     y_pred = train_evaluate_llm(model_name, dev_df, test_df, BS, LR, E, save_loc=model_save_path)
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, test_df[target_column])
 
@@ -275,7 +281,7 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample, hyperp
     test_df_copy = test_df.copy()
     test_df_copy[model_name + f"_{'os' if oversample else 'nos'}_prediction"] = y_pred
 
-    path = os.path.join(prediction_path, f"model_name_{'os' if oversample else 'nos'}_predictions.csv")
+    path = os.path.join(prediction_path, f"model_name_{'os' if oversample else 'nos'}_predictions_{rerun_count}.csv")
     test_df_copy.to_csv(path, index=False)
     print(f"\n\nPredictions succesfully saved to {path}\n\n")
 
@@ -331,7 +337,7 @@ class CustomTrainer(Trainer):
         else:
             self.class_weights = None
 
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         labels = inputs.pop("labels").long()
 
         outputs = model(**inputs)
@@ -352,7 +358,7 @@ if __name__ == "__main__":
 
     target_column = 'label'
 
-    res_path = "results/llm_fine_tuning/comment_data_results.csv"
+    res_path = f"results/llm_fine_tuning/comment_data_results_{rerun_count}.csv"
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     
@@ -363,6 +369,7 @@ if __name__ == "__main__":
         for model in exp_config['llm_model']:
             pred_path = comment_data_llama_prediction.replace("<run>", f'{run}')
             oversampling = True
+            # llama_experiments(run, model, res_path, pred_path, oversample=oversampling, hyperparam_tuning=False)
             try:
                 llama_experiments(run, model, res_path, pred_path, oversample=oversampling, hyperparam_tuning=False)
             except Exception as exception:

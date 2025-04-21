@@ -24,7 +24,7 @@ from sklearn.metrics import recall_score, precision_score, f1_score
 from sklearn.metrics import confusion_matrix
 from multiprocessing import Pool
 
-nlp = en_core_web_lg.load()
+
 
 
 def calculate_cosine_similarity(sentence1, sentence2):
@@ -199,6 +199,7 @@ def tokenize_without_punctuation(text):
 
 
 def spacy_parser(text):
+    nlp = en_core_web_lg.load()
     doc = nlp(text)
     sentences = list(doc.sents)
     sentence_strings = [sentence.text for sentence in sentences]

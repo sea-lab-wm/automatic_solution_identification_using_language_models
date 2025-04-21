@@ -1,0 +1,360 @@
+import re
+from transformers import DataCollatorWithPadding
+import torch
+torch.cuda.empty_cache()
+from datasets import DatasetDict, Dataset
+from transformers import TrainingArguments
+from trl import SFTTrainer
+from sklearn.model_selection import train_test_split
+from transformers import BitsAndBytesConfig, AutoModelForSequenceClassification
+from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
+from transformers import AutoTokenizer
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
+from sklearn.metrics import balanced_accuracy_score, classification_report
+import numpy as np
+from transformers import TrainingArguments
+from transformers import Trainer
+import torch.nn.functional as F
+import wandb
+wandb.login()
+run = wandb.init(
+    project="solution-localization",
+)
+
+# from unsloth import FastLanguageModel
+# from unsloth import is_bfloat16_supported
+
+from Utils import *
+
+
+def sperator_print(text, chr='-', num=50):
+    print(chr * num)
+    print(f"\n{text}\n")
+    print(chr * num)
+
+def get_eval_result(test_df, predictions, label="label"):
+    y_pred = test_df[predictions].tolist()
+    y_test = test_df[label].tolist()
+
+    FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_test)
+
+    return FN, FP, TN, TP, accuracy, f1, precision, recall
+
+def llama_experiments(input_path, index_path, result_path, prediction_path, prompt=False, quant=True, oversample=True):
+    ### Innitial Params ###
+    run = 0
+    val_size = 0.1
+    model_name = "meta-llama/Meta-Llama-3-8B"
+    max_length=1024
+
+    batch_size = 8
+    token_batch_size = 8
+    LR = 1e-5
+    E = 7
+
+    zs_column = f'ZS_predictions_{batch_size}_{E}'
+    ft_column = f'FT_predictions_{batch_size}_{E}'
+    
+    sperator_print(f"{model_name}---{batch_size}")
+
+    test_version = "1.1.0.3"
+    test_datapath = f"solution_localization/llm_experiments/prompt_engineering/generated_responses_test_set/responses-{test_version}.csv"
+    test_df = pd.read_csv(test_datapath)
+    test_df_copy = test_df.copy()
+
+    ### Read Dataset ###
+    data = pd.read_csv(input_path)
+    print("Data distribution")
+    print(data['label'].value_counts())
+
+    with open(index_path, 'r') as f:
+        indexes = json.load(f)
+
+    ### Create Train Test Val Set ###
+    _, train_df = get_train_test_data(data, indexes, run)
+
+    train_df, val_df = train_test_split(train_df, test_size=val_size, stratify=train_df['label'], shuffle=True, random_state=42)
+
+    if oversample:
+        # Performing Oversampling
+        X_train, y_train = balance_classes(train_df, 'label')
+        train_df = pd.concat([X_train, y_train], axis=1)
+
+    
+    if prompt:
+        test_df['text'] = test_df['prompt']
+    
+    print(f"Test Data Length: {test_df}")
+    print(f"Test data distribution: {test_df['label'].value_counts(normalize=True)}")
+    print(f"Test data distribution: {test_df['label'].value_counts()}")
+
+    ### Print Data Stats ###
+    print(f"Train Data Length: {train_df}")
+    print(f"Train data distribution: {train_df['label'].value_counts(normalize=True)}")
+    print(f"Train data distribution: {train_df['label'].value_counts()}")
+
+    print(f"Val Data Length: {val_df}")
+    print(f"Val data distribution: {val_df['label'].value_counts(normalize=True)}")
+    print(f"Val data distribution: {val_df['label'].value_counts()}")
+
+    train_df = train_df[['text', 'label']]
+    val_df = val_df[['text', 'label']]
+    test_df = test_df[['text', 'label']]
+
+    ### Convert to dataset ###
+    dataset_train = Dataset.from_pandas(train_df)
+    dataset_val = Dataset.from_pandas(val_df)
+    dataset_test = Dataset.from_pandas(test_df)
+
+    # Combine them into a single DatasetDict
+    dataset = DatasetDict({
+        'train': dataset_train,
+        'val': dataset_val,
+        'test': dataset_test
+    })
+
+    print("\nDataset Format: ", dataset)
+
+    ### Define Class Weight ###
+    class_weights = (1 / train_df.label.value_counts(normalize=True).sort_index()).tolist()
+    class_weights = torch.tensor(class_weights)
+    class_weights = class_weights / class_weights.sum()
+    print(f"\n\nClass Weight: {class_weights}")
+
+    ### Model Load ###
+    quantization_config = BitsAndBytesConfig(
+        load_in_4bit = True, 
+        bnb_4bit_quant_type = 'nf4',
+        bnb_4bit_use_double_quant = True, 
+        bnb_4bit_compute_dtype = torch.bfloat16 
+    )
+
+    if quant:
+        model = AutoModelForSequenceClassification.from_pretrained(
+            model_name,
+            quantization_config=quantization_config,
+            num_labels=2,
+            device_map='auto'
+        )
+    else:
+        model = AutoModelForSequenceClassification.from_pretrained(
+            model_name,
+            num_labels=2,
+            device_map='auto'
+        )
+
+    ### Add LoRA Adaptation ###
+    lora_config = LoraConfig(
+        r = 16, 
+        lora_alpha = 8,
+        target_modules = ['q_proj', 'k_proj', 'v_proj', 'o_proj'],
+        lora_dropout = 0.05, 
+        bias = 'none',
+        task_type = 'SEQ_CLS'
+    )
+
+    model = prepare_model_for_kbit_training(model)
+    model = get_peft_model(model, lora_config)
+
+    ### Get Tokenizer ###
+    tokenizer = AutoTokenizer.from_pretrained(model_name, add_prefix_space=True)
+
+    tokenizer.pad_token_id = tokenizer.eos_token_id
+    tokenizer.pad_token = tokenizer.eos_token
+
+    model.config.pad_token_id = tokenizer.pad_token_id
+    model.config.use_cache = False
+    model.config.pretraining_tp = 1
+
+    ### Get Zero Shot Result ###
+    sentences = test_df['text'].tolist()
+    
+    sperator_print("Sample Sentences")
+    print(sentences[:5])
+
+    all_outputs = []
+
+    print('Starting Tokenization')
+
+    for i in range(0, len(sentences), token_batch_size):
+        print(i)
+        batch_sentences = sentences[i:i + token_batch_size]
+
+        inputs = tokenizer(batch_sentences, return_tensors="pt",
+                           padding=True, truncation=True, max_length=max_length)
+
+        inputs = {k: v.to('cuda' if torch.cuda.is_available() else 'cpu') for k, v in inputs.items()}
+
+        with torch.no_grad():
+            outputs = model(**inputs)
+            all_outputs.append(outputs['logits'])
+    
+    print('End Tokenization')
+
+    final_outputs = torch.cat(all_outputs, dim=0)
+    
+    test_df[zs_column] = final_outputs.argmax(axis=1).cpu().numpy()
+
+    FN, FP, TN, TP, accuracy, f1, precision, recall = get_eval_result(test_df, zs_column)
+
+    result_zs = [model_name, 'ZS', FN, FP, TN, TP, accuracy, f1, precision, recall, f"Batch: {batch_size} || E: {E} || LR: {LR}|| Oversample: {oversample}"]
+
+    print("=" * 50, "Zero Shot", "=" * 50)
+    print(f"Batch: {batch_size} || E: {E} || LR: {LR} || Oversample: {oversample}")
+    print(f"Accuracy: {accuracy}")
+    print(f"Precision: {precision}")
+    print(f"Recall: {recall}")
+    print(f"F1 Score: {f1}")
+    print(f"True Positives (TP): {TP}")
+    print(f"False Positives (FP): {FP}")
+    print(f"True Negatives (TN): {TN}")
+    print(f"False Negatives (FN): {FN}")
+    print("=" * 50)
+
+
+    ### Preprocess Data ###
+    def data_preprocesing(row):
+        return tokenizer(row['text'], padding=True, truncation=True, max_length=max_length)
+
+    tokenized_data = dataset.map(data_preprocesing, batched=True, remove_columns=['text'])
+    tokenized_data.set_format("torch")
+
+    sperator_print("Tokenized Data")
+    print(tokenized_data)
+    
+    collate_fn = DataCollatorWithPadding(tokenizer=tokenizer)
+
+    ### Redefine Error Metric ###
+    def compute_metrics(evaluations):
+        predictions, labels = evaluations
+        predictions = np.argmax(predictions, axis=1)
+
+        accuracy = accuracy_score(labels, predictions)
+        precision = precision_score(labels, predictions)
+        recall = recall_score(labels, predictions)
+        f1 = f1_score(labels, predictions)
+        ba = balanced_accuracy_score(labels, predictions)
+        
+        return {
+            'f1_score': f1,
+            'accuracy': accuracy,
+            'balanced_accuracy' : ba,
+            'precision': precision,
+            'recall': recall,
+        }
+    
+    training_args = TrainingArguments(
+        output_dir = 'output',
+        learning_rate = LR,
+        per_device_train_batch_size = batch_size,
+        per_device_eval_batch_size = batch_size,
+        num_train_epochs = E,
+        max_steps=3,
+        logging_steps=1,
+        weight_decay = 0.01,
+        evaluation_strategy = 'epoch',
+        save_strategy = 'epoch',
+        load_best_model_at_end = True,
+        report_to="wandb"
+    )
+
+    trainer = CustomTrainer(
+        model = model,
+        args = training_args,
+        train_dataset = tokenized_data['train'],
+        eval_dataset = tokenized_data['val'],
+        tokenizer = tokenizer,
+        data_collator = collate_fn,
+        compute_metrics = compute_metrics,
+        class_weights=class_weights,
+    )
+
+    sperator_print("TRAIN DATASET")
+    print(tokenized_data['train'])
+
+    train_result = trainer.train()
+
+    sperator_print("TRAIN RESULT")
+    print(train_result)
+
+    ### Evalusation ###
+    def generate_predictions(model,df_test, bs, max_length):
+        sentences = df_test['text'].tolist()
+        batch_size = bs
+        all_outputs = []
+
+        for i in range(0, len(sentences), batch_size):
+
+            batch_sentences = sentences[i:i + batch_size]
+
+            inputs = tokenizer(batch_sentences, return_tensors="pt", padding=True, truncation=True, max_length=max_length)
+
+            inputs = {k: v.to('cuda' if torch.cuda.is_available() else 'cpu') 
+            for k, v in inputs.items()}
+
+            with torch.no_grad():
+                outputs = model(**inputs)
+                all_outputs.append(outputs['logits'])
+            
+        final_outputs = torch.cat(all_outputs, dim=0)
+        df_test[ft_column]=final_outputs.argmax(axis=1).cpu().numpy()
+
+    generate_predictions(model,test_df, batch_size, max_length)
+
+    FN, FP, TN, TP, accuracy, f1, precision, recall = get_eval_result(test_df, ft_column)
+
+    result_ft = [
+        model_name, "FT", FN, FP, TN, TP, accuracy, f1, precision, recall, f"Batch: {batch_size} || E: {E} || LR: {LR}|| Oversample: {oversample}"
+    ]
+
+    print("=" * 50, "Fine tuned", "=" * 50)
+    print(f"Batch: {batch_size} || E: {E} || LR: {LR} || Oversample: {oversample}")
+    print(f"Accuracy: {accuracy}")
+    print(f"Precision: {precision}")
+    print(f"Recall: {recall}")
+    print(f"F1 Score: {f1}")
+    print(f"True Positives (TP): {TP}")
+    print(f"False Positives (FP): {FP}")
+    print(f"True Negatives (TN): {TN}")
+    print(f"False Negatives (FN): {FN}")
+    print("=" * 50)
+
+    os.makedirs(os.path.dirname(result_path), exist_ok=True)
+    append_row_to_csv(result_path, result_zs)
+    append_row_to_csv(result_path, result_ft)
+    print(f"\n\Results succesfully saved to {result_path}\n\n")
+
+    os.makedirs(os.path.dirname(prediction_path), exist_ok=True)
+    path = os.path.join(os.path.dirname(prediction_path), f"{model_name}_b{batch_size}_e{E}_{'os' if oversample else 'nos'}_predictions.csv")
+    test_df_copy[ft_column] = test_df[ft_column]
+    test_df_copy[zs_column] = test_df[zs_column]
+    test_df_copy.to_csv(path, index=False)
+    print(f"\n\nPredictions succesfully saved to {path}\n\n")
+
+
+class CustomTrainer(Trainer):
+    def __init__(self, *args, class_weights=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if class_weights is not None:
+            self.class_weights = torch.tensor(class_weights, 
+            dtype=torch.float32).to(self.args.device)
+        else:
+            self.class_weights = None
+
+    def compute_loss(self, model, inputs, return_outputs=False):
+        labels = inputs.pop("labels").long()
+
+        outputs = model(**inputs)
+
+        logits = outputs.get('logits')
+
+        if self.class_weights is not None:
+            loss = F.cross_entropy(logits, labels, weight=self.class_weights)
+        else:
+            loss = F.cross_entropy(logits, labels)
+
+        return (loss, outputs) if return_outputs else loss
+
+
+if __name__ == "__main__":
+    llama_experiments(mapped_comment_data, train_test_comment_data, comment_data_llama_result, comment_data_llama_prediction)
