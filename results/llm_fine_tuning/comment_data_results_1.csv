@@ -1,1 +1,7 @@
 run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+0,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,49.691992,13.913043,40.506329,20.711974,32,198,210,47
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+2,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,86.2423,55.263158,79.746835,65.284974,63,51,357,16

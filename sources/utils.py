@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 from tqdm import tqdm
 import json
 import os
@@ -52,6 +53,11 @@ def calculate_results(y_pred, y_test):
     FN = int(FN)
     TP = int(TP)
     return FN, FP, TN, TP, accuracy, f1, precision, recall
+
+
+def print_current_time():
+    now = datetime.now()
+    print("Current Date & Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
 
 
 def handle_null_values(df, df_name):
@@ -250,7 +256,7 @@ def process_run(run, data, indexes, paths):
     print(f"\n\nAll datas are saved successfully to {os.path.dirname(dev_data_path.replace('<run>', f'{run}'))}.")
 
 def prepare_data(data_path, index_path):
-    runs = 1
+    runs = [2]
     data = clean_dataframe(data_path)
 
     print(data['label'].value_counts())
@@ -269,7 +275,7 @@ def prepare_data(data_path, index_path):
 
     # Create a pool of workers
     with Pool() as pool:
-        pool.starmap(process_run, [(run, data, indexes, paths) for run in range(runs)])
+        pool.starmap(process_run, [(run, data, indexes, paths) for run in runs])
 
 
 

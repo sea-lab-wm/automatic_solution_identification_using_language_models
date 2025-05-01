@@ -195,6 +195,8 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
 
         final_outputs = torch.cat(all_outputs, dim=0)
         return final_outputs.argmax(axis=1).cpu().numpy()
+    
+    model.eval()
 
     y_pred = generate_predictions(model, test_df, bs, max_length)
     return y_pred
@@ -353,6 +355,8 @@ class CustomTrainer(Trainer):
 
 
 if __name__ == "__main__":
+    print_current_time()
+
     exp_config = get_experiment_config()
     prepare_data(mapped_comment_data, train_test_comment_data)
 
@@ -362,10 +366,10 @@ if __name__ == "__main__":
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     
-    runs = 1
+    runs = [2]
     append_row_to_csv(res_path, result)
 
-    for run in range(runs):
+    for run in runs:
         for model in exp_config['llm_model']:
             pred_path = comment_data_llama_prediction.replace("<run>", f'{run}')
             oversampling = True
@@ -379,3 +383,5 @@ if __name__ == "__main__":
                 print(f"Oversampling: {oversampling}")
                 print(f"Run ::: {run}")
                 print('*' * 50)
+
+    print_current_time()
