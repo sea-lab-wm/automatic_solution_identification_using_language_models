@@ -34,7 +34,7 @@ DontEchoPassword()?",CODE_REVIEW,0,0
 558970,12,"Created attachment 439869
 Patch v2.1",UNCODED,0,0
 558970,14,"Well, just file a followup bug ""Sort out editor's contextmenu/mouse event handling""
-or something like that.",NEW_ISSUE_FILING,0,1
+or something like that.",NEW_ISSUE_FILING,0,0
 558970,16,I filed bug 560201.,NEW_ISSUE_FILING,0,0
 561168,18,I'd actually like that. It would make it easier to review as well.,ANSWER_TO_QUESTION,0,0
 561168,28,"WebGLArray.h was removed from the EXPORTS in content/canvas/public/Makefile.in, but the file itself sits still in said directory and is an #include dependency for WebGLContextNotSupported.cpp. The build breaks due to not finding the header file. I commented #include WebGLArray.h out and WebGLContextNotSupported.cpp was compiled successfully. Dunno if that's the right fix as another possibility would be to add WebGLArray.h back to the EXPORTS in the Makefile. Please give me a hint that I can open a follow-up bug with a proper fix. I'm building on OS/2 w/o WebGL dissabled (of course), thanks.",SOLUTION_VERIFICATION,0,1
@@ -697,7 +697,7 @@ This is off-topic, but I wanted to mention it anyway: when I look at the codebas
 819493,25,"Created attachment 732300
 Know Your Rights notification box has moved to be shown as default snippet on first startup
 Locale data is now in a DTD. I am trying to build an Official Build to test the build flags, I will report back here when I've succeeded.
-Gavin: I think I addressed the issues from your review. Could you check that for me?",CODE_IMPLEMENTATION,1,1
+Gavin: I think I addressed the issues from your review. Could you check that for me?",CODE_IMPLEMENTATION,1,0
 819493,38,"Comment on attachment 732985
 Know Your Rights notification box has moved to be shown as default snippet on first startup
 You seem to have forgotten to remove this, per comment 25 and comment 31.",CODE_REVIEW,0,0
@@ -835,8 +835,8 @@ We can't because then we don't know which entry was supposed to introduce the st
 1) form data is saved and formDataSaved=true
 2) something calls TabStateCache.delete(tab)
 3) we re-collect all data except form data
-Boom, lost. This flag assumes that the tabData is re-used in _collectBaseTabData() which is only the case if the session history didn't change.",S2R,0,0
-916390,6,Removing __SS_formDataSaved shouldn't really hurt as well because MozStorageChanged seems to be the only event where we call TabStateCache.delete() without at the same time setting formDataSaved=false. There shouldn't be a lot more overhead now when always collecting form data.,SOLUTION_REVIEW,1,0
+Boom, lost. This flag assumes that the tabData is re-used in _collectBaseTabData() which is only the case if the session history didn't change.",S2R,0,1
+916390,6,Removing __SS_formDataSaved shouldn't really hurt as well because MozStorageChanged seems to be the only event where we call TabStateCache.delete() without at the same time setting formDataSaved=false. There shouldn't be a lot more overhead now when always collecting form data.,SOLUTION_REVIEW,1,1
 919434,8,I don't reproduce either this or bug 931450 in the latest Nightly. Discussion on bug 919156 suggests that they could have been fixed in bug 919144?,REPRODUCTION_ATTEMPT,0,0
 919434,11,"Reproduced in Nightly 2013-09-25.
 Verified fixed 28.0a1 (2013-12-05), Win 7 x64",SOLUTION_VERIFICATION,0,0
@@ -1121,7 +1121,7 @@ If 1 is the case, then bug 998097 is already filed, and I don't need a followup 
 1023280,1,"In the new world ToJSValue should be used, and not dictionary.ToObject.
 (Currently ToJSValue just calls ToObject).
 We should rename ToObject to something which hints that it shouldn't be used.
-ToObjectInternal for example.",PROBLEM_MOTIVATION,0,1
+ToObjectInternal for example.",PROBLEM_MOTIVATION,0,0
 1029919,4,Need a regression range.  Doesn't seem to be reproducible on Mac.  :(,REPRODUCTION_ATTEMPT,0,0
 1029919,11,"So after a long investigation, I've found some interesting information. This appears to be a bug in cairo clipping, it appears that the clip at nsCSSRendering.cpp:1526 fails to be applied properly if there's already a clip present for the small rectangle surrounding the button (which would be disjoint with this clip) (i.e. if I remove that clip the button always gets a green background, if I leave it in it only has a green background when doing a partial invalidation of the button). I know we've had clipping bugs with Cairo in the past, Jeff, does this sort of issue ring a bell for you?",QUESTION,0,0
 1029919,17,https://hg.mozilla.org/mozilla-central/rev/7e8fac17305a,UNCODED,0,0
@@ -1740,7 +1740,7 @@ Thanks!
 please comment that this is an intended fallthrough.",CODE_REVIEW,0,0
 1430012,6,"I can take it, thank for your help!",DEVELOPER_SELECTION_DECISION,0,0
 1435456,3,"Looks like the same reason as bug 1434935, so not introduced by what Andrew landed today.",PROBLEM_CAUSE_IDENTIFICATION,0,0
-1435456,8,"Why would we be decoding a previous test though? Even if it is that seems like a bug, we don't need a decode of that. I suppose it could be an image in the ui like you mentioned in the commit message, that would make some sense.",QUESTION,0,1
+1435456,8,"Why would we be decoding a previous test though? Even if it is that seems like a bug, we don't need a decode of that. I suppose it could be an image in the ui like you mentioned in the commit message, that would make some sense.",QUESTION,0,0
 1435456,9,"Pushed by aosmond@gmail.com:
 https://hg.mozilla.org/integration/mozilla-inbound/rev/4afd35f217c1
 Remove asserts checking that downscale-on-decode is enabled. r=tnikkel",UNCODED,0,0

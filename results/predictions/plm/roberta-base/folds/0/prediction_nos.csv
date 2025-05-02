@@ -6,7 +6,7 @@ This isn't an SMIL bug :)  What's the correct bug for animating strokewidth?",QU
 Robert is correct on both counts. (FWIW, in bug 436276, I intended ""non-length"" to mean ""non-nsSVGLength2"" -- and strokeWidth is non-nsSVGLength2. Hence the dependency on that bug).
 In any case, bug 534028 is more granular, and when it's fixed, this test will pass.  So that's indeed a better bug # to reference there.
 Fixed:
-http://hg.mozilla.org/mozilla-central/rev/2ac64027f304",CODE_IMPLEMENTATION,1,1
+http://hg.mozilla.org/mozilla-central/rev/2ac64027f304",CODE_IMPLEMENTATION,1,0
 551837,2,"I should add that the 5% improvement is on SunSpider on the JS shell, using Trace Monkey.",POTENTIAL_SOLUTION_DESIGN,1,0
 552359,10,"Replacing the focus manager with a mock (controllable by preference) might be an interesting possibility, although preserving ability to dispatch and respond to OS-level events seems tricky.",POTENTIAL_SOLUTION_DESIGN,1,1
 552359,11,"Created attachment 435325
@@ -62,10 +62,10 @@ Or more interest to me....  Why is this a problem at all?  Are we seriously load
 1)  If a chrome page in a content docshell loads site A which then frames site B, the framing will be allowed with this patch.  Is this desired?
 2)  Getting the principal of the current document can just be done with
     NodePrincipal(); no need to get it off thisWindow.",CODE_REVIEW,0,0
-593387,27,"And by ""punt on that case"" I mean ""allow chrome to frame any document regardless of its X-F-O preferences"".",ANSWER_TO_QUESTION,0,0
+593387,27,"And by ""punt on that case"" I mean ""allow chrome to frame any document regardless of its X-F-O preferences"".",ANSWER_TO_QUESTION,0,1
 593387,28,It sounds like a footgun to me...  I doubt people expect that loading a chrome page in a content area will suddenly give it less secure behavior than loading it as chrome to start with.,ANSWER_TO_QUESTION,0,0
 593387,40,"http://hg.mozilla.org/mozilla-central/rev/f5c0015afe0e
-I used the bug summary as the commit message, which seems suboptimal.",CODE_IMPLEMENTATION,1,1
+I used the bug summary as the commit message, which seems suboptimal.",CODE_IMPLEMENTATION,1,0
 593387,42,*** Bug 594682 has been marked as a duplicate of this bug. ***,UNCODED,0,0
 597071,10,"Try server failed this bug's test (timeout) on linux, see try build http://hg.mozilla.org/try/rev/617debdc2f5e",SOLUTION_VERIFICATION,0,0
 601912,1,"User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.10) Gecko/20100914 Firefox/3.6.10 (.NET CLR 3.5.30729)
@@ -103,7 +103,7 @@ r=me with the above addressed.",QUESTION,0,0
 601999,10,"Created attachment 488050
 fix: delete regressing line
 This is ""Strategy A"" from comment 8. (delete the regressing line)
-Includes a crashtest from this bug & one from related bug 587336, both of which fail (hang or crash) pre-patching but pass post-patching.",CODE_IMPLEMENTATION,1,0
+Includes a crashtest from this bug & one from related bug 587336, both of which fail (hang or crash) pre-patching but pass post-patching.",CODE_IMPLEMENTATION,1,1
 601999,23,Landed: http://hg.mozilla.org/mozilla-central/rev/3dac4e710157,UNCODED,0,0
 627984,8,The branded shape and the slot holding the method are out of sync here. This is at least pretty scary.,ADDITIONAL_CONSIDERATION,0,0
 627984,14,"There is a bunch of bugs here actually. In js_NativeSet we never trigger the method write barrier if a property is added (added=true), because we think that can't cause a shape change, but that's not true for watchpoint setters which fire for additions as well since they are persistent. So in other words watch makes our write barrier more expensive in general. Super lame.
@@ -129,7 +129,7 @@ The main thing is that we don't want the browser to look like it's in a domain-s
 If we end up moving the identity block as part with the changes for bug 674744, then this problem will also be fixed. I won't be working on this anymore until there's a clear direction following those changes.",POTENTIAL_SOLUTION_DESIGN,1,1
 667586,23,I don't think the movement is as jarring as is claimed. This fixes an inconsistency within our UI and is consistent with Chrome and Opera.,CLARIFICATION,0,0
 670853,1,"After chat with Jamie we agreed that it's worth to use mixed state for undetermined progressmeters (both HTML and XUL) to allow AT distinguish determined vs undetermined progressmeters.
-Any thoughts?",POTENTIAL_SOLUTION_DESIGN,1,1
+Any thoughts?",POTENTIAL_SOLUTION_DESIGN,1,0
 670853,5,"For ARIA indeterminate progressbars (where no aria-valuetext or aria-valuenow is set), Firefox returns S_FALSE from IAccessible::get_accValue instead of S_OK. XUL/HTML progressbars should probably do the same thing for consistency. Perhaps they already do?",POTENTIAL_SOLUTION_DESIGN,1,0
 670853,10,please add progress bar role check instead (i.e. do not check checkable state if role is progress bar).,ANSWER_TO_QUESTION,0,1
 670853,17,"Comment on attachment 612359
@@ -647,7 +647,7 @@ Cool~
 I am trying to make it consistent with the hal part.
 Because there is hal::FMRadioSettings, it is easy to be confused, I prefer keep the ""ns"" prefix, and move it to the top-level namespace.",CLARIFICATION,0,0
 779500,117,"Sounds good so far...
-The problem is that if we ever changed the enum, existing settings would be broken?  Sounds like the solution is a big fat warning on the enum definition...",UNCODED,0,0
+The problem is that if we ever changed the enum, existing settings would be broken?  Sounds like the solution is a big fat warning on the enum definition...",UNCODED,0,1
 779500,144,"I backed out a range of patches including this one which caused a perma-leak in all of our test suites on debug builds:
 https://hg.mozilla.org/integration/mozilla-inbound/rev/e60144694d56",IMPLEMENTATION_REVERSION,0,0
 783505,9,"Comment on attachment 652883
@@ -718,7 +718,7 @@ After all, I wrote the patch with another cleanup.
 840284,24,"Created attachment 720856
 csmith fuzzing material
 Here are ~100 csmith reduced testcases. I turned on full debug logging in them so they do more ffi calls.",SOLUTION_VERIFICATION,0,0
-851828,6,unsigned long and uint32_t are interchangeable...  But I can add it back if you want.,ANSWER_TO_QUESTION,0,0
+851828,6,unsigned long and uint32_t are interchangeable...  But I can add it back if you want.,ANSWER_TO_QUESTION,0,1
 851828,14,https://hg.mozilla.org/mozilla-central/rev/0c5c83ed0385,UNCODED,0,0
 852135,3,"Created attachment 732225
 Patch v1.1",UNCODED,0,0
@@ -1110,7 +1110,7 @@ Delay the time to destroy mGLContext, as mGLContext will be destroyed at destruc
 983489.patch v3",UNCODED,0,0
 985257,7,"SVGContentUtils.h is not reachable from CanvasRenderingContext2D.cpp
 It seems like it's only meant to be used inside the SVG tree.",CLARIFICATION,0,0
-985257,15,new try build: https://tbpl.mozilla.org/?tree=Try&rev=eb4f961a13ef,SOLUTION_VERIFICATION,0,0
+985257,15,new try build: https://tbpl.mozilla.org/?tree=Try&rev=eb4f961a13ef,SOLUTION_VERIFICATION,0,1
 989204,2,"Created attachment 8398502
 Part 1 - Tests
 Some tests I wrote for issues I ran into, also a test for bug 889158.",CODE_IMPLEMENTATION,1,1
@@ -1188,8 +1188,8 @@ machine: tst-linux32-spot-367
 buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
 revision: 4c0e0c5176e9
 214 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",UNCODED,0,0
-1092808,4,The same changeset also doesn't disable the preferences UI if the user clears the polaris pref mid-session.,ADDITIONAL_CONSIDERATION,0,1
-1096093,15,I think this really needs to block the aurora uplift,REQUIREMENT,0,1
+1092808,4,The same changeset also doesn't disable the preferences UI if the user clears the polaris pref mid-session.,ADDITIONAL_CONSIDERATION,0,0
+1096093,15,I think this really needs to block the aurora uplift,REQUIREMENT,0,0
 1096093,31,"https://reviewboard.mozilla.org/r/7305/#review6069
 ::: dom/ipc/PBrowser.ipdl:676
 (Diff revision 2)
@@ -1245,7 +1245,7 @@ User Agent 	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:46.0) Gecko/20100101 Firefox/
 1142350,1,"It doesn't look like nsIUserCertPicker is used anymore, so the interface and its implementation can be removed. As far as I can tell, that's the only user of nsICertPickDialogs, so I think the interface, its implementation, and associated xul/js/l10n strings/etc. can also be removed.",PROBLEM_MOTIVATION,0,1
 1148078,1,"Before switching flexbox layout to logical coordinates in bug 1079155, we should get rid of misleading uses of the term ""Logical"" in nsFlexContainerFrame (which predate the logical-coordinates work).
 I used ""logical position/size"" to refer to ""main-axis/cross-axis position/size"". For now, I'm going to switch to call these ""flex-relative"" instead of ""logical"".
-(We may come up with a better term down the line; ideally, we should use something that applies to flex & grid. For now, ""FlexRelative"" is pretty clear, though, and we can do search-and-replace later if we think of something better.)",POTENTIAL_SOLUTION_DESIGN,1,0
+(We may come up with a better term down the line; ideally, we should use something that applies to flex & grid. For now, ""FlexRelative"" is pretty clear, though, and we can do search-and-replace later if we think of something better.)",POTENTIAL_SOLUTION_DESIGN,1,1
 1173001,14,"Thanks for the fast reviews!
 https://treeherder.mozilla.org/#/jobs?repo=try&revision=2a41aee7baf2",UNCODED,0,0
 1179123,8,"It seems this bug is fixed by some other bug (likely bug 1168705), but we do need some more safeguard as well as patch for uplift.",REQUIREMENT,0,0
@@ -1332,7 +1332,7 @@ Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40059/d
 1203871,37,"Comment on attachment 8730640
 Bug 1203871 - Part 3. Use eQueryTextRectArray on ContentCache for e10s.
 Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40061/diff/3-4/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0
-1207931,4,It looks like the use of the variable was added in bug 694706 and removed in bug 1056427. Just a bit of dead code that was missed. So I think it is okay to remove the message.,POTENTIAL_SOLUTION_DESIGN,1,1
+1207931,4,It looks like the use of the variable was added in bug 694706 and removed in bug 1056427. Just a bit of dead code that was missed. So I think it is okay to remove the message.,POTENTIAL_SOLUTION_DESIGN,1,0
 1209952,9,"Violet, maybe you should apply for Level 1 Commit Access so you can push to Try yourself?
 https://wiki.mozilla.org/ReleaseEngineering/TryServer",QUESTION,0,0
 1209952,20,"I wrote a WIP to fix the underlying cause of the crash here:
@@ -1454,7 +1454,7 @@ Early return in PresShell::Paint if BeginTransaction fails. r=dvander",PROBLEM_D
 1314193,3,https://hg.mozilla.org/mozilla-central/rev/373c11f245a7,UNCODED,0,0
 1316964,2,"Created attachment 8809943
 Make the append and assign methods on the rust nsstring types more generic
-MozReview-Commit-ID: 5y30BnUDKsT",PROBLEM_DESCRIPTION,0,1
+MozReview-Commit-ID: 5y30BnUDKsT",PROBLEM_DESCRIPTION,0,0
 1319370,8,This is not sec-high. I land the patch.,STATUS_UPDATE,0,0
 1319370,10,So what branches have the fix and does it need uplift?,QUESTION,0,0
 1319370,11,"Comment on attachment 8813613
@@ -1904,7 +1904,7 @@ Hi Steve
 Base on your suggestion I work out this patch, I use IgnoreGCPolicy to prevent calling 'trace' on the objects(ImmediateMetadata and DelayMetadata), can you help to check is this correct?
 Thanks",CODE_IMPLEMENTATION,1,1
 1560574,4,"Timezone info isn't specified [here](https://searchfox.org/mozilla-central/rev/11712bd3ce7454923e5931fa92eaf9c01ef35a0a/netwerk/streamconv/converters/nsFTPDirListingConv.cpp#297), so that the parsing [here](https://searchfox.org/mozilla-central/rev/11712bd3ce7454923e5931fa92eaf9c01ef35a0a/netwerk/streamconv/converters/nsDirIndexParser.cpp#267) might have different result, where `PRTime` should always use GMT and be timezone-free.
-I've updated the patch, and I think it makes more sense even on other platforms.",PROBLEM_CAUSE_IDENTIFICATION,0,1
+I've updated the patch, and I think it makes more sense even on other platforms.",PROBLEM_CAUSE_IDENTIFICATION,0,0
 1560574,5,"FWIW, I tested by visiting ftp://ftp.freebsd.org/ and I found switching `privacy.resistFingerprinting` on/off doesn't affect timezone displayed here until restart Firefox. But in this bug I'm trying to make the content in [view-source:ftp://ftp.freebsd.org/](view-source:ftp://ftp.freebsd.org/) stable on all platforms.",SOLUTION_REVIEW,1,0
 1560574,8,"It turns out that `PR_LocalTimeParameters` returns different value in the content process on macOS, and is caused by sandbox.",PROBLEM_CAUSE_IDENTIFICATION,0,0
 1560574,11,https://hg.mozilla.org/mozilla-central/rev/c4beb9353658,UNCODED,0,0
@@ -2053,8 +2053,8 @@ Depends on D100012",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0
 1683093,4,"Created attachment 9193729
 Bug 1683093 - Remove Compare_DoubleMaybeCoerce. r?jandem
 Depends on D100013",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0
-1686219,1,Currently we store all pre-chunk data as a trailer at the end of the chunk.  This means the offset to this data depends on the size of the chunk.  If we store it at the start then it becomes a constant.  There are a bunch of hardcoded offsets like this defined in HeapAPI.h.  It should also be possible have the compiler generate these for us.,PROBLEM_MOTIVATION,0,0
-1689742,1,I'm going to go with CSS grid based <stack> + visibility here since the button for one pane is slightly higher.,PROBLEM_MOTIVATION,0,1
+1686219,1,Currently we store all pre-chunk data as a trailer at the end of the chunk.  This means the offset to this data depends on the size of the chunk.  If we store it at the start then it becomes a constant.  There are a bunch of hardcoded offsets like this defined in HeapAPI.h.  It should also be possible have the compiler generate these for us.,PROBLEM_MOTIVATION,0,1
+1689742,1,I'm going to go with CSS grid based <stack> + visibility here since the button for one pane is slightly higher.,PROBLEM_MOTIVATION,0,0
 1705327,7,"Backed out for causing mochitest plain failures
 Backout link: https://hg.mozilla.org/integration/autoland/rev/120aba36a06e7ae6dbd608e7791b139f25f01878
 [Push with failures](https://treeherder.mozilla.org/jobs?repo=autoland&resultStatus=testfailed%2Cbusted%2Cexception%2Crunnable&revision=089fd9e33fe26d5b4215692f84493b2026a071f2&searchStr=mochitest%2Cplain&selectedTaskRun=GMMNMWOlQAOVLTGhebnXYg.0)

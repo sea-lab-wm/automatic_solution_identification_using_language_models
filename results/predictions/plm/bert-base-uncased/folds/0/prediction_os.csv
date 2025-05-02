@@ -73,9 +73,9 @@ Build Identifier: Mozilla/5.0 (en-US; rv:1.9.2.10) Gecko/20100914 Firefox/3.6.10
 HTML 5's <li> reversed attribute is ignored. It was supposed to reverse the list numbering.
 Reproducible: Always",PROBLEM_DESCRIPTION,0,0
 601912,9,"Created attachment 637531
-Implement <ol reversed>.",UNCODED,0,0
+Implement <ol reversed>.",UNCODED,0,1
 601912,19,"Created attachment 642184
-Implement <ol reversed>.",UNCODED,0,0
+Implement <ol reversed>.",UNCODED,0,1
 601912,20,"Comment on attachment 642184
 Implement <ol reversed>.
 Hoping it's ok if I transfer this review request to you; if not, send it back.",CODE_REVIEW,0,0
@@ -123,7 +123,7 @@ Review of attachment 536539:
 -----------------------------------------------------------------",UNCODED,0,0
 667586,2,"Alex, do you think it makes sense to do this now, or should we wait for the larger identity block changes that will come with the conditional forward button, etc.?",QUESTION,0,0
 667586,6,"We're already clearing the favicon. If you're concerned about the shifting of the input text, how about setting visibility: hidden on #identity-icon-labels, instead of visibility: collapse?
-The main thing is that we don't want the browser to look like it's in a domain-specific mode, because it's not.",POTENTIAL_SOLUTION_DESIGN,1,0
+The main thing is that we don't want the browser to look like it's in a domain-specific mode, because it's not.",POTENTIAL_SOLUTION_DESIGN,1,1
 667586,13,"If it is easy enough to clear the identity block out of the ui, without shifting the text of the URL (just having it turn invible), then I'm fine with us doing this now.  It does bother me that it looks like you are sending information to the identity of the site that you are currently on.  If it isn't easy, we can just try to fix this with a bunch of proposed changes later on.",POTENTIAL_SOLUTION_DESIGN,1,1
 667586,17,"We hide the bookmark star while the location bar value is being edited exactly because this UI is confusing.
 If we end up moving the identity block as part with the changes for bug 674744, then this problem will also be fixed. I won't be working on this anymore until there's a clear direction following those changes.",POTENTIAL_SOLUTION_DESIGN,1,0
@@ -261,7 +261,7 @@ Hope that helps :-)",ANSWER_TO_QUESTION,0,0
 712870,3,https://hg.mozilla.org/mozilla-central/rev/1ea94dacda68,UNCODED,0,0
 714547,3,ccing luke too.,ADDITIONAL_CONSIDERATION,0,0
 714547,5,"This is technically working by design: a SecurityWrapper is not supposed to expose information about cross-domain objects.  Actually, from discussions with mrbkap, I thought it wasn't supposed to be possible for vanilla JS objects to be exposed cross-domain (but rather a select few things like Window, Location, etc), though clearly I'm wrong.  Blake, care to weigh in here?",PROBLEM_REVIEW,0,1
-714547,10,"Seems to me it's an information leak all the same.  Although, rather than say ""no"" when asked for security things, it seems to be the proper thing to do would be to just throw an exception.",ANSWER_TO_QUESTION,0,0
+714547,10,"Seems to me it's an information leak all the same.  Although, rather than say ""no"" when asked for security things, it seems to be the proper thing to do would be to just throw an exception.",ANSWER_TO_QUESTION,0,1
 714547,20,bug 655649 is that bug.,ANSWER_TO_QUESTION,0,0
 714547,23,"Comment on attachment 587100
 as described
@@ -290,10 +290,10 @@ https://hg.mozilla.org/integration/mozilla-inbound/rev/7b5995e5d551",UNCODED,0,0
 731836,6,Willing to take a shot at this if just to have an excuse at building an add-on :-),DEVELOPER_SELECTION_DECISION,0,0
 731836,7,Excellent! I'll try to assist you through step 3 (add preference) and then you'll be off to bug 731983 with Cedric for the add-on work. (And then if you're still alive we'll think about how to have Firefox automatically download it when needed.),DEVELOPER_SELECTION_DECISION,0,0
 731836,23,"Back to the patch. Another issue, that I wasn't aware of when I filed the bug, is that preferences should only be accessed from the main thread. The problem is that GL contexts can be created from outside the main thread; even if it's not actually going to happen here now (WebGL is entirely on the main thread) it's still worth fixing.
-Fortunately there is a simple fix that will also resolve the issue, mentioned in comment 0, that it's not great to be reading that preference twice. See what is done by the main patch in bug 686735: read the preference in gfxPlatform initialization (which happens on main thread), make it available from there by an inline getter so it's super cheap to access. User code will have to #include ""gfxPlatform.h"".",POTENTIAL_SOLUTION_DESIGN,1,0
+Fortunately there is a simple fix that will also resolve the issue, mentioned in comment 0, that it's not great to be reading that preference twice. See what is done by the main patch in bug 686735: read the preference in gfxPlatform initialization (which happens on main thread), make it available from there by an inline getter so it's super cheap to access. User code will have to #include ""gfxPlatform.h"".",POTENTIAL_SOLUTION_DESIGN,1,1
 731836,28,"The global variables present enforces this behavior so as to ensure the correctness of the loaded library. Refactoring, will obviously remove this. 
  
-Does this imply that on a system where native OpenGL will succeed, if the use-mesa-llvmpipe pref is set to true, the preference should be ignored and the Opengl library loaded instead? Also what about the converse scenario? Do we force load the mesa-llvmpipe library even if the pref is still defaulted to false?",QUESTION,0,1
+Does this imply that on a system where native OpenGL will succeed, if the use-mesa-llvmpipe pref is set to true, the preference should be ignored and the Opengl library loaded instead? Also what about the converse scenario? Do we force load the mesa-llvmpipe library even if the pref is still defaulted to false?",QUESTION,0,0
 731836,29,"Good question. I think that we definitely should let the use-mesa-llvmpipe preference force usage of llvmpipe even if native OpenGL would succeed. So that means that when use-mesa-llvmpipe is true, we should always use Mesa llvmpipe for all OpenGL (non-EGL) contexts and switch WebGL to using OpenGL (non-EGL) as well. Since that means that that preference affects more than just WebGL, how about renaming it to gfx.use-mesa-llvmpipe? Or maybe gfx.prefer-mesa-llvmpipe as I think it should silently revert to native OpenGL is mesa-llvmpipe is not found.",POTENTIAL_SOLUTION_DESIGN,1,1
 731836,36,"Created attachment 627293
 patch
@@ -490,7 +490,7 @@ If we keep seperating the ""setEnable""(not tuned to some frequency automaticall
 779500,53,"No, because I do not think that a webpage should be able to pipe audio out of the phone's speaker.  That's another good reason not to put speakerEnabled on the FM radio interface.
 I think the FM radio should immediately shut itself off when you unplug the headset (which functions as the antenna).  Playing static through the phone's external speaker when the headset is disconnected is not useful in any way.
 Then the only use-case for speakerEnabled that Ray and I were able to come up with on IRC is: I want to listen to the FM radio on my phone's speakers, but I have to leave the headphones plugged in because they function as the radio's antenna, and B2G (currently) doesn't have any way for me to direct audio to the external speaker except by unplugging the headphones.
-I don't feel like this is a core FM radio use-case.  Even if it's a blocker, I think we should figure it out in a follow-up bug, so as to reduce the scope of this bug and land it sooner.  We can argue about what interface the relevant APIs should live on in that bug.",SOLUTION_REVIEW,1,0
+I don't feel like this is a core FM radio use-case.  Even if it's a blocker, I think we should figure it out in a follow-up bug, so as to reduce the scope of this bug and land it sooner.  We can argue about what interface the relevant APIs should live on in that bug.",SOLUTION_REVIEW,1,1
 779500,86,"TBH, it's not clear to me that we're winning anything by using JS here.  We
 shouldn't rewrite this whole thing in C++ right now, but I think we should
 start on that project once we land this and shake out the first round of bugs.
@@ -634,7 +634,7 @@ message when updateFrequency changes the frequency (the callback is not invoked
 when we don't change the frequency)!
 Most of these changes are cosmetic; this patch is pretty good!  Although one of
 the downsides of there being so many layers of indirection between the DOM and
-the hardware is that it's hard to tell for sure whether it's correct.  :(",CODE_REVIEW,0,0
+the hardware is that it's hard to tell for sure whether it's correct.  :(",CODE_REVIEW,0,1
 779500,97,"Or NS_MIN(signalStrength, 100u)?",QUESTION,0,0
 779500,109,"Created attachment 660361
 all-in-one patch, v4",UNCODED,0,0
@@ -684,7 +684,7 @@ Review of attachment 687560:
 -----------------------------------------------------------------
 Yes, looks good.",CODE_REVIEW,0,0
 819493,9,"I will fix up the logic bits, then I'll ping Laura if I need any graphic work done.",DEVELOPER_SELECTION_DECISION,0,0
-819493,17,"Removing the Creative bug as a dependency. Let's not have that block this goodness and implement this first basic step as is (no graphic, same copy). Will follow up with graphic/copy changes in a patch.",STATUS_UPDATE,0,1
+819493,17,"Removing the Creative bug as a dependency. Let's not have that block this goodness and implement this first basic step as is (no graphic, same copy). Will follow up with graphic/copy changes in a patch.",STATUS_UPDATE,0,0
 819493,21,"Created attachment 726131
 Update as oer Gavin's review and comments
 Gavin, thanks for the thorough review!
@@ -701,7 +701,7 @@ Gavin: I think I addressed the issues from your review. Could you check that for
 819493,38,"Comment on attachment 732985
 Know Your Rights notification box has moved to be shown as default snippet on first startup
 You seem to have forgotten to remove this, per comment 25 and comment 31.",CODE_REVIEW,0,0
-819493,39,"Gavin: I didn't forget it, because 'hidden' apparently doesn't work in this case; the CSS 'display' attribute may override this. It inherits the 'display:block' style from the other default snippets and I didn't want to touch that too much, so I opted for this solution - to explicitly set 'display' depending on the hidden attribute being set.",ANSWER_TO_QUESTION,0,0
+819493,39,"Gavin: I didn't forget it, because 'hidden' apparently doesn't work in this case; the CSS 'display' attribute may override this. It inherits the 'display:block' style from the other default snippets and I didn't want to touch that too much, so I opted for this solution - to explicitly set 'display' depending on the hidden attribute being set.",ANSWER_TO_QUESTION,0,1
 819493,41,"Created attachment 735481
 Know Your Rights notification box has moved to be shown as default snippet on first startup
 unbitrotted, carrying over r+",CODE_IMPLEMENTATION,1,1
@@ -785,7 +785,7 @@ How's my driving?",CODE_REVIEW,0,0
 900384,2,"Created attachment 8445185
 Support ""Redo"" key value on GTK
 This is now mappable only on GTK build. Qt doesn't have this key name. And also we need more work on Windows (bug 865561).
-https://dvcs.w3.org/hg/dom3events/raw-file/tip/html/DOM3Events-key.html#key-Redo",CODE_IMPLEMENTATION,1,0
+https://dvcs.w3.org/hg/dom3events/raw-file/tip/html/DOM3Events-key.html#key-Redo",CODE_IMPLEMENTATION,1,1
 900384,3,https://hg.mozilla.org/integration/mozilla-inbound/rev/7c0ab70d2e40,UNCODED,0,0
 904571,1,"It first showed up in 25.0a1/20130725. The regression range might be (low volume):
 http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=2983ca6d4d1a&tochange=a4c1961bf723
@@ -836,7 +836,7 @@ We can't because then we don't know which entry was supposed to introduce the st
 2) something calls TabStateCache.delete(tab)
 3) we re-collect all data except form data
 Boom, lost. This flag assumes that the tabData is re-used in _collectBaseTabData() which is only the case if the session history didn't change.",S2R,0,0
-916390,6,Removing __SS_formDataSaved shouldn't really hurt as well because MozStorageChanged seems to be the only event where we call TabStateCache.delete() without at the same time setting formDataSaved=false. There shouldn't be a lot more overhead now when always collecting form data.,SOLUTION_REVIEW,1,0
+916390,6,Removing __SS_formDataSaved shouldn't really hurt as well because MozStorageChanged seems to be the only event where we call TabStateCache.delete() without at the same time setting formDataSaved=false. There shouldn't be a lot more overhead now when always collecting form data.,SOLUTION_REVIEW,1,1
 919434,8,I don't reproduce either this or bug 931450 in the latest Nightly. Discussion on bug 919156 suggests that they could have been fixed in bug 919144?,REPRODUCTION_ATTEMPT,0,0
 919434,11,"Reproduced in Nightly 2013-09-25.
 Verified fixed 28.0a1 (2013-12-05), Win 7 x64",SOLUTION_VERIFICATION,0,0
@@ -845,7 +845,7 @@ Verified fixed 28.0a1 (2013-12-05), Win 7 x64",SOLUTION_VERIFICATION,0,0
 Print_file_when_WebIDL_raises_syntax_error_at_EOF.patch
 Thanks Tareq! According to hg log, Kyle is a better choice of reviewer here.",CODE_REVIEW_REQUEST,0,0
 927544,3,"Thanks, good catch.
-I ended up folding this into the patch for bug 925962, rev 81b505e9a435.  That rev inadvertently fixed the above bug, by using a different mechanism to distinguish calls vs. gets (weirdly, CallGetProperty isn't associated with a resume point when used to fetch the |prototype| property for callee functions).",SOLVED_BY_OTHER_ISSUE,0,1
+I ended up folding this into the patch for bug 925962, rev 81b505e9a435.  That rev inadvertently fixed the above bug, by using a different mechanism to distinguish calls vs. gets (weirdly, CallGetProperty isn't associated with a resume point when used to fetch the |prototype| property for callee functions).",SOLVED_BY_OTHER_ISSUE,0,0
 937475,11,https://hg.mozilla.org/mozilla-central/rev/8187818246ad,UNCODED,0,0
 939475,1,"Error message:
 http://mxr.mozilla.org/mozilla-central/source/js/src/builtin/TestingFunctions.cpp#287
@@ -873,7 +873,7 @@ Gaia: 8fca2ca67e8a6022fe6ed8cb576e5d59dfb5237f
 Platform Version: 28.0a1
 Notes:
 Repro frequency: 100%
-See attached: video clip, logcat",PROBLEM_DESCRIPTION,0,1
+See attached: video clip, logcat",PROBLEM_DESCRIPTION,0,0
 947523,10,"Nope - this is an OOM of the parent process, not a crash.",ANSWER_TO_QUESTION,0,0
 947523,11,"<6>[  434.353606] [ pid ]   uid  tgid total_vm      rss cpu oom_adj oom_score_adj name
 <6>[  434.353648] [   98]     0    98       78       41   0     -16          -941 ueventd
@@ -1113,7 +1113,7 @@ It seems like it's only meant to be used inside the SVG tree.",CLARIFICATION,0,0
 985257,15,new try build: https://tbpl.mozilla.org/?tree=Try&rev=eb4f961a13ef,SOLUTION_VERIFICATION,0,0
 989204,2,"Created attachment 8398502
 Part 1 - Tests
-Some tests I wrote for issues I ran into, also a test for bug 889158.",CODE_IMPLEMENTATION,1,0
+Some tests I wrote for issues I ran into, also a test for bug 889158.",CODE_IMPLEMENTATION,1,1
 991812,16,"1 - So - should refcounts used by LazyIdleThread's be threadsafe?
 2 - Or should we consider it a bug that non-threadsafe refcounts cause an assert?
 I have some test code which demonstrates that non-threadsafe refcounts assert when used from LazyIdleThread. If 2 is what you want, then I'll file a followup bug and attach the test code.
@@ -1128,7 +1128,7 @@ ToObjectInternal for example.",PROBLEM_MOTIVATION,0,0
 1047560,5,"Unfortunately I had to revert this for merge conflicts with the updated update that had already landed on mozilla-central (https://hg.mozilla.org/mozilla-central/rev/192cb23bb176). This can reland after a rebase (was one of several conflicts during this merge; didn't want to have to pick them all back apart again if any of them were resolved incorrectly):
 https://hg.mozilla.org/integration/mozilla-inbound/rev/4bdadff88a9b",IMPLEMENTATION_REVERSION,0,0
 1048721,3,"Created attachment 8579685
-Implement WebGL2Sync.",UNCODED,0,0
+Implement WebGL2Sync.",UNCODED,0,1
 1048721,10,https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext#Sync_objects,UNCODED,0,0
 1055843,12,"Comment on attachment 8476580
 Do not pause when playbackRate = 0. Instead don't play anything
@@ -1209,7 +1209,7 @@ Remove extra newline.",CODE_REVIEW,0,0
 1096093,62,"Looks like I was missing a header file that b2g didn't use.
 Here's a new try that's looking pretty green:
 https://treeherder.mozilla.org/#/jobs?repo=try&revision=f87eaa8bf913
-I'll wait for these last few to come in and re-land.",SOLUTION_VERIFICATION,0,0
+I'll wait for these last few to come in and re-land.",SOLUTION_VERIFICATION,0,1
 1096093,64,"https://reviewboard.mozilla.org/r/7305/#review6299
 I'll open up a follow-up to investigate this, and link it to bug 1096093.",NEW_ISSUE_FILING,0,0
 1097236,7,"Comment on attachment 8520896
@@ -1219,7 +1219,7 @@ Review of attachment 8520896:
 This image is only swapped out in the dark theme, so this makes sense (although it's a bit weird, so please add a comment explaining this).  Reassigning the review to someone who can do it.",CODE_REVIEW_REQUEST,0,0
 1104875,1,"Created attachment 8528485
 unresponsive-script.png
-Stop script button was out of view because the script is is not wrapping or not being truncated.",PROBLEM_DESCRIPTION,0,0
+Stop script button was out of view because the script is is not wrapping or not being truncated.",PROBLEM_DESCRIPTION,0,1
 1104875,11,*** Bug 604626 has been marked as a duplicate of this bug. ***,UNCODED,0,0
 1105771,17,https://hg.mozilla.org/mozilla-central/rev/ed08c1246e77,UNCODED,0,0
 1116867,6,"Same thing happens with techcrunch.com, cnn.com, and a few other random sites I tried loading.",REPRODUCTION_ATTEMPT,0,0
@@ -1343,11 +1343,11 @@ from its OverflowContainers list, to avoid the child
 continuations from becoming in the wrong order.
 The WIP currently moves them to the principal child list
 (mFrames), but ExcessOverflowContainers might be better.
-I'll investigate this some more...",POTENTIAL_SOLUTION_DESIGN,1,0
+I'll investigate this some more...",POTENTIAL_SOLUTION_DESIGN,1,1
 1217192,1,"See bug 1176052.  It's on all trains, may as well clean up the usages we have and replace with the shorter macro.",PROBLEM_MOTIVATION,0,0
 1217192,2,"Created attachment 8677111
 Use gfxCriticalNote where appropriate for brevity.",UNCODED,0,0
-1217192,4,Pre rebase try run seems to be ok - https://treeherder.mozilla.org/#/jobs?repo=try&revision=6e68d6da0c62,SOLUTION_VERIFICATION,0,0
+1217192,4,Pre rebase try run seems to be ok - https://treeherder.mozilla.org/#/jobs?repo=try&revision=6e68d6da0c62,SOLUTION_VERIFICATION,0,1
 1217663,10,I concur,UNCODED,0,0
 1221593,5,https://hg.mozilla.org/mozilla-central/rev/e3c1281a9e07,UNCODED,0,0
 1249818,11,"Well, removing the clip-path is one option to ""fix"" the regression instance. I am not sure whether or not there are (immediate/easy/upliftable) others, which is why I asked - I don't know that there's a way to restrict the drag stuff without e.g. applying the clip path to the tabstrip (and even then... not 100% that would fix it) which I'd expect to cause other issues (e.g. with dnd on the tabstrip).
@@ -1399,7 +1399,7 @@ set to the grab location when the pointer is grabbed during mouse down:
 https://git.gnome.org/browse/gtk+/tree/gtk/gtkrange.c?h=3.20.6#n3437
 This is the same in older versions:
 https://git.gnome.org/browse/gtk+/tree/gtk/gtkrange.c?h=3.4.4#n3349
-I'm a little surprised that Gecko's scrollbar implementation is not similar.",SOLUTION_REVIEW,1,1
+I'm a little surprised that Gecko's scrollbar implementation is not similar.",SOLUTION_REVIEW,1,0
 1262069,7,"Correct, it's not a problem in the new implementation.
 What bz said. I have all tests passing on Linux and OS X now, but Windows does weird things.
 In any case, this seems like it's a small enough fix that landing it shouldn't hurt. Given that we want to keep open the option of disabling SM Promise if it misbehaves in bad ways on Aurora or Beta, I think it'd make sense to fix issues with the DOM implementation.",SOLUTION_REVIEW,1,0
@@ -1454,7 +1454,7 @@ Early return in PresShell::Paint if BeginTransaction fails. r=dvander",PROBLEM_D
 1314193,3,https://hg.mozilla.org/mozilla-central/rev/373c11f245a7,UNCODED,0,0
 1316964,2,"Created attachment 8809943
 Make the append and assign methods on the rust nsstring types more generic
-MozReview-Commit-ID: 5y30BnUDKsT",PROBLEM_DESCRIPTION,0,0
+MozReview-Commit-ID: 5y30BnUDKsT",PROBLEM_DESCRIPTION,0,1
 1319370,8,This is not sec-high. I land the patch.,STATUS_UPDATE,0,0
 1319370,10,So what branches have the fix and does it need uplift?,QUESTION,0,0
 1319370,11,"Comment on attachment 8813613
@@ -1524,7 +1524,7 @@ Bug 1355481 - Avoid initializing Sync on window unload if Sync is not configured
 Review commit: https://reviewboard.mozilla.org/r/130904/diff/#index_header
 See other reviews: https://reviewboard.mozilla.org/r/130904/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0
 1357049,2,The latest specs have become as adding one button in the Private Browsing onBoarding tour which highlights the Private Window button in the hamburger menu,PROBLEM_DESCRIPTION,0,0
-1357049,9,"Just discussed this offline and we think we're not sure if it's an API that keep unchanged, and there's no similar way of using the library like that. So maybe we should try using UI-Tourlib.js as a whole first.",SOLUTION_REVIEW,1,0
+1357049,9,"Just discussed this offline and we think we're not sure if it's an API that keep unchanged, and there's no similar way of using the library like that. So maybe we should try using UI-Tourlib.js as a whole first.",SOLUTION_REVIEW,1,1
 1357049,13,"Comment on attachment 8876111
 Bug 1357049 - add one button in the Private Browsing and Search tour of onBoarding overlay to demonstrate the corresponding features.
 https://reviewboard.mozilla.org/r/147540/#review151940
@@ -1543,7 +1543,7 @@ Review request updated; see interdiff: https://reviewboard.mozilla.org/r/130834/
 1357386,2,"Created attachment 8859505
 bug_1357386_telemetry_data_toplevel.patch
 I am happy to modify the patch if we can think of any other information we could gather, but I think that's pretty much the best we can do, right?",CODE_IMPLEMENTATION,1,1
-1357386,10,"It seems there is some confusion on what this bug is about - let me clarify: For this bug we want to measure breakage if we 'block data: URIs in top level windows' (See Bug 1331351). This measurements have nothing to do with the inheritance change of data: URIs we are doing within Bug	1324406. To this end, I don't think we are interested in (i)frame loads, only in top level loads. Ultimately we would like to distinguish how many developers type 'data:' in the URL bar to test something, we don't want to block those, but we want to figure out how many top level windows get navigated to a data: URI - those we want to measure and ultimately block.",ANSWER_TO_QUESTION,0,0
+1357386,10,"It seems there is some confusion on what this bug is about - let me clarify: For this bug we want to measure breakage if we 'block data: URIs in top level windows' (See Bug 1331351). This measurements have nothing to do with the inheritance change of data: URIs we are doing within Bug	1324406. To this end, I don't think we are interested in (i)frame loads, only in top level loads. Ultimately we would like to distinguish how many developers type 'data:' in the URL bar to test something, we don't want to block those, but we want to figure out how many top level windows get navigated to a data: URI - those we want to measure and ultimately block.",ANSWER_TO_QUESTION,0,1
 1359490,2,"One sadness here is that the predicate typically has to access member variables and/or functions, and for refcounted things, that means we have to take an extra reference to satisfy the static analysis.  Kind of unfortunate, but that's life.",REQUIREMENT,0,0
 1359490,3,"Would there be a way to mark such functions, to indicate that they're using their function object parameters straight away?",QUESTION,0,0
 1359490,7,"Comment on attachment 8862614
@@ -1827,7 +1827,7 @@ Also, since this is blocking the memshrink bug, I'm curious if you've profiled h
 https://hg.mozilla.org/mozilla-central/rev/fe6020e5c9d9
 Backed out 12 changesets (bug 1479309, bug 1479312, bug 1479313, bug 1479310, bug 1479235, bug 1479945, bug 1479241, bug 1479318) for causing a big performance regression on OS X. a=backout",IMPLEMENTATION_REVERSION,0,0
 1479309,10,"https://hg.mozilla.org/integration/mozilla-inbound/rev/a396e7027858121f002ff1544fd28fabe5996685
-Bug 1479309: Don't load shield-content-frame.js until needed. r=mythmon",CODE_IMPLEMENTATION,1,1
+Bug 1479309: Don't load shield-content-frame.js until needed. r=mythmon",CODE_IMPLEMENTATION,1,0
 1482681,1,"Reproducible : always:
 Steps To Reproduce:
 1. Open a page with iframe
@@ -1863,7 +1863,7 @@ very complex.",CODE_IMPLEMENTATION,1,1
 https://hg.mozilla.org/integration/mozilla-inbound/rev/d2218beee052
 Remove SVGFilterObserverList::IsInObserverLists and related code. r=mattwoodrow",UNCODED,0,0
 1494092,9,https://hg.mozilla.org/mozilla-central/rev/d2218beee052,UNCODED,0,0
-1506200,2,Yes I agree with you. We can get rid of it.,PROBLEM_REVIEW,0,0
+1506200,2,Yes I agree with you. We can get rid of it.,PROBLEM_REVIEW,0,1
 1506200,7,https://hg.mozilla.org/mozilla-central/rev/b14418449896,UNCODED,0,0
 1510786,14,For the record - I can build FF on ppc64/ppc64le/s390x with the last fix.,SOLUTION_VERIFICATION,0,0
 1513854,4,"Mike, how should we proceed now that Bug 1538248 landed?
@@ -2144,7 +2144,7 @@ presentation, as that presentation won't be shown either way.",CODE_IMPLEMENTATI
 1718748,7,"Created attachment 9233304
 imgpsh_fullsize_anim.gif
 I managed to reproduce the issue using Nightly from 2021-06-30 on Ubuntu 18.04 x64. 
-I retested everything on Latest Nightly 92.0a1 and Firefox 91.0b7 using the same os. The issue is not reproducing anymore. However there is a bit of a delay on beta that is not reproducing on Nightly.",SOLUTION_VERIFICATION,0,1
+I retested everything on Latest Nightly 92.0a1 and Firefox 91.0b7 using the same os. The issue is not reproducing anymore. However there is a bit of a delay on beta that is not reproducing on Nightly.",SOLUTION_VERIFICATION,0,0
 1748376,4,https://hg.mozilla.org/mozilla-central/rev/b2d26d7b7645,UNCODED,0,0
 1762088,14,*** Bug 1744223 has been marked as a duplicate of this bug. ***,UNCODED,0,0
 1764716,4,Likely from bug 1738413.,FILED_FROM_OTHER_ISSUE,0,0
@@ -2196,13 +2196,13 @@ https://hg.mozilla.org/integration/autoland/pushloghtml?fromchange=db51149fe9596
 https://searchfox.org/mozilla-central/rev/d62c4c4d5547064487006a1506287da394b64724/toolkit/components/pdfjs/content/PdfStreamConverter.jsm#386
 and consequently we don't catch the wheel events anymore:
 https://github.com/mozilla/pdf.js/blob/067d3b70aa46e1b2a3dff768c36ff5ba670407f2/web/app.js#L2631-L2641
-So we need have a way to guess that `ctrl+wheel` is coming from a pinch.",SOLUTION_REVIEW,1,1
+So we need have a way to guess that `ctrl+wheel` is coming from a pinch.",SOLUTION_REVIEW,1,0
 1815706,5,"Pushed by sclements@mozilla.com:
 https://hg.mozilla.org/integration/autoland/rev/b26a56aab365
 Update history sidebar telemetry r=mak,kcochrane",UNCODED,0,0
 1820814,1,"When the transport is closed or encounters an error, this code is run on the STS thread:
 https://searchfox.org/mozilla-central/rev/00ea1649b59d5f427979e2d6ba42be96f62d6e82/dom/media/webrtc/libwebrtcglue/AudioConduit.h#45
-Events that are in-flight for this event source are dropped. This occasionally can cause an RTCP BYE to disappear (due to a DTLS CloseNotify arriving immediately after the BYE), and is causing intermittent failures in the webrtc/RTCPeerConnection-remote-track-mute.https.html wpt. We should probably be dispatching the DisconnectIfExists calls to the call thread, so it does not race against the packet events.",POTENTIAL_SOLUTION_DESIGN,1,1
+Events that are in-flight for this event source are dropped. This occasionally can cause an RTCP BYE to disappear (due to a DTLS CloseNotify arriving immediately after the BYE), and is causing intermittent failures in the webrtc/RTCPeerConnection-remote-track-mute.https.html wpt. We should probably be dispatching the DisconnectIfExists calls to the call thread, so it does not race against the packet events.",POTENTIAL_SOLUTION_DESIGN,1,0
 1820814,5,"Pushed by bcampen@mozilla.com:
 https://hg.mozilla.org/integration/autoland/rev/23a43d83ae41
 Dispatch these DisconnectIfExists calls to the call thread. r=pehrsons",UNCODED,0,0

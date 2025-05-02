@@ -256,7 +256,10 @@ def process_run(run, data, indexes, paths):
     print(f"\n\nAll datas are saved successfully to {os.path.dirname(dev_data_path.replace('<run>', f'{run}'))}.")
 
 def prepare_data(data_path, index_path):
-    runs = [2]
+
+    exp_config = get_experiment_config()
+    runs = exp_config.get("eval_run", [])
+    
     data = clean_dataframe(data_path)
 
     print(data['label'].value_counts())

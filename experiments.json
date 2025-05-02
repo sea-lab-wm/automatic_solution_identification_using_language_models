@@ -1,4 +1,7 @@
 {
+  "eval_run": [
+    0
+  ],
   "folds": {
     "start": 1,
     "end": 2
@@ -158,11 +161,28 @@
         "oversampling": true,
         "config": {"C": 10, "class_weight": null, "kernel": "rbf"}
       },
-
+      "bert-base-uncased":	{
+        "learning_Rate": 2.00E-05,
+        "epoch": 3,
+        "batch_size": 16,
+        "oversample": true
+      },
+      "distilbert-base-uncased":	{
+        "learning_Rate": 3.00E-05,
+        "epoch": 2,
+        "batch_size": 32,
+        "oversample": true
+      },
       "roberta-base":	{
         "learning_Rate": 3.00E-05,
         "epoch": 10,
         "batch_size": 32,
+        "oversample": false
+      },
+      "xlnet-base-cased":	{
+        "learning_Rate": 3.00E-05,
+        "epoch": 3,
+        "batch_size": 16,
         "oversample": false
       }
     }
