@@ -196,17 +196,18 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Predictions saved to: {p}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
-    runs = 1
+    runs = exp_config.get("eval_run", [])
+
     result = ["run", "oversample", "batch_size", "epoch", "learning_Rate", "model_name", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     append_row_to_csv(res_path, result)
 
     if not run_best_model:
-        for run in range(runs):
+        for run in runs:
             for model in exp_config['lm_model']:
                 for oversampling in exp_config['oversampling']:
                     evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
     else:
-        for run in range(runs):
+        for run in runs:
             for model in exp_config['lm_model']:
                 oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
                 model_config = exp_config['best_model_config'][str(run)][model['model_name']]

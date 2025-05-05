@@ -2,3 +2,4 @@ run,oversample,batch_size,epoch,learning_Rate,model_name,accuracy,precision,reca
 0,True,32,2,3e-05,distilbert-base-uncased,89.938398,67.857143,72.151899,69.93865,57,27,381,22
 0,True,16,3,2e-05,bert-base-uncased,88.501027,64.935065,63.291139,64.102564,50,27,381,29
 0,False,32,10,3e-05,roberta-base,89.938398,69.230769,68.35443,68.789809,54,24,384,25
+0,False,16,3,3e-05,xlnet-base-cased,88.911704,66.233766,64.556962,65.384615,51,26,382,28
