@@ -1,0 +1,4 @@
+run,oversample,batch_size,epoch,learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+0,False,32,10,3e-05,roberta-base,74.125874,60.714286,39.534884,47.887324,17,11,89,26
+0,True,16,3,2e-05,bert-base-uncased,76.223776,69.565217,37.209302,48.484848,16,7,93,27
+0,True,32,2,3e-05,distilbert-base-uncased,76.923077,63.888889,53.488372,58.227848,23,13,87,20

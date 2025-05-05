@@ -1,24 +1,8 @@
-import json
-import random
-import tensorflow as tf
-import ktrain
-import numpy as np
-import pandas as pd
 import os
-os.environ['TF_USE_LEGACY_KERAS'] = '1'
-from utils import calculate_results
-
-def get_experiment_config():
-    experiment_file = 'experiments.json'
-    with open(experiment_file, 'r') as file:
-        experiments = json.load(file)
-    return experiments
-
-def load_model(filename):
-    predictor = ktrain.load_predictor(filename)
-    model = ktrain.get_predictor(predictor.model, predictor.preproc)
-    print(f"Model loaded from {filename}")
-    return model
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+import ktrain
+import pandas as pd
+from utils import *
 
 def eval(data, model_path, config):
     exp_config = get_experiment_config()
@@ -83,14 +67,16 @@ if __name__ == "__main__":
             for filename in os.listdir(folder_path):
                 if filename.endswith(".joblib") and filename.split('__')[0] in model_names:
 
-                    model_name = filename.replace(".joblib", "")
                     full_path = os.path.join(folder_path, filename)
 
                     config = {
-                        'model': model_name.split('__')[0],
+                        'model': filename.split('__')[0],
                         'project': project,
                         'run': run
                     }
+
+                    if config['model'] == "xlnet-base-cased":
+                        continue
                     
                     data,accuracy,precision,recall,f1,TP,FP,TN,FN = eval(data, full_path, config)
 
