@@ -94,7 +94,7 @@ def eval(data, model_path, config):
     print(f"False Negatives (FN): {FN}")
     print("=" * 50)
 
-    output = f"results/ml/{config['run']}/eval_data_results.csv"
+    output = f"results/predictions/ml/{config['model']}/folds/{config['run']}/{config['project']}_prediction.csv"
     os.makedirs(os.path.dirname(output), exist_ok=True)
     data.to_csv(output, index=False)
     print(f"Saved to {output}")
@@ -102,51 +102,66 @@ def eval(data, model_path, config):
     return data,accuracy,precision,recall,f1,TP,FP,TN,FN
 
 if __name__ == "__main__":
-    eval_dataset = "dataset/new_data/gnucash_data_with_embeddings.csv"
-    ml_model_base_path = "models/ml/<run>"
-    eval_results = 'results/ml/eval_data_results.csv'
-    runs = 1
 
-    results = pd.DataFrame([], columns=['preprocess','embedding','oversampling','model','run','accuracy','precision','recall','f1','TP','FP','TN','FN'])
-    for run in range(runs):
-        folder_path = ml_model_base_path.replace("<run>", str(run))
-        models_in_run = {}
-        data = pd.read_csv(eval_dataset)
-        for filename in os.listdir(folder_path):
-            if filename.endswith(".joblib"):
-                model_name = filename.replace(".joblib", "")
-                full_path = os.path.join(folder_path, filename)
-                splits = model_name.split('_')
-                config = {
-                    'model': '_'.join(splits[splits.index('model')+1: splits.index('preprocess')]),
-                    'preprocess': splits[splits.index('preprocess')+1],
-                    'embedding': splits[splits.index('embedding')+1],
-                    'oversampling': splits[splits.index('oversampling')+1],
-                    'run': run
-                }
-                data,accuracy,precision,recall,f1,TP,FP,TN,FN = eval(data, full_path, config)
+    projects = ['chromium', 'gnucash']
 
-                results.loc[len(results)] = {
-                    'preprocess':config['preprocess'],
-                    'embedding':config['embedding'],
-                    'oversampling':config['oversampling'],
-                    'model':config['model'],
-                    'run':config['run'],
-                    'accuracy':accuracy,
-                    'precision':precision,
-                    'recall':recall,
-                    'f1':f1,
-                    'TP':TP,
-                    'FP':FP,
-                    'TN':TN,
-                    'FN':FN
-                }
+    for project in projects:
+        eval_dataset = f"dataset/new_data/{project}_data_with_embeddings.csv"
         
-        output = f"results/ml/{run}/eval_data_results.csv"
-        data.drop(['bert_embedding', 'gpt_embedding', 'llama_embedding'], axis=1, inplace=True)
-        data.to_csv(output, index=False)
-        print(f"Saved to {output}")
+        eval_results = f'results/ml/eval_data_results_{project}.csv'
+        
+        exp_config = get_experiment_config()
+        runs = exp_config.get('eval_run', [])
 
-    results.to_csv(eval_results, index=False)
-    print(f"Saved to {eval_results}")
+        results = pd.DataFrame([], columns=['preprocess','embedding','oversampling','model','run','accuracy','precision','recall','f1','TP','FP','TN','FN'])
+
+        for run in runs:
+            folder_path = f"models/ml/{run}"
+
+            data = pd.read_csv(eval_dataset)
+            
+            for filename in os.listdir(folder_path):
+                if filename.endswith(".joblib"):
+                    model_name = filename.replace(".joblib", "")
+                    full_path = os.path.join(folder_path, filename)
+                    splits = model_name.split('_')
+                    config = {
+                        'model': '_'.join(splits[splits.index('model')+1: splits.index('preprocess')]),
+                        'preprocess': splits[splits.index('preprocess')+1],
+                        'embedding': splits[splits.index('embedding')+1],
+                        'oversampling': splits[splits.index('oversampling')+1],
+                        'run': run,
+                        'project': project
+                    }
+                    data,accuracy,precision,recall,f1,TP,FP,TN,FN = eval(data, full_path, config)
+
+                    results.loc[len(results)] = {
+                        'preprocess':config['preprocess'],
+                        'embedding':config['embedding'],
+                        'oversampling':config['oversampling'],
+                        'model':config['model'],
+                        'run':config['run'],
+                        'accuracy':accuracy,
+                        'precision':precision,
+                        'recall':recall,
+                        'f1':f1,
+                        'TP':TP,
+                        'FP':FP,
+                        'TN':TN,
+                        'FN':FN
+                    }
+            
+            # output = f"results/ml/{run}/eval_data_results.csv"
+            # data.drop(['bert_embedding', 'gpt_embedding', 'llama_embedding'], axis=1, inplace=True)
+            # data.to_csv(output, index=False)
+            # print(f"Saved to {output}")
+            
+            output = f"results/predictions/ml/{run}/{project}_predictions.csv"
+            os.makedirs(os.path.dirname(output), exist_ok=True)
+            data.drop(['bert_embedding', 'gpt_embedding', 'llama_embedding'], axis=1, inplace=True)
+            data.to_csv(output, index=False)
+            print(f"Predictions saved to {output}")
+
+        results.to_csv(eval_results, index=False)
+        print(f"Results saved to {eval_results}")
     
