@@ -1,0 +1,143 @@
+nohup: ignoring input
+/scratch/mehedi/miniconda3/envs/myenv/lib/python3.10/site-packages/tf_keras/src/initializers/initializers.py:121: UserWarning: The initializer TruncatedNormal is unseeded and being called multiple times, which will return identical values each time (even if the initializer is unseeded). Please update your code to provide a seed to the initializer, or avoid using the same initializer instance more than once.
+  warnings.warn(
+/scratch/mehedi/miniconda3/envs/myenv/lib/python3.10/site-packages/tf_keras/src/initializers/initializers.py:121: UserWarning: The initializer TruncatedNormal is unseeded and being called multiple times, which will return identical values each time (even if the initializer is unseeded). Please update your code to provide a seed to the initializer, or avoid using the same initializer instance more than once.
+  warnings.warn(
+==================================================
+batch_sizes: 16
+total_epochs: 3
+learning_rate: 3e-05
+Model name: xlnet-base-cased
+Oversampling: False
+Run: 0
+Accuracy: 86.4
+Precision: 62.5
+Recall: 26.315789
+F1 Score: 37.037037
+True Positives (TP): 5
+False Positives (FP): 3
+True Negatives (TN): 103
+False Negatives (FN): 14
+==================================================
+Predictions saved to results/predictions/plm/xlnet-base-cased/folds/0/chromium_prediction_nos.csv
+==================================================
+batch_sizes: 32
+total_epochs: 10
+learning_rate: 3e-05
+Model name: roberta-base
+Oversampling: False
+Run: 0
+Accuracy: 84.8
+Precision: 50.0
+Recall: 10.526316
+F1 Score: 17.391304
+True Positives (TP): 2
+False Positives (FP): 2
+True Negatives (TN): 104
+False Negatives (FN): 17
+==================================================
+Predictions saved to results/predictions/plm/roberta-base/folds/0/chromium_prediction_nos.csv
+==================================================
+batch_sizes: 16
+total_epochs: 3
+learning_rate: 2e-05
+Model name: bert-base-uncased
+Oversampling: True
+Run: 0
+Accuracy: 85.6
+Precision: 66.666667
+Recall: 10.526316
+F1 Score: 18.181818
+True Positives (TP): 2
+False Positives (FP): 1
+True Negatives (TN): 105
+False Negatives (FN): 17
+==================================================
+Predictions saved to results/predictions/plm/bert-base-uncased/folds/0/chromium_prediction_os.csv
+==================================================
+batch_sizes: 32
+total_epochs: 2
+learning_rate: 3e-05
+Model name: distilbert-base-uncased
+Oversampling: True
+Run: 0
+Accuracy: 82.4
+Precision: 20.0
+Recall: 5.263158
+F1 Score: 8.333333
+True Positives (TP): 1
+False Positives (FP): 4
+True Negatives (TN): 102
+False Negatives (FN): 18
+==================================================
+Predictions saved to results/predictions/plm/distilbert-base-uncased/folds/0/chromium_prediction_os.csv
+Results saved to results/plm/chromium_eval_data_results.csv
+==================================================
+batch_sizes: 16
+total_epochs: 3
+learning_rate: 3e-05
+Model name: xlnet-base-cased
+Oversampling: False
+Run: 0
+Accuracy: 74.825175
+Precision: 62.962963
+Recall: 39.534884
+F1 Score: 48.571429
+True Positives (TP): 17
+False Positives (FP): 10
+True Negatives (TN): 90
+False Negatives (FN): 26
+==================================================
+Predictions saved to results/predictions/plm/xlnet-base-cased/folds/0/gnucash_prediction_nos.csv
+==================================================
+batch_sizes: 32
+total_epochs: 10
+learning_rate: 3e-05
+Model name: roberta-base
+Oversampling: False
+Run: 0
+Accuracy: 74.125874
+Precision: 60.714286
+Recall: 39.534884
+F1 Score: 47.887324
+True Positives (TP): 17
+False Positives (FP): 11
+True Negatives (TN): 89
+False Negatives (FN): 26
+==================================================
+Predictions saved to results/predictions/plm/roberta-base/folds/0/gnucash_prediction_nos.csv
+==================================================
+batch_sizes: 16
+total_epochs: 3
+learning_rate: 2e-05
+Model name: bert-base-uncased
+Oversampling: True
+Run: 0
+Accuracy: 76.223776
+Precision: 69.565217
+Recall: 37.209302
+F1 Score: 48.484848
+True Positives (TP): 16
+False Positives (FP): 7
+True Negatives (TN): 93
+False Negatives (FN): 27
+==================================================
+Predictions saved to results/predictions/plm/bert-base-uncased/folds/0/gnucash_prediction_os.csv
+==================================================
+batch_sizes: 32
+total_epochs: 2
+learning_rate: 3e-05
+Model name: distilbert-base-uncased
+Oversampling: True
+Run: 0
+Accuracy: 76.923077
+Precision: 63.888889
+Recall: 53.488372
+F1 Score: 58.227848
+True Positives (TP): 23
+False Positives (FP): 13
+True Negatives (TN): 87
+False Negatives (FN): 20
+==================================================
+Predictions saved to results/predictions/plm/distilbert-base-uncased/folds/0/gnucash_prediction_os.csv
+Results saved to results/plm/gnucash_eval_data_results.csv

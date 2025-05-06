@@ -27,6 +27,7 @@ def get_embedding(X_test, config):
     mode = config['preprocess']
     run = config['run']
 
+    ### TODO : Add Details ###
     dev_df = pd.read_csv(f"dataset/solution_identification_data/folds/{run}/comment_dev_data.csv")
 
     dev_df[f'text_{mode}'] = dev_df['text'].apply(text_preprocess, mode=mode)

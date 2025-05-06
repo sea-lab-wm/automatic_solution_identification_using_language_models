@@ -74,9 +74,6 @@ if __name__ == "__main__":
                         'project': project,
                         'run': run
                     }
-
-                    if config['model'] == "xlnet-base-cased":
-                        continue
                     
                     data,accuracy,precision,recall,f1,TP,FP,TN,FN = eval(data, full_path, config)
 
@@ -101,5 +98,5 @@ if __name__ == "__main__":
                     }
 
         results.to_csv(eval_results, index=False)
-        print(f"ResultsSaved to {eval_results}")
+        print(f"Results saved to {eval_results}")
         
