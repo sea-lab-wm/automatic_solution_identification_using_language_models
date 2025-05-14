@@ -18,8 +18,6 @@ from transformers import TrainingArguments
 from transformers import BitsAndBytesConfig, AutoModelForSequenceClassification
 from transformers import AutoTokenizer
 
-rerun_count = 1
-
 def separator_print(text, chr='-', num=50):
     print(chr * num)
     print(f"\n{text}\n")
@@ -137,7 +135,7 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
         learning_rate=lr,
         per_device_train_batch_size=bs,
         per_device_eval_batch_size=bs,
-        num_train_epochs=3,
+        num_train_epochs=e,
         logging_steps=logging_steps,
         weight_decay=weight_decay,
         eval_strategy='epoch',
@@ -202,7 +200,7 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
     return y_pred
 
 
-def llama_experiments(run, mod, result_path, prediction_path, oversample, hyperparam_tuning=False):
+def llama_experiments(run, mod, result_path, prediction_path, oversample=True, hyperparam_tuning=False):
     exp_config = get_experiment_config()
     
     ### Data Retrieve ###
@@ -255,7 +253,9 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample, hyperp
         E = exp_config['llm_model_conf']['params']['epoch']
         LR = exp_config['llm_model_conf']['params']['learning_rate']
 
-    model_save_path = f"models/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}_{rerun_count}"
+    separator_print(f"Batch Size: {BS}, Epoch: {E}, Learning Rate: {LR}")
+
+    model_save_path = f"models/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
     y_pred = train_evaluate_llm(model_name, dev_df, test_df, BS, LR, E, save_loc=model_save_path)
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, test_df[target_column])
 
@@ -281,9 +281,11 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample, hyperp
     os.makedirs(prediction_path, exist_ok=True)
 
     test_df_copy = test_df.copy()
-    test_df_copy[model_name + f"_{'os' if oversample else 'nos'}_prediction"] = y_pred
 
-    path = os.path.join(prediction_path, f"model_name_{'os' if oversample else 'nos'}_predictions_{rerun_count}.csv")
+    file_name = model_name + f"bs_{BS}__E_{E}__LR_{LR}__oversample_{'os' if oversample else 'nos'}_prediction"
+    test_df_copy[file_name] = y_pred
+
+    path = os.path.join(prediction_path, f"{file_name}.csv")
     test_df_copy.to_csv(path, index=False)
     print(f"\n\nPredictions succesfully saved to {path}\n\n")
 
@@ -362,25 +364,23 @@ if __name__ == "__main__":
 
     target_column = 'label'
 
-    res_path = f"results/llm_fine_tuning/comment_data_results_{rerun_count}.csv"
+    res_path = f"results/llm_fine_tuning/comment_data_results.csv"
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
-    
-    runs = [2]
+
+    runs = exp_config.get("eval_run", [])
+
     append_row_to_csv(res_path, result)
 
     for run in runs:
         for model in exp_config['llm_model']:
             pred_path = comment_data_llama_prediction.replace("<run>", f'{run}')
-            oversampling = True
-            # llama_experiments(run, model, res_path, pred_path, oversample=oversampling, hyperparam_tuning=False)
             try:
-                llama_experiments(run, model, res_path, pred_path, oversample=oversampling, hyperparam_tuning=False)
+                llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
             except Exception as exception:
                 print(f"\n\nAn error occurred: {exception}\n\n")
                 print('*' * 50)
                 print(f"Model Name ::: {model['model_name']}")
-                print(f"Oversampling: {oversampling}")
                 print(f"Run ::: {run}")
                 print('*' * 50)
 
