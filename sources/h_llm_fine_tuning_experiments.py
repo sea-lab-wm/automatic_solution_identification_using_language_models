@@ -4,7 +4,6 @@ from utils import *
 import numpy as np
 import torch
 torch.cuda.empty_cache()
-print(torch.cuda.is_available()) 
 import torch.nn.functional as F
 
 from datasets import DatasetDict, Dataset
@@ -276,7 +275,7 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
     print("=" * 50)
 
     append_row_to_csv(result_path, result_ft)
-    print(f"\n\Results succesfully saved to {result_path}\n\n")
+    print(f"\nResults succesfully saved to {result_path}\n\n")
 
     os.makedirs(prediction_path, exist_ok=True)
 
@@ -285,7 +284,7 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
     file_name = model_name + f"bs_{BS}__E_{E}__LR_{LR}__oversample_{'os' if oversample else 'nos'}_prediction"
     test_df_copy[file_name] = y_pred
 
-    path = os.path.join(prediction_path, f"{file_name}.csv")
+    path = os.path.join(prediction_path, f"model_Llama3__bs_{BS}__E_{E}__LR_{LR}__oversample_{'os' if oversample else 'nos'}_prediction.csv")
     test_df_copy.to_csv(path, index=False)
     print(f"\n\nPredictions succesfully saved to {path}\n\n")
 
