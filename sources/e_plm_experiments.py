@@ -215,5 +215,5 @@ def dl_experiment(exp_config, res_path, run_best_model):
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()
-    # prepare_data(mapped_comment_data, train_test_comment_data)
+    prepare_data(mapped_comment_data, train_test_comment_data)
     dl_experiment(exp_config, comment_data_dl_result, run_best_model=True)
