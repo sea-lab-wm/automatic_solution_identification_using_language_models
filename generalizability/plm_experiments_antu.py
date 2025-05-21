@@ -86,6 +86,24 @@ def prepare_dataset(data):
     return splits
 
 
+def load_model(model_name=None, model_path = None):
+    if not model_path is None:
+        return ktrain.load_predictor(model_path)
+
+    if not model_name is None:
+        set_seed(42)
+
+        preprocessor = text.Transformer(model_name, maxlen=256)
+        model = preprocessor.get_classifier()
+
+        predictor = ktrain.get_predictor(model, preproc=preprocessor)
+
+        return predictor
+
+    return None
+
+
+
 if __name__ == "__main__":
     data = pd.read_csv("generalizability/dataset/GnuCash_data.csv")
     fine_tuned_model_path = f"models/plm/0/roberta-base__BS_32__LR_3e-05__E_10__Oversample_nos.joblib"
@@ -132,8 +150,13 @@ if __name__ == "__main__":
             y_val = test_df['label']
             # print(f"Train Data Size: {len(X_val)}")
             # print(f"Test Data Size: {len(y_val)}")
-            predictor = ktrain.load_predictor(fine_tuned_model_path)
-            y_pred = start(X_dev, y_dev, X_val, y_val, model_to_save_path, predictor_model=predictor)
+            model = load_model(fine_tuned_model_path)
+
+            if model is None:
+                print("Model not loaded")
+                return
+
+            y_pred = start(X_dev, y_dev, X_val, y_val, model_to_save_path, predictor_model=model)
 
             y_vals.append(y_val)
             y_preds.append(y_pred)
