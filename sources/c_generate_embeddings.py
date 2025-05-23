@@ -4,7 +4,7 @@ from openai import OpenAI
 from transformers import BertTokenizer, BertModel
 import torch
 from transformers import AutoTokenizer, AutoModel
-from llama_index.embeddings.ollama import OllamaEmbedding   # pip3 install llama-index-embeddings-ollama
+from llama_index.embeddings.ollama import OllamaEmbedding   # pip install llama-index-embeddings-ollama
 from tqdm import tqdm
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -74,8 +74,14 @@ def count_tokens(text):
 if __name__ == '__main__':
     embedders = ['bert', 'gpt', 'llama']
 
-    dataset_path = '../dataset/solution_identification_data/labeled_comment_data.csv'
-    embedding_path = '../dataset/solution_identification_data/labeled_comment_data_with_embeddings.csv'
+    dataset = 'chromium'    # "chromium" or "gnucash"
+
+    # dataset_path = '../dataset/solution_identification_data/labeled_comment_data.csv'
+    # embedding_path = '../dataset/solution_identification_data/labeled_comment_data_with_embeddings.csv'
+
+    dataset_path = f'../generalizability/dataset/{dataset}.csv'
+    embedding_path = f'../generalizability/dataset/{dataset}_with_embeddings.csv'
+
     dataset_df = pd.read_csv(dataset_path)
 
     for embedder in embedders:
