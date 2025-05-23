@@ -8,9 +8,11 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from imblearn.over_sampling import SMOTE
 
-from b_preprocess_data import text_preprocess
+
 from d_mlm_experiments import getBaseModel
-from utils import calculate_results
+from sources.b_preprocess_data import text_preprocess
+from sources.utils import calculate_results
+
 
 def get_experiment_config():
     experiment_file = 'experiments.json'
@@ -116,7 +118,7 @@ if __name__ == "__main__":
         results = pd.DataFrame([], columns=['preprocess','embedding','oversampling','model','run','accuracy','precision','recall','f1','TP','FP','TN','FN'])
 
         for run in runs:
-            folder_path = f"models/ml/{run}"
+            folder_path = f"models/ml"
 
             data = pd.read_csv(eval_dataset)
             

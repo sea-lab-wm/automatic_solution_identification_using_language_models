@@ -1,7 +1,2 @@
 preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN
-none,gpt,nos,Logistic_Regression,0,85.6,52.631579,52.631579,52.631579,10,9,97,9
 none,gpt,os,SVC,0,88.8,85.714286,31.578947,46.153846,6,1,105,13
-none,tfidf,nos,Decision_Tree,0,77.6,20.0,15.789474,17.647059,3,12,94,16
-none,llama,nos,K_Nearest_Neighbors,0,84.8,0.0,0.0,0.0,0,0,106,19
-none,bert,nos,Naive_Bayes,0,64.8,12.121212,21.052632,15.384615,4,29,77,15
-all,tfidf,nos,Random_Forest,0,86.4,100.0,10.526316,19.047619,2,0,106,17
