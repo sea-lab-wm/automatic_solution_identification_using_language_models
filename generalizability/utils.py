@@ -15,7 +15,7 @@ import pandas as pd
 import tensorflow as tf
 import random
 import torch
-import en_core_web_lg
+import en_core_web_trf
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
@@ -205,7 +205,7 @@ def tokenize_without_punctuation(text):
 
 
 def spacy_parser(text):
-    nlp = en_core_web_lg.load()
+    nlp = en_core_web_trf.load()
     doc = nlp(text)
     sentences = list(doc.sents)
     sentence_strings = [sentence.text for sentence in sentences]
