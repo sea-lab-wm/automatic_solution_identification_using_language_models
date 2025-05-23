@@ -13,6 +13,7 @@ from stopwordsiso import stopwords
 from utils import *
 
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('wordnet')
 from nltk.corpus import stopwords

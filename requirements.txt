@@ -30,7 +30,6 @@ decorator==5.1.1
 dill==0.3.8
 docker-pycreds==0.4.0
 docstring_parser==0.16
-en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.7.1/en_core_web_lg-3.7.1-py3-none-any.whl#sha256=ab70aeb6172cde82508f7739f35ebc9918a3d07debeed637403c8f794ba3d3dc
 evaluate==0.4.2
 exceptiongroup==1.2.2
 executing==2.1.0

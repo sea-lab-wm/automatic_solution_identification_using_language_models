@@ -5,6 +5,7 @@ import json
 import os
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
@@ -15,7 +16,7 @@ import pandas as pd
 import tensorflow as tf
 import random
 import torch
-import en_core_web_lg
+import en_core_web_trf
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
@@ -205,7 +206,7 @@ def tokenize_without_punctuation(text):
 
 
 def spacy_parser(text):
-    nlp = en_core_web_lg.load()
+    nlp = en_core_web_trf.load()
     doc = nlp(text)
     sentences = list(doc.sents)
     sentence_strings = [sentence.text for sentence in sentences]
