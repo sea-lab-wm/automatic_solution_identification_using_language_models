@@ -111,7 +111,7 @@ def load_model(model_name=None, model_path = None):
 if __name__ == "__main__":
     dataset = 'chromium'    # "chromium" or "gnucash"
     model_name = 'roberta-base'     # "roberta-base"
-    model_type = 'base'  # "base" or "fine-tuned"
+    model_type = 'fine-tuned'  # "base" or "fine-tuned"
 
     if model_type == 'base':
         exp_name = f"ft_{dataset}"
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     config = {
         "batch_size": 16,
         "learning_Rate": 3.00E-05,
-        "epoch": 1,
+        "epoch": 10,
         "oversample": False
     }
 
@@ -146,8 +146,8 @@ if __name__ == "__main__":
     folds = prepare_dataset(data)
     # print(folds)
     for i, fold in enumerate(folds):
-        if i>2:
-            break
+        # if i>2:
+        #     break
         print(f"Fold {i+1}/{len(folds)}")
 
         model_to_save_path_new = f"{model_to_save_path}/{i}/{model_name}"
@@ -163,7 +163,8 @@ if __name__ == "__main__":
         y_val = test_df['label']
         # print(f"Train Data Size: {len(X_val)}")
         # print(f"Test Data Size: {len(y_val)}")
-        model = load_model(model_name=model_name)
+        # model = load_model(model_name=model_name)
+        model = load_model(model_path=fine_tuned_model_path)
 
         if model is None:
             print("Model not loaded")
