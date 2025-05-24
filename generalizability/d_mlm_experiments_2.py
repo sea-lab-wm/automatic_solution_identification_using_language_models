@@ -1,7 +1,7 @@
 import ast
+import sys
 
-from sources.b_preprocess_data import text_preprocess
-from sources.utils import *
+from utils import *
 
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import numpy as np
@@ -21,6 +21,9 @@ from sklearn.tree import DecisionTreeClassifier
 import os
 import pandas as pd
 import joblib
+
+sys.path.insert(0, 'sources')
+from b_preprocess_data import text_preprocess
 
 
 def oversampling_data(X_train, y_train):
@@ -165,13 +168,13 @@ def get_tuned_model_prediction(X_test, X_train, clf, config, y_train, model_save
     save_model(best_model, model_save_path)
     return config, y_pred
 
-def ml_model(X_train , y_train, X_test, y_test, model_to_save_path_new,fine_tuned_model_path, run, mode, embedding, oversampling, model_name, config):
+def ml_model(X_train , y_train, X_test, y_test, model_to_save_path_new,fine_tuned_model_path, run, mode, embedding, oversampling, model_name, config, model_type):
 
     set_ml_seed(42)
 
     if model_type == 'base':
         clf = getBaseModel(model_name)
-    else:
+    elif model_type == 'fine-tuned':
         clf = load_model(fine_tuned_model_path)
 
     _, y_pred = get_tuned_model_prediction(X_test, X_train, clf, config, y_train, model_to_save_path_new)
@@ -206,93 +209,97 @@ def prepare_dataset(data):
     #     print(f"  Test ID: {split['test']}")
     return splits
 
-if __name__ == "__main__":
 
-    dataset = 'chromium'    # "chromium" or "gnucash"
+if __name__ == "__main__":
     model_name = "SVC"
-    model_type = 'base'  # "base" or "fine-tuned"
     run = '0'
 
-    if model_type == 'base':
-        exp_name = f"ft_{dataset}"
-    elif model_type == 'fine-tuned':
-        exp_name = f"ft_mozilla_{dataset}"
+    datasets = ['chromium', 'gnucash']
+    # model_types = ['base', 'fine-tuned']
+    model_types = ['fine-tuned']
+
+    for dataset in datasets:
+        for model_type in model_types:
+
+            if model_type == 'base':
+                exp_name = f"ft_{dataset}"
+            elif model_type == 'fine-tuned':
+                exp_name = f"ft_mozilla_{dataset}"
+
+            exp_config = get_experiment_config()
+            oversampling = exp_config['best_model_config'][run][model_name]['oversampling']
+            embedding = exp_config['best_model_config'][run][model_name]['embedding']
+            mode = exp_config['best_model_config'][run][model_name]['preprocess']
+            config = exp_config['best_model_config'][run][model_name]['config']
 
 
-    exp_config = get_experiment_config()
-    oversampling = exp_config['best_model_config'][run][model_name]['oversampling']
-    embedding = exp_config['best_model_config'][run][model_name]['embedding']
-    mode = exp_config['best_model_config'][run][model_name]['preprocess']
-    config = exp_config['best_model_config'][run][model_name]['config']
+            fine_tuned_model_path = f"models/ml/0/svc/model_SVC_preprocess_none__embedding_gpt__oversampling_os.joblib"
+            data_path = f"generalizability/dataset/{dataset}_with_embeddings.csv"
+            model_to_save_path = f"generalizability/models/ml/{model_name}/{dataset}/{exp_name}"
+            prediction_path = f"generalizability/predictions/ml/{model_name}/{dataset}/{exp_name}_predictions.csv"
+            result_path = f"generalizability/results/ml/{model_name}/{dataset}/{exp_name}_results.csv"
 
+            data = pd.read_csv(data_path)
 
-    fine_tuned_model_path = f"./models/plm/0/roberta-base__BS_32__LR_3e-05__E_10__Oversample_nos.joblib"
-    data_path = f"generalizability/dataset/{dataset}_with_embeddings.csv"
-    model_to_save_path = f"generalizability/models/ml/{model_name}/{dataset}/{exp_name}"
-    prediction_path = f"generalizability/predictions/ml/{model_name}/{dataset}/{exp_name}_predictions.csv"
-    result_path = f"generalizability/results/ml/{model_name}/{dataset}/{exp_name}_results.csv"
+            y_vals = []
+            y_preds = []
 
-    data = pd.read_csv(data_path)
+            result_df = pd.DataFrame(columns=["preprocess","embedding","oversampling","model","run","accuracy","precision","recall","f1","TP","FP","TN","FN","param"])
+            prediction_df = pd.DataFrame()
 
-    y_vals = []
-    y_preds = []
+            folds = prepare_dataset(data)
+            for i, fold in enumerate(folds):
+                print(f"Fold {i + 1}/{len(folds)}")
 
-    result_df = pd.DataFrame(columns=["preprocess","embedding","oversampling","model","run","accuracy","precision","recall","f1","TP","FP","TN","FN","param"])
-    prediction_df = pd.DataFrame()
+                model_to_save_path_new = f"{model_to_save_path}/{i}/{model_name}"
 
-    folds = prepare_dataset(data)
-    for i, fold in enumerate(folds):
-        print(f"Fold {i + 1}/{len(folds)}")
+                train_issue_id = fold['train']
+                test_issue_id = fold['test']
 
-        model_to_save_path_new = f"{model_to_save_path}/{i}/{model_name}"
+                train_df = data[data['issue_id'].isin(train_issue_id)]
+                test_df = data[data['issue_id'].isin(test_issue_id)]
 
-        train_issue_id = fold['train']
-        test_issue_id = fold['test']
+                train_df_os = balance_classes(train_df, 'label', output_type='df')
 
-        train_df = data[data['issue_id'].isin(train_issue_id)]
-        test_df = data[data['issue_id'].isin(test_issue_id)]
+                X_train = get_lm_embedding(train_df, embedding) # TODO Match Embedding for few rows
+                y_train = train_df['label']
+                X_test = get_lm_embedding(test_df, embedding)
+                y_test = test_df['label']
 
-        train_df_os = balance_classes(train_df, 'label', output_type='df')
+                y_pred = ml_model(X_train , y_train, X_test, y_test, model_to_save_path_new, fine_tuned_model_path, run, mode, embedding, oversampling, model_name, config, model_type)
 
-        X_train = get_lm_embedding(train_df, embedding) # TODO Match Embedding for few rows
-        y_train = train_df['label']
-        X_test = get_lm_embedding(test_df, embedding)
-        y_test = test_df['label']
+                y_vals.extend(y_test)
+                y_preds.extend(y_pred)
 
-        y_pred = ml_model(X_train , y_train, X_test, y_test, model_to_save_path_new, fine_tuned_model_path, run, mode, embedding, oversampling, model_name, config)
+                test_df = test_df.copy()
+                test_df[model_name] = y_pred
 
-        y_vals.extend(y_test)
-        y_preds.extend(y_pred)
+                prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
 
-        test_df = test_df.copy()
-        test_df[model_name] = y_pred
+            FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_preds, y_vals)
+            result = [mode,embedding,oversampling,model_name,run,accuracy,precision,recall,f1,TP,FP,TN,FN,config]
+            result_df = pd.concat([result_df, pd.DataFrame([result], columns=result_df.columns)], ignore_index=True)
 
-        prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
+            print("=" * 50)
+            print(f"Preprocessing Mode: {mode}")
+            print(f"Embedding: {embedding}")
+            print(f"Oversampling: {oversampling}")
+            print(f"Model name: {model_name}")
+            print(f"Oversampling: {oversampling}")
+            print(f"Accuracy: {accuracy}")
+            print(f"Precision: {precision}")
+            print(f"Recall: {recall}")
+            print(f"F1 Score: {f1}")
+            print(f"True Positives (TP): {TP}")
+            print(f"False Positives (FP): {FP}")
+            print(f"True Negatives (TN): {TN}")
+            print(f"False Negatives (FN): {FN}")
+            print(f"Parameters: {config}")
+            print("=" * 50)
 
-    FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_preds, y_vals)
-    result = [mode,embedding,oversampling,model_name,run,accuracy,precision,recall,f1,TP,FP,TN,FN,config]
-    result_df = pd.concat([result_df, pd.DataFrame([result], columns=result_df.columns)], ignore_index=True)
+            os.makedirs(os.path.dirname(result_path), exist_ok=True)
+            result_df.to_csv(result_path, index=False)
 
-    print("=" * 50)
-    print(f"Preprocessing Mode: {mode}")
-    print(f"Embedding: {embedding}")
-    print(f"Oversampling: {oversampling}")
-    print(f"Model name: {model_name}")
-    print(f"Oversampling: {oversampling}")
-    print(f"Accuracy: {accuracy}")
-    print(f"Precision: {precision}")
-    print(f"Recall: {recall}")
-    print(f"F1 Score: {f1}")
-    print(f"True Positives (TP): {TP}")
-    print(f"False Positives (FP): {FP}")
-    print(f"True Negatives (TN): {TN}")
-    print(f"False Negatives (FN): {FN}")
-    print(f"Parameters: {config}")
-    print("=" * 50)
-
-    os.makedirs(os.path.dirname(result_path), exist_ok=True)
-    result_df.to_csv(result_path, index=False)
-
-    os.makedirs(os.path.dirname(prediction_path), exist_ok=True)
-    prediction_df.to_csv(prediction_path, index=False)
-    print(f"Predictions saved to: {prediction_path}")
+            os.makedirs(os.path.dirname(prediction_path), exist_ok=True)
+            prediction_df.to_csv(prediction_path, index=False)
+            print(f"Predictions saved to: {prediction_path}")
