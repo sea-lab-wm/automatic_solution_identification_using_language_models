@@ -375,13 +375,6 @@ if __name__ == "__main__":
     for run in runs:
         for model in exp_config['llm_model']:
             pred_path = comment_data_llama_prediction.replace("<run>", f'{run}')
-            try:
-                llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
-            except Exception as exception:
-                print(f"\n\nAn error occurred: {exception}\n\n")
-                print('*' * 50)
-                print(f"Model Name ::: {model['model_name']}")
-                print(f"Run ::: {run}")
-                print('*' * 50)
+            llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
 
     print_current_time()
