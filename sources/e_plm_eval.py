@@ -12,7 +12,7 @@ def eval(data, model_path, config):
 
     predictor = ktrain.load_predictor(model_path)
 
-    y_pred = predictor.predict(X_test['text'].tolist())
+    y_pred = predictor.predict(X_test['raw_text'].tolist())
     data[f'prediction__run_{config["run"]}__model_{config["model"]}'] = y_pred
 
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_test)
@@ -47,10 +47,10 @@ def eval(data, model_path, config):
 
 if __name__ == "__main__":
 
-    projects = ['chromium', 'gnucash']
+    projects = ['chromium']
 
     for project in projects:
-        eval_dataset = f"dataset/new_data/{project}.csv"
+        eval_dataset = f"generalizability/dataset/{project}.csv"
         eval_results = f'results/plm/{project}_eval_data_results.csv'
         
         exp_config = get_experiment_config()
@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
         for run in runs:
             
-            folder_path = f"models/plm/{run}"
+            folder_path = f"models/plm/"
             model_names = [m['model_name'] for m in exp_config.get('lm_model', [])]
             
             data = pd.read_csv(eval_dataset)

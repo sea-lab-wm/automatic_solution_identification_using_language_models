@@ -1,0 +1,52 @@
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,96.875,100.0,80.0,88.888889,4,0,27,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,96.875,100.0,80.0,88.888889,4,0,27,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,96.875,100.0,80.0,88.888889,4,0,27,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,96.875,100.0,80.0,88.888889,4,0,27,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,96.875,100.0,80.0,88.888889,4,0,27,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,96.875,100.0,80.0,88.888889,4,0,27,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,1,94.736842,0.0,0.0,0.0,0,0,18,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,2,66.666667,0.0,0.0,0.0,0,0,4,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,3,75.0,0.0,0.0,0.0,0,0,3,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,4,60.0,0.0,0.0,0.0,0,0,3,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,5,81.818182,0.0,0.0,0.0,0,0,9,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,6,84.615385,0.0,0.0,0.0,0,0,11,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,7,80.0,0.0,0.0,0.0,0,0,4,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,8,75.0,0.0,0.0,0.0,0,0,6,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,9,90.909091,0.0,0.0,0.0,0,0,20,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,71.428571,0.0,0.0,0.0,0,0,5,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,1,90.0,100.0,33.333333,50.0,1,0,17,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,2,50.0,100.0,20.0,33.333333,1,0,3,4,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,3,30.0,100.0,12.5,22.222222,2,0,4,14,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,4,93.75,100.0,50.0,66.666667,1,0,14,1,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,5,84.615385,0.0,0.0,0.0,0,0,11,2,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param

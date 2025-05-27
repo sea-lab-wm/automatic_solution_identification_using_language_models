@@ -1,0 +1,110 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_3
+798159,1,Keyboard shortcut bug in 'manage document link',,0,0
+798159,2,"Hello,
+When using keyboard shortcut to navigate to the 'Manage Document Link', focus is lost and you are then required to switch to a mouse to regain focus.
+
+To recreate:
+1. When working on a transaction in the account register, enter ALT+N to bring up the transaction menu and then press 'M' to bring up the 'Manage Document Link' popup.
+2. Try to continue to navigate with the keyboard and you'll see there is no focus and you can't tab or enter. You have to then use the mouse to navigate
+
+Expected behavior:
+After the popup, you should be able to continue to use the keyboard for navigation.
+
+Thank you",,0,0
+798159,3,"remove grab_focus
+
+Glenn: thank you for bug; the keyboard shortcuts were not completely considered when building the UI. Please file more bugs as you find them!
+
+Bob, the attached patch fixes this. I also generally prefer explicitly controlling focus myself. Agree this is a suitable fix?",IMPLEMENTATION,1,0
+798159,4,"Chris give this a spin...
+
+diff --git a/gnucash/gnome/dialog-doclink.c b/gnucash/gnome/dialog-doclink.c
+index f6525af0f..289c575ba 100644
+--- a/gnucash/gnome/dialog-doclink.c
++++ b/gnucash/gnome/dialog-doclink.c
+@@ -165,7 +165,11 @@ uri_type_selected_cb (GtkToggleButton *button, GtkWidget *widget)
+ 
+         gtk_window_resize (GTK_WINDOW(top), 600, 10); // width, height
+     }
+-    gtk_widget_grab_focus (GTK_WIDGET(widget));
++    // for some reason it does not like grabbing focus on fcb so use button instead
++    if (g_strcmp0 (gtk_buildable_get_name (GTK_BUILDABLE(button)), ""linked_file"") == 0)
++        gtk_widget_grab_focus (GTK_WIDGET(button));
++    else
++        gtk_widget_grab_focus (GTK_WIDGET(widget));
+ }
+
+The issue seems to be that you can not set the focus on the GtkFileChooserButton which is what was happening for files and the GtkEntry for locations so instead test for which button is being toggled and if files use the toggle button for focus.
+
+I do not like the way the GtkFileChooser returns not giving focus back to the window and as the GtkFileChooserButton is no longer in Gtk4 I may have a rethink of this later.",SOLUTION_DESIGN,1,0
+798159,5,"Bob: that's entirely up to you. IMV:
+
+Alt-N, M will bring the doclink dialog.
+
+With your change, <Right> will choose Linked Location then focus to GtkEntry. I do like being able to press <Right> and <Left> if I change my mind.
+
+If there's ever another doclink option eg. GnuCash scanned document BLOB, then it won't be easily reachable via keyboard.",SOLUTION_DESIGN,1,0
+798159,6,"I built the current version on my fedora VM and this is what I see with my change.
+
+No existing linked document...
+Alt-N,M 'Linked File' has grab focus.
+Tab to file chooser button or right to 'Linked Location'
+
+Existing Linked Location...
+Alt+N.M straight to Location Entry which has focus.
+Tab will tab round items and if required change to 'Linked File'
+
+Existing Linked File...
+Alt-N,M 'Linked File' has grab focus.
+Tab to file chooser button or right to 'Linked Location'
+
+I think this is a good compromise, I think ideally for existing linked files, the file chooser button should have focus and you would simply SHIFT-Tab to go bact to top and change to 'Linked Location' if required.",SOLUTION_DESIGN,1,0
+798159,7,"Do not understand this, it would just be another option at the top.",,0,0
+798159,8,Turns out this does not happen on my fedora VM. Still might look at creating a GncFileChooserButton widget that would replace this one and be able to grab the focus and possibly be used in other places as the good thing about it it tries to use the OS specific file browser interface but that would probably be for 5.0.,SOLUTION_DESIGN,1,0
+798159,9,"I meant that a third option would usually be selectable by pressing <Right> twice, however if the focus jumps after the first <Right> then it makes the mouse compulsory to select the third option.
+
+Ultimately I don't use doclinks so I'm rather uninvested in this decision.",SOLUTION_DESIGN,1,0
+798159,10,"From the GtkWidget documentation:
+""More precisely, [the widget] must have the GTK_CAN_FOCUS flag set. Use gtk_widget_set_can_focus() to modify that flag.""
+
+If you check our glade file, this flag is not set for the GtkFileChooserButton. Additionally, you are unconditionally calling gtk_widget_grab_focus (in the original code that is), while you probably only want to call it on the widget that's being activated.
+
+Neither of these changes will fix the issue though, but I figured I'd point these out anyway as they could also obscure the real issue.",SOLUTION_DESIGN,1,0
+798159,11,"I agree this is at the heart of the issue. When doing keyboard navigation it's very uncomfortable if focus jumps away from the action you're performing. The two radio buttons should be considered as one group. If that group has focus it should keep the focus even when a different button is selected. Only a (shift-)tab or mouse-click should move to another widget (not part of the radio button group). The simple reason is that a user may have several reasons to try to switch buttons more than once before wanting to continue:
+- learning the interface (what does each radiobutton do)  ?
+- changing your mind (hit arrow key by accident, want to return to previous state)
+
+So to me Chris' original proposal to remove the focus grab is correct. From there we could try to figure out what's needed to get a tab key to properly focus on the GtkFileChooser if you like.",SOLUTION_DESIGN,1,0
+798159,12,"I noticed that and was one of the first things I tried but it did not make any difference.
+You are right about the focus grab, it should be in the active if statement, (not sure why I did not see that), but I also noticed the CB was not being called any way when it was the default of 'file' on initial load. As the default toggle select is file, the CB was not being triggered so need to call if the initial load is a 'file'.",SOLUTION_DESIGN,1,0
+798159,13,"I understand what Chris/You are saying so will remove the grab focus. I suppose its the mouse user in me that would of liked the entry to be focused when the 'Linked Location' was toggled but that's no important any way I will bet some time down the line someone will request it.
+
+As for the GtkFileChooserButton, 'fcb' not accepting keyboard focus, I think it may have to do with the GtkFileChooser dialog is already created but hidden in the background. Using inspector I can see that when I have tabbed to the fcb, the focus widget for the dialog is the fcb and according to the inspector, can-focus is TRUE, has-focus is TRUE, is-focus is TRUE but there is no indication.
+
+I am inclined to leave it at that unless you can see something else I have missed.
+
+I will add my changes as a patch files...
+The first removes the grab_focus from the toggle selection CB and as we are not grabbing focus here the other change I pointed out is no longer required.
+
+The second is my version of a working fcb as a demo, could be added here as is, will need to check it again for errors but my idea was to use it as a basis for a GncFileChooser widget that maybe could be used in other places as it employs the native OS file chooser.",SOLUTION_DESIGN,1,0
+798159,14,"Created attachment 374046 [details]
+Suggested patch",IMPLEMENTATION,1,1
+798159,15,"Created attachment 374047 [details]
+My changes for a working fcb",IMPLEMENTATION,1,0
+798159,16,"I understand your idea as well. Things are a bit complicated here because the GtkEntry is not visible when the dialog is first opened. What would have been perfectly fine would be that the GtkEntry would grab focus on opening the dialog and then requiring a mouse-click or tabbing to go to the radio buttons. Unfortunately in the default scenario the file chooser is visible and not the GtkEntry. And as we have established the file chooser doesn't have keyboard sensitivity.
+
+That's good enough. I just read in Gtk4 this button has been removed anyway. The suggestion is to use a normal button that opens the GtkFileChooser and update the button's name upon return.
+
+And I see the Gtk4 suggestion exactly what you have implemented in your second patch. I'm not sure it's worth making it a custom widget. There's really not that much common code to it so we  can just implement the whole of the button with GtkFileChooser callback in all other places where we currently have a GtkFileChooserButton still.",SOLUTION_DESIGN,1,0
+798159,17,"OK, for now will double check my two patches and then push them so this bug can be closed.
+
+I still might look at creating a GNCFileChooserButton that incorporates these changes, a clear button and the full path label. As it would launch the 'native' version of the FileChooser, it would be the same as the OS version of file browser and as such would be more familiar to the user. This button could be used for all import/export dialogs and maybe other places, any way that was what I was thinking and would require more thought if I decided to do it.",SOLUTION_DESIGN,1,1
+798159,18,"The Open and Save dialogs use a modified GtkFileChooser, having a listbox at the top to select the backend. Having the native file chooser show up everywhere else is sure to generate complaints. It's of course possible to create native dialogs with the extra listbox and wire them in the same way that GtkNativeFileChooser does, but it's a potential maintenance headache.",SOLUTION_DESIGN,1,0
+798159,19,"OK, I have pushed a fix for this based on the two patches here.
+Glenn, the fix will be in the next release 4.6 and the next nightly seen here...
+https://code.gnucash.org/builds/win32/maint/
+
+If you can test and confirm fixed it would be appreciated so bug can be closed.",IMPLEMENTATION,1,0
+798159,20,"Hi,
+
+I have tested and can confirm the fix is working as expected... thank you!!",VERIFICATION,0,0

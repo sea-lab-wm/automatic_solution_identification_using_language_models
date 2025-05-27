@@ -1,0 +1,54 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_5
+797585,1,New-owner - mismatch between 'Total Due' and bracketed total,,0,0
+797585,2,"Created attachment 373535 [details]
+Screenshot illustrating the totals mismatch
+
+In the sample report attached you will find a Total Due of 286,67 which is correct. The bracketed total below that however shows 185,67. That is wrong.
+
+I traced this back to an improper prepayments calculation in the bracketed summary. For my report that should have been 29 instead of 130.
+
+Note the current report (while with fully expanded details) won't help me finding this difference as there is no way to tell how much of each payment applies to each bill in the details. It only shows payment and bill totals everywhere.",ANALYSIS,0,0
+797585,3,"Created attachment 373536 [details]
+Payment windows for vendor Adfisc
+
+If I open the payment Window on vendor Adfisc it will show the proper details as I'm expecting them: there's a 29,00 pre-payment left (which in reality is part of a payment, not the complete one) and two unpaid bills. The total of the bills matches the 91+ bracketed total, so that part is correct.",REPRODUCTION,0,0
+797585,4,"What's the 29,00 (or 150,00) transaction split list comprised of?",,0,0
+797585,5,"I was still trying to figure that out.
+
+It turns out this has to do with a lot link transaction being linked to a normal payment transaction, something that won't happen any more in current gnucash, but can have happened in the past. A workaround is to run Check & Repair on the account. That will eliminate the stray lot link transaction in this context.
+
+
+I'll get back to this later, but for now you can just ignore it.",SOLUTION_DESIGN,1,0
+797585,6,*** Bug 797586 has been marked as a duplicate of this bug. ***,,0,0
+797585,7,"As the new aging uses the same code to calculate totals, that obviously has the same issue, hence the duplicate bug.
+
+I still have to figure out how to reproduce in a new book though.",,0,0
+797585,8,"I think this one is easy
+
+modified   gnucash/report/report-system/report-utilities.scm
+@@ -1174,7 +1174,7 @@ flawed. see report-utilities.scm. please update reports."")
+                 (fold
+                  (lambda (a b)
+                    (if (null? (gncInvoiceGetInvoiceFromLot (xaccSplitGetLot a)))
+-                       (- b (xaccSplitGetAmount a))
++                       (- b (gnc-lot-get-balance (xaccSplitGetLot a)))
+                        b))
+                  0 splitlist)))
+           (gnc:msg ""next "" (gnc:strify (car splits)) "" payment "" payment",IMPLEMENTATION,1,0
+797585,9,"ummm, the report is doing the subtotals wrong.
+
+https://bugs.gnucash.org/attachment.cgi?id=373535
+
+use a calculator and add and subtract the payment and bill amounts, you'll notice the Balance amount is wrong some of the time :(
+
+and, the Bill column doesn't add up, it is 101 out :(
+
+I am also concerned (from an accounting POV) that absolute debits and credits on the linked details side don't always use plus and minus correctly.  also: what are the UNPAID amounts in the linked details?  are they to do with how payments have been allocated?
+
+no-one likes a report that doesn't add up :(",,0,0
+797585,10,Wonder if this bug is still an issue?,,0,0
+797585,11,"Chris, did you commit your comment 6 change? If so, let's close this as fixed.",,0,0
+797585,12,I didn't merge it in. gjanssens's datafile was IIRC an old one with obsolete transaction structure. Not entirely sure if it fixes it.,,0,0
+797585,13,"I checked and can't reproduce this any more with current maint. The odd transaction structure is still in place but the bracketed total is now correct.
+
+So whatever you did, one of the changes fixed it.",VERIFICATION,0,0

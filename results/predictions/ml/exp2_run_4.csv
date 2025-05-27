@@ -1,0 +1,74 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_4
+797997,1,File gnucash could note be found,,0,0
+797997,2,"Created attachment 373900 [details]
+screenshot ""file could not be found""
+
+After upgrade to version 4.2, 2-3 days ago, gnucash won't open a file stored on google drive. worked fine with previous version. See attachment screenshot. Then today. I decided to change path file ""Comptabilité"" (french) to ""Comptabilite"" without the accent on the ""e"". this worked fine! It would like to change back to the french word with the accent on the ""e"" in the word ""Comptabilité"".",,0,0
+797997,3,"I'm not able to reproduce this. Here's what I did:
+
+1. Installed Google Backup and Sync in my Windows VM.
+2. Set it up to sync a folder that I have in Google Drive.
+3. Once synced added a folder named Compatibilité to that folder.
+4. Copied a book file into Google Drive\My Folder\Compatibilité
+5. Installed GnuCash 3.8, started it, loaded the book in ...\Compatibilité, quit GnuCash
+6. Installed GnuCash 4.2 and started it. It loaded the book from ...\Compatibilité without complaint.
+
+So try putting the directory name back to Compatibilité and see if it again fails to open. If it does look at the trace file for that run (see https://wiki.gnucash.org/wiki/Tracefile) to see if there are any errors logged. If not, try running GnuCash from a CMD or Powershell prompt:
+  C:\Program Files (x86)\gnucash\bin\gnucash.exe --debug
+and attach the resulting log here.",SOLUTION_DESIGN,1,0
+797997,4,"Created attachment 373910 [details]
+gnucash.trace file
+
+Still not working after renaming folder ""Comptabilité"" with the accent on the ""e"".",REPRODUCTION,0,0
+797997,5,"Then I deinstalled 4.2 and installed 3.8. Works just fine with 3.8. Reinstalled 4.2. Problem is back!
+
+Thank you John!",REPRODUCTION,0,0
+797997,6,"To help identify the cause, you might try and down load some versions in between 3.8 and 4.2, you will find them here..
+https://code.gnucash.org/builds/win32/maint/
+
+Maybe version 3.11 and 4.1",,0,0
+797997,7,"Hi there. I ""retrograded"" to previous version starting with 4.1 to 4.0. All of them ""failed"" with same error message. Installed version 3.11. Works fine!",REPRODUCTION,0,0
+797997,8,"OK, then the change must of been in the master branch for 3.90x which led to 4.0
+
+I had a look at that branch but nothing obvious stood out, so if you have time can you try some versions from here...
+https://code.gnucash.org/builds/win32/master/
+
+Make sure you have backed up your file as by the nature of the branch things may break.
+
+Also, did you ever try doing a 'File->Open' and select the file that way?",ANALYSIS,0,0
+797997,9,"Hi there
+I stumbled over this bug after upgrading to V4.4 from V3.8
+
+So i did some testing this morning using the following commands
+DOS-Box : ""C:\Program Files (x86)\gnucash\bin\gnucash.exe"" L:\Dev\PowerShell\GnuCash\Test\Comité\TestOHDS.gnucash
+Powershell 7.1.1 script : C:\Program Files (x86)\gnucash\bin\gnucash.exe L:\Dev\PowerShell\GnuCash\Test\Comité\TestOHDS.gnucash
+
+Results are the same in both cases :
+
+gnucash-3.902-2020-05-29-git-3.902-217-g5091d7a67+.setup	OK
+gnucash-3.902-2020-05-31-git-3.902-289-g2a42078e9+.setup	doesn't run (complains about a missing DLL : libboost_program_options-mt.dll)
+After copying the DLL from the previous version (902-217) GNUCash runs but doesn't find the file anymore.
+
+So it looks like the bug introduced in that version.
+
+Hope this helps
+
+Michel
+Windows 10 Home 20H2 Build 19042.746 x64",ANALYSIS,0,0
+797997,10,"Thank you for this, I will try and have a look at commits in the area.",,0,0
+797997,11,"Mike,
+
+Could you confirm whether the menu option 'File->Open' works and then whether on the next start of Gnucash which would use the file history it opens also. Just trying to identify possible code paths.",ANALYSIS,0,0
+797997,12,"Hi Bob
+
+Yes both work",ANALYSIS,0,0
+797997,13,I have pushed a fix for this and will be in the next release 4.5 or next nightly. Please test and confirm the bug is fixed so it can be closed.,IMPLEMENTATION,1,1
+797997,14,"Hi
+The last nightly i could find is dates 2020-03-07.
+I don't know if your fix is included, but if it is, it does not work, still got the same error message.",VERIFICATION,0,0
+797997,15,Unfortunately that build was just before my commit and as you say there has not been a new one since. From the logs it looks like there was a build last night but web site can not see it. If you can have a look later in week or 4.5 should be released at end of month.,,0,0
+797997,16,"I just tested with the nightly from yesterday.
+
+It works !
+
+Thanks for your quick fix, you can close the bug.",VERIFICATION,0,0

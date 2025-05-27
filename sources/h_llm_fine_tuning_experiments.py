@@ -135,6 +135,7 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
         per_device_train_batch_size=bs,
         per_device_eval_batch_size=bs,
         num_train_epochs=e,
+        max_steps=3, # TODO Remove this line for actual training
         logging_steps=logging_steps,
         weight_decay=weight_decay,
         eval_strategy='epoch',
