@@ -1,4 +1,4 @@
-issue_id,issue_type,issue_class,issue_category,text_id,raw_text,text,code,label,prediction__run_0__model_roberta-base
+issue_id,issue_type,issue_class,issue_category,text_id,raw_text,text,code,label,roberta-base
 40132463,,,,1,"When font-size and transition CSS properties are both applied on a textarea, its font size flickers","When font-size and transition CSS properties are both applied on a textarea, its font size flickers",,0,0
 40132463,,,,2,"Chrome Version : 83.0.4103.61
 OS Version: 10.0
@@ -728,7 +728,7 @@ Thanks for your time! To disable nags, add the Disable-Nags label.
 
 For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
 40688144,,,,17,"Please complete the merges to M-83 branch asap, I will be cutting the stable-RC build by 4pm PST.","Please complete the merges to M-83 branch asap, I will be cutting the stable-RC build by 4pm PST.",,0,0
-40688144,,,,18,Removing the merge-approved label per https://crbug.com/chromium/1076266#c7,Removing the merge-approved label per https://crbug.com/chromium/1076266#c7,,0,1
+40688144,,,,18,Removing the merge-approved label per https://crbug.com/chromium/1076266#c7,Removing the merge-approved label per https://crbug.com/chromium/1076266#c7,,0,0
 40688144,,,,19,This issue was migrated from crbug.com/chromium/1076266?no_tracker_redirect=1,This issue was migrated from crbug.com/chromium/1076266?no_tracker_redirect=1,,0,0
 40285727,,,,1,"
 Generated extension API schemas implicitly depend on other APIs","
@@ -841,7 +841,7 @@ Auto-Submit: James Price <jrprice@google.com>
 Reviewed-by: Ben Clayton <bclayton@google.com>
 Kokoro: Kokoro <noreply+kokoro@google.com>","wgsl: Do not require a semicolon after a struct
 
-Don't generate them either, which generated a lot of test churn.",IMPLEMENTATION,1,1
+Don't generate them either, which generated a lot of test churn.",IMPLEMENTATION,1,0
 42250400,,,,4,"This issue was migrated from crbug.com/tint/1380?no_tracker_redirect=1
 
 [Auto-CCs applied]
@@ -850,7 +850,7 @@ Don't generate them either, which generated a lot of test churn.",IMPLEMENTATION
 [Auto-CCs applied]
 [Monorail components added to Component Tags custom field.]",,0,0
 41496204,,,,1,Numeric columns in internals UI should be more easily scannable,Numeric columns in internals UI should be more easily scannable,,0,0
-41496204,,,,2,"In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).","In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).",,1,0
+41496204,,,,2,"In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).","In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).",,1,1
 41496204,,,,3,"[Empty comment from Monorail migration]
 
 [Monorail components: Internals>AttributionReporting]","[Empty comment from Monorail migration]
@@ -1311,7 +1311,7 @@ This should help us query the UMA dashboard for existing logging of:
 - PermissionsEngagement.Accepted.WindowPlacement (etc.)
 
 FOLLOWUP: update ContentSettingsType for ContentSettings.Exceptions?
-(Window Placement may not need that, we can optionally follow up)",IMPLEMENTATION,1,0
+(Window Placement may not need that, we can optionally follow up)",IMPLEMENTATION,1,1
 40771754,,,,6,I'll try to verify this on Wed or Thu; hopefully a few of our own testing or dev trial uses will be logged and the surfaced by our dashboard.,I'll try to verify this on Wed or Thu; hopefully a few of our own testing or dev trial uses will be logged and the surfaced by our dashboard.,,0,0
 40771754,,,,7,Verified I can access the data now on the UMA dashboard,Verified I can access the data now on the UMA dashboard,VERIFICATION,0,0
 40771754,,,,8,"This issue was migrated from crbug.com/chromium/1218676?no_tracker_redirect=1

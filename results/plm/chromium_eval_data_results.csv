@@ -1,2 +1,2 @@
 run,oversample,batch_size,epoch,learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
-0,False,32,10,3e-05,roberta-base,84.8,60.0,15.0,24.0,3,2,103,17
+0,False,32,10,3e-05,roberta-base,94.4,88.235294,75.0,81.081081,15,2,103,5

@@ -12,7 +12,7 @@ def eval(data, model_path, config):
 
     predictor = ktrain.load_predictor(model_path)
 
-    y_pred = predictor.predict(X_test['raw_text'].tolist())
+    y_pred = predictor.predict(X_test['text'].tolist())
     data[f'prediction__run_{config["run"]}__model_{config["model"]}'] = y_pred
 
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_test)
