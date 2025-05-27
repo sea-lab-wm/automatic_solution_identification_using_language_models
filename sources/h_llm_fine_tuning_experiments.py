@@ -135,6 +135,7 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
         per_device_train_batch_size=bs,
         per_device_eval_batch_size=bs,
         num_train_epochs=e,
+        max_steps=3, # TODO Remove this line for actual training
         logging_steps=logging_steps,
         weight_decay=weight_decay,
         eval_strategy='epoch',
@@ -374,13 +375,6 @@ if __name__ == "__main__":
     for run in runs:
         for model in exp_config['llm_model']:
             pred_path = comment_data_llama_prediction.replace("<run>", f'{run}')
-            try:
-                llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
-            except Exception as exception:
-                print(f"\n\nAn error occurred: {exception}\n\n")
-                print('*' * 50)
-                print(f"Model Name ::: {model['model_name']}")
-                print(f"Run ::: {run}")
-                print('*' * 50)
+            llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
 
     print_current_time()

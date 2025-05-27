@@ -1,0 +1,88 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_9
+40775141,1,Page scrolls when exiting tab switcher,,0,0
+40775141,2,"Chrome Version: Top of tree (93.0.4558.0)
+OS: iOS
+
+What steps will reproduce the problem?
+(1) Open a web site
+(2) Open tab switcher
+(3) Press Done
+
+What is the expected result?
+Page does not scroll down",,0,0
+40775141,3,"Chris, PTAL. The tab scrolls down a little more every time it is entered from the tab grid.
+
+I think this is likely related to fullscreen handling and not lower down in web, but please re-assign to gambard@ if this looks like an issue inside web.
+
+[Monorail components: Mobile>iOSWeb UI>Browser>FullScreen]",ANALYSIS,0,0
+40775141,4,"Hm looking into this, if it was a fullscreen issue, then part of the page would be blocked or we would see white space. Instead, this seems to be an issue where the page is scrolled down, making me believe that this had to do with something other than fullscreen. Any scrollview manipulation in fullscreen is the contentInset, which impacts where the top of the content starts in the view, not the content offset. Gauthier, is there somewhere in /web where we manage the scrollview's content offset?",ANALYSIS,0,0
+40775141,5,"Logging the fullscreen insets set every time it is updated, I don't see it changing before and after entering the tab switcher. Makes me really think it can't be fullscreen.",ANALYSIS,0,0
+40775141,6,Applying M92 RBS per https://crbug.com/chromium/1225293. Please remove if needed.,,0,0
+40775141,7,"This issue is also present in both Fullscreen Smooth Scrolling being on or off. In fact, when it is off, every time you repeat the tab switcher -> Done, it continuously shifts the page.",ANALYSIS,0,0
+40775141,8,"Given that this is easy to reproduce (e.g., on www.wikipedia.org), perhaps we should bisect Canary builds between 91.0.4472.0 and 92.0.4515.0.",,0,0
+40775141,9,https://ci.chromium.org/ui/p/chrome/builders/ci/canary-simulator/2558/overview is the canary build where the bug first appears,ANALYSIS,0,0
+40775141,10,"https://chromium-review.googlesource.com/c/chromium/src/+/2872925 is the culprit CL, but still trying to figure out why.",ANALYSIS,0,0
+40775141,11,Any further progress here as this is M92 RBS and we're cutting M92 Stable RC next week?,,0,0
+40775141,12,"[ios] Update toolbar state before starting broadcasting
+
+crrev.com/2872925 removed the [self updateToolbarState] before
+broadcasting begins, which means a height of 0 is passed initially
+into the fullscreen logic.",IMPLEMENTATION,1,0
+40775141,13,"Thanks, I think this should go into M92. Waiting for verification in next canary.",,0,0
+40775141,14,"This bug requires manual review: Less than 14 days to go before AppStore submit on M92
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/main/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on ToT?
+4. Does this change need to be merged into other active release branches (M-1, M+1)?
+5. Why are these changes required in this milestone after branch?
+6. Is this a new feature?
+7. If it is a new feature, is it behind a flag using finch?
+
+Chrome OS Only:
+8. Was the change reviewed and approved by the Eng Prod Representative? See Eng Prod ownership by component: http://go/cros-engprodcomponents
+
+Please contact the milestone owner if you have questions.
+Owners: govind@(Android), benmason@(iOS), dgagnon@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40775141,15,"Please update bug with canary result on Monday morning and reply to #15. Thank you.
+
+benmason@ for M92 merge review on Monday. Thank you.",,0,0
+40775141,16,"Verified and found fixed. Webpage does not scroll up on exiting tab switcher. Looks good.
+
+Tested on:
+App Version: M93.0.4567.0 Canary
+Device/iOS Version: iPad 6th Gen 4/14.7 Beta 4, iPad 7th Gen/13.7, iPhone 11/13.7, iPhone 12 Pro/14.7 Beta 3
+
+Link to Video:
+https://drive.google.com/file/d/1tLes6bFbNzWiYFJYAzL0XGuwK3EluWfL/view?usp=sharing ",VERIFICATION,0,0
+40775141,17,"Merge approved to M92, branch 4515. CL has been cherry picked and is going through CQ.",VERIFICATION,0,0
+40775141,18,"[ios] Update toolbar state before starting broadcasting
+
+crrev.com/2872925 removed the [self updateToolbarState] before
+broadcasting begins, which means a height of 0 is passed initially
+into the fullscreen logic.
+
+(cherry picked from commit 06a9e9bdc5aac365cfe8fc5b8a7eb7a1e566a44b)",IMPLEMENTATION,1,0
+40775141,19,"Verified and found fixed. Webpage does not scroll down on exiting tab switcher. Looks good.
+
+Tested on:
+App Version: M92.0.4515.89 Beta
+Device/iOS Version: iPad Air 4th Gen /14.6, iPad 7th Gen/13.7, iPhone 8/13.7, iPhone XR/14.6
+
+Link to Video:
+https://drive.google.com/file/d/1n-7Ux1bFP2EIKV9Bd7Gfs7CtEpdtdAXc/view?usp=sharing",VERIFICATION,0,0
+40775141,20,"As per https://crbug.com/chromium/1224385#c18 and https://crbug.com/chromium/1224385#c22, changing the status to fixed and verified.  Thanks!",,0,0
+40775141,21,"This issue was migrated from crbug.com/chromium/1224385?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Multiple monorail components: Mobile>iOSWeb, Mobile>iOSWeb>Scroll, UI>Browser>FullScreen]
+[Monorail mergedwith: crbug.com/chromium/1223796, crbug.com/chromium/1225293]
+[Monorail components added to Component Tags custom field.]",,0,0
+40775141,22,"You have been auto-cc'ed due to this issue's component.
+To update this component's auto-cc rules, visit
+go/peepsi-blintz-auto-cc-rules",,0,0

@@ -1,33 +1,9 @@
-import ast
-import datetime
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
-import numpy
-import numpy as np
-import pandas as pd
 import ktrain
-import pandas as pd
-import joblib
-from b_preprocess_data import text_preprocess
 
-from imblearn.over_sampling import SMOTE
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.model_selection import StratifiedKFold
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
 from collections import Counter
 from ktrain import text
-from sklearn.model_selection import train_test_split
-import multiprocessing as mp
-import os
-import pandas as pd
-import joblib
-from multiprocessing import Pool
 
 from utils import *
 
@@ -203,9 +179,9 @@ def dl_experiment(exp_config, res_path, run_best_model):
 
     if not run_best_model:
         for run in runs:
-            for model in exp_config['lm_model']:
-                for oversampling in exp_config['oversampling']:
-                    evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
+            model = exp_config['lm_model'][0]  # Assuming only one model is used for evaluation
+            oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
+            evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
     else:
         for run in runs:
             for model in exp_config['lm_model']:
