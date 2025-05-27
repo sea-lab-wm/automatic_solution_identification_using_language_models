@@ -77,7 +77,7 @@ def prepare_data_for_ml():
     exp_config = get_experiment_config()
     runs = exp_config.get('eval_run', [])
 
-    for run in range(runs):
+    for run in runs:
         dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
         test_df = pd.read_csv(test_data_path.replace('<run>', f'{run}'))
         train_df = pd.read_csv(train_data_path.replace('<run>', f'{run}'))
@@ -246,7 +246,7 @@ def ml_run(exp_config, run_best_config=False):
     append_row_to_csv(result_path, result_header)
     print(f"{result_header} is saved to {result_path}")
 
-    for run in range(runs):
+    for run in runs:
         path = f"dataset/solution_identification_data/folds/{run}/comment_test_data.csv"
         test_df = pd.read_csv(path)
         test_predictions = test_df[['issue_id', 'text_id', 'text', 'code', 'label']]

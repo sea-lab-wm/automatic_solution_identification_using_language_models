@@ -1,6 +1,7 @@
 import ast
 import sys
 
+from sources.b_preprocess_data import text_preprocess
 from utils import *
 
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
@@ -21,9 +22,8 @@ from sklearn.tree import DecisionTreeClassifier
 import os
 import pandas as pd
 import joblib
-
-sys.path.insert(0, 'sources')
-from b_preprocess_data import text_preprocess
+#
+# sys.path.insert(0, 'sources')
 
 
 def oversampling_data(X_train, y_train):
@@ -215,8 +215,8 @@ if __name__ == "__main__":
     run = '0'
 
     datasets = ['chromium', 'gnucash']
-    # model_types = ['base', 'fine-tuned']
-    model_types = ['fine-tuned']
+    model_types = ['base', 'fine-tuned']
+    # model_types = ['fine-tuned']
 
     for dataset in datasets:
         for model_type in model_types:
@@ -233,7 +233,7 @@ if __name__ == "__main__":
             config = exp_config['best_model_config'][run][model_name]['config']
 
 
-            fine_tuned_model_path = f"models/ml/0/svc/model_SVC_preprocess_none__embedding_gpt__oversampling_os.joblib"
+            fine_tuned_model_path = f"models/ml/model_SVC_preprocess_none__embedding_gpt__oversampling_os.joblib"
             data_path = f"generalizability/dataset/{dataset}_with_embeddings.csv"
             model_to_save_path = f"generalizability/models/ml/{model_name}/{dataset}/{exp_name}"
             prediction_path = f"generalizability/predictions/ml/{model_name}/{dataset}/{exp_name}_predictions.csv"

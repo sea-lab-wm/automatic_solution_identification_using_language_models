@@ -286,7 +286,7 @@ def prepare_data(data_path, index_path):
 solution_codes = ["POTENTIAL_SOLUTION_DESIGN", "SOLUTION_REVIEW", "CODE_IMPLEMENTATION"]
 data_setting = ["all", "filtered"]
 
-experiment_file = 'experiments.json'
+experiment_file = 'experiments_best.json'
 
 issue_data_path = "dataset_construction/comment_data/issue_title_and_comments.json"
 issue_statistics = "dataset_construction/comment_data/issue_statistics.csv"

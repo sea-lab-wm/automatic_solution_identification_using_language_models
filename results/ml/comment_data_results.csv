@@ -5,3 +5,6 @@ none,llama,False,K_Nearest_Neighbors,0,88.090349,75.609756,39.240506,51.666667,3
 none,tfidf,False,Decision_Tree,0,85.420945,55.555556,50.632911,52.980132,40,32,376,39,"{'class_weight': 'balanced', 'criterion': 'entropy', 'max_depth': None, 'min_samples_split': 2}"
 none,gpt,True,SVC,0,90.965092,76.923077,63.291139,69.444444,50,15,393,29,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
 all,tfidf,False,Random_Forest,0,85.215606,54.320988,55.696203,55.0,44,37,371,35,"{'class_weight': 'balanced', 'criterion': 'gini', 'min_samples_leaf': 2, 'n_estimators': 1000}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,90.965092,76.923077,63.291139,69.444444,50,15,393,29,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"

@@ -1,2 +1,0 @@
-preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
-none,gpt,True,SVC,0,75.524476,100.0,18.604651,31.372549,8,0,100,35,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
