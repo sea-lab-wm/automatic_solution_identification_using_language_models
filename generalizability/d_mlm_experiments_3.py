@@ -340,12 +340,19 @@ if __name__ == "__main__":
     model_types = ['base', 'fine-tuned']
 
     mozilla_data_path = 'dataset/embedding_data/actual_comment_data_with_embeddings.csv'
-    mozilla_data_split_path = 'dataset/solution_identification_data/train_test_split.json'
+    # mozilla_data_split_path = 'dataset/solution_identification_data/train_test_split.json'
+    #
+    # mozilla_train_df, mozilla_test_df = get_train_test_df(run, mozilla_data_path, mozilla_data_split_path)
+    #
+    # X_train_mozilla = get_lm_embedding(mozilla_train_df, embedding)
+    # Y_train_mozilla = mozilla_train_df['label']
 
-    mozilla_train_df, mozilla_test_df = get_train_test_df(run, mozilla_data_path, mozilla_data_split_path)
+    mozilla_data_df = pd.read_csv(mozilla_data_path)
 
-    X_train_mozilla = get_lm_embedding(mozilla_train_df, embedding)
-    Y_train_mozilla = mozilla_train_df['label']
+    X_train_mozilla = get_lm_embedding(mozilla_data_df, embedding)
+    Y_train_mozilla = mozilla_data_df['label']
+
+    print(f"# of training samples: {len(X_train_mozilla)}")
 
     for dataset in datasets:
         for model_type in model_types:
