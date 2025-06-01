@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     for project in projects:
         eval_dataset = f"generalizability/dataset/{project}.csv"
-        eval_results = f'results/plm/{project}_eval_data_results.csv'
+        eval_results = f'results/plm/{project}_eval_data_results_new.csv'
         
         exp_config = get_experiment_config()
         runs = exp_config.get('eval_run', [])
@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
         for run in runs:
             
-            folder_path = f"models/plm/"
+            folder_path = f"models/plm/{run}"
             model_names = [m['model_name'] for m in exp_config.get('lm_model', [])]
             
             data = pd.read_csv(eval_dataset)

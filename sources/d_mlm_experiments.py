@@ -8,7 +8,7 @@ import pandas as pd
 import ktrain
 import pandas as pd
 import joblib
-from b_preprocess_data import text_preprocess
+from sources.b_preprocess_data import text_preprocess
 # import wandb
 
 from imblearn.over_sampling import SMOTE
@@ -30,7 +30,7 @@ import pandas as pd
 import joblib
 from multiprocessing import Pool
 
-from utils import *
+from sources.utils import *
 
 def oversampling_data(X_train, y_train):
     smote = SMOTE(random_state=42)

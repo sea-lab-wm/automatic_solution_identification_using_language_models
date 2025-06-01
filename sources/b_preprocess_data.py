@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
 from stopwordsiso import stopwords
 
-from utils import *
+from sources.utils import *
 
 nltk.download('punkt')
 nltk.download('punkt_tab')

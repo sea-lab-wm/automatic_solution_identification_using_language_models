@@ -594,7 +594,7 @@ https://chromium-review.googlesource.com/c/chromium/src/+/2167163
 
 This CL is a high-priority request to merge to Beta so we can continue the experiment.
 
-Opening this bug to explicitly request merge to M83.",IMPLEMENTATION,1,0
+Opening this bug to explicitly request merge to M83.",IMPLEMENTATION,1,1
 40688144,,,,3,"Marking as Fixed to denote issue was resolved on trunk (M84).
 
 Requesting merge to M83.","Marking as Fixed to denote issue was resolved on trunk (M84).
@@ -850,7 +850,7 @@ Don't generate them either, which generated a lot of test churn.",IMPLEMENTATION
 [Auto-CCs applied]
 [Monorail components added to Component Tags custom field.]",,0,0
 41496204,,,,1,Numeric columns in internals UI should be more easily scannable,Numeric columns in internals UI should be more easily scannable,,0,0
-41496204,,,,2,"In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).","In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).",,1,1
+41496204,,,,2,"In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).","In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).",,1,0
 41496204,,,,3,"[Empty comment from Monorail migration]
 
 [Monorail components: Internals>AttributionReporting]","[Empty comment from Monorail migration]

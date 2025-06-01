@@ -111,7 +111,7 @@ def load_model(model_name=None, model_path = None):
 if __name__ == "__main__":
     dataset = 'chromium'    # "chromium" or "gnucash"
     model_name = 'roberta-base'     # "roberta-base"
-    model_type = 'fine-tuned'  # "base" or "fine-tuned"
+    model_type = 'base'  # "base" or "fine-tuned"
 
     if model_type == 'base':
         exp_name = f"ft_{dataset}"
@@ -163,8 +163,8 @@ if __name__ == "__main__":
         y_val = test_df['label']
         # print(f"Train Data Size: {len(X_val)}")
         # print(f"Test Data Size: {len(y_val)}")
-        # model = load_model(model_name=model_name)
-        model = load_model(model_path=fine_tuned_model_path)
+        model = load_model(model_name=model_name)
+        # model = load_model(model_path=fine_tuned_model_path)
 
         if model is None:
             print("Model not loaded")

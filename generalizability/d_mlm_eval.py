@@ -9,7 +9,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from imblearn.over_sampling import SMOTE
 
 
-from d_mlm_experiments import getBaseModel
+from sources.d_mlm_experiments import getBaseModel
 from sources.b_preprocess_data import text_preprocess
 from sources.utils import calculate_results
 
@@ -105,12 +105,13 @@ def eval(data, model_path, config):
 
 if __name__ == "__main__":
 
-    projects = ['chromium', 'gnucash']
+    # projects = ['chromium', 'gnucash']
+    projects = ['chromium']
 
     for project in projects:
-        eval_dataset = f"dataset/new_data/{project}_data_with_embeddings.csv"
+        eval_dataset = f"generalizability/dataset/{project}_with_embeddings.csv"
         
-        eval_results = f'results/ml/eval_data_results_{project}.csv'
+        eval_results = f'generalizability/results/ml/SVC/{project}/ft_mozilla_results.csv'
         
         exp_config = get_experiment_config()
         runs = exp_config.get('eval_run', [])
@@ -158,7 +159,7 @@ if __name__ == "__main__":
             # data.to_csv(output, index=False)
             # print(f"Saved to {output}")
             
-            output = f"results/predictions/ml/{run}/{project}_predictions.csv"
+            output = f"generalizability/predictions/ml/SVC/{project}/ft_mozilla_predictions.csv"
             os.makedirs(os.path.dirname(output), exist_ok=True)
             data.drop(['bert_embedding', 'gpt_embedding', 'llama_embedding'], axis=1, inplace=True)
             data.to_csv(output, index=False)
