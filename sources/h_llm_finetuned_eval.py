@@ -31,7 +31,7 @@ tokenizer = AutoTokenizer.from_pretrained(save_loc)
 # Load the base model
 base_model = AutoModelForSequenceClassification.from_pretrained(
     model_name,
-    device_map='auto',
+    device_map='sequential',
     torch_dtype=torch.bfloat16,
     load_in_4bit=True
 )

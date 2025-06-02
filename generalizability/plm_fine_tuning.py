@@ -5,7 +5,7 @@ import ktrain
 from collections import Counter
 from ktrain import text
 
-from utils import *
+# from utils import *
 
 def train_model(model_name, classes, X_train, y_train, BS, LR, E, model_save):
     set_seed(42)
