@@ -1,11 +1,61 @@
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import ktrain
-
+import pandas as pd
 from collections import Counter
 from ktrain import text
+import tensorflow as tf
+import random
+import numpy as np
 
 # from utils import *
+
+
+def set_seed(seed):
+    os.environ['TF_CUDNN_DETERMINISTIC'] = '1'
+    os.environ['TF_DETERMINISTIC_OPS'] = '1'
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
+    print(f"Random seed set as {seed}")
+
+
+def balance_classes(train_df, label_col, output_type='xy'):
+    class_counts = train_df[label_col].value_counts()
+    print("Class counts in the training set:")
+    print(class_counts)
+
+    # Identify the minority and majority classes
+    minority_class = class_counts.idxmin()
+    majority_class = class_counts.idxmax()
+
+    # Get the minority class data
+    minority_class_data = train_df[train_df[label_col] == minority_class]
+    majority_class_data = train_df[train_df[label_col] == majority_class]
+
+    # Calculate the number of duplicates needed to balance the classes
+    num_duplicates = class_counts[majority_class] // class_counts[minority_class]
+    remainder = class_counts[majority_class] % class_counts[minority_class]
+
+    # Duplicate the minority class data
+    duplicated_minority_class_data = pd.concat(
+        [minority_class_data] * num_duplicates + [minority_class_data.head(remainder)])
+
+    # Append the duplicated data to the original training set
+    balanced_train_df = pd.concat([majority_class_data, duplicated_minority_class_data])
+
+    # Shuffle the balanced training set
+    balanced_train_df = balanced_train_df.reset_index(drop=True)
+
+    print("Balanced class counts:")
+    print(balanced_train_df[label_col].value_counts())
+
+    if output_type == 'df':
+        return pd.concat([balanced_train_df.drop(label_col, axis=1), balanced_train_df[label_col]], axis=1)
+    else:
+        return balanced_train_df.drop(label_col, axis=1), balanced_train_df[label_col]
+
 
 def train_model(model_name, classes, X_train, y_train, BS, LR, E, model_save):
     set_seed(42)
@@ -38,7 +88,7 @@ if __name__ == "__main__":
     # Hyper-parameters of the best fold of PLM experiments
     oversampling = True
     BS = 16
-    E = 1   #TODO: Update epoch to 10
+    E = 10   #TODO: Update epoch to 10
     LR = 3e-5
 
     print(f"Training: {model_name}")
