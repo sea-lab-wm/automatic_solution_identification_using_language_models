@@ -146,83 +146,18 @@ def getBaseModel(clf_name):
         raise ValueError(f"Unknown classifier name: {clf_name}")
 
 
-def get_tuned_model_prediction(X_train, y_train, X_test, model_name, config, model_to_save_path):
+def train_model_and_get_predictions(X_train, y_train, X_test, model_name, config, model_to_save_path):
     clf = getBaseModel(model_name)
-    best_model = clf.set_params(**config)
+    model = clf.set_params(**config)
 
     # Training
-    best_model.fit(X_train, y_train)
+    model.fit(X_train, y_train)
 
     # Testing
-    y_pred = best_model.predict(X_test)
+    y_pred = model.predict(X_test)
 
-    save_model(best_model, model_to_save_path)
+    save_model(model, model_to_save_path)
     return y_pred
-
-#
-# def ml_model(data_dict, result_path, model_base_path, run, mode, embedding, oversampling, model, config):
-#     X_dev_embedding = data_dict['X_dev_embedding']
-#     X_test_embedding = data_dict['X_test_embedding']
-#     y_dev = data_dict['y_dev']
-#     y_test = data_dict['y_test']
-#
-#     set_ml_seed(42)
-#
-#     clf = getBaseModel(model["model_name"])
-#
-#     model_save_path = f'model_{model["model_name"]}_preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'
-#     model_path = os.path.join(model_base_path, model_save_path)
-#
-#     param, y_pred = get_tuned_model_prediction(X_test_embedding, X_dev_embedding, clf, model, config, y_dev, model_path)
-#
-#     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_test)
-#
-#     result = [mode, embedding, oversampling, model['model_name'], run, accuracy, precision, recall, f1,
-#               TP, FP, TN, FN, param]
-#
-#     print("=" * 50)
-#     print(f"Preprocessing Mode: {mode}")
-#     print(f"Embedding: {embedding}")
-#     print(f"Oversampling: {oversampling}")
-#     print(f"Model name: {model['model_name']}")
-#     print(f"Run: {run}")
-#     print(f"Accuracy: {accuracy}")
-#     print(f"Precision: {precision}")
-#     print(f"Recall: {recall}")
-#     print(f"F1 Score: {f1}")
-#     print(f"True Positives (TP): {TP}")
-#     print(f"False Positives (FP): {FP}")
-#     print(f"True Negatives (TN): {TN}")
-#     print(f"False Negatives (FN): {FN}")
-#     print(f"Parameters: {param}")
-#     print("=" * 50)
-#
-#     append_row_to_csv(result_path, result)
-#     print(f"Results are saved to {result_path}")
-#
-#     return y_pred
-#
-#
-# def process_config(mode, embedding, oversampling, model, config, path, run, result_path, model_base_path,
-#                    test_predictions):
-#     if embedding in ["bert", "llama", "gpt"] and mode in ["essential", "all"]:
-#         return None
-#
-#     try:
-#         print(
-#             f"Preprocess: {mode}, Embedding: {embedding}, Oversampling: {oversampling}, Model: {model['model_name']}, Run: {run}")
-#         data_dict = joblib.load(os.path.join(os.path.dirname(path),
-#                                              f'data__preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'))
-#         y_pred = ml_model(data_dict, result_path, model_base_path, run, mode, embedding, oversampling, model, config)
-#         column_name = '_'.join(
-#             [mode, embedding, "os" if oversampling else "nos", model['model_name'],
-#              str(run)])
-#         test_predictions[column_name] = y_pred
-#         print("Prediction Loaded to Test Prediction File")
-#
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-#     return test_predictions
 
 
 def save_model(model, filename):
@@ -235,59 +170,6 @@ def load_model(filename):
     model = joblib.load(filename)
     print(f"Model loaded from {filename}")
     return model
-
-
-# def ml_run(run_best_config=False):
-#     exp_config = get_experiment_config()
-#     runs = exp_config.get("eval_run", [])
-#
-#     result_path = "results/ml/comment_data_results.csv"
-#     model_base_path = "models/ml"
-#     print(f"Result Path: {result_path}")
-#
-#     result_header = ["preprocess", "embedding", "oversampling", "model", "run", "accuracy", "precision", "recall", "f1",
-#                      "TP", "FP", "TN", "FN", "param"]
-#     append_row_to_csv(result_path, result_header)
-#     print(f"{result_header} is saved to {result_path}")
-#
-#     for run in runs:
-#         path = f"dataset/solution_identification_data/folds/{run}/comment_test_data.csv"
-#         test_df = pd.read_csv(path)
-#         test_predictions = test_df[['issue_id', 'text_id', 'text', 'code', 'label']]
-#
-#         if run_best_config:
-#             tasks = []
-#             for model in exp_config['models']:
-#
-#                 if model['model_name'] != "SVC":  # TODO Remove condition if necessary
-#                     continue
-#
-#                 model_details = exp_config['best_model_config'][str(run)][model['model_name']]
-#                 preprocess = model_details['preprocess']
-#                 embedding = model_details['embedding']
-#                 oversampling = model_details['oversampling']
-#                 config = model_details['config']
-#                 tasks.append((preprocess, embedding, oversampling, model, config, path, run, result_path,
-#                               model_base_path, test_predictions.copy()))
-#         else:
-#             tasks = [
-#                 (mode, embedding, oversampling, model, None, path, run, result_path, model_base_path,
-#                  test_predictions.copy())
-#                 for model in exp_config['models']
-#                 for oversampling in exp_config['oversampling']
-#                 for embedding in exp_config['embedding']
-#                 for mode in exp_config['preprocess']
-#                 if not (embedding in ["bert", "llama", "gpt"] and mode in ["essential", "all"])
-#             ]
-#
-#         for task in tasks:
-#             result = process_config(*task)
-#             if result is not None:
-#                 test_predictions = test_predictions.merge(result, how='left')
-#
-#                 os.makedirs(ml_prediction_comment_dir, exist_ok=True)
-#                 test_predictions.to_csv(os.path.join(ml_prediction_comment_dir, f"run_{run}.csv"), index=False)
-#                 print(f"Test Prediction Saved to {path}")
 
 
 def prepare_dataset(data):
@@ -325,10 +207,9 @@ def get_train_test_df(run, data_path, index_path):
 
 
 if __name__ == "__main__":
+    # Best ML model
     model_name = "SVC"
-    # run = 0
-    #
-    # exp_config = get_experiment_config()
+    # Best configuration for SVC of Mozilla experiments
     oversampling = False
     embedding = "gpt"
     mode = "none"
@@ -336,8 +217,8 @@ if __name__ == "__main__":
 
     # datasets = ['chromium', 'gnucash']
     # model_types = ['base', 'fine-tuned']
-    datasets = ['gnucash']
-    model_types = ['base', 'fine-tuned']
+    projects = ['gnucash']
+    exp_types = ['mozilla', 'project', 'mozilla-project']
 
     mozilla_data_path = 'dataset/embedding_data/actual_comment_data_with_embeddings.csv'
     # mozilla_data_split_path = 'dataset/solution_identification_data/train_test_split.json'
@@ -354,20 +235,22 @@ if __name__ == "__main__":
 
     print(f"# of training samples: {len(X_train_mozilla)}")
 
-    for dataset in datasets:
-        for model_type in model_types:
+    for project in projects:
+        for exp_type in exp_types:
 
-            if model_type == 'base':
-                exp_name = f"ft_{dataset}"
-            elif model_type == 'fine-tuned':
-                exp_name = f"ft_mozilla_{dataset}"
+            if exp_type == 'mozilla':
+                exp_name = "ft_mozilla"
+            elif exp_type == 'project':
+                exp_name = f"ft_{project}"
+            elif exp_type == 'mozilla-project':
+                exp_name = f"ft_mozilla_{project}"
 
-            data_path = f"generalizability/dataset/{dataset}_with_embeddings.csv"
-            model_to_save_path = f"generalizability/models/ml/{model_name}/{dataset}/{exp_name}"
-            prediction_path = f"generalizability/predictions/ml/{model_name}/{dataset}/{exp_name}_predictions.csv"
-            result_path = f"generalizability/results/ml/{model_name}/{dataset}/{exp_name}_results.csv"
+            project_data_path = f"generalizability/dataset/{project}_with_embeddings.csv"
+            model_to_save_path = f"generalizability/models/ml/{model_name}/{exp_name}"
+            prediction_path = f"generalizability/predictions/ml/{model_name}/{project}/{exp_name}_predictions.csv"
+            result_path = f"generalizability/results/ml/{model_name}/{project}/{exp_name}_results.csv"
 
-            data = pd.read_csv(data_path)
+            project_data = pd.read_csv(project_data_path)
 
             y_vals = []
             y_preds = []
@@ -377,40 +260,47 @@ if __name__ == "__main__":
                          "recall", "f1", "TP", "FP", "TN", "FN", "param"])
             prediction_df = pd.DataFrame()
 
-            folds = prepare_dataset(data)
-            for i, fold in enumerate(folds):
-                print(f"Fold {i + 1}/{len(folds)}")
+            X_test_project = get_lm_embedding(project_data, embedding)
+            y_test_project = project_data['label']
 
-                model_to_save_path_new = f"{model_to_save_path}/{i}/{model_name}"
+            if exp_type == 'mozilla':
+                y_preds = train_model_and_get_predictions(X_train_mozilla, Y_train_mozilla, X_test_project, model_name, config, model_to_save_path)
 
-                train_issue_id = fold['train']
-                test_issue_id = fold['test']
+            elif exp_type == 'project' or exp_type == 'mozilla-project':
+                folds = prepare_dataset(project_data)
+                for i, fold in enumerate(folds):
+                    print(f"Fold {i + 1}/{len(folds)}")
 
-                train_df = data[data['issue_id'].isin(train_issue_id)]
-                test_df = data[data['issue_id'].isin(test_issue_id)]
+                    model_to_save_path_new = f"{model_to_save_path}/{i}"
 
-                # train_df_os = balance_classes(train_df, 'label', output_type='df')
+                    train_issue_id = fold['train']
+                    test_issue_id = fold['test']
 
-                X_train = get_lm_embedding(train_df, embedding)  # TODO Match Embedding for few rows
-                Y_train = train_df['label']
+                    train_df = project_data[project_data['issue_id'].isin(train_issue_id)]
+                    test_df = project_data[project_data['issue_id'].isin(test_issue_id)]
 
-                if model_type == 'fine-tuned':
-                    X_train = np.concatenate((X_train_mozilla, X_train))
-                    Y_train = pd.concat([Y_train_mozilla, Y_train])
+                    # train_df_os = balance_classes(train_df, 'label', output_type='df')
 
-                X_test = get_lm_embedding(test_df, embedding)
-                y_test = test_df['label']
+                    X_train = get_lm_embedding(train_df, embedding)  # TODO Match Embedding for few rows
+                    Y_train = train_df['label']
 
-                # Training and evaluation
-                y_pred = get_tuned_model_prediction(X_train, Y_train, X_test, model_name, config, model_to_save_path_new)
+                    if exp_type == 'mozilla-project':
+                        X_train = np.concatenate((X_train_mozilla, X_train))
+                        Y_train = pd.concat([Y_train_mozilla, Y_train])
 
-                y_vals.extend(y_test)
-                y_preds.extend(y_pred)
+                    X_test = get_lm_embedding(test_df, embedding)
+                    y_test = test_df['label']
 
-                test_df = test_df.copy()
-                test_df[model_name] = y_pred
+                    # Training and evaluation
+                    y_pred = train_model_and_get_predictions(X_train, Y_train, X_test, model_name, config, model_to_save_path_new)
 
-                prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
+                    y_vals.extend(y_test)
+                    y_preds.extend(y_pred)
+
+                    test_df = test_df.copy()
+                    test_df[model_name] = y_pred
+
+                    prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
 
             FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_preds, y_vals)
             result = [mode, embedding, oversampling, model_name, accuracy, precision, recall, f1, TP, FP, TN,

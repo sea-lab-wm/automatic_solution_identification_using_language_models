@@ -26,8 +26,22 @@ def train_model(model_name, classes, X_train, y_train, BS, LR, E, model_save):
         print(f"Model saved at: {model_save}")
 
 
-def evaluate_model_plm(mozilla_data, model_name, BS, E, LR, oversampling, model_to_save_path):
-    print(f"\n\n\nEvaluating Model: {model_name}\n\n\n")
+if __name__ == "__main__":
+    # This is the best PLM
+    model_name = "roberta-base"
+
+    model_to_save_path = f"models/plm/full_data/{model_name}"
+    mozilla_data_path = 'dataset/solution_identification_data/labeled_comment_data.csv'
+    mozilla_data = pd.read_csv(mozilla_data_path)
+
+
+    # Hyper-parameters of the best fold of PLM experiments
+    oversampling = True
+    BS = 16
+    E = 1   #TODO: Update epoch to 10
+    LR = 3e-5
+
+    print(f"Training: {model_name}")
 
     if oversampling:
         mozilla_data = balance_classes(mozilla_data, 'label', output_type='df')
@@ -37,10 +51,9 @@ def evaluate_model_plm(mozilla_data, model_name, BS, E, LR, oversampling, model_
     X_train = mozilla_data['text'].tolist()
     y_train = mozilla_data['label'].tolist()
 
-
     print(f"Oversampling: {oversampling}")
     print(f"Train Data Size: {Counter(y_train)}")
-    
+
     if len(X_train) != len(y_train):
         print("\n\n\nTraining X and Y different size\n\n\n")
 
@@ -50,23 +63,4 @@ def evaluate_model_plm(mozilla_data, model_name, BS, E, LR, oversampling, model_
     print(f"Learning Rate:{LR}")
     print("-" * 50)
 
-    model_path = os.path.join(model_to_save_path, model_name)
-
-    train_model(model_name, classes, X_train, y_train, BS, LR, E, model_path)
-
-
-if __name__ == "__main__":
-
-    model_to_save_path = f"generalizability/models/plm"
-    mapped_comment_data = 'dataset/solution_identification_data/labeled_comment_data.csv'
-
-    mozilla_data = pd.read_csv(mapped_comment_data)
-
-    model_name = "roberta-base"
-
-    oversampling = True
-    BS = 16
-    E = 1
-    LR = 3e-5
-
-    evaluate_model_plm(mozilla_data, model_name, BS, E, LR, oversampling, model_to_save_path)
+    train_model(model_name, classes, X_train, y_train, BS, LR, E, model_to_save_path)
