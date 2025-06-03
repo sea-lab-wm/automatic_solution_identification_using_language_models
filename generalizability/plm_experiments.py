@@ -1,7 +1,6 @@
 import os
 from utils import append_row_to_csv, calculate_results, set_seed
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import ktrain
 from ktrain import text
 import os
