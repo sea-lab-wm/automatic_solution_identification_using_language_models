@@ -5,10 +5,16 @@ import ktrain
 from ktrain import text
 import os
 import pandas as pd
+import tensorflow as tf
+
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
 
 
-def get_predictions(X_test, model_path):
-    predictor = ktrain.load_predictor(model_path)
+def get_predictions(X_test, predictor):
+    # predictor = ktrain.load_predictor(model_path)
     y_pred = predictor.predict(X_test)
     return y_pred
 
@@ -23,10 +29,7 @@ def fine_tune_model(X_train, y_train, predictor, BS, LR, E, model_to_save_path):
         train_data=train,
         batch_size=BS
     )
-
-    if exp_type == 'project' or exp_type == 'mozilla-project':
-        learner.fit_onecycle(LR, E)
-
+    learner.fit_onecycle(LR, E)
     predictor = ktrain.get_predictor(learner.model, preproc=tokenizer_model)
 
     predictor.save(model_to_save_path)
@@ -101,11 +104,14 @@ if __name__ == "__main__":
             result_df = pd.DataFrame(columns=['Oversample', 'Batch_Size', 'Epochs', 'LR', 'Model', 'Accuracy', 'Precision', 'Recall', 'F1 Score', 'TP', 'FP', 'TN', 'FN'])
             prediction_df = pd.DataFrame()
 
+            # Load the fine-tuned model on Mozilla dataset
+            predictor = ktrain.load_predictor(fine_tuned_model_path)
+
             # Run experiment 1
             if exp_type == 'mozilla':
                 print(f"\n\n{exp_name} on {project} dataset:")
                 print("===============================================")
-                y_pred = get_predictions(X_test_project, fine_tuned_model_path)
+                y_pred = get_predictions(X_test_project, predictor)
                 y_preds.extend(y_pred)
                 y_vals.extend(y_test_project)
 
@@ -130,14 +136,18 @@ if __name__ == "__main__":
                     X_test = test_df['text'].tolist()
                     y_test = test_df['label'].tolist()
 
+                    # Load the base model
                     if exp_type == 'project':
                         predictor = load_base_model(model_name)
-                    elif exp_type == 'mozilla-project':
-                        predictor = ktrain.load_predictor(fine_tuned_model_path)
 
                     fine_tune_model(X_train, y_train, predictor, BS, LR, E, model_to_save_path_new)
 
-                    y_pred = get_predictions(X_test, model_to_save_path_new)
+                    # Clear memory after training
+                    ktrain.keras.backend.clear_session()
+
+                    # Load the new fine-tuned model
+                    predictor = ktrain.load_predictor(model_to_save_path_new)
+                    y_pred = get_predictions(X_test, predictor)
 
                     y_vals.extend(y_test)
                     y_preds.extend(y_pred)
