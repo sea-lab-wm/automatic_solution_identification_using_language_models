@@ -36,6 +36,8 @@ def fine_tune_model(X_train, y_train, predictor, BS, LR, E, model_to_save_path):
 
     predictor.save(model_to_save_path)
     print(f"Model saved at: {model_to_save_path}")
+    del learner
+    del predictor
 
 
 def prepare_dataset(data):
@@ -144,10 +146,6 @@ if __name__ == "__main__":
 
                     fine_tune_model(X_train, y_train, predictor, BS, LR, E, model_to_save_path_new)
 
-                    # Clear memory after training
-                    K.clear_session()
-                    gc.collect()
-
                     # Load the new fine-tuned model
                     predictor = ktrain.load_predictor(model_to_save_path_new)
                     y_pred = get_predictions(X_test, predictor)
@@ -159,6 +157,11 @@ if __name__ == "__main__":
                     test_df[model_name] = y_pred
 
                     prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
+
+                    # Clear memory after training
+                    del predictor
+                    K.clear_session()
+                    gc.collect()
 
             FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_preds, y_vals)
             result = [oversample, BS, E, LR, model_name, accuracy, precision, recall, f1, TP, FP, TN, FN]
