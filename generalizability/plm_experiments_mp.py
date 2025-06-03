@@ -4,20 +4,30 @@ import pandas as pd
 import tensorflow as tf
 import multiprocessing as mp
 from utils import append_row_to_csv, calculate_results, set_seed
-import tensorflow as tf
-import gc
-from tensorflow.keras import backend as K
-import ktrain
-from ktrain import text
-from utils import set_seed
 
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
-gpus = tf.config.list_physical_devices('GPU')
-if gpus:
-    for gpu in gpus:
-        tf.config.experimental.set_memory_growth(gpu, True)
+
+# Memory growth setup for GPU
+physical_devices = tf.config.list_physical_devices('GPU')
+if physical_devices:
+    for device in physical_devices:
+        tf.config.experimental.set_memory_growth(device, True)
 
 def run_fold(i, fold, exp_type, model_name, project, project_data_path, BS, LR, E, fine_tuned_model_path, model_to_save_path):
+    import os
+    os.environ["TF_USE_LEGACY_KERAS"] = "1"  # <- required in subprocess too
+    import tensorflow as tf
+    import gc
+    from tensorflow.keras import backend as K
+    import ktrain
+    from ktrain import text
+    from utils import set_seed
+
+    physical_devices = tf.config.list_physical_devices('GPU')
+    if physical_devices:
+        for device in physical_devices:
+            tf.config.experimental.set_memory_growth(device, True)
+
     set_seed(42)
     project_data = pd.read_csv(project_data_path)
 
