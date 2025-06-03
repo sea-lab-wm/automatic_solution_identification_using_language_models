@@ -6,6 +6,8 @@ from ktrain import text
 import os
 import pandas as pd
 import tensorflow as tf
+import gc
+from tensorflow.keras import backend as K
 
 gpus = tf.config.list_physical_devices('GPU')
 if gpus:
@@ -143,7 +145,8 @@ if __name__ == "__main__":
                     fine_tune_model(X_train, y_train, predictor, BS, LR, E, model_to_save_path_new)
 
                     # Clear memory after training
-                    ktrain.keras.backend.clear_session()
+                    K.clear_session()
+                    gc.collect()
 
                     # Load the new fine-tuned model
                     predictor = ktrain.load_predictor(model_to_save_path_new)
