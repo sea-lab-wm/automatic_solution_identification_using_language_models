@@ -117,9 +117,6 @@ if __name__ == "__main__":
                 for i, fold in enumerate(folds):
                     print(f"Fold {i + 1}/{len(folds)}")
 
-                    if i > 1:
-                        break
-
                     model_to_save_path_new = f"{model_to_save_path}/{i}"
 
                     train_issue_id = fold['train']
