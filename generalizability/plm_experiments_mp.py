@@ -4,6 +4,7 @@ import pandas as pd
 import tensorflow as tf
 import multiprocessing as mp
 from utils import append_row_to_csv, calculate_results, set_seed
+import ktrain
 
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 
