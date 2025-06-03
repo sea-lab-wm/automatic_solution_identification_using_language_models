@@ -124,6 +124,7 @@ if __name__ == "__main__":
                          "recall", "f1", "TP", "FP", "TN", "FN", "param"])
             prediction_df = pd.DataFrame()
 
+            # Run experiment 1
             if exp_type == 'mozilla':
                 print(f"\n\n{exp_name} on {project} dataset:")
                 print("===============================================")
@@ -133,6 +134,7 @@ if __name__ == "__main__":
                 y_preds.extend(y_pred)
                 y_vals.extend(y_test_project)
 
+            # Run experiment 2 or 3
             elif exp_type == 'project' or exp_type == 'mozilla-project':
                 print(f"\n\n{exp_name} on {project} dataset:")
                 print("===============================================")
