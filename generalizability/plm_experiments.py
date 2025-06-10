@@ -5,14 +5,14 @@ import ktrain
 from ktrain import text
 import os
 import pandas as pd
-import tensorflow as tf
-import gc
-from tensorflow.keras import backend as K
+# import tensorflow as tf
+# import gc
+# from tensorflow.keras import backend as K
 
-gpus = tf.config.list_physical_devices('GPU')
-if gpus:
-    for gpu in gpus:
-        tf.config.experimental.set_memory_growth(gpu, True)
+# gpus = tf.config.list_physical_devices('GPU')
+# if gpus:
+#     for gpu in gpus:
+#         tf.config.experimental.set_memory_growth(gpu, True)
 
 
 def get_predictions(X_test, predictor):
@@ -36,11 +36,11 @@ def fine_tune_model(X_train, y_train, predictor, BS, LR, E, model_to_save_path):
 
     predictor.save(model_to_save_path)
     print(f"Model saved at: {model_to_save_path}")
-    del learner
-    del predictor
-    del model
-    del tokenizer_model
-    del train
+    # del learner
+    # del predictor
+    # del model
+    # del tokenizer_model
+    # del train
 
 
 def prepare_dataset(data):
@@ -80,22 +80,24 @@ if __name__ == "__main__":
     E = 10
 
     # We experiment with the datasets of two new projects
-    projects = ['gnucash', 'chromium']
+    projects = ['Gnucash', 'Chromium']
+    # projects = ['Chromium']
 
     # On these two datasets, we evaluate the performance of three trained models:
         # 1. mozilla: Model trained on the Mozilla data
         # 2. project: Model trained on the project (i.e., GunCash or Chromium) data
         # 3. mozilla-project: Model trained on both Mozilla and the project (i.e., GunCash or Chromium) data
-    exp_types = ['mozilla', 'project', 'mozilla-project']
+    # exp_types = ['mozilla', 'project', 'mozilla-project']
+    exp_types = ['mozilla-project']
 
     for project in projects:
         for exp_type in exp_types:
             if exp_type == 'mozilla':
-                exp_name = "ft_mozilla"
+                exp_name = "RoBERTa-FT-Mozilla"
             elif exp_type == 'project':
-                exp_name = f"ft_{project}"
+                exp_name = f"RoBERTa-FT-{project}"
             elif exp_type == 'mozilla-project':
-                exp_name = f"ft_mozilla_{project}"
+                exp_name = f"RoBERTa-FT-Mozilla-{project}"
 
             data_path = f"generalizability/dataset/{project}.csv"
             model_to_save_path = f"generalizability/models/plm/{model_name}/{project}/{exp_name}"
@@ -121,7 +123,9 @@ if __name__ == "__main__":
                 y_pred = get_predictions(X_test_project, predictor)
                 y_preds.extend(y_pred)
                 y_vals.extend(y_test_project)
-                del predictor
+
+                project_data[exp_name] = y_pred
+                prediction_df = pd.concat([prediction_df, project_data], ignore_index=True)
 
             # Run experiment 2 or 3
             elif exp_type == 'project' or exp_type == 'mozilla-project':
@@ -158,14 +162,14 @@ if __name__ == "__main__":
                     y_preds.extend(y_pred)
 
                     test_df = test_df.copy()
-                    test_df[model_name] = y_pred
+                    test_df[exp_name] = y_pred
 
                     prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
 
-                    # Clear memory after training
-                    del predictor
-                    K.clear_session()
-                    gc.collect()
+                    # # Clear memory after training
+                    # del predictor
+                    # K.clear_session()
+                    # gc.collect()
 
             FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_preds, y_vals)
             result = [oversample, BS, E, LR, model_name, accuracy, precision, recall, f1, TP, FP, TN, FN]

@@ -82,7 +82,7 @@ if __name__ == "__main__":
     config = {"C": 1, "class_weight": "balanced", "kernel": "rbf"}
 
     # We experiment with the datasets of two new projects
-    projects = ['gnucash', 'chromium']
+    projects = ['Gnucash', 'Chromium']
     # On these two datasets, we evaluate the performance of three trained models:
         # 1. mozilla: Model trained on the Mozilla data
         # 2. project: Model trained on the project (i.e., GunCash or Chromium) data
@@ -100,11 +100,11 @@ if __name__ == "__main__":
     for project in projects:
         for exp_type in exp_types:
             if exp_type == 'mozilla':
-                exp_name = "ft_mozilla"
+                exp_name = "SVC-FT-Mozilla"
             elif exp_type == 'project':
-                exp_name = f"ft_{project}"
+                exp_name = f"SVC-FT-{project}"
             elif exp_type == 'mozilla-project':
-                exp_name = f"ft_mozilla_{project}"
+                exp_name = f"SVC-FT-Mozilla-{project}"
 
             project_data_path = f"generalizability/dataset/{project}_with_embeddings.csv"
             model_to_save_path = f"generalizability/models/ml/{model_name}/{project}/{exp_name}"
@@ -133,6 +133,9 @@ if __name__ == "__main__":
                 y_pred = train_model_and_get_predictions(X_train_mozilla, Y_train_mozilla, X_test_project, model_name, config, model_to_save_path)
                 y_preds.extend(y_pred)
                 y_vals.extend(y_test_project)
+
+                project_data[exp_name] = y_pred
+                prediction_df = pd.concat([prediction_df, project_data], ignore_index=True)
 
             # Run experiment 2 or 3
             elif exp_type == 'project' or exp_type == 'mozilla-project':
@@ -167,7 +170,7 @@ if __name__ == "__main__":
                     y_preds.extend(y_pred)
 
                     test_df = test_df.copy()
-                    test_df[model_name] = y_pred
+                    test_df[exp_name] = y_pred
 
                     prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
 
