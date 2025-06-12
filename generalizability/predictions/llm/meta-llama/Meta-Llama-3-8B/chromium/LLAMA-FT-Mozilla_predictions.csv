@@ -1,0 +1,1512 @@
+issue_id,issue_type,issue_class,issue_category,text_id,raw_text,text,code,label,LLAMA-FT-Mozilla
+40132463,,,,1,"When font-size and transition CSS properties are both applied on a textarea, its font size flickers","When font-size and transition CSS properties are both applied on a textarea, its font size flickers",,0,1
+40132463,,,,2,"Chrome Version : 83.0.4103.61
+OS Version: 10.0
+URLs (if applicable) :
+Other browsers tested:
+Add OK or FAIL after other browsers where you have tested this issue:
+Safari:
+Firefox:
+IE/Edge:
+
+What steps will reproduce the problem?
+
+Create a document with a textarea with style=""font-size: 3rem; transition: all .5s ease""
+Hover mouse over the textarea, or press tab key to focus/unfocus it
+You will see the textarea's font size flickers
+What is the expected result?
+
+What happens instead of that?
+
+Please provide any additional information below. Attach a screenshot if
+possible.
+
+UserAgentString: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36","Chrome Version : 83.0.4103.61
+OS Version: 10.0
+URLs (if applicable) :
+Other browsers tested:
+Add OK or FAIL after other browsers where you have tested this issue:
+Safari:
+Firefox:
+IE/Edge:
+
+What steps will reproduce the problem?
+
+Create a document with a textarea with style=""font-size: 3rem; transition: all .5s ease""
+Hover mouse over the textarea, or press tab key to focus/unfocus it
+You will see the textarea's font size flickers
+What is the expected result?
+
+What happens instead of that?
+
+Please provide any additional information below. Attach a screenshot if
+possible.
+
+UserAgentString: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",,0,0
+40132463,,,,3,"I experienced that too, and it messed up with all of our textarea in production ...
+
+As far as I could see, it only happens with rem/em defined font-size, with fixed value in px,  the behavior still is the same.
+I experienced it on
+Chrome macOS 83.0.4103.61
+chrome windows 83.0.4103.61
+edge windows 83.0.478.37
+
+No issues on Chrome app on ipadPro 81.0.4044.124","I experienced that too, and it messed up with all of our textarea in production ...
+
+As far as I could see, it only happens with rem/em defined font-size, with fixed value in px,  the behavior still is the same.
+I experienced it on
+Chrome macOS 83.0.4103.61
+chrome windows 83.0.4103.61
+edge windows 83.0.478.37
+
+No issues on Chrome app on ipadPro 81.0.4044.124",REPRODUCTION,0,0
+40132463,,,,4,"Oh, and it happens every time when I click inside the textarea too","Oh, and it happens every time when I click inside the textarea too",REPRODUCTION,0,1
+40132463,,,,5,"Able to reproduce the issue on reported chrome version #83.0.4103.61 using Windows 10 and Linux 17.10,Mac 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+
+Reproducible in:
+-------------------
+Canary: 85.0.4155.0
+Dev: 84.0.4147.13
+Stable/Beta: 83.0.4103.61
+
+Bisect information
+--------------------------
+Good Build:83.0.4093.0
+Bad Build: 83.0.4094.0
+
+ChangeLog: https://chromium.googlesource.com/chromium/src/+/93583d18adf1e5db2852c076de709364aa562e29
+Change-Id: I538f73936e96e1bd974e0855b081e99bf947e6a2
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2064248
+
+Anders Hartvoll Ruud @Please help us in reassigning the issue if it is not related to your change.
+Note: Added ReleaseBlock-Stable label for M-83 as this seems to be a recent regression. Please feel free to remove if it is not applicable.
+
+
+Thanks..
+
+[Monorail components: Blink>Animation]","Able to reproduce the issue on reported chrome version #83.0.4103.61 using Windows 10 and Linux 17.10,Mac 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+
+Reproducible in:
+-------------------
+Canary: 85.0.4155.0
+Dev: 84.0.4147.13
+Stable/Beta: 83.0.4103.61
+
+Bisect information
+--------------------------
+Good Build:83.0.4093.0
+Bad Build: 83.0.4094.0
+
+ChangeLog: https://chromium.googlesource.com/chromium/src/+/93583d18adf1e5db2852c076de709364aa562e29
+Change-Id: I538f73936e96e1bd974e0855b081e99bf947e6a2
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2064248
+
+Anders Hartvoll Ruud @Please help us in reassigning the issue if it is not related to your change.
+Note: Added ReleaseBlock-Stable label for M-83 as this seems to be a recent regression. Please feel free to remove if it is not applicable.
+
+
+Thanks..
+
+[Monorail components: Blink>Animation]",REPRODUCTION,0,0
+40132463,,,,6,adding Android and Chrome OS as this is blink related regression.,adding Android and Chrome OS as this is blink related regression.,,0,0
+40132463,,,,7,"This is a ""Medium"" severity bug per https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/release_blockers.md. I will try to get get a fix in ASAP, as reverting the offending commit is at this point more dangerous than this bug.","This is a ""Medium"" severity bug per https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/release_blockers.md. I will try to get get a fix in ASAP, as reverting the offending commit is at this point more dangerous than this bug.",ANALYSIS,0,0
+40132463,,,,8,"This is bug is considered not critical enough for ramp up of M83, but still critical to be included in the next re-spin. M83 re-spin is planned for next week and plan is to cut stable RC build this friday,  Please help get the fix ready and landed on master and once verified in canary channel request a merge to m83 branch. The merges should be complete by 12pm PST friday May 29, 2020","This is bug is considered not critical enough for ramp up of M83, but still critical to be included in the next re-spin. M83 re-spin is planned for next week and plan is to cut stable RC build this friday,  Please help get the fix ready and landed on master and once verified in canary channel request a merge to m83 branch. The merges should be complete by 12pm PST friday May 29, 2020",,0,0
+40132463,,,,9,"So looks like this is not fundamentally a new bug. This, for example, doesn't work in M81:
+
+<style>
+  @keyframes test {
+    from { font-size: 1em; }
+    to { font-size: 1em; }
+  }
+
+  textarea {
+    font-size: 1em;
+  }
+
+  textarea:first-child {
+    animation: test 1s linear paused
+  }
+</style>
+<p>
+  Textareas below should be the same size
+</p>
+<textarea>Hello World</textarea>
+<textarea>Hello World</textarea>
+
+However, it's much easier to reach the broken state in M83+.
+
+So far it looks like it's caused by FontBuilder's adjustments to the specified font-size that take place when the generic font family changes to/from monospace. It's probably intending to check the parent style's font description, but instead checks its own description, which it assumes is the same as the parent's (which it's not).","So looks like this is not fundamentally a new bug. This, for example, doesn't work in M81:
+
+<style>
+  @keyframes test {
+    from { font-size: 1em; }
+    to { font-size: 1em; }
+  }
+
+  textarea {
+    font-size: 1em;
+  }
+
+  textarea:first-child {
+    animation: test 1s linear paused
+  }
+</style>
+<p>
+  Textareas below should be the same size
+</p>
+<textarea>Hello World</textarea>
+<textarea>Hello World</textarea>
+
+However, it's much easier to reach the broken state in M83+.
+
+So far it looks like it's caused by FontBuilder's adjustments to the specified font-size that take place when the generic font family changes to/from monospace. It's probably intending to check the parent style's font description, but instead checks its own description, which it assumes is the same as the parent's (which it's not).",ANALYSIS,0,1
+40132463,,,,10,"Oops, that textarea:first-child should have been textarea:nth-child(2). (Added the <p> last minute).","Oops, that textarea:first-child should have been textarea:nth-child(2). (Added the <p> last minute).",,0,0
+40132463,,,,11,"CL in review now: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+
+Also, my previous claim (in https://crbug.com/chromium/1086082#c10) that this isn't a brand new bug was false. The test I provided _appears_ to illustrate the same issue, but actually it can be explained by the animation emitting absolute font-size values rather than relative units (e.g. em). So ignore that.","CL in review now: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+
+Also, my previous claim (in https://crbug.com/chromium/1086082#c10) that this isn't a brand new bug was false. The test I provided _appears_ to illustrate the same issue, but actually it can be explained by the animation emitting absolute font-size values rather than relative units (e.g. em). So ignore that.",IMPLEMENTATION,1,0
+40132463,,,,12,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/ca7df536bf7bc572825fe4efba2766b34c092698
+
+commit ca7df536bf7bc572825fe4efba2766b34c092698
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Wed May 27 00:24:18 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#772032}
+
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.",IMPLEMENTATION,1,1
+40132463,,,,13,"M84 Beta promotion is this week and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.","M84 Beta promotion is this week and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.",,0,0
+40132463,,,,14,"Please help get the fix landed on master asap and confirm canary coverage, If done , please request a merge to M83 branch so we can review and get ready for RC by friday morning PST . ( If you are in a different time zone, please get the CL ready and run through CQ and ready for submit)","Please help get the fix landed on master asap and confirm canary coverage, If done , please request a merge to M83 branch so we can review and get ready for RC by friday morning PST . ( If you are in a different time zone, please get the CL ready and run through CQ and ready for submit)",,0,0
+40132463,,,,15,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/9518587760c8a1cc9e193010e701105070c029ea
+
+commit 9518587760c8a1cc9e193010e701105070c029ea
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Wed May 27 19:56:57 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#772032}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2218672
+Reviewed-by: Srinivas Sista <srinivassista@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4157@{#8}
+Cr-Branched-From: 21b3ba80281a71f02056ff0276fd69667ed8601b-refs/heads/master@{#772010}
+
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)",IMPLEMENTATION,1,0
+40132463,,,,16,Verified in 85.0.4157.4 (Windows 10).,Verified in 85.0.4157.4 (Windows 10).,VERIFICATION,0,0
+40132463,,,,17,"This bug requires manual review: Request affecting a post-stable build
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on master/ToT?
+4. Why are these changes required in this milestone after branch?
+5. Is this a new feature?
+6. If it is a new feature, is it behind a flag using finch?
+
+Please contact the milestone owner if you have questions.
+Owners: benmason@(Android), bindusuvarna@(iOS), cindyb@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This bug requires manual review: Request affecting a post-stable build
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on master/ToT?
+4. Why are these changes required in this milestone after branch?
+5. Is this a new feature?
+6. If it is a new feature, is it behind a flag using finch?
+
+Please contact the milestone owner if you have questions.
+Owners: benmason@(Android), bindusuvarna@(iOS), cindyb@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40132463,,,,18,"1. Does your merge fit within the Merge Decision Guidelines?
+
+It's a bug that's causing particularly distracting visual artifacts. There isn't an easy work-around that's satisfactory. Luckily the fix is not complicated.
+
+2. Links to the CLs you are requesting to merge.
+
+https://chromium-review.googlesource.com/c/chromium/src/+/2218831
+
+3. Has the change landed and been verified on master/ToT?
+
+Yes, verified on 85.0.4157.4 (Windows 10).
+
+4. Why are these changes required in this milestone after branch?
+
+See 1).
+
+5. Is this a new feature?
+
+No.
+
+6. If it is a new feature, is it behind a flag using finch?
+
+No.","1. Does your merge fit within the Merge Decision Guidelines?
+
+It's a bug that's causing particularly distracting visual artifacts. There isn't an easy work-around that's satisfactory. Luckily the fix is not complicated.
+
+2. Links to the CLs you are requesting to merge.
+
+https://chromium-review.googlesource.com/c/chromium/src/+/2218831
+
+3. Has the change landed and been verified on master/ToT?
+
+Yes, verified on 85.0.4157.4 (Windows 10).
+
+4. Why are these changes required in this milestone after branch?
+
+See 1).
+
+5. Is this a new feature?
+
+No.
+
+6. If it is a new feature, is it behind a flag using finch?
+
+No.",,0,0
+40132463,,,,19,"Merge approved for 83 , branch :4103 pls merge asap","Merge approved for 83 , branch :4103 pls merge asap",VERIFICATION,0,0
+40132463,,,,20,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486
+
+commit 0aba5f95d1f82cb6b4f392d72ac239ff3b26a486
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Thu May 28 13:21:37 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#772032}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2218831
+Reviewed-by: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4103@{#622}
+Cr-Branched-From: 8ad47e8d21f6866e4a37f47d83a860d41debf514-refs/heads/master@{#756066}
+
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)",IMPLEMENTATION,1,0
+40132463,,,,21,Done.,Done.,,0,0
+40132463,,,,22,adding merge request label for 84 to evaluate if a merge is needed.,adding merge request label for 84 to evaluate if a merge is needed.,,0,0
+40132463,,,,23,"Approving merge for M84 branch 4147, please merge ASAP.","Approving merge for M84 branch 4147, please merge ASAP.",VERIFICATION,0,0
+40132463,,,,24,Please merge your change to M84 branch 4147 ASAP. Thank you.,Please merge your change to M84 branch 4147 ASAP. Thank you.,,0,0
+40132463,,,,25,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e
+
+commit c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Fri May 29 11:31:21 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#772032}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2220031
+Reviewed-by: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4147@{#353}
+Cr-Branched-From: 16307825352720ae04d898f37efa5449ad68b606-refs/heads/master@{#768962}
+
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)",IMPLEMENTATION,1,0
+40132463,,,,26,"Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on latest chrome version #85.0.4158.5.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!","Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on latest chrome version #85.0.4158.5.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!",VERIFICATION,0,0
+40132463,,,,27,"M84 is already in Beta and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.","M84 is already in Beta and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.",,0,0
+40132463,,,,28,"Flickering Issue in https://crbug.com/chromium/1086082#c0 Reproducible on Samsung S10/  QP1A.190711.020 having 83.0.4103.61 however Not Reproducible on latest 84 & 85 ,
+@daotrung.kien@gmail.com Please mark it verified  once M84 gets to beta this week.Thanks","Flickering Issue in https://crbug.com/chromium/1086082#c0 Reproducible on Samsung S10/  QP1A.190711.020 having 83.0.4103.61 however Not Reproducible on latest 84 & 85 ,
+@daotrung.kien@gmail.com Please mark it verified  once M84 gets to beta this week.Thanks",VERIFICATION,0,0
+40132463,,,,29,"Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on Stable chrome version #83.0.4103.97.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!","Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on Stable chrome version #83.0.4103.97.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!",VERIFICATION,0,0
+40132463,,,,30,"Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on beta chrome version #84.0.4147.38.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!","Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on beta chrome version #84.0.4147.38.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!",VERIFICATION,0,0
+40132463,,,,31,"Verified the issue no longer reproducible onSamsung S10/QP1A.190711.020 having  latest M85 & M84,marking verified.as per https://crbug.com/chromium/1086082#c34,35,36.Thanks everyone","Verified the issue no longer reproducible onSamsung S10/QP1A.190711.020 having  latest M85 & M84,marking verified.as per https://crbug.com/chromium/1086082#c34,35,36.Thanks everyone",VERIFICATION,0,0
+40132463,,,,32,"This issue was migrated from crbug.com/chromium/1086082?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail mergedwith: crbug.com/chromium/1087620]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1086082?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail mergedwith: crbug.com/chromium/1087620]
+[Monorail components added to Component Tags custom field.]",,0,0
+40688144,,,,1,"
+Preview images flag expired in M82, which didn't happen.","
+Preview images flag expired in M82, which didn't happen.",,0,0
+40688144,,,,2,"Chrome Version: M83
+
+Platforms: Win, Linux, ChromeOS
+
+Planned feature Tab Hover Cards had expiry set too early, during an experiment. Notifications were not sent out in a timely manner since M82 was skipped. We need them the flag through the next few versions since the experiment was not finished.
+
+This one-line fix in a metadata file re-enables the flag:
+https://chromium-review.googlesource.com/c/chromium/src/+/2167163
+
+This CL is a high-priority request to merge to Beta so we can continue the experiment.
+
+Opening this bug to explicitly request merge to M83.","Chrome Version: M83
+
+Platforms: Win, Linux, ChromeOS
+
+Planned feature Tab Hover Cards had expiry set too early, during an experiment. Notifications were not sent out in a timely manner since M82 was skipped. We need them the flag through the next few versions since the experiment was not finished.
+
+This one-line fix in a metadata file re-enables the flag:
+https://chromium-review.googlesource.com/c/chromium/src/+/2167163
+
+This CL is a high-priority request to merge to Beta so we can continue the experiment.
+
+Opening this bug to explicitly request merge to M83.",IMPLEMENTATION,1,0
+40688144,,,,3,"Marking as Fixed to denote issue was resolved on trunk (M84).
+
+Requesting merge to M83.","Marking as Fixed to denote issue was resolved on trunk (M84).
+
+Requesting merge to M83.",,0,0
+40688144,,,,4,"(Verified is the correct status, merge still requested.)","(Verified is the correct status, merge still requested.)",,0,0
+40688144,,,,5,"This bug requires manual review: To minimize risk and increase branch stability, all merge requests are being reviewed manually by the release team.
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on master/ToT?
+4. Why are these changes required in this milestone after branch?
+5. Is this a new feature?
+6. If it is a new feature, is it behind a flag using finch?
+
+Please contact the milestone owner if you have questions.
+Owners: benmason@(Android), bindusuvarna@(iOS), cindyb@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This bug requires manual review: To minimize risk and increase branch stability, all merge requests are being reviewed manually by the release team.
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on master/ToT?
+4. Why are these changes required in this milestone after branch?
+5. Is this a new feature?
+6. If it is a new feature, is it behind a flag using finch?
+
+Please contact the milestone owner if you have questions.
+Owners: benmason@(Android), bindusuvarna@(iOS), cindyb@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,6,Merge approved for M-83 branch:4103 please merge your changes asap.,Merge approved for M-83 branch:4103 please merge your changes asap.,VERIFICATION,0,0
+40688144,,,,7,Merging now. Thank you.,Merging now. Thank you.,,0,0
+40688144,,,,8,Done.,Done.,,0,0
+40688144,,,,9,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,10,"Please complete merge to M83 branch asap, Before end of day today Monday May 4, 2020, This will help get all these fixes included in this weeks beta release.","Please complete merge to M83 branch asap, Before end of day today Monday May 4, 2020, This will help get all these fixes included in this weeks beta release.",,0,0
+40688144,,,,11,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,12,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,13,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,14,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,15,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,16,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add the Disable-Nags label.
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40688144,,,,17,"Please complete the merges to M-83 branch asap, I will be cutting the stable-RC build by 4pm PST.","Please complete the merges to M-83 branch asap, I will be cutting the stable-RC build by 4pm PST.",,0,0
+40688144,,,,18,Removing the merge-approved label per https://crbug.com/chromium/1076266#c7,Removing the merge-approved label per https://crbug.com/chromium/1076266#c7,,0,0
+40688144,,,,19,This issue was migrated from crbug.com/chromium/1076266?no_tracker_redirect=1,This issue was migrated from crbug.com/chromium/1076266?no_tracker_redirect=1,,0,0
+40285727,,,,1,"
+Generated extension API schemas implicitly depend on other APIs","
+Generated extension API schemas implicitly depend on other APIs",,0,0
+40285727,,,,2,"Extension APIs generate a number of files based on the extension schema inputs.  When the inputs change, the output files are updated.  Generally, this works.
+
+There can also be interdependencies between APIs; that is, API <A> may depend on a concept from API <B>.  In this case, the generated files for API <A> #include the generated files from API <B>.  This, too, generally works.
+
+There's an issue where some of the generated code in API <A> can implicitly pull details in from API <B>.  In particular, adding a new enum to API <B> can result in a parse error message in API <A> changing.  This is a problem because we don't know to regenerate API <A> when API <B> changes.  There's a few options to fix this:
+1) Properly track all dependencies, and regenerate any affected APIs whenever an API changes.  That is, regenerate <A> when <B> changes.
+2) Just regenerate all APIs whenever any API in the module changes (APIs between modules should declare their own gn dependencies, so that should ""just work"").
+3) Don't have generated code in API <A> be affected by changes in API <B>.
+
+While 1) sounds nice, it's also finicky and much harder to get right.  2) would slow down build time for developers (and our CQ).  3) should do the trick and, at least in this case, is relatively easy to implement.  Additionally, it's conceptually desirable -- an API file's contents should be generatable from its own schema; dependencies should be in #includes, but not in the content of the generated file.
+
+This was the cause of a recent revert; I'll look into fixing it.","Extension APIs generate a number of files based on the extension schema inputs.  When the inputs change, the output files are updated.  Generally, this works.
+
+There can also be interdependencies between APIs; that is, API <A> may depend on a concept from API <B>.  In this case, the generated files for API <A> #include the generated files from API <B>.  This, too, generally works.
+
+There's an issue where some of the generated code in API <A> can implicitly pull details in from API <B>.  In particular, adding a new enum to API <B> can result in a parse error message in API <A> changing.  This is a problem because we don't know to regenerate API <A> when API <B> changes.  There's a few options to fix this:
+1) Properly track all dependencies, and regenerate any affected APIs whenever an API changes.  That is, regenerate <A> when <B> changes.
+2) Just regenerate all APIs whenever any API in the module changes (APIs between modules should declare their own gn dependencies, so that should ""just work"").
+3) Don't have generated code in API <A> be affected by changes in API <B>.
+
+While 1) sounds nice, it's also finicky and much harder to get right.  2) would slow down build time for developers (and our CQ).  3) should do the trick and, at least in this case, is relatively easy to implement.  Additionally, it's conceptually desirable -- an API file's contents should be generatable from its own schema; dependencies should be in #includes, but not in the content of the generated file.
+
+This was the cause of a recent revert; I'll look into fixing it.",SOLUTION_DESIGN,1,1
+40285727,,,,3,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/56640b98f80c8ce34703aaf1e69dd1ed43396678
+
+commit 56640b98f80c8ce34703aaf1e69dd1ed43396678
+Author: Devlin Cronin <rdevlin.cronin@chromium.org>
+Date: Mon Oct 16 21:34:28 2023
+
+[Extensions] De-tangle generated file dependencies
+
+There was an implicit dependency between generated API files where, if
+API <A> depended on API <B> and had an enum from API <B>, the generated
+file for API <A> would include the expected strings from API <B>. This
+led to an issue because changing API <B> would result in a required
+change in API <A>, but our build system wouldn't regenerate it --
+resulting in a deterministic build failure.
+
+Fix this by moving the error messages for enum parsing out from the
+callsite and into a separate method on the API to which the enum
+belongs. This way, API <A> doesn't change at all when API <B> does.
+
+(I also explored having the parse method return a base::expected rather
+than introducing a new method for returning a parse error, but that's
+a much farther-reaching change.)
+
+Bug: 1493132
+Change-Id: I7b42d53d067617142825d75244fa4eb03d232670
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/4943762
+Reviewed-by: Emilia Paz <emiliapaz@chromium.org>
+Commit-Queue: Devlin Cronin <rdevlin.cronin@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1210440}
+
+[modify] https://crrev.com/56640b98f80c8ce34703aaf1e69dd1ed43396678/tools/json_schema_compiler/h_generator.py
+[modify] https://crrev.com/56640b98f80c8ce34703aaf1e69dd1ed43396678/tools/json_schema_compiler/cc_generator.py","[Extensions] De-tangle generated file dependencies
+
+There was an implicit dependency between generated API files where, if
+API <A> depended on API <B> and had an enum from API <B>, the generated
+file for API <A> would include the expected strings from API <B>. This
+led to an issue because changing API <B> would result in a required
+change in API <A>, but our build system wouldn't regenerate it --
+resulting in a deterministic build failure.
+
+Fix this by moving the error messages for enum parsing out from the
+callsite and into a separate method on the API to which the enum
+belongs. This way, API <A> doesn't change at all when API <B> does.
+
+(I also explored having the parse method return a base::expected rather
+than introducing a new method for returning a parse error, but that's
+a much farther-reaching change.)",SOLUTION_DESIGN,1,0
+40285727,,,,4,"@rdevlin: Could you please provide the manual reproducible steps if CL requires manual verification. Help us in verifying the fix on the latest canary M-120.
+
+Thanks..!","@rdevlin: Could you please provide the manual reproducible steps if CL requires manual verification. Help us in verifying the fix on the latest canary M-120.
+
+Thanks..!",,0,0
+40285727,,,,5,"https://crbug.com/chromium/1493132#c2: This does not require additional manual verification (emiliapaz@ already verified locally).
+
+This should be fixed with https://crbug.com/chromium/1493132#c1; closing out.","https://crbug.com/chromium/1493132#c2: This does not require additional manual verification (emiliapaz@ already verified locally).
+
+This should be fixed with https://crbug.com/chromium/1493132#c1; closing out.",VERIFICATION,0,0
+40285727,,,,6,"This issue was migrated from crbug.com/chromium/1493132?no_tracker_redirect=1
+
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1493132?no_tracker_redirect=1
+
+[Monorail components added to Component Tags custom field.]",,0,0
+42250400,,,,1,"
+struct decl should not have to be followed by a semicolon","
+struct decl should not have to be followed by a semicolon",,0,0
+42250400,,,,2,https://github.com/gpuweb/gpuweb/pull/2499,https://github.com/gpuweb/gpuweb/pull/2499,,0,0
+42250400,,,,3,"The following revision refers to this bug:
+  https://dawn.googlesource.com/tint/+/6b1e5f552bd49fbc002cb0582a4c3bd8137e8499
+
+commit 6b1e5f552bd49fbc002cb0582a4c3bd8137e8499
+Author: James Price <jrprice@google.com>
+Date: Wed Jan 19 18:11:17 2022
+
+wgsl: Do not require a semicolon after a struct
+
+Don't generate them either, which generated a lot of test churn.
+
+Fixed: tint:1380
+Change-Id: I0a7cfdd2ef0ffe8e7fda111fbc57997b36b949e0
+Reviewed-on: https://dawn-review.googlesource.com/c/tint/+/77165
+Auto-Submit: James Price <jrprice@google.com>
+Reviewed-by: Ben Clayton <bclayton@google.com>
+Kokoro: Kokoro <noreply+kokoro@google.com>","wgsl: Do not require a semicolon after a struct
+
+Don't generate them either, which generated a lot of test churn.",IMPLEMENTATION,1,0
+42250400,,,,4,"This issue was migrated from crbug.com/tint/1380?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/tint/1380?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]",,0,0
+41496204,,,,1,Numeric columns in internals UI should be more easily scannable,Numeric columns in internals UI should be more easily scannable,,0,1
+41496204,,,,2,"In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).","In particular, because they are always formatted using digits 0-9, we should right-align them and use tabular nums (https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values).",,1,1
+41496204,,,,3,"[Empty comment from Monorail migration]
+
+[Monorail components: Internals>AttributionReporting]","[Empty comment from Monorail migration]
+
+[Monorail components: Internals>AttributionReporting]",,0,0
+41496204,,,,4,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/98d2236a91c0626d44e2bf35fc3d7a9bcaa31adc
+
+commit 98d2236a91c0626d44e2bf35fc3d7a9bcaa31adc
+Author: Andrew Paseltiner <apaseltiner@chromium.org>
+Date: Tue Jan 30 19:31:51 2024
+
+Improve formatting and sorting of Attribution Internals columns
+
+- Numeric columns are right-aligned and use tabular digits for ease of
+  comparison (screenshots in https://crbug.com/1523252#c2)
+- Numeric columns are sorted numerically instead of textually
+- Event-level epsilon is formatted to 3 decimal digits for ease of
+  scanning
+- Anchor tags are used for URLs for ease of copy-paste and navigation
+- List columns (destinations, dedup keys) are sorted
+- List-flattening is replaced by removal of list-item markers, likewise
+  allowing them to be formatted numerically (screenshots in
+  https://crbug.com/1523252#c3)
+
+Bug: 1523252, 1523013
+Change-Id: I1b66433ee8aaaf885e86d3b24140bb7b3558f6cf
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/5250687
+Reviewed-by: Nan Lin <linnan@chromium.org>
+Commit-Queue: Andrew Paseltiner <apaseltiner@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1254103}","Improve formatting and sorting of Attribution Internals columns
+
+- Numeric columns are right-aligned and use tabular digits for ease of
+  comparison (screenshots in https://crbug.com/1523252#c2)
+- Numeric columns are sorted numerically instead of textually
+- Event-level epsilon is formatted to 3 decimal digits for ease of
+  scanning
+- Anchor tags are used for URLs for ease of copy-paste and navigation
+- List columns (destinations, dedup keys) are sorted
+- List-flattening is replaced by removal of list-item markers, likewise
+  allowing them to be formatted numerically (screenshots in
+  https://crbug.com/1523252#c3)",IMPLEMENTATION,1,1
+41496204,,,,5,"This issue was migrated from crbug.com/chromium/1523252?no_tracker_redirect=1
+
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1523252?no_tracker_redirect=1
+
+[Monorail components added to Component Tags custom field.]",,0,0
+362938727,,,,1,Delay deduplication metric emission,Delay deduplication metric emission,,0,1
+362938727,,,,2,"Recording the metrics is expensive, which caused us to stop the rollout of AutofillLogDeduplicationMetrics. To prevent startup time caused by this experiment regressions, delay the computation of these metrics computation by several seconds.","Recording the metrics is expensive, which caused us to stop the rollout of AutofillLogDeduplicationMetrics. To prevent startup time caused by this experiment regressions, delay the computation of these metrics computation by several seconds.",SOLUTION_DESIGN,1,0
+362938727,,,,3,"Project: chromium/src
+Branch: main
+
+commit 76dea43d61b90bb6a38844cb34dcd38c4c771e7a
+Author: Florian Leimgruber <fleimgruber@google.com>
+Date:   Thu Aug 29 14:43:26 2024
+
+    Delay deduplication metric emission
+   
+    Delay the emission of deduplication metrics independently of
+    AutofillLogDeduplicationMetricsFollowup.
+    Note that the code is still feature guarded behind
+    AutofillLogDeduplicationMetrics.
+   
+    Bug: 325452461
+    Fixed: 362938727
+    Change-Id: I64b8fd1246bcbbec88b80673872682e09dc4e4ff
+    Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/5826473
+    Reviewed-by: Karol Sygiet <sygiet@google.com>
+    Commit-Queue: Florian Leimgruber <fleimgruber@google.com>
+    Cr-Commit-Position: refs/heads/main@{#1348624}
+
+M       components/autofill/core/browser/address_data_manager.cc
+
+https://chromium-review.googlesource.com/5826473","    Delay deduplication metric emission
+   
+    Delay the emission of deduplication metrics independently of
+    AutofillLogDeduplicationMetricsFollowup.
+    Note that the code is still feature guarded behind
+    AutofillLogDeduplicationMetrics.",IMPLEMENTATION,1,1
+362938727,,,,4,"Merge review required: M129 is already shipping to beta.
+
+Please answer the following questions so that we can safely process your merge request:
+
+Why does your merge fit within the merge criteria for these milestones?
+Chrome Browser: https://chromiumdash.appspot.com/branches
+Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+What changes specifically would you like to merge? Please link to Gerrit.
+Have the changes been released and tested on canary?
+Is this a new feature? If yes, is it behind a Finch flag and are experiments active in any release channels?
+[Chrome OS only]: Was the change reviewed and approved by the Eng Prod Representative? https://goto.google.com/cros-engprodcomponents
+If this merge addresses a major issue in the stable channel, does it require manual verification by the test team? If so, please describe required testing.
+Please contact the milestone owner if you have questions. Owners: govind (Android), govind (iOS), matthewjoseph (ChromeOS), srinivassista (Desktop)","Merge review required: M129 is already shipping to beta.
+
+Please answer the following questions so that we can safely process your merge request:
+
+Why does your merge fit within the merge criteria for these milestones?
+Chrome Browser: https://chromiumdash.appspot.com/branches
+Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+What changes specifically would you like to merge? Please link to Gerrit.
+Have the changes been released and tested on canary?
+Is this a new feature? If yes, is it behind a Finch flag and are experiments active in any release channels?
+[Chrome OS only]: Was the change reviewed and approved by the Eng Prod Representative? https://goto.google.com/cros-engprodcomponents
+If this merge addresses a major issue in the stable channel, does it require manual verification by the test team? If so, please describe required testing.
+Please contact the milestone owner if you have questions. Owners: govind (Android), govind (iOS), matthewjoseph (ChromeOS), srinivassista (Desktop)",,0,0
+362938727,,,,5,pls answer comment #3,pls answer comment #3,,0,0
+362938727,,,,6,"It is a fix for a non-functional issue (crash) for the Finch-gated feature AutofillLogDeduplicationMetrics.
+https://chromium-review.googlesource.com/c/chromium/src/+/5826473
+Yes
+Yes, it's behind AutofillLogDeduplicationMetrics. No, the experiment is currently disabled on every channel.
+n/a
+No.","It is a fix for a non-functional issue (crash) for the Finch-gated feature AutofillLogDeduplicationMetrics.
+https://chromium-review.googlesource.com/c/chromium/src/+/5826473
+Yes
+Yes, it's behind AutofillLogDeduplicationMetrics. No, the experiment is currently disabled on every channel.
+n/a
+No.",,0,0
+362938727,,,,7,Ping,Ping,,0,0
+362938727,,,,8,"Merge approved for M129 branch: http://go/chrome-branches for more info
+
+please complete your merges before 3pm PST today so it can be part of beta release tomorrow.","Merge approved for M129 branch: http://go/chrome-branches for more info
+
+please complete your merges before 3pm PST today so it can be part of beta release tomorrow.",VERIFICATION,0,0
+362938727,,,,9,"Please merge your change to M129 by 3:00 PM PT today so we can take it in for this week's M129 beta release.
+
+M129 Branch Details: https://chromiumdash.appspot.com/branches","Please merge your change to M129 by 3:00 PM PT today so we can take it in for this week's M129 beta release.
+
+M129 Branch Details: https://chromiumdash.appspot.com/branches",,0,1
+362938727,,,,10,Merged the CL in crrev.com/c/5832367.,Merged the CL in crrev.com/c/5832367.,,0,0
+362938727,,,,11,"This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add Disable-Nags (case sensitive) to the Chromium Labels custom field.","This issue has been approved for a merge. Please merge the fix to any appropriate branches as soon as possible!
+
+If all merges have been completed, please remove any remaining Merge-Approved labels from this issue.
+
+Thanks for your time! To disable nags, add Disable-Nags (case sensitive) to the Chromium Labels custom field.",,0,0
+40939597,,,,1,PDF Viewer incorrectly intercepts Tab Search shortcut key on Mac,PDF Viewer incorrectly intercepts Tab Search shortcut key on Mac,,0,0
+40939597,,,,2,"Chrome Version: 118 Stable
+OS: macOS
+
+What steps will reproduce the problem?
+(1) Load a PDF
+(2) Press Cmd+Shift+A
+
+What is the expected result?
+
+The browser's Search Tabs dialog opens
+
+What happens instead?
+
+The PDF Viewer performs a Select All.
+
+The PDF Viewer should only select all the text when Cmd+A is pressed, and not do so when there are additional key modifiers.","Chrome Version: 118 Stable
+OS: macOS
+
+What steps will reproduce the problem?
+(1) Load a PDF
+(2) Press Cmd+Shift+A
+
+What is the expected result?
+
+The browser's Search Tabs dialog opens
+
+What happens instead?
+
+The PDF Viewer performs a Select All.
+
+The PDF Viewer should only select all the text when Cmd+A is pressed, and not do so when there are additional key modifiers.",,0,0
+40939597,,,,3,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/fded49381cbafd4fd1f7ab062c6e2905c3e7e2d7
+
+commit fded49381cbafd4fd1f7ab062c6e2905c3e7e2d7
+Author: Lei Zhang <thestig@chromium.org>
+Date: Thu Nov 02 01:35:34 2023
+
+PDF Viewer: Perform Select All only in response to Ctrl+A
+
+Currently, the PDF Viewer looks for ""Ctrl"" and ""A' to determine if it
+should perform a Select All command, where ""Ctrl"" is ""Cmd"" on macOS.
+This will also incorrectly match other key combinations, like
+Ctrl+Shift+A, which is the keyboard shortcut for Tab Search.
+
+Fix this by adding a hasCtrlModifierOnly() utility function and using
+that instead of the existing hasCtrlModifier() function. Audit other ""A""
+key handling in PDF Viewer code and consistently use
+hasCtrlModifierOnly().
+
+Bug: 1498522
+Low-Coverage-Reason: TESTS_IN_SEPARATE_CL
+Change-Id: I36b68b70e1e85f694976b9cd87dad61c118d2a79
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/4998185
+Reviewed-by: Demetrios Papadopoulos <dpapad@chromium.org>
+Commit-Queue: Lei Zhang <thestig@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1218588}","PDF Viewer: Perform Select All only in response to Ctrl+A
+
+Currently, the PDF Viewer looks for ""Ctrl"" and ""A' to determine if it
+should perform a Select All command, where ""Ctrl"" is ""Cmd"" on macOS.
+This will also incorrectly match other key combinations, like
+Ctrl+Shift+A, which is the keyboard shortcut for Tab Search.
+
+Fix this by adding a hasCtrlModifierOnly() utility function and using
+that instead of the existing hasCtrlModifier() function. Audit other ""A""
+key handling in PDF Viewer code and consistently use
+hasCtrlModifierOnly().",IMPLEMENTATION,1,1
+40939597,,,,4,"Since the fix is relatively straight-forward, let's try to get this fixed out to our power users sooner rather than later.","Since the fix is relatively straight-forward, let's try to get this fixed out to our power users sooner rather than later.",,0,0
+40939597,,,,5,"Merge approved for M120 branch: please refer to go/chrome-branches for more info
+
+
+Please merge once this is verified on canary.","Merge approved for M120 branch: please refer to go/chrome-branches for more info
+
+
+Please merge once this is verified on canary.",VERIFICATION,0,0
+40939597,,,,6,"Verified the fix on  Mac(12.3) using the latest Canary #121.0.6104.0
+
+Observed that The browser's Search Tabs dialog opens but unable to load the information
+
+Please let us know if anything has been missed here
+
+
+Please refer to the attached screen cast  below:
+https://drive.google.com/file/d/1CrQ5wFcSd3Zlk86jvTQxAuLB2tAl3mG3/view?usp=sharing
+
+
+Thanks...","Verified the fix on  Mac(12.3) using the latest Canary #121.0.6104.0
+
+Observed that The browser's Search Tabs dialog opens but unable to load the information
+
+Please let us know if anything has been missed here
+
+
+Please refer to the attached screen cast  below:
+https://drive.google.com/file/d/1CrQ5wFcSd3Zlk86jvTQxAuLB2tAl3mG3/view?usp=sharing
+
+
+Thanks...",VERIFICATION,0,0
+40939597,,,,7,"re: https://crbug.com/chromium/1498522#c6 - Step 1 (Load a PDF) means open a PDF file, not open Print Preview.","re: https://crbug.com/chromium/1498522#c6 - Step 1 (Load a PDF) means open a PDF file, not open Print Preview.",,0,0
+40939597,,,,8,"If the Search Tabs dialog opened up blank in an unexpected fashion, then please file a separate bug report.","If the Search Tabs dialog opened up blank in an unexpected fashion, then please file a separate bug report.",,0,0
+40939597,,,,9,M120 merge is here - https://chromium-review.googlesource.com/c/chromium/src/+/5002870,M120 merge is here - https://chromium-review.googlesource.com/c/chromium/src/+/5002870,,0,0
+40939597,,,,10,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/820731d86f644b765645f3359562c84c0568f5d4
+
+commit 820731d86f644b765645f3359562c84c0568f5d4
+Author: Lei Zhang <thestig@chromium.org>
+Date: Sat Nov 04 01:15:11 2023
+
+PDF Viewer: Add more tests for Select All behavior
+
+Expand basic_plugin_test.ts with more test cases to test that:
+- The initial state has no text selection.
+- Select All via Ctrl+A (or macOS equivalent) works.
+- All other combinations of modifiers+A do not Select All.
+
+To make the tests work across platforms, change the build rules for
+//chrome/test/data/pdf to do pre-processing using build_webui_tests().
+Then the tests that use key events can choose Ctrl/Meta appropriately
+depending on the platform.
+
+To make build_webui_tests() work outside of //chrome/test/data/webui,
+change its template definition to allow custom resource_path_prefix
+values.
+
+Along the way, switch the existing Select All tests to use Promises.
+
+Bug: 1498522
+Change-Id: Ia919ebca2be5945ae4bec9b9751695733979d538
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/4998694
+Reviewed-by: Demetrios Papadopoulos <dpapad@chromium.org>
+Commit-Queue: Lei Zhang <thestig@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1219837}","PDF Viewer: Add more tests for Select All behavior
+
+Expand basic_plugin_test.ts with more test cases to test that:
+- The initial state has no text selection.
+- Select All via Ctrl+A (or macOS equivalent) works.
+- All other combinations of modifiers+A do not Select All.
+
+To make the tests work across platforms, change the build rules for
+//chrome/test/data/pdf to do pre-processing using build_webui_tests().
+Then the tests that use key events can choose Ctrl/Meta appropriately
+depending on the platform.
+
+To make build_webui_tests() work outside of //chrome/test/data/webui,
+change its template definition to allow custom resource_path_prefix
+values.
+
+Along the way, switch the existing Select All tests to use Promises.",IMPLEMENTATION,1,1
+40939597,,,,11,"Verified the fix on  Mac(12.3) using the latest Canary #121.0.6110.0
+
+Observed that The browser's Search Tabs dialog opens
+
+Please refer to the screen cast attached below.
+https://drive.google.com/file/d/1MO9ukHHkR0Kri48e1cjMbDD8MRDpKfUk/view?usp=sharing
+
+As fix is working as expected, Adding the TE-verified labels.
+
+Thanks...","Verified the fix on  Mac(12.3) using the latest Canary #121.0.6110.0
+
+Observed that The browser's Search Tabs dialog opens
+
+Please refer to the screen cast attached below.
+https://drive.google.com/file/d/1MO9ukHHkR0Kri48e1cjMbDD8MRDpKfUk/view?usp=sharing
+
+As fix is working as expected, Adding the TE-verified labels.
+
+Thanks...",VERIFICATION,0,0
+40939597,,,,12,"Verified the fix on  Mac(12.3) using Beta Rc #120.0.6099.18
+
+Observed that The browser's Search Tabs dialog opens
+
+Please refer to the screen cast attached below.
+https://drive.google.com/file/d/1cYBD1FQ3XX9mHL3hwScD9czGALqMvm4i/view?usp=sharing
+
+
+As fix is working as expected, Adding the TE-verified labels.
+TE-Verified-M120
+TE-Verified-120.0.6099.18
+
+Thanks...","Verified the fix on  Mac(12.3) using Beta Rc #120.0.6099.18
+
+Observed that The browser's Search Tabs dialog opens
+
+Please refer to the screen cast attached below.
+https://drive.google.com/file/d/1cYBD1FQ3XX9mHL3hwScD9czGALqMvm4i/view?usp=sharing
+
+
+As fix is working as expected, Adding the TE-verified labels.
+TE-Verified-M120
+TE-Verified-120.0.6099.18
+
+Thanks...",VERIFICATION,0,0
+40939597,,,,13,"This issue was migrated from crbug.com/chromium/1498522?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1498522?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]",,0,0
+40233604,,,,1,Add feature flag for omnibox keyboard paste button,Add feature flag for omnibox keyboard paste button,,0,1
+40233604,,,,2,Add a feature flag to enable paste button on the omnibox's keyboard accessories.,Add a feature flag to enable paste button on the omnibox's keyboard accessories.,,0,0
+40233604,,,,3,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/164a2e51cd0880f9a30bcd127342cdab05ae1ba3
+
+commit 164a2e51cd0880f9a30bcd127342cdab05ae1ba3
+Author: Christian Xu <christianxu@google.com>
+Date: Mon Aug 01 20:38:19 2022
+
+[iOS] Add flag for omnibox keyboard paste button
+
+Add omnibox feature flag to enable paste button on the keyboard
+accessory.
+
+Bug: 1349092
+Change-Id: I4888e47c81b2887aa124ae589cc1da92a36f1225
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/3795796
+Auto-Submit: Christian Xu <christianxu@chromium.org>
+Reviewed-by: Robbie Gibson <rkgibson@google.com>
+Commit-Queue: Christian Xu <christianxu@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1030256}","[iOS] Add flag for omnibox keyboard paste button
+
+Add omnibox feature flag to enable paste button on the keyboard
+accessory.",IMPLEMENTATION,1,0
+40233604,,,,4,"Verified on :
+
+App Version: 106.0.5228.0 canary
+Devices: iPhone XS, iPhone XR
+iOS Versions: 15.6, 16.0 Beta 4
+
+#omnibox-keyboard-paste-button is available under chrome://flags","Verified on :
+
+App Version: 106.0.5228.0 canary
+Devices: iPhone XS, iPhone XR
+iOS Versions: 15.6, 16.0 Beta 4
+
+#omnibox-keyboard-paste-button is available under chrome://flags",VERIFICATION,0,0
+40233604,,,,5,"This issue was migrated from crbug.com/chromium/1349092?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1349092?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]",,0,0
+40771754,,,,1,Window Placement: user permission responses for Window.getScreens() aren't being logged,Window Placement: user permission responses for Window.getScreens() aren't being logged,,0,0
+40771754,,,,2,"For the new Multi-Screen Window Placement API, we'd like to log user permission responses. But although we're logging Permissions.Action.WindowPlacement, the data can't be accessed.","For the new Multi-Screen Window Placement API, we'd like to log user permission responses. But although we're logging Permissions.Action.WindowPlacement, the data can't be accessed.",,0,0
+40771754,,,,3,"I can't get our UMA dashboard to actually show the name or data for *WindowPlacement, as I can for *Geolocation.
+
+We log Permissions.Action.WindowPlacement (just like other permissions actions) here:
+https://source.chromium.org/chromium/chromium/src/+/main:components/permissions/permission_uma_util.cc;drc=1156b5f891de178171e71b9221a96bef1ced3d3b;l=749
+The histograms.xml entry is here:
+https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/histograms_xml/permissions/histograms.xml;drc=a7ae2e73f857edba50afa585ff8bfdc85c706be3;l=24
+
+Testing on canary, chrome://histograms/ Monitoring Mode emits the expected value when I accept the prompt from the ""Update screens"" button on https://michaelwasserman.github.io/window-placement-demo/
+
+- Histogram: Permissions.Action.WindowPlacement recorded 2 samples, mean = 2.0 (flags = 0x41)
+0  -O                                                                        (1 = 50.0%)
+1  ...
+4  -O                                                                        (1 = 50.0%) {50.0%}
+5  ...
+
+I didn't see any glaring mistakes per https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md
+Perhaps our usage is too low for the dashboard to surface data, or we missed a step somewhere?
+phillis@ or dmurph@, do you know what we are missing? Should we ping the metrics team or schedule office hours?
+
+[Monorail components: -Blink>WindowDialog -UI>Browser -UI>Browser>WebAppInstalls Internals>Metrics UI>Browser>WebAppInstalls>Desktop]","I can't get our UMA dashboard to actually show the name or data for *WindowPlacement, as I can for *Geolocation.
+
+We log Permissions.Action.WindowPlacement (just like other permissions actions) here:
+https://source.chromium.org/chromium/chromium/src/+/main:components/permissions/permission_uma_util.cc;drc=1156b5f891de178171e71b9221a96bef1ced3d3b;l=749
+The histograms.xml entry is here:
+https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/histograms_xml/permissions/histograms.xml;drc=a7ae2e73f857edba50afa585ff8bfdc85c706be3;l=24
+
+Testing on canary, chrome://histograms/ Monitoring Mode emits the expected value when I accept the prompt from the ""Update screens"" button on https://michaelwasserman.github.io/window-placement-demo/
+
+- Histogram: Permissions.Action.WindowPlacement recorded 2 samples, mean = 2.0 (flags = 0x41)
+0  -O                                                                        (1 = 50.0%)
+1  ...
+4  -O                                                                        (1 = 50.0%) {50.0%}
+5  ...
+
+I didn't see any glaring mistakes per https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md
+Perhaps our usage is too low for the dashboard to surface data, or we missed a step somewhere?
+phillis@ or dmurph@, do you know what we are missing? Should we ping the metrics team or schedule office hours?
+
+[Monorail components: -Blink>WindowDialog -UI>Browser -UI>Browser>WebAppInstalls Internals>Metrics UI>Browser>WebAppInstalls>Desktop]",ANALYSIS,0,0
+40771754,,,,4,"Hmm, I think we need to add an entry at:
+https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/histograms_xml/histogram_suffixes_list.xml;drc=06f8d10c0662614a6858a2a4da155496c73210ac;l=14377
+I'll remove the Metrics component and un-CC some folks to reduce noise, sorry!
+
+[Monorail components: -Internals>Metrics]","Hmm, I think we need to add an entry at:
+https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/histograms_xml/histogram_suffixes_list.xml;drc=06f8d10c0662614a6858a2a4da155496c73210ac;l=14377
+I'll remove the Metrics component and un-CC some folks to reduce noise, sorry!
+
+[Monorail components: -Internals>Metrics]",SOLUTION_DESIGN,1,0
+40771754,,,,5,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/d12648ea9ce4160f82ffa8a63e653968c7a4c85f
+
+commit d12648ea9ce4160f82ffa8a63e653968c7a4c85f
+Author: Mike Wasserman <msw@chromium.org>
+Date: Mon Jun 14 22:48:58 2021
+
+Window Placement: Add permission suffixes for UMA histograms
+
+This should help us query the UMA dashboard for existing logging of:
+- Permissions.Action.WindowPlacement
+- PermissionsEngagement.Accepted.WindowPlacement (etc.)
+
+FOLLOWUP: update ContentSettingsType for ContentSettings.Exceptions?
+(Window Placement may not need that, we can optionally follow up)
+
+Bug: 1218676
+Change-Id: Icc76916c0420e66b70981bd2949665983b49ed5f
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2959782
+Commit-Queue: Mike Wasserman <msw@chromium.org>
+Auto-Submit: Mike Wasserman <msw@chromium.org>
+Reviewed-by: Daniel Murphy <dmurph@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#892315}","Window Placement: Add permission suffixes for UMA histograms
+
+This should help us query the UMA dashboard for existing logging of:
+- Permissions.Action.WindowPlacement
+- PermissionsEngagement.Accepted.WindowPlacement (etc.)
+
+FOLLOWUP: update ContentSettingsType for ContentSettings.Exceptions?
+(Window Placement may not need that, we can optionally follow up)",IMPLEMENTATION,1,0
+40771754,,,,6,I'll try to verify this on Wed or Thu; hopefully a few of our own testing or dev trial uses will be logged and the surfaced by our dashboard.,I'll try to verify this on Wed or Thu; hopefully a few of our own testing or dev trial uses will be logged and the surfaced by our dashboard.,,0,0
+40771754,,,,7,Verified I can access the data now on the UMA dashboard,Verified I can access the data now on the UMA dashboard,VERIFICATION,0,0
+40771754,,,,8,"This issue was migrated from crbug.com/chromium/1218676?no_tracker_redirect=1
+
+[Multiple monorail components: Internals>Permissions, UI>Browser>WebAppInstalls>Desktop]
+[Monorail blocking: crbug.com/chromium/897300]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1218676?no_tracker_redirect=1
+
+[Multiple monorail components: Internals>Permissions, UI>Browser>WebAppInstalls>Desktop]
+[Monorail blocking: crbug.com/chromium/897300]
+[Monorail components added to Component Tags custom field.]",,0,0
+40775141,,,,1,Page scrolls when exiting tab switcher,Page scrolls when exiting tab switcher,,0,1
+40775141,,,,2,"Chrome Version: Top of tree (93.0.4558.0)
+OS: iOS
+
+What steps will reproduce the problem?
+(1) Open a web site
+(2) Open tab switcher
+(3) Press Done
+
+What is the expected result?
+Page does not scroll down","Chrome Version: Top of tree (93.0.4558.0)
+OS: iOS
+
+What steps will reproduce the problem?
+(1) Open a web site
+(2) Open tab switcher
+(3) Press Done
+
+What is the expected result?
+Page does not scroll down",,0,1
+40775141,,,,3,"Chris, PTAL. The tab scrolls down a little more every time it is entered from the tab grid.
+
+I think this is likely related to fullscreen handling and not lower down in web, but please re-assign to gambard@ if this looks like an issue inside web.
+
+[Monorail components: Mobile>iOSWeb UI>Browser>FullScreen]","Chris, PTAL. The tab scrolls down a little more every time it is entered from the tab grid.
+
+I think this is likely related to fullscreen handling and not lower down in web, but please re-assign to gambard@ if this looks like an issue inside web.
+
+[Monorail components: Mobile>iOSWeb UI>Browser>FullScreen]",ANALYSIS,0,0
+40775141,,,,4,"Hm looking into this, if it was a fullscreen issue, then part of the page would be blocked or we would see white space. Instead, this seems to be an issue where the page is scrolled down, making me believe that this had to do with something other than fullscreen. Any scrollview manipulation in fullscreen is the contentInset, which impacts where the top of the content starts in the view, not the content offset. Gauthier, is there somewhere in /web where we manage the scrollview's content offset?","Hm looking into this, if it was a fullscreen issue, then part of the page would be blocked or we would see white space. Instead, this seems to be an issue where the page is scrolled down, making me believe that this had to do with something other than fullscreen. Any scrollview manipulation in fullscreen is the contentInset, which impacts where the top of the content starts in the view, not the content offset. Gauthier, is there somewhere in /web where we manage the scrollview's content offset?",ANALYSIS,0,0
+40775141,,,,5,"Logging the fullscreen insets set every time it is updated, I don't see it changing before and after entering the tab switcher. Makes me really think it can't be fullscreen.","Logging the fullscreen insets set every time it is updated, I don't see it changing before and after entering the tab switcher. Makes me really think it can't be fullscreen.",ANALYSIS,0,0
+40775141,,,,6,Applying M92 RBS per https://crbug.com/chromium/1225293. Please remove if needed.,Applying M92 RBS per https://crbug.com/chromium/1225293. Please remove if needed.,,0,0
+40775141,,,,7,"This issue is also present in both Fullscreen Smooth Scrolling being on or off. In fact, when it is off, every time you repeat the tab switcher -> Done, it continuously shifts the page.","This issue is also present in both Fullscreen Smooth Scrolling being on or off. In fact, when it is off, every time you repeat the tab switcher -> Done, it continuously shifts the page.",ANALYSIS,0,0
+40775141,,,,8,"Given that this is easy to reproduce (e.g., on www.wikipedia.org), perhaps we should bisect Canary builds between 91.0.4472.0 and 92.0.4515.0.","Given that this is easy to reproduce (e.g., on www.wikipedia.org), perhaps we should bisect Canary builds between 91.0.4472.0 and 92.0.4515.0.",,0,0
+40775141,,,,9,https://ci.chromium.org/ui/p/chrome/builders/ci/canary-simulator/2558/overview is the canary build where the bug first appears,https://ci.chromium.org/ui/p/chrome/builders/ci/canary-simulator/2558/overview is the canary build where the bug first appears,ANALYSIS,0,0
+40775141,,,,10,"https://chromium-review.googlesource.com/c/chromium/src/+/2872925 is the culprit CL, but still trying to figure out why.","https://chromium-review.googlesource.com/c/chromium/src/+/2872925 is the culprit CL, but still trying to figure out why.",ANALYSIS,0,0
+40775141,,,,11,Any further progress here as this is M92 RBS and we're cutting M92 Stable RC next week?,Any further progress here as this is M92 RBS and we're cutting M92 Stable RC next week?,,0,0
+40775141,,,,12,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/06a9e9bdc5aac365cfe8fc5b8a7eb7a1e566a44b
+
+commit 06a9e9bdc5aac365cfe8fc5b8a7eb7a1e566a44b
+Author: Chris Lu <thegreenfrog@chromium.org>
+Date: Fri Jul 02 17:10:02 2021
+
+[ios] Update toolbar state before starting broadcasting
+
+crrev.com/2872925 removed the [self updateToolbarState] before
+broadcasting begins, which means a height of 0 is passed initially
+into the fullscreen logic.
+
+Bug: 1224385
+Change-Id: Ice31b05f8f2081a529576ba4bebde6e19601d690
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/3002158
+Reviewed-by: Mark Cogan <marq@chromium.org>
+Commit-Queue: Chris Lu <thegreenfrog@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#898226}","[ios] Update toolbar state before starting broadcasting
+
+crrev.com/2872925 removed the [self updateToolbarState] before
+broadcasting begins, which means a height of 0 is passed initially
+into the fullscreen logic.",IMPLEMENTATION,1,0
+40775141,,,,13,"Thanks, I think this should go into M92. Waiting for verification in next canary.","Thanks, I think this should go into M92. Waiting for verification in next canary.",,0,0
+40775141,,,,14,"This bug requires manual review: Less than 14 days to go before AppStore submit on M92
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/main/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on ToT?
+4. Does this change need to be merged into other active release branches (M-1, M+1)?
+5. Why are these changes required in this milestone after branch?
+6. Is this a new feature?
+7. If it is a new feature, is it behind a flag using finch?
+
+Chrome OS Only:
+8. Was the change reviewed and approved by the Eng Prod Representative? See Eng Prod ownership by component: http://go/cros-engprodcomponents
+
+Please contact the milestone owner if you have questions.
+Owners: govind@(Android), benmason@(iOS), dgagnon@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This bug requires manual review: Less than 14 days to go before AppStore submit on M92
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/main/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on ToT?
+4. Does this change need to be merged into other active release branches (M-1, M+1)?
+5. Why are these changes required in this milestone after branch?
+6. Is this a new feature?
+7. If it is a new feature, is it behind a flag using finch?
+
+Chrome OS Only:
+8. Was the change reviewed and approved by the Eng Prod Representative? See Eng Prod ownership by component: http://go/cros-engprodcomponents
+
+Please contact the milestone owner if you have questions.
+Owners: govind@(Android), benmason@(iOS), dgagnon@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40775141,,,,15,"Please update bug with canary result on Monday morning and reply to #15. Thank you.
+
+benmason@ for M92 merge review on Monday. Thank you.","Please update bug with canary result on Monday morning and reply to #15. Thank you.
+
+benmason@ for M92 merge review on Monday. Thank you.",,0,0
+40775141,,,,16,"Verified and found fixed. Webpage does not scroll up on exiting tab switcher. Looks good.
+
+Tested on:
+App Version: M93.0.4567.0 Canary
+Device/iOS Version: iPad 6th Gen 4/14.7 Beta 4, iPad 7th Gen/13.7, iPhone 11/13.7, iPhone 12 Pro/14.7 Beta 3
+
+Link to Video:
+https://drive.google.com/file/d/1tLes6bFbNzWiYFJYAzL0XGuwK3EluWfL/view?usp=sharing ","Verified and found fixed. Webpage does not scroll up on exiting tab switcher. Looks good.
+
+Tested on:
+App Version: M93.0.4567.0 Canary
+Device/iOS Version: iPad 6th Gen 4/14.7 Beta 4, iPad 7th Gen/13.7, iPhone 11/13.7, iPhone 12 Pro/14.7 Beta 3
+
+Link to Video:
+https://drive.google.com/file/d/1tLes6bFbNzWiYFJYAzL0XGuwK3EluWfL/view?usp=sharing ",VERIFICATION,0,0
+40775141,,,,17,"Merge approved to M92, branch 4515. CL has been cherry picked and is going through CQ.","Merge approved to M92, branch 4515. CL has been cherry picked and is going through CQ.",VERIFICATION,0,0
+40775141,,,,18,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src/+/fd8071733ef3c2b1db2c5f0626773b546b940bbe
+
+commit fd8071733ef3c2b1db2c5f0626773b546b940bbe
+Author: Chris Lu <thegreenfrog@chromium.org>
+Date: Wed Jul 07 17:19:02 2021
+
+[ios] Update toolbar state before starting broadcasting
+
+crrev.com/2872925 removed the [self updateToolbarState] before
+broadcasting begins, which means a height of 0 is passed initially
+into the fullscreen logic.
+
+(cherry picked from commit 06a9e9bdc5aac365cfe8fc5b8a7eb7a1e566a44b)
+
+Bug: 1224385
+Change-Id: Ice31b05f8f2081a529576ba4bebde6e19601d690
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/3002158
+Reviewed-by: Mark Cogan <marq@chromium.org>
+Commit-Queue: Chris Lu <thegreenfrog@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#898226}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/3011259
+Owners-Override: Ben Mason <benmason@chromium.org>
+Reviewed-by: Krishna Govind <govind@chromium.org>
+Reviewed-by: Chris Lu <thegreenfrog@chromium.org>
+Commit-Queue: Krishna Govind <govind@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4515@{#1352}
+Cr-Branched-From: 488fc70865ddaa05324ac00a54a6eb783b4bc41c-refs/heads/master@{#885287}","[ios] Update toolbar state before starting broadcasting
+
+crrev.com/2872925 removed the [self updateToolbarState] before
+broadcasting begins, which means a height of 0 is passed initially
+into the fullscreen logic.
+
+(cherry picked from commit 06a9e9bdc5aac365cfe8fc5b8a7eb7a1e566a44b)",IMPLEMENTATION,1,0
+40775141,,,,19,"Verified and found fixed. Webpage does not scroll down on exiting tab switcher. Looks good.
+
+Tested on:
+App Version: M92.0.4515.89 Beta
+Device/iOS Version: iPad Air 4th Gen /14.6, iPad 7th Gen/13.7, iPhone 8/13.7, iPhone XR/14.6
+
+Link to Video:
+https://drive.google.com/file/d/1n-7Ux1bFP2EIKV9Bd7Gfs7CtEpdtdAXc/view?usp=sharing","Verified and found fixed. Webpage does not scroll down on exiting tab switcher. Looks good.
+
+Tested on:
+App Version: M92.0.4515.89 Beta
+Device/iOS Version: iPad Air 4th Gen /14.6, iPad 7th Gen/13.7, iPhone 8/13.7, iPhone XR/14.6
+
+Link to Video:
+https://drive.google.com/file/d/1n-7Ux1bFP2EIKV9Bd7Gfs7CtEpdtdAXc/view?usp=sharing",VERIFICATION,0,0
+40775141,,,,20,"As per https://crbug.com/chromium/1224385#c18 and https://crbug.com/chromium/1224385#c22, changing the status to fixed and verified.  Thanks!","As per https://crbug.com/chromium/1224385#c18 and https://crbug.com/chromium/1224385#c22, changing the status to fixed and verified.  Thanks!",,0,0
+40775141,,,,21,"This issue was migrated from crbug.com/chromium/1224385?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Multiple monorail components: Mobile>iOSWeb, Mobile>iOSWeb>Scroll, UI>Browser>FullScreen]
+[Monorail mergedwith: crbug.com/chromium/1223796, crbug.com/chromium/1225293]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1224385?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Multiple monorail components: Mobile>iOSWeb, Mobile>iOSWeb>Scroll, UI>Browser>FullScreen]
+[Monorail mergedwith: crbug.com/chromium/1223796, crbug.com/chromium/1225293]
+[Monorail components added to Component Tags custom field.]",,0,0
+40775141,,,,22,"You have been auto-cc'ed due to this issue's component.
+To update this component's auto-cc rules, visit
+go/peepsi-blintz-auto-cc-rules","You have been auto-cc'ed due to this issue's component.
+To update this component's auto-cc rules, visit
+go/peepsi-blintz-auto-cc-rules",,0,0

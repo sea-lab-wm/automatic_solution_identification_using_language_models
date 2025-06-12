@@ -1,12 +1,11 @@
-import os
-import wandb
+import gc
 import numpy as np
 import torch
 torch.cuda.empty_cache()
 import torch.nn.functional as F
 
 from datasets import DatasetDict, Dataset
-from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
+from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model, AutoPeftModelForSequenceClassification
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.metrics import balanced_accuracy_score
 from transformers import Trainer
@@ -14,15 +13,12 @@ from transformers import DataCollatorWithPadding
 from transformers import TrainingArguments
 from transformers import BitsAndBytesConfig, AutoModelForSequenceClassification
 from transformers import AutoTokenizer
-from peft import PeftModel, PeftConfig
+from peft import PeftModel
 from datasets import Dataset, DatasetDict
 
-from utils import append_row_to_csv, calculate_results, set_seed, set_llm_seed
-
-os.environ["TF_USE_LEGACY_KERAS"] = "1"
-import ktrain
-from ktrain import text
+from utils import calculate_results, set_llm_seed
 import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import pandas as pd
 
 class CustomTrainer(Trainer):
@@ -50,6 +46,7 @@ class CustomTrainer(Trainer):
 
 
 def get_predictions(X_test, model, tokenizer, max_length=1024, batch_size=8):
+    
     model.eval()
 
     all_outputs = []
@@ -128,10 +125,6 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
 
     collate_fn = DataCollatorWithPadding(tokenizer=tokenizer)
 
-    wandb.init(
-        project="solution_loc_llm",
-    )
-
     print(f"Model Name: {model_name}")
     print(f"Batch Size: {BS}, Learning Rate: {LR}, Epochs: {E}, Oversample: {oversample}")
     print(f"Class Weights: {class_weights}")
@@ -150,7 +143,7 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
         # eval_strategy='epoch',
         save_strategy='epoch',
         # load_best_model_at_end=True,
-        report_to="wandb",
+        report_to="none",  # Disable logging
     )
 
     trainer = CustomTrainer(
@@ -209,7 +202,7 @@ def load_base_model(model_name):
         model_name,
         quantization_config=quantization_config,
         num_labels=2,
-        device_map='sequential',  # 'auto' for automatic device mapping
+        device_map='sequential',  # 'auto', 'sequential'
         cache_dir="/scratch/mehedi/models"
     )
 
@@ -240,26 +233,18 @@ def load_base_model(model_name):
 
 
 def load_finetuned_model(finetuned_path):
-    model_name = "meta-llama/Meta-Llama-3-8B"
+
+    print(f"Loading fine-tuned model from {finetuned_path}")
 
     # Load the tokenizer
     tokenizer = AutoTokenizer.from_pretrained(finetuned_path)
+    model = AutoPeftModelForSequenceClassification.from_pretrained(
+        finetuned_path,
+        device_map="sequential",
+        cache_dir="/scratch/mehedi/models",
+    )
 
-    # TODO Check if both base model produce same result
-
-    # Load the base model
-    # base_model = AutoModelForSequenceClassification.from_pretrained(
-    #     model_name,
-    #     device_map='auto',
-    #     torch_dtype=torch.bfloat16,
-    #     load_in_4bit=True
-    # )
-
-    base_model = AutoModelForSequenceClassification.from_pretrained(finetuned_path)
-
-    # Load the LoRA adapter
-    model = PeftModel.from_pretrained(base_model, finetuned_path) # TODO to check if it works
-    model = model.merge_and_unload()  # Merge LoRA weights into the base model
+    print("Model loaded successfully.")
 
     tokenizer.pad_token_id = tokenizer.eos_token_id
     tokenizer.pad_token = tokenizer.eos_token
@@ -274,37 +259,37 @@ def load_finetuned_model(finetuned_path):
 if __name__ == "__main__":
     # Best ML model
     model_name = "meta-llama/Meta-Llama-3-8B"
-    fine_tuned_model_path = f"generalizability/models/plm/roberta-base/mozilla/roberta-base-ft-mozilla"
+    fine_tuned_model_path = f"test_llm/models/llm"
     # Best configuration for roberta-base of Mozilla experiments
-    oversample = False
-    BS = 16
-    LR = 3.00E-05
-    E = 10
+    oversample = True
+    BS = 8
+    LR = 1E-05
+    E = 5
 
     # We experiment with the datasets of two new projects
-    projects = ['Gnucash', 'Chromium']
-    # projects = ['Chromium']
+    # projects = ['gnucash', 'chromium']
+    projects = ['gnucash']
 
     # On these two datasets, we evaluate the performance of three trained models:
         # 1. mozilla: Model trained on the Mozilla data
         # 2. project: Model trained on the project (i.e., GunCash or Chromium) data
         # 3. mozilla-project: Model trained on both Mozilla and the project (i.e., GunCash or Chromium) data
-    # exp_types = ['mozilla', 'project', 'mozilla-project']
-    exp_types = ['mozilla-project']
+    exp_types = ['mozilla', 'project', 'mozilla-project']
+    # exp_types = ['mozilla']
 
     for project in projects:
         for exp_type in exp_types:
             if exp_type == 'mozilla':
-                exp_name = "RoBERTa-FT-Mozilla"
+                exp_name = f"LLAMA-FT-Mozilla"
             elif exp_type == 'project':
-                exp_name = f"RoBERTa-FT-{project}"
+                exp_name = f"LLAMA-FT-{project}"
             elif exp_type == 'mozilla-project':
-                exp_name = f"RoBERTa-FT-Mozilla-{project}"
+                exp_name = f"LLAMA-FT-Mozilla-{project}"
 
             data_path = f"generalizability/dataset/{project}.csv"
-            model_to_save_path = f"generalizability/models/plm/{model_name}/{project}/{exp_name}"
-            prediction_path = f"generalizability/predictions/plm/{model_name}/{project}/{exp_name}_predictions.csv"
-            result_path = f"generalizability/results/plm/{model_name}/{project}/{exp_name}_results.csv"
+            model_to_save_path = f"/scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/{model_name}/{project}/{exp_name}"
+            prediction_path = f"generalizability/predictions/llm/{model_name}/{project}/{exp_name}_predictions.csv"
+            result_path = f"generalizability/results/llm/{model_name}/{project}/{exp_name}_results.csv"
 
             project_data = pd.read_csv(data_path)
             X_test_project = project_data['text'].tolist()
@@ -315,11 +300,11 @@ if __name__ == "__main__":
             result_df = pd.DataFrame(columns=['Oversample', 'Batch_Size', 'Epochs', 'LR', 'Model', 'Accuracy', 'Precision', 'Recall', 'F1 Score', 'TP', 'FP', 'TN', 'FN'])
             prediction_df = pd.DataFrame()
 
-            # Load the fine-tuned model on Mozilla dataset
-            model, tokenizer = load_finetuned_model(model_to_save_path)
-
             # Run experiment 1
             if exp_type == 'mozilla':
+                # Load the fine-tuned model on Mozilla dataset
+                model, tokenizer = load_finetuned_model(fine_tuned_model_path)
+
                 print(f"\n\n{exp_name} on {project} dataset:")
                 print("===============================================")
                 y_pred = get_predictions(X_test_project, model, tokenizer)
@@ -329,12 +314,22 @@ if __name__ == "__main__":
                 project_data[exp_name] = y_pred
                 prediction_df = pd.concat([prediction_df, project_data], ignore_index=True)
 
+                # Clean up
+                del model
+                del tokenizer
+                gc.collect()
+                torch.cuda.empty_cache()
+
             # Run experiment 2 or 3
             elif exp_type == 'project' or exp_type == 'mozilla-project':
                 print(f"\n\n{exp_name} on {project} dataset:")
                 print("===============================================")
                 folds = prepare_dataset(project_data)
                 for i, fold in enumerate(folds):
+
+                    # if i > 3: # TODO when running on all folds, remove this line
+                    #     break
+
                     print(f"Fold {i + 1}/{len(folds)}")
 
                     model_to_save_path_new = f"{model_to_save_path}/{i}"
@@ -349,14 +344,17 @@ if __name__ == "__main__":
                     X_test = test_df['text'].tolist()
                     y_test = test_df['label'].tolist()
 
-                    # Load the base model
                     if exp_type == 'project':
+                        # Load the base model
                         model, tokenizer = load_base_model(model_name)
+                    elif exp_type == 'mozilla-project':
+                        # Load the fine-tuned model on Mozilla dataset
+                        model, tokenizer = load_finetuned_model(fine_tuned_model_path)
 
                     fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_save_path_new)
 
                     # Load the new fine-tuned model
-                    model, tokenizer = load_finetuned_model(model_to_save_path)
+                    model, tokenizer = load_finetuned_model(model_to_save_path_new)
                     y_pred = get_predictions(X_test, model, tokenizer)
 
                     y_vals.extend(y_test)
@@ -366,6 +364,12 @@ if __name__ == "__main__":
                     test_df[exp_name] = y_pred
 
                     prediction_df = pd.concat([prediction_df, test_df], ignore_index=True)
+
+                    # Clean up
+                    del model
+                    del tokenizer
+                    gc.collect()
+                    torch.cuda.empty_cache()
 
             FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_preds, y_vals)
             result = [oversample, BS, E, LR, model_name, accuracy, precision, recall, f1, TP, FP, TN, FN]

@@ -1,0 +1,42 @@
+issue_id,issue_type,issue_class,issue_category,text_id,text,code,prev_label,label,previous_label,LLAMA-FT-gnucash
+799437,,,,1,Crash deleting and recreating an SX with the scheduled transaction editor open,,0,0,0,1
+799437,,,,2,"Created attachment 375152 [details]
+Example of crash steps
+
+GnuCash crashes when deleting and recreating a scheduled transaction with the scheduled transaction editor open.
+
+1. Create a scheduled transaction from an existing transaction with the default settings
+2. Open the scheduled transaction editor
+3. Delete the scheduled transaction
+4. Create the same scheduled transaction again
+
+The recreated scheduled transaction must be for the same accounts and the editor must remain open. Step 1 can be performed in an earlier execution of the application.
+
+
+The change in this commit is causing additional validation of an access to free'd memory when the SchedXaction* is cast retrieving it from the list:
+
+commit 93afa1b3adb05714a1d18cc83f55e304fdc8f00b
+Date:   Sun Feb 25 22:09:48 2024 +0800
+
+    [gnc-plugin-page-sx-list.cpp] convert to cpp",ANALYSIS,0,0,0,1
+799437,,,,3,"Simon,
+
+Thanks for the report. Want to have a go at fixing it? The problem is that the three signals connected at https://github.com/Gnucash/gnucash/blob/3dd60e904c3445e1bb49cbfb3aff956724c6a838/gnucash/gnome-utils/gnc-sx-list-tree-model-adapter.c#L557 need to be disconnected in 
+gnc_sx_list_tree_model_adapter_dispose that starts at line 598.",ANALYSIS,0,0,0,1
+799437,,,,4,"https://github.com/Gnucash/gnucash/compare/stable...nomis:gnucash:bug-799437
+
+gnc_sx_list_tree_model_adapter_dispose() isn't being called until I exit GnuCash",IMPLEMENTATION,1,0,1,0
+799437,,,,5,"The tree_model_adapter isn't getting unreffed in gnc_plugin_page_sx_list_dispose and it should be. But you're not closing the SX tab so I'm chasing the wrong callback anyway.
+
+It looks like the problem is that we're putting the to-be-deleted transactions on the selected_list (line 947) and then looping through that list (line 355). Since it contains deleted transactions 
+
+This is BobIT's doing in his fix for bug 753283: https://github.com/Gnucash/gnucash/commit/c2a7b8eaaf9aada2f9fe78828113f7da0e79e2ee#diff-0ff0d070c389053b9e603e73bcf22a95f47771147191cbfa9c53022536560f9eR880 (gnc-plugin-page-sx-list.c line 880). Bob, did you miss that the SXes in that function are being deleted?",ANALYSIS,0,0,0,0
+799437,,,,6,"I think it was a copy and paste error, fixed and pushed to stable.
+
+Strangely my Gentoo build VM would not fail so tried on my Windows build machine to confirm fix and all looks OK.
+
+Simon, if you would like to test so we can close much appreciated.
+
+
+For information, the tree model adapter is being disposed when the SX editor is closed.",,0,0,0,0
+799437,,,,7,5a71d7ad15fa3ba28e1e64e344e7827c3a19cfe0 fixes the crash,IMPLEMENTATION,1,0,1,1
