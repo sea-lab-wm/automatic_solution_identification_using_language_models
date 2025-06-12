@@ -1,0 +1,170 @@
+
+
+LLAMA-FT-Mozilla on gnucash dataset:
+===============================================
+Loading fine-tuned model from test_llm/models/llm
+Model loaded successfully.
+==================================================
+Precision: 52.380952
+Recall: 57.894737
+F1 Score: 55.0
+==================================================
+Predictions saved to: generalizability/predictions/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla_predictions.csv
+
+
+LLAMA-FT-gnucash on gnucash dataset:
+===============================================
+Fold 1/10
+Random seed set as 42
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label', '__index_level_0__'],
+        num_rows: 136
+    })
+})
+
+
+Class Weight: tensor([0.2794, 0.7206])
+Model Name: meta-llama/Meta-Llama-3-8B
+Batch Size: 8, Learning Rate: 1e-05, Epochs: 5, Oversample: True
+Class Weights: tensor([0.2794, 0.7206])
+Max Length: 1024, Token Batch Size: 8
+Logging Steps: 5, Weight Decay: 0.01
+Save Location: /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-gnucash/0
+{'train_runtime': 42.652, 'train_samples_per_second': 0.188, 'train_steps_per_second': 0.023, 'train_loss': 1.0516643524169922, 'epoch': 0.06}
+
+Saving Model ...
+
+Model saved to /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-gnucash/0
+Loading fine-tuned model from /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-gnucash/0
+Model loaded successfully.
+==================================================
+Precision: 0.0
+Recall: 0.0
+F1 Score: 0.0
+==================================================
+Predictions saved to: generalizability/predictions/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-gnucash_predictions.csv
+
+
+LLAMA-FT-Mozilla-gnucash on gnucash dataset:
+===============================================
+Fold 1/10
+Loading fine-tuned model from test_llm/models/llm
+Model loaded successfully.
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label', '__index_level_0__'],
+        num_rows: 136
+    })
+})
+
+
+Class Weight: tensor([0.2794, 0.7206])
+Model Name: meta-llama/Meta-Llama-3-8B
+Batch Size: 8, Learning Rate: 1e-05, Epochs: 5, Oversample: True
+Class Weights: tensor([0.2794, 0.7206])
+Max Length: 1024, Token Batch Size: 8
+Logging Steps: 5, Weight Decay: 0.01
+Save Location: /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
+{'train_runtime': 13.7737, 'train_samples_per_second': 0.581, 'train_steps_per_second': 0.073, 'train_loss': 0.2846849858760834, 'epoch': 0.06}
+
+Saving Model ...
+
+Model saved to /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
+Loading fine-tuned model from /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
+Model loaded successfully.
+==================================================
+Precision: 0.0
+Recall: 0.0
+F1 Score: 0.0
+==================================================
+Predictions saved to: generalizability/predictions/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash_predictions.csv
+
+
+LLAMA-FT-Mozilla on chromium dataset:
+===============================================
+Loading fine-tuned model from test_llm/models/llm
+Model loaded successfully.
+==================================================
+Precision: 43.75
+Recall: 35.0
+F1 Score: 38.888889
+==================================================
+Predictions saved to: generalizability/predictions/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-Mozilla_predictions.csv
+
+
+LLAMA-FT-chromium on chromium dataset:
+===============================================
+Fold 1/10
+Random seed set as 42
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label', '__index_level_0__'],
+        num_rows: 93
+    })
+})
+
+
+Class Weight: tensor([0.1613, 0.8387])
+Model Name: meta-llama/Meta-Llama-3-8B
+Batch Size: 8, Learning Rate: 1e-05, Epochs: 5, Oversample: True
+Class Weights: tensor([0.1613, 0.8387])
+Max Length: 1024, Token Batch Size: 8
+Logging Steps: 5, Weight Decay: 0.01
+Save Location: /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-chromium/0
+{'train_runtime': 33.9203, 'train_samples_per_second': 0.236, 'train_steps_per_second': 0.029, 'train_loss': 1.0761746168136597, 'epoch': 0.08}
+
+Saving Model ...
+
+Model saved to /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-chromium/0
+Loading fine-tuned model from /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-chromium/0
+Model loaded successfully.
+==================================================
+Precision: 0.0
+Recall: 0.0
+F1 Score: 0.0
+==================================================
+Predictions saved to: generalizability/predictions/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-chromium_predictions.csv
+
+
+LLAMA-FT-Mozilla-chromium on chromium dataset:
+===============================================
+Fold 1/10
+Loading fine-tuned model from test_llm/models/llm
+Model loaded successfully.
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label', '__index_level_0__'],
+        num_rows: 93
+    })
+})
+
+
+Class Weight: tensor([0.1613, 0.8387])
+Model Name: meta-llama/Meta-Llama-3-8B
+Batch Size: 8, Learning Rate: 1e-05, Epochs: 5, Oversample: True
+Class Weights: tensor([0.1613, 0.8387])
+Max Length: 1024, Token Batch Size: 8
+Logging Steps: 5, Weight Decay: 0.01
+Save Location: /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-Mozilla-chromium/0
+{'train_runtime': 11.0741, 'train_samples_per_second': 0.722, 'train_steps_per_second': 0.09, 'train_loss': 0.3268795609474182, 'epoch': 0.08}
+
+Saving Model ...
+
+Model saved to /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-Mozilla-chromium/0
+Loading fine-tuned model from /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-Mozilla-chromium/0
+Model loaded successfully.
+==================================================
+Precision: 25.0
+Recall: 20.0
+F1 Score: 22.222222
+==================================================
+Predictions saved to: generalizability/predictions/llm/meta-llama/Meta-Llama-3-8B/chromium/LLAMA-FT-Mozilla-chromium_predictions.csv

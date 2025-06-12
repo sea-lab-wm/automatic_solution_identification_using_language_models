@@ -118,11 +118,6 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
     tokenized_data = dataset.map(data_preprocesing, batched=True, remove_columns=['text'])
     tokenized_data.set_format("torch")
 
-    print('-' * 50)
-    print("Tokenizing Data Format")
-    print(tokenized_data['train'])
-    print('-' * 50)
-
     collate_fn = DataCollatorWithPadding(tokenizer=tokenizer)
 
     print(f"Model Name: {model_name}")
@@ -138,6 +133,7 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
         per_device_train_batch_size=BS,
         # per_device_eval_batch_size=bs,
         num_train_epochs=E,
+        max_steps=1, # Remove or set to -1 to disable max_steps TODO
         logging_steps=logging_steps,
         weight_decay=weight_decay,
         # eval_strategy='epoch',
@@ -163,13 +159,12 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
         if not os.path.exists(model_to_save_path):
             os.makedirs(model_to_save_path)
 
-        print("Saving Model ...")
+        print("\nSaving Model ...")
 
         trainer.model.save_pretrained(model_to_save_path)
-        # model.save_pretrained(save_loc)
         tokenizer.save_pretrained(model_to_save_path)
 
-        print(f"Model saved to {model_to_save_path}")
+        print(f"\nModel saved to {model_to_save_path}")
 
 def prepare_dataset(data):
     issue_ids = data['issue_id'].unique()
@@ -202,7 +197,7 @@ def load_base_model(model_name):
         model_name,
         quantization_config=quantization_config,
         num_labels=2,
-        device_map='sequential',  # 'auto', 'sequential'
+        device_map='auto',  # 'auto', 'sequential'
         cache_dir="/scratch/mehedi/models"
     )
 
@@ -240,7 +235,7 @@ def load_finetuned_model(finetuned_path):
     tokenizer = AutoTokenizer.from_pretrained(finetuned_path)
     model = AutoPeftModelForSequenceClassification.from_pretrained(
         finetuned_path,
-        device_map="sequential",
+        device_map="auto",
         cache_dir="/scratch/mehedi/models",
     )
 
@@ -267,15 +262,15 @@ if __name__ == "__main__":
     E = 5
 
     # We experiment with the datasets of two new projects
-    # projects = ['gnucash', 'chromium']
-    projects = ['gnucash']
+    projects = ['gnucash', 'chromium']
+    # projects = ['gnucash']
 
     # On these two datasets, we evaluate the performance of three trained models:
         # 1. mozilla: Model trained on the Mozilla data
         # 2. project: Model trained on the project (i.e., GunCash or Chromium) data
         # 3. mozilla-project: Model trained on both Mozilla and the project (i.e., GunCash or Chromium) data
     exp_types = ['mozilla', 'project', 'mozilla-project']
-    # exp_types = ['mozilla']
+    # exp_types = ['mozilla-project']
 
     for project in projects:
         for exp_type in exp_types:
@@ -302,11 +297,12 @@ if __name__ == "__main__":
 
             # Run experiment 1
             if exp_type == 'mozilla':
-                # Load the fine-tuned model on Mozilla dataset
-                model, tokenizer = load_finetuned_model(fine_tuned_model_path)
-
                 print(f"\n\n{exp_name} on {project} dataset:")
                 print("===============================================")
+
+                # Load the fine-tuned model on Mozilla dataset
+                model, tokenizer = load_finetuned_model(fine_tuned_model_path)
+                
                 y_pred = get_predictions(X_test_project, model, tokenizer)
                 y_preds.extend(y_pred)
                 y_vals.extend(y_test_project)
@@ -327,8 +323,8 @@ if __name__ == "__main__":
                 folds = prepare_dataset(project_data)
                 for i, fold in enumerate(folds):
 
-                    # if i > 3: # TODO when running on all folds, remove this line
-                    #     break
+                    if i > 0: # TODO when running on all folds, remove this line
+                        break
 
                     print(f"Fold {i + 1}/{len(folds)}")
 

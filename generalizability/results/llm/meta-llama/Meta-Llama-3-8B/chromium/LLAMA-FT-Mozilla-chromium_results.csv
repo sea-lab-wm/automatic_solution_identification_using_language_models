@@ -1,0 +1,2 @@
+Oversample,Batch_Size,Epochs,LR,Model,Accuracy,Precision,Recall,F1 Score,TP,FP,TN,FN
+True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,78.125,25.0,20.0,22.222222,1,3,24,4

@@ -1,0 +1,571 @@
+issue_id,issue_type,issue_class,issue_category,text_id,raw_text,text,code,label,LLAMA-FT-Mozilla-chromium
+40132463,,,,1,"When font-size and transition CSS properties are both applied on a textarea, its font size flickers","When font-size and transition CSS properties are both applied on a textarea, its font size flickers",,0,1
+40132463,,,,2,"Chrome Version : 83.0.4103.61
+OS Version: 10.0
+URLs (if applicable) :
+Other browsers tested:
+Add OK or FAIL after other browsers where you have tested this issue:
+Safari:
+Firefox:
+IE/Edge:
+
+What steps will reproduce the problem?
+
+Create a document with a textarea with style=""font-size: 3rem; transition: all .5s ease""
+Hover mouse over the textarea, or press tab key to focus/unfocus it
+You will see the textarea's font size flickers
+What is the expected result?
+
+What happens instead of that?
+
+Please provide any additional information below. Attach a screenshot if
+possible.
+
+UserAgentString: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36","Chrome Version : 83.0.4103.61
+OS Version: 10.0
+URLs (if applicable) :
+Other browsers tested:
+Add OK or FAIL after other browsers where you have tested this issue:
+Safari:
+Firefox:
+IE/Edge:
+
+What steps will reproduce the problem?
+
+Create a document with a textarea with style=""font-size: 3rem; transition: all .5s ease""
+Hover mouse over the textarea, or press tab key to focus/unfocus it
+You will see the textarea's font size flickers
+What is the expected result?
+
+What happens instead of that?
+
+Please provide any additional information below. Attach a screenshot if
+possible.
+
+UserAgentString: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",,0,0
+40132463,,,,3,"I experienced that too, and it messed up with all of our textarea in production ...
+
+As far as I could see, it only happens with rem/em defined font-size, with fixed value in px,  the behavior still is the same.
+I experienced it on
+Chrome macOS 83.0.4103.61
+chrome windows 83.0.4103.61
+edge windows 83.0.478.37
+
+No issues on Chrome app on ipadPro 81.0.4044.124","I experienced that too, and it messed up with all of our textarea in production ...
+
+As far as I could see, it only happens with rem/em defined font-size, with fixed value in px,  the behavior still is the same.
+I experienced it on
+Chrome macOS 83.0.4103.61
+chrome windows 83.0.4103.61
+edge windows 83.0.478.37
+
+No issues on Chrome app on ipadPro 81.0.4044.124",REPRODUCTION,0,0
+40132463,,,,4,"Oh, and it happens every time when I click inside the textarea too","Oh, and it happens every time when I click inside the textarea too",REPRODUCTION,0,1
+40132463,,,,5,"Able to reproduce the issue on reported chrome version #83.0.4103.61 using Windows 10 and Linux 17.10,Mac 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+
+Reproducible in:
+-------------------
+Canary: 85.0.4155.0
+Dev: 84.0.4147.13
+Stable/Beta: 83.0.4103.61
+
+Bisect information
+--------------------------
+Good Build:83.0.4093.0
+Bad Build: 83.0.4094.0
+
+ChangeLog: https://chromium.googlesource.com/chromium/src/+/93583d18adf1e5db2852c076de709364aa562e29
+Change-Id: I538f73936e96e1bd974e0855b081e99bf947e6a2
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2064248
+
+Anders Hartvoll Ruud @Please help us in reassigning the issue if it is not related to your change.
+Note: Added ReleaseBlock-Stable label for M-83 as this seems to be a recent regression. Please feel free to remove if it is not applicable.
+
+
+Thanks..
+
+[Monorail components: Blink>Animation]","Able to reproduce the issue on reported chrome version #83.0.4103.61 using Windows 10 and Linux 17.10,Mac 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+
+Reproducible in:
+-------------------
+Canary: 85.0.4155.0
+Dev: 84.0.4147.13
+Stable/Beta: 83.0.4103.61
+
+Bisect information
+--------------------------
+Good Build:83.0.4093.0
+Bad Build: 83.0.4094.0
+
+ChangeLog: https://chromium.googlesource.com/chromium/src/+/93583d18adf1e5db2852c076de709364aa562e29
+Change-Id: I538f73936e96e1bd974e0855b081e99bf947e6a2
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2064248
+
+Anders Hartvoll Ruud @Please help us in reassigning the issue if it is not related to your change.
+Note: Added ReleaseBlock-Stable label for M-83 as this seems to be a recent regression. Please feel free to remove if it is not applicable.
+
+
+Thanks..
+
+[Monorail components: Blink>Animation]",REPRODUCTION,0,0
+40132463,,,,6,adding Android and Chrome OS as this is blink related regression.,adding Android and Chrome OS as this is blink related regression.,,0,0
+40132463,,,,7,"This is a ""Medium"" severity bug per https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/release_blockers.md. I will try to get get a fix in ASAP, as reverting the offending commit is at this point more dangerous than this bug.","This is a ""Medium"" severity bug per https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/release_blockers.md. I will try to get get a fix in ASAP, as reverting the offending commit is at this point more dangerous than this bug.",ANALYSIS,0,0
+40132463,,,,8,"This is bug is considered not critical enough for ramp up of M83, but still critical to be included in the next re-spin. M83 re-spin is planned for next week and plan is to cut stable RC build this friday,  Please help get the fix ready and landed on master and once verified in canary channel request a merge to m83 branch. The merges should be complete by 12pm PST friday May 29, 2020","This is bug is considered not critical enough for ramp up of M83, but still critical to be included in the next re-spin. M83 re-spin is planned for next week and plan is to cut stable RC build this friday,  Please help get the fix ready and landed on master and once verified in canary channel request a merge to m83 branch. The merges should be complete by 12pm PST friday May 29, 2020",,0,0
+40132463,,,,9,"So looks like this is not fundamentally a new bug. This, for example, doesn't work in M81:
+
+<style>
+  @keyframes test {
+    from { font-size: 1em; }
+    to { font-size: 1em; }
+  }
+
+  textarea {
+    font-size: 1em;
+  }
+
+  textarea:first-child {
+    animation: test 1s linear paused
+  }
+</style>
+<p>
+  Textareas below should be the same size
+</p>
+<textarea>Hello World</textarea>
+<textarea>Hello World</textarea>
+
+However, it's much easier to reach the broken state in M83+.
+
+So far it looks like it's caused by FontBuilder's adjustments to the specified font-size that take place when the generic font family changes to/from monospace. It's probably intending to check the parent style's font description, but instead checks its own description, which it assumes is the same as the parent's (which it's not).","So looks like this is not fundamentally a new bug. This, for example, doesn't work in M81:
+
+<style>
+  @keyframes test {
+    from { font-size: 1em; }
+    to { font-size: 1em; }
+  }
+
+  textarea {
+    font-size: 1em;
+  }
+
+  textarea:first-child {
+    animation: test 1s linear paused
+  }
+</style>
+<p>
+  Textareas below should be the same size
+</p>
+<textarea>Hello World</textarea>
+<textarea>Hello World</textarea>
+
+However, it's much easier to reach the broken state in M83+.
+
+So far it looks like it's caused by FontBuilder's adjustments to the specified font-size that take place when the generic font family changes to/from monospace. It's probably intending to check the parent style's font description, but instead checks its own description, which it assumes is the same as the parent's (which it's not).",ANALYSIS,0,1
+40132463,,,,10,"Oops, that textarea:first-child should have been textarea:nth-child(2). (Added the <p> last minute).","Oops, that textarea:first-child should have been textarea:nth-child(2). (Added the <p> last minute).",,0,0
+40132463,,,,11,"CL in review now: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+
+Also, my previous claim (in https://crbug.com/chromium/1086082#c10) that this isn't a brand new bug was false. The test I provided _appears_ to illustrate the same issue, but actually it can be explained by the animation emitting absolute font-size values rather than relative units (e.g. em). So ignore that.","CL in review now: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+
+Also, my previous claim (in https://crbug.com/chromium/1086082#c10) that this isn't a brand new bug was false. The test I provided _appears_ to illustrate the same issue, but actually it can be explained by the animation emitting absolute font-size values rather than relative units (e.g. em). So ignore that.",IMPLEMENTATION,1,0
+40132463,,,,12,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/ca7df536bf7bc572825fe4efba2766b34c092698
+
+commit ca7df536bf7bc572825fe4efba2766b34c092698
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Wed May 27 00:24:18 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#772032}
+
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/ca7df536bf7bc572825fe4efba2766b34c092698/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.",IMPLEMENTATION,1,1
+40132463,,,,13,"M84 Beta promotion is this week and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.","M84 Beta promotion is this week and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.",,0,0
+40132463,,,,14,"Please help get the fix landed on master asap and confirm canary coverage, If done , please request a merge to M83 branch so we can review and get ready for RC by friday morning PST . ( If you are in a different time zone, please get the CL ready and run through CQ and ready for submit)","Please help get the fix landed on master asap and confirm canary coverage, If done , please request a merge to M83 branch so we can review and get ready for RC by friday morning PST . ( If you are in a different time zone, please get the CL ready and run through CQ and ready for submit)",,0,0
+40132463,,,,15,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/9518587760c8a1cc9e193010e701105070c029ea
+
+commit 9518587760c8a1cc9e193010e701105070c029ea
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Wed May 27 19:56:57 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#772032}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2218672
+Reviewed-by: Srinivas Sista <srinivassista@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4157@{#8}
+Cr-Branched-From: 21b3ba80281a71f02056ff0276fd69667ed8601b-refs/heads/master@{#772010}
+
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/9518587760c8a1cc9e193010e701105070c029ea/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)",IMPLEMENTATION,1,0
+40132463,,,,16,Verified in 85.0.4157.4 (Windows 10).,Verified in 85.0.4157.4 (Windows 10).,VERIFICATION,0,0
+40132463,,,,17,"This bug requires manual review: Request affecting a post-stable build
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on master/ToT?
+4. Why are these changes required in this milestone after branch?
+5. Is this a new feature?
+6. If it is a new feature, is it behind a flag using finch?
+
+Please contact the milestone owner if you have questions.
+Owners: benmason@(Android), bindusuvarna@(iOS), cindyb@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot","This bug requires manual review: Request affecting a post-stable build
+Before a merge request will be considered, the following information is required to be added to this bug:
+
+1. Does your merge fit within the Merge Decision Guidelines?
+- Chrome: https://chromium.googlesource.com/chromium/src.git/+/master/docs/process/merge_request.md#when-to-request-a-merge
+- Chrome OS: https://goto.google.com/cros-release-branch-merge-guidelines
+2. Links to the CLs you are requesting to merge.
+3. Has the change landed and been verified on master/ToT?
+4. Why are these changes required in this milestone after branch?
+5. Is this a new feature?
+6. If it is a new feature, is it behind a flag using finch?
+
+Please contact the milestone owner if you have questions.
+Owners: benmason@(Android), bindusuvarna@(iOS), cindyb@(ChromeOS), srinivassista@(Desktop)
+
+For more details visit https://www.chromium.org/issue-tracking/autotriage - Your friendly Sheriffbot",,0,0
+40132463,,,,18,"1. Does your merge fit within the Merge Decision Guidelines?
+
+It's a bug that's causing particularly distracting visual artifacts. There isn't an easy work-around that's satisfactory. Luckily the fix is not complicated.
+
+2. Links to the CLs you are requesting to merge.
+
+https://chromium-review.googlesource.com/c/chromium/src/+/2218831
+
+3. Has the change landed and been verified on master/ToT?
+
+Yes, verified on 85.0.4157.4 (Windows 10).
+
+4. Why are these changes required in this milestone after branch?
+
+See 1).
+
+5. Is this a new feature?
+
+No.
+
+6. If it is a new feature, is it behind a flag using finch?
+
+No.","1. Does your merge fit within the Merge Decision Guidelines?
+
+It's a bug that's causing particularly distracting visual artifacts. There isn't an easy work-around that's satisfactory. Luckily the fix is not complicated.
+
+2. Links to the CLs you are requesting to merge.
+
+https://chromium-review.googlesource.com/c/chromium/src/+/2218831
+
+3. Has the change landed and been verified on master/ToT?
+
+Yes, verified on 85.0.4157.4 (Windows 10).
+
+4. Why are these changes required in this milestone after branch?
+
+See 1).
+
+5. Is this a new feature?
+
+No.
+
+6. If it is a new feature, is it behind a flag using finch?
+
+No.",,0,0
+40132463,,,,19,"Merge approved for 83 , branch :4103 pls merge asap","Merge approved for 83 , branch :4103 pls merge asap",VERIFICATION,0,0
+40132463,,,,20,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486
+
+commit 0aba5f95d1f82cb6b4f392d72ac239ff3b26a486
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Thu May 28 13:21:37 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#772032}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2218831
+Reviewed-by: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4103@{#622}
+Cr-Branched-From: 8ad47e8d21f6866e4a37f47d83a860d41debf514-refs/heads/master@{#756066}
+
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/0aba5f95d1f82cb6b4f392d72ac239ff3b26a486/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)",IMPLEMENTATION,1,0
+40132463,,,,21,Done.,Done.,,0,0
+40132463,,,,22,adding merge request label for 84 to evaluate if a merge is needed.,adding merge request label for 84 to evaluate if a merge is needed.,,0,0
+40132463,,,,23,"Approving merge for M84 branch 4147, please merge ASAP.","Approving merge for M84 branch 4147, please merge ASAP.",VERIFICATION,0,0
+40132463,,,,24,Please merge your change to M84 branch 4147 ASAP. Thank you.,Please merge your change to M84 branch 4147 ASAP. Thank you.,,0,0
+40132463,,,,25,"The following revision refers to this bug:
+  https://chromium.googlesource.com/chromium/src.git/+/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e
+
+commit c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e
+Author: Anders Hartvoll Ruud <andruud@chromium.org>
+Date: Fri May 29 11:31:21 2020
+
+Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)
+
+Bug: 1086082, 1086680
+Change-Id: Ia61a2327890f27497e4ea5f41dec00a5e0a450d3
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2216511
+Reviewed-by: Xiaocheng Hu <xiaochengh@chromium.org>
+Commit-Queue: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Original-Commit-Position: refs/heads/master@{#772032}
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/2220031
+Reviewed-by: Anders Hartvoll Ruud <andruud@chromium.org>
+Cr-Commit-Position: refs/branch-heads/4147@{#353}
+Cr-Branched-From: 16307825352720ae04d898f37efa5449ad68b606-refs/heads/master@{#768962}
+
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/font_builder.cc
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/font_builder.h
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/font_builder_test.cc
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/style_cascade.cc
+[modify] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/renderer/core/css/resolver/style_resolver.cc
+[add] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust-ref.html
+[add] https://crrev.com/c3a8fff017b4b78399cce7553ea5a34d7ffb4a9e/third_party/blink/web_tests/external/wpt/css/css-fonts/font-size-monospace-adjust.html","Perform monospace-related adjustment using true parent style
+
+There is currently some code in FontBuilder that tweaks the specified
+font size if the current generic font family changes to or from
+monospace. This code assumes that the FontDescription stored on the
+ComputedStyle pre-CreateFont is the inherited FontDescription, but
+this is no longer (always) true.
+
+This means that declarations like font-size:1em can be applied (and
+subjected to CreateFont) twice, which means that the second call to
+CheckForGenericFamilyChange won't detect a change in the
+monospace-ness, hence the specified size will fail to adjust.
+
+This CL fixes this by propagating the actual parent style to
+CheckForGenericFamilyChange.
+
+(cherry picked from commit ca7df536bf7bc572825fe4efba2766b34c092698)",IMPLEMENTATION,1,0
+40132463,,,,26,"Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on latest chrome version #85.0.4158.5.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!","Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on latest chrome version #85.0.4158.5.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!",VERIFICATION,0,0
+40132463,,,,27,"M84 is already in Beta and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.","M84 is already in Beta and Stable promotion is coming soon.
+Please review this bug and assess if this is indeed a RBS.
+If not, please remove the RBS label.
+If so, please make sure to land the fix and request a merge to M84 ASAP. Thank you.",,0,0
+40132463,,,,28,"Flickering Issue in https://crbug.com/chromium/1086082#c0 Reproducible on Samsung S10/  QP1A.190711.020 having 83.0.4103.61 however Not Reproducible on latest 84 & 85 ,
+@daotrung.kien@gmail.com Please mark it verified  once M84 gets to beta this week.Thanks","Flickering Issue in https://crbug.com/chromium/1086082#c0 Reproducible on Samsung S10/  QP1A.190711.020 having 83.0.4103.61 however Not Reproducible on latest 84 & 85 ,
+@daotrung.kien@gmail.com Please mark it verified  once M84 gets to beta this week.Thanks",VERIFICATION,0,0
+40132463,,,,29,"Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on Stable chrome version #83.0.4103.97.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!","Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on Stable chrome version #83.0.4103.97.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!",VERIFICATION,0,0
+40132463,,,,30,"Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on beta chrome version #84.0.4147.38.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!","Able to reproduce the issue on build without fix chrome version #83.0.4103.61 using Windows, Linux 17.10 and Mac OS 10.12.6 by following steps as per https://crbug.com/chromium/1086082#c0.
+
+Verified the fix on Windows 10, Linux 17.10 and Mac 10.12.6 on beta chrome version #84.0.4147.38.
+Observations: Observed that text area's font size is not flickering.
+
+
+Attaching screen-cast for reference.
+Hence, the fix is working as expected.
+Adding the verified labels.
+
+Thanks...!!",VERIFICATION,0,0
+40132463,,,,31,"Verified the issue no longer reproducible onSamsung S10/QP1A.190711.020 having  latest M85 & M84,marking verified.as per https://crbug.com/chromium/1086082#c34,35,36.Thanks everyone","Verified the issue no longer reproducible onSamsung S10/QP1A.190711.020 having  latest M85 & M84,marking verified.as per https://crbug.com/chromium/1086082#c34,35,36.Thanks everyone",VERIFICATION,0,0
+40132463,,,,32,"This issue was migrated from crbug.com/chromium/1086082?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail mergedwith: crbug.com/chromium/1087620]
+[Monorail components added to Component Tags custom field.]","This issue was migrated from crbug.com/chromium/1086082?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail mergedwith: crbug.com/chromium/1087620]
+[Monorail components added to Component Tags custom field.]",,0,0
