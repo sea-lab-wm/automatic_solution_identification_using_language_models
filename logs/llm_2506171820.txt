@@ -1,0 +1,38 @@
+2025-06-17 22:19:34.612667: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-06-17 22:19:34.626174: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-06-17 22:19:34.642283: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-06-17 22:19:34.647125: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-06-17 22:19:34.658976: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-06-17 22:19:35.704313: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+
+
+LLAMA-FT-Mozilla-gnucash on gnucash dataset:
+===============================================
+Fold 1/10
+Loading fine-tuned model from test_llm/models/llm
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:04<00:13,  4.44s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:07<00:07,  3.82s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:10<00:03,  3.29s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:10<00:00,  2.11s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:10<00:00,  2.70s/it]
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Model loaded successfully.
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label', '__index_level_0__'],
+        num_rows: 136
+    })
+})
+
+
+Class Weight: tensor([0.2794, 0.7206])
+Map:   0%|          | 0/136 [00:00<?, ? examples/s]Map: 100%|██████████| 136/136 [00:00<00:00, 3348.10 examples/s]
+/home/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/llm_experiments.py:28: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.class_weights = torch.tensor(class_weights,
+Model Name: meta-llama/Meta-Llama-3-8B
+Batch Size: 8, Learning Rate: 1e-05, Epochs: 5, Oversample: True
+Class Weights: tensor([0.2794, 0.7206])
+Max Length: 1024, Token Batch Size: 8
+Logging Steps: 5, Weight Decay: 0.01
+Save Location: /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
+  0%|          | 0/85 [00:00<?, ?it/s]  1%|          | 1/85 [00:14<20:08, 14.38s/it]  2%|▏         | 2/85 [00:27<18:38, 13.48s/it]  4%|▎         | 3/85 [00:40<18:19, 13.40s/it]  5%|▍         | 4/85 [00:53<17:51, 13.23s/it]

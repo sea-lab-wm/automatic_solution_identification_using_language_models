@@ -133,7 +133,7 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
         per_device_train_batch_size=BS,
         # per_device_eval_batch_size=bs,
         num_train_epochs=E,
-        max_steps=1, # Remove or set to -1 to disable max_steps TODO
+        # max_steps=1, # Remove or set to -1 to disable max_steps TODO
         logging_steps=logging_steps,
         weight_decay=weight_decay,
         # eval_strategy='epoch',
@@ -263,14 +263,14 @@ if __name__ == "__main__":
 
     # We experiment with the datasets of two new projects
     projects = ['gnucash', 'chromium']
-    # projects = ['gnucash']
+    # projects = ['chromium']
 
     # On these two datasets, we evaluate the performance of three trained models:
         # 1. mozilla: Model trained on the Mozilla data
         # 2. project: Model trained on the project (i.e., GunCash or Chromium) data
         # 3. mozilla-project: Model trained on both Mozilla and the project (i.e., GunCash or Chromium) data
-    exp_types = ['mozilla', 'project', 'mozilla-project']
-    # exp_types = ['mozilla-project']
+    # exp_types = ['mozilla', 'project', 'mozilla-project']
+    exp_types = ['mozilla-project']
 
     for project in projects:
         for exp_type in exp_types:
@@ -323,8 +323,8 @@ if __name__ == "__main__":
                 folds = prepare_dataset(project_data)
                 for i, fold in enumerate(folds):
 
-                    if i > 0: # TODO when running on all folds, remove this line
-                        break
+                    # if i > 0: # TODO when running on all folds, remove this line
+                    #     break
 
                     print(f"Fold {i + 1}/{len(folds)}")
 
