@@ -166,6 +166,13 @@ def fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_
 
         print(f"\nModel saved to {model_to_save_path}")
 
+    # Clean up
+    del model
+    del trainer
+    del tokenizer
+    gc.collect()
+    torch.cuda.empty_cache()
+
 def prepare_dataset(data):
     issue_ids = data['issue_id'].unique()
     # print(f"Unique issue IDs: {len(issue_ids)}")
@@ -262,8 +269,8 @@ if __name__ == "__main__":
     E = 5
 
     # We experiment with the datasets of two new projects
-    projects = ['gnucash', 'chromium']
-    # projects = ['chromium']
+    # projects = ['gnucash', 'chromium']
+    projects = ['chromium']
 
     # On these two datasets, we evaluate the performance of three trained models:
         # 1. mozilla: Model trained on the Mozilla data
@@ -323,7 +330,7 @@ if __name__ == "__main__":
                 folds = prepare_dataset(project_data)
                 for i, fold in enumerate(folds):
 
-                    # if i > 0: # TODO when running on all folds, remove this line
+                    # if i > 2: # TODO when running on all folds, remove this line
                     #     break
 
                     print(f"Fold {i + 1}/{len(folds)}")
@@ -348,6 +355,12 @@ if __name__ == "__main__":
                         model, tokenizer = load_finetuned_model(fine_tuned_model_path)
 
                     fine_tune_model(train_df, model, tokenizer, oversample, BS, LR, E, model_to_save_path_new)
+
+                    # Clean up
+                    del model
+                    del tokenizer
+                    gc.collect()
+                    torch.cuda.empty_cache()
 
                     # Load the new fine-tuned model
                     model, tokenizer = load_finetuned_model(model_to_save_path_new)

@@ -35,4 +35,79 @@ Class Weights: tensor([0.2794, 0.7206])
 Max Length: 1024, Token Batch Size: 8
 Logging Steps: 5, Weight Decay: 0.01
 Save Location: /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
-  0%|          | 0/85 [00:00<?, ?it/s]  1%|          | 1/85 [00:14<20:08, 14.38s/it]  2%|▏         | 2/85 [00:27<18:38, 13.48s/it]  4%|▎         | 3/85 [00:40<18:19, 13.40s/it]  5%|▍         | 4/85 [00:53<17:51, 13.23s/it]
+  0%|          | 0/85 [00:00<?, ?it/s]  1%|          | 1/85 [00:14<20:08, 14.38s/it]  2%|▏         | 2/85 [00:27<18:38, 13.48s/it]  4%|▎         | 3/85 [00:40<18:19, 13.40s/it]  5%|▍         | 4/85 [00:53<17:51, 13.23s/it]  6%|▌         | 5/85 [01:07<17:46, 13.33s/it]                                                6%|▌         | 5/85 [01:07<17:46, 13.33s/it]  7%|▋         | 6/85 [01:20<17:37, 13.39s/it]  8%|▊         | 7/85 [01:34<17:27, 13.42s/it]  9%|▉         | 8/85 [01:47<17:03, 13.29s/it] 11%|█         | 9/85 [02:00<16:55, 13.36s/it] 12%|█▏        | 10/85 [02:13<16:33, 13.24s/it]                                                12%|█▏        | 10/85 [02:13<16:33, 13.24s/it] 13%|█▎        | 11/85 [02:27<16:25, 13.32s/it] 14%|█▍        | 12/85 [02:39<16:05, 13.22s/it] 15%|█▌        | 13/85 [02:53<15:57, 13.30s/it] 16%|█▋        | 14/85 [03:06<15:48, 13.36s/it] 18%|█▊        | 15/85 [03:20<15:30, 13.29s/it]                                                18%|█▊        | 15/85 [03:20<15:30, 13.29s/it] 19%|█▉        | 16/85 [03:33<15:10, 13.19s/it] 20%|██        | 17/85 [03:46<14:53, 13.14s/it] 21%|██        | 18/85 [03:59<14:46, 13.24s/it] 22%|██▏       | 19/85 [04:12<14:27, 13.15s/it] 24%|██▎       | 20/85 [04:25<14:09, 13.08s/it]                                                24%|██▎       | 20/85 [04:25<14:09, 13.08s/it] 25%|██▍       | 21/85 [04:38<14:04, 13.19s/it] 26%|██▌       | 22/85 [04:52<13:55, 13.26s/it] 27%|██▋       | 23/85 [05:05<13:35, 13.16s/it] 28%|██▊       | 24/85 [05:18<13:19, 13.10s/it] 29%|██▉       | 25/85 [05:31<13:03, 13.05s/it]                                                29%|██▉       | 25/85 [05:31<13:03, 13.05s/it] 31%|███       | 26/85 [05:44<12:56, 13.16s/it] 32%|███▏      | 27/85 [05:58<12:48, 13.26s/it] 33%|███▎      | 28/85 [06:10<12:29, 13.16s/it] 34%|███▍      | 29/85 [06:23<12:12, 13.09s/it] 35%|███▌      | 30/85 [06:36<11:56, 13.03s/it]                                                35%|███▌      | 30/85 [06:36<11:56, 13.03s/it] 36%|███▋      | 31/85 [06:49<11:41, 12.99s/it] 38%|███▊      | 32/85 [07:02<11:26, 12.96s/it] 39%|███▉      | 33/85 [07:15<11:12, 12.94s/it] 40%|████      | 34/85 [07:28<10:59, 12.94s/it] 41%|████      | 35/85 [07:41<10:51, 13.04s/it]                                                41%|████      | 35/85 [07:41<10:51, 13.04s/it] 42%|████▏     | 36/85 [07:54<10:36, 12.99s/it] 44%|████▎     | 37/85 [08:07<10:21, 12.95s/it] 45%|████▍     | 38/85 [08:20<10:08, 12.95s/it] 46%|████▌     | 39/85 [08:33<09:54, 12.92s/it] 47%|████▋     | 40/85 [08:46<09:40, 12.90s/it]                                                47%|████▋     | 40/85 [08:46<09:40, 12.90s/it] 48%|████▊     | 41/85 [08:58<09:27, 12.90s/it] 49%|████▉     | 42/85 [09:11<09:14, 12.90s/it] 51%|█████     | 43/85 [09:24<09:01, 12.90s/it] 52%|█████▏    | 44/85 [09:37<08:49, 12.90s/it] 53%|█████▎    | 45/85 [09:50<08:35, 12.90s/it]                                                53%|█████▎    | 45/85 [09:50<08:35, 12.90s/it] 54%|█████▍    | 46/85 [10:03<08:23, 12.90s/it] 55%|█████▌    | 47/85 [10:16<08:10, 12.90s/it] 56%|█████▋    | 48/85 [10:29<07:56, 12.89s/it] 58%|█████▊    | 49/85 [10:42<07:43, 12.88s/it] 59%|█████▉    | 50/85 [10:54<07:30, 12.88s/it]                                                59%|█████▉    | 50/85 [10:54<07:30, 12.88s/it] 60%|██████    | 51/85 [11:07<07:18, 12.89s/it] 61%|██████    | 52/85 [11:21<07:08, 12.97s/it] 62%|██████▏   | 53/85 [11:33<06:54, 12.95s/it] 64%|██████▎   | 54/85 [11:46<06:40, 12.92s/it] 65%|██████▍   | 55/85 [12:00<06:30, 13.03s/it]                                                65%|██████▍   | 55/85 [12:00<06:30, 13.03s/it] 66%|██████▌   | 56/85 [12:13<06:18, 13.04s/it] 67%|██████▋   | 57/85 [12:26<06:04, 13.03s/it] 68%|██████▊   | 58/85 [12:39<05:54, 13.15s/it] 69%|██████▉   | 59/85 [12:52<05:41, 13.13s/it] 71%|███████   | 60/85 [13:05<05:26, 13.07s/it]                                                71%|███████   | 60/85 [13:05<05:26, 13.07s/it] 72%|███████▏  | 61/85 [13:19<05:16, 13.19s/it] 73%|███████▎  | 62/85 [13:32<05:05, 13.27s/it] 74%|███████▍  | 63/85 [13:45<04:49, 13.15s/it] 75%|███████▌  | 64/85 [13:58<04:34, 13.07s/it] 76%|███████▋  | 65/85 [14:11<04:20, 13.04s/it]                                                76%|███████▋  | 65/85 [14:11<04:20, 13.04s/it] 78%|███████▊  | 66/85 [14:24<04:06, 13.00s/it] 79%|███████▉  | 67/85 [14:37<03:53, 12.98s/it] 80%|████████  | 68/85 [14:50<03:40, 12.98s/it] 81%|████████  | 69/85 [15:03<03:29, 13.07s/it] 82%|████████▏ | 70/85 [15:16<03:15, 13.02s/it]                                                82%|████████▏ | 70/85 [15:16<03:15, 13.02s/it] 84%|████████▎ | 71/85 [15:29<03:01, 12.98s/it] 85%|████████▍ | 72/85 [15:41<02:48, 12.96s/it] 86%|████████▌ | 73/85 [15:54<02:35, 12.96s/it] 87%|████████▋ | 74/85 [16:07<02:22, 12.94s/it] 88%|████████▊ | 75/85 [16:20<02:09, 12.93s/it]                                                88%|████████▊ | 75/85 [16:20<02:09, 12.93s/it] 89%|████████▉ | 76/85 [16:33<01:56, 12.95s/it] 91%|█████████ | 77/85 [16:46<01:43, 12.94s/it] 92%|█████████▏| 78/85 [16:59<01:30, 12.94s/it] 93%|█████████▎| 79/85 [17:12<01:17, 12.94s/it] 94%|█████████▍| 80/85 [17:25<01:04, 12.94s/it]                                                94%|█████████▍| 80/85 [17:25<01:04, 12.94s/it] 95%|█████████▌| 81/85 [17:38<00:51, 12.95s/it] 96%|█████████▋| 82/85 [17:51<00:38, 12.93s/it] 98%|█████████▊| 83/85 [18:04<00:25, 12.92s/it] 99%|█████████▉| 84/85 [18:17<00:13, 13.07s/it]100%|██████████| 85/85 [18:30<00:00, 13.13s/it]                                               100%|██████████| 85/85 [18:30<00:00, 13.13s/it]                                               100%|██████████| 85/85 [18:31<00:00, 13.13s/it]100%|██████████| 85/85 [18:31<00:00, 13.08s/it]
+{'loss': 0.6161, 'grad_norm': 58.04283905029297, 'learning_rate': 9.411764705882354e-06, 'epoch': 0.29}
+{'loss': 0.4735, 'grad_norm': 17.05911636352539, 'learning_rate': 8.823529411764707e-06, 'epoch': 0.59}
+{'loss': 0.5386, 'grad_norm': 20.372947692871094, 'learning_rate': 8.23529411764706e-06, 'epoch': 0.88}
+{'loss': 0.6915, 'grad_norm': 26.667320251464844, 'learning_rate': 7.647058823529411e-06, 'epoch': 1.18}
+{'loss': 0.6506, 'grad_norm': 18.9062557220459, 'learning_rate': 7.058823529411766e-06, 'epoch': 1.47}
+{'loss': 0.3804, 'grad_norm': 31.90083885192871, 'learning_rate': 6.470588235294119e-06, 'epoch': 1.76}
+{'loss': 0.5415, 'grad_norm': 44.202842712402344, 'learning_rate': 5.882352941176471e-06, 'epoch': 2.06}
+{'loss': 0.6911, 'grad_norm': 45.80540466308594, 'learning_rate': 5.294117647058824e-06, 'epoch': 2.35}
+{'loss': 0.389, 'grad_norm': 19.48691177368164, 'learning_rate': 4.705882352941177e-06, 'epoch': 2.65}
+{'loss': 0.3836, 'grad_norm': 34.10206985473633, 'learning_rate': 4.11764705882353e-06, 'epoch': 2.94}
+{'loss': 0.7259, 'grad_norm': 36.518646240234375, 'learning_rate': 3.529411764705883e-06, 'epoch': 3.24}
+{'loss': 0.393, 'grad_norm': 28.726381301879883, 'learning_rate': 2.9411764705882355e-06, 'epoch': 3.53}
+{'loss': 0.3465, 'grad_norm': 10.032184600830078, 'learning_rate': 2.3529411764705885e-06, 'epoch': 3.82}
+{'loss': 0.5155, 'grad_norm': 16.22968292236328, 'learning_rate': 1.7647058823529414e-06, 'epoch': 4.12}
+{'loss': 0.4295, 'grad_norm': 27.73147964477539, 'learning_rate': 1.1764705882352942e-06, 'epoch': 4.41}
+{'loss': 0.5868, 'grad_norm': 41.50309371948242, 'learning_rate': 5.882352941176471e-07, 'epoch': 4.71}
+{'loss': 0.6101, 'grad_norm': 10.64140510559082, 'learning_rate': 0.0, 'epoch': 5.0}
+{'train_runtime': 1111.8972, 'train_samples_per_second': 0.612, 'train_steps_per_second': 0.076, 'train_loss': 0.5272408359190996, 'epoch': 5.0}
+
+Saving Model ...
+
+Model saved to /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
+Loading fine-tuned model from /scratch/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/models/llm/meta-llama/Meta-Llama-3-8B/gnucash/LLAMA-FT-Mozilla-gnucash/0
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:03<00:09,  3.07s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:06<00:06,  3.04s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:08<00:02,  2.54s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  1.65s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  2.08s/it]
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some parameters are on the meta device device because they were offloaded to the cpu.
+Some parameters are on the meta device device because they were offloaded to the cpu.
+Model loaded successfully.
+Traceback (most recent call last):
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/llm_experiments.py", line 354, in <module>
+    y_pred = get_predictions(X_test, model, tokenizer)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/generalizability/llm_experiments.py", line 61, in get_predictions
+    outputs = model(**inputs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/peft/peft_model.py", line 1238, in forward
+    return self.base_model(
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/peft/tuners/tuners_utils.py", line 179, in forward
+    return self.model.forward(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1284, in forward
+    transformer_outputs = self.model(
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 942, in forward
+    layer_outputs = decoder_layer(
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 693, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/mehedi/projects/automatic_solution_identification_using_language_models/venv/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 253, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 82.00 MiB. GPU  has a total capacity of 14.56 GiB of which 52.06 MiB is free. Process 2769479 has 120.00 MiB memory in use. Including non-PyTorch memory, this process has 14.39 GiB memory in use. Of the allocated memory 14.13 GiB is allocated by PyTorch, and 84.69 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
