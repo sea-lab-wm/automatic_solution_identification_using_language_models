@@ -1,4 +1,4 @@
-This is the replication package for the paper "A Case Study on Automatically Identifying Solution-Related Content in Issue Report Discussions via Language Models".
+This is the replication package for the paper "Evaluating Language Model Applications for Identifying Solution-Related Content in Issue Report Discussions".
 
 # Installation Process
 
