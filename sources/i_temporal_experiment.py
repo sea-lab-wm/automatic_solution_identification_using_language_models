@@ -78,5 +78,5 @@ def train_test_split_data(input_path, output_path):
 
 if __name__ == "__main__":
     add_embedding_info(embedding_comment_data, mapped_comment_data, embedding_comment_data_temporal)
-    group_data(mapped_comment_data, temporal_folds_path)
+    group_data(embedding_comment_data_temporal, temporal_folds_path)
     train_test_split_data(temporal_folds_path, temporal_folds_path)
