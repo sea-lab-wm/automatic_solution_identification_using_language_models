@@ -8,3 +8,10 @@ all,tfidf,False,Random_Forest,0,85.215606,54.320988,55.696203,55.0,44,37,371,35,
 preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
 preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
 none,gpt,True,SVC,0,90.965092,76.923077,63.291139,69.444444,50,15,393,29,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,90.965092,76.923077,63.291139,69.444444,50,15,393,29,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,90.965092,76.923077,63.291139,69.444444,50,15,393,29,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,True,SVC,0,90.965092,76.923077,63.291139,69.444444,50,15,393,29,"{'C': 10, 'class_weight': None, 'kernel': 'rbf'}"

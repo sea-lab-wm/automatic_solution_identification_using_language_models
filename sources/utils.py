@@ -15,8 +15,14 @@ import pandas as pd
 import pandas as pd
 import tensorflow as tf
 import random
-import torch
-import en_core_web_trf
+try:
+    import torch
+except ImportError:
+    torch = None
+try:
+    import en_core_web_trf
+except ImportError:
+    en_core_web_trf = None
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
@@ -178,6 +184,8 @@ def set_seed(seed):
 
 
 def set_llm_seed(seed):
+    if torch is None:
+        raise ImportError("torch is required for LLM experiments.")
     os.environ["CUBLAS_WORKSPACE_CONFIG"]=":4096:8"
     os.environ['TF_CUDNN_DETERMINISTIC'] = '1'
     os.environ['TF_DETERMINISTIC_OPS'] = '1'
@@ -206,6 +214,8 @@ def tokenize_without_punctuation(text):
 
 
 def spacy_parser(text):
+    if en_core_web_trf is None:
+        raise ImportError("en_core_web_trf is required for sentence parsing.")
     nlp = en_core_web_trf.load()
     doc = nlp(text)
     sentences = list(doc.sents)
@@ -277,9 +287,14 @@ def prepare_data(data_path, index_path):
         dev_os_df_path
     ]
 
-    # Create a pool of workers
-    with Pool() as pool:
-        pool.starmap(process_run, [(run, data, indexes, paths) for run in runs])
+    process_args = [(run, data, indexes, paths) for run in runs]
+
+    try:
+        with Pool() as pool:
+            pool.starmap(process_run, process_args)
+    except (PermissionError, OSError):
+        for args in process_args:
+            process_run(*args)
 
 
 

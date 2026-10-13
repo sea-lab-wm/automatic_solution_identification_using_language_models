@@ -1,11 +1,28 @@
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import ktrain
+import numpy as np
 
 from collections import Counter
 from ktrain import text
 
 from utils import *
+
+def get_positive_class_index(classes):
+    for positive_label in (1, "1", True, "True"):
+        if positive_label in classes:
+            return classes.index(positive_label)
+    return 1 if len(classes) > 1 else 0
+
+
+def extract_positive_class_confidence(probabilities, classes):
+    probabilities = np.asarray(probabilities)
+    if probabilities.ndim == 1:
+        return probabilities.reshape(-1)
+
+    positive_class_index = get_positive_class_index(list(classes))
+    return probabilities[:, positive_class_index]
+
 
 def train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, BS, LR, E, model_save=None):
     set_seed(42)
@@ -28,8 +45,12 @@ def train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, BS, LR, 
         print(f"Model saved at: {model_save}")
 
     y_pred = predictor.predict(X_val)
+    y_confidence = extract_positive_class_confidence(
+        predictor.predict_proba(X_val),
+        t_mod.get_classes(),
+    )
 
-    return y_pred
+    return y_pred, y_confidence
 
 def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
@@ -92,7 +113,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
         for bs in mod['params']['batch_size']:
             for lr in mod['params']['learning_rate']:
                 for e in mod['params']['epoch']:
-                    y_pred = train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, bs, lr, e)
+                    y_pred, _ = train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, bs, lr, e)
 
                     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_val)
 
@@ -135,7 +156,18 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     model_file_name = f"{model_name}__BS_{BS}__LR_{LR}__E_{E}__Oversample_{'os' if oversample else 'nos'}.joblib"
     model_path = os.path.join(model_path_folder, model_file_name)
 
-    y_pred = train_evaluate(model_name, classes, X_dev, y_dev, X_test, y_test, BS, LR, E, model_save=model_path)
+    y_pred, y_confidence = train_evaluate(
+        model_name,
+        classes,
+        X_dev,
+        y_dev,
+        X_test,
+        y_test,
+        BS,
+        LR,
+        E,
+        model_save=model_path,
+    )
     
     print(f"Predictions :\n{y_pred}")
 
@@ -166,10 +198,19 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     test_df = test_df.copy()
 
     test_df[model_name + f"_{'os' if oversample else 'nos'}_prediction"] = y_pred
-    p = os.path.join(f"results/predictions/plm", model_name, f"folds/{run}", f"prediction_{'os' if oversample else 'nos'}.csv")
-    os.makedirs(os.path.dirname(p), exist_ok=True)
-    test_df.to_csv(p, index=False)
-    print(f"Predictions saved to: {p}")
+    test_df[model_name + f"_{'os' if oversample else 'nos'}_confidence"] = y_confidence
+    prediction_dir = os.path.join("results/predictions/plm", model_name, f"folds/{run}")
+    base_filename = f"prediction_{'os' if oversample else 'nos'}"
+    standard_prediction_path = os.path.join(prediction_dir, f"{base_filename}.csv")
+    confidence_prediction_path = os.path.join(
+        prediction_dir,
+        f"{base_filename}_with_confidence.csv",
+    )
+    os.makedirs(prediction_dir, exist_ok=True)
+    test_df.to_csv(standard_prediction_path, index=False)
+    test_df.to_csv(confidence_prediction_path, index=False)
+    print(f"Predictions saved to: {standard_prediction_path}")
+    print(f"Confidence predictions saved to: {confidence_prediction_path}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
     runs = exp_config.get("eval_run", [])

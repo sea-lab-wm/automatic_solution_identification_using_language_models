@@ -135,12 +135,30 @@ def getBaseModel(clf_name):
     elif clf_name == "Decision_Tree":
         return DecisionTreeClassifier(random_state=42)
     elif clf_name == "SVC":
-        return SVC(random_state=42)
+        return SVC(random_state=42, probability=True)
     elif clf_name == "Random_Forest":
         return RandomForestClassifier(random_state=42)
     else:
         raise ValueError(f"Unknown classifier name: {clf_name}")
-    
+
+
+def get_positive_class_confidence(model, X_test):
+    if hasattr(model, "predict_proba"):
+        probabilities = np.asarray(model.predict_proba(X_test))
+        if probabilities.ndim == 2 and probabilities.shape[1] > 1:
+            return probabilities[:, 1]
+        return probabilities.reshape(-1)
+
+    if hasattr(model, "decision_function"):
+        decision_scores = np.asarray(model.decision_function(X_test))
+        if decision_scores.ndim > 1:
+            decision_scores = decision_scores[:, 1]
+        return 1.0 / (1.0 + np.exp(-decision_scores))
+
+    predictions = np.asarray(model.predict(X_test), dtype=float)
+    return predictions.reshape(-1)
+
+
 def get_tuned_model_prediction(X_test, X_train, clf, model, config, y_train, model_save_path):
     if not config:
         searchCV = GridSearchCV(clf,
@@ -165,9 +183,10 @@ def get_tuned_model_prediction(X_test, X_train, clf, model, config, y_train, mod
         best_model.fit(X_train, y_train)
         
     y_pred = best_model.predict(X_test)
+    y_confidence = get_positive_class_confidence(best_model, X_test)
     
     save_model(best_model, os.path.join(ml_model_base_path, model_save_path))
-    return config, y_pred
+    return config, y_pred, y_confidence
 
 def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, config):
     X_dev_embedding = data_dict['X_dev_embedding']
@@ -179,7 +198,15 @@ def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, 
     
     clf = getBaseModel(model["model_name"])
     model_save_path = f'model_{model["model_name"]}_preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'
-    param, y_pred = get_tuned_model_prediction(X_test_embedding, X_dev_embedding, clf, model, config, y_dev, model_save_path)
+    param, y_pred, y_confidence = get_tuned_model_prediction(
+        X_test_embedding,
+        X_dev_embedding,
+        clf,
+        model,
+        config,
+        y_dev,
+        model_save_path,
+    )
 
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_test)
 
@@ -206,7 +233,7 @@ def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, 
     append_row_to_csv(result_path, result)
     print(f"Results are saved to {result_path}")
 
-    return y_pred
+    return y_pred, y_confidence
 
 def process_config(mode, embedding, oversampling, model, config, path, run, result_path, test_predictions):
     if embedding in ["bert", "llama", "gpt"] and mode in ["essential", "all"]:
@@ -215,19 +242,22 @@ def process_config(mode, embedding, oversampling, model, config, path, run, resu
     try:
         print(f"Preprocess: {mode}, Embedding: {embedding}, Oversampling: {oversampling}, Model: {model['model_name']}, Run: {run}")
         data_dict = joblib.load(os.path.join(os.path.dirname(path), f'data__preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'))
-        y_pred = ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, config)
+        y_pred, y_confidence = ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, config)
         column_name = '_'.join(
             [mode, embedding, "os" if oversampling else "nos", model['model_name'],
              str(run)])
         test_predictions[column_name] = y_pred
+        test_predictions[column_name + "_confidence"] = y_confidence
         print("Prediction Loaded to Test Prediction File")
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        return None
     return test_predictions
 
 
 def save_model(model, filename):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     joblib.dump(model, filename)
     print(f"Model saved to {filename}")
 
@@ -240,6 +270,11 @@ def load_model(filename):
 def ml_run(exp_config, run_best_config=False):
     runs = exp_config.get('eval_run', [])
     result_path = "results/ml/comment_data_results.csv"
+    prediction_path_template = os.path.join(ml_prediction_comment_dir, "run_{run}.csv")
+    confidence_prediction_path_template = os.path.join(
+        ml_prediction_comment_dir,
+        "run_{run}_with_confidence.csv",
+    )
     print(f"Result Path: {result_path}")
 
     result_header = ["preprocess", "embedding", "oversampling", "model", "run", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN", "param"]
@@ -276,12 +311,16 @@ def ml_run(exp_config, run_best_config=False):
                 test_predictions = test_predictions.merge(result, how='left')
 
                 os.makedirs(ml_prediction_comment_dir, exist_ok=True)
-                test_predictions.to_csv(os.path.join(ml_prediction_comment_dir, f"run_{run}.csv"), index=False)
-                print(f"Test Prediction Saved to {path}")
+                standard_prediction_path = prediction_path_template.format(run=run)
+                confidence_prediction_path = confidence_prediction_path_template.format(run=run)
+                test_predictions.to_csv(standard_prediction_path, index=False)
+                test_predictions.to_csv(confidence_prediction_path, index=False)
+                print(f"Test Prediction Saved to {standard_prediction_path}")
+                print(f"Confidence Prediction Saved to {confidence_prediction_path}")
 
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()
-    prepare_data(embedding_comment_data, train_test_comment_data)
-    prepare_data_for_ml()
+    # prepare_data(embedding_comment_data, train_test_comment_data)
+    # prepare_data_for_ml()
     ml_run(exp_config, True)
