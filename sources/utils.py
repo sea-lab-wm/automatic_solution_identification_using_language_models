@@ -303,9 +303,9 @@ data_setting = ["all", "filtered"]
 
 experiment_file = 'experiments_best.json'
 
-issue_data_path = "dataset_construction/comment_data/issue_title_and_comments.json"
-issue_statistics = "dataset_construction/comment_data/issue_statistics.csv"
-issue_comment_sentence = "dataset_construction/comment_data/issue_comment_sentence.json"
+issue_data_path = "dataset/issue_data/issue_title_and_comments.json"
+issue_statistics = "dataset/issue_data/issue_statistics.csv"
+issue_comment_sentence = "dataset/issue_data/issue_comment_sentence.json"
 
 annotation_data_path = "dataset_construction/comment_data/annotation_data.json"
 annotation_statistics = "dataset_construction/comment_data/annotation_statistics.csv"
