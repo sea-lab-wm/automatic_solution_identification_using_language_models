@@ -1,8 +1,8 @@
 issue_id,text_id,text,code,label,matching_category,creation_time,comment_id
+538721,2,It is probably a typo for bug 436276 but that's wrong too as strokeWidth is a length. I'd say bug 534028 makes more sense as a dependency.,POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-01-09T11:43:35Z,4480145.0
 538721,1,"http://mxr.mozilla.org/mozilla-central/source/layout/reftests/svg/smil/reftest.list#91
 fails == anim-strokewidth-1xml.svg anim-standard-ref.svg # bug 436267
 This isn't an SMIL bug :)  What's the correct bug for animating strokewidth?",QUESTION,0,FULL_TEXT,2010-01-09T03:04:07Z,4479967.0
-538721,2,It is probably a typo for bug 436276 but that's wrong too as strokeWidth is a length. I'd say bug 534028 makes more sense as a dependency.,POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-01-09T11:43:35Z,4480145.0
 538721,3,"Thanks for the report, Jesse!
 Robert is correct on both counts. (FWIW, in bug 436276, I intended ""non-length"" to mean ""non-nsSVGLength2"" -- and strokeWidth is non-nsSVGLength2. Hence the dependency on that bug).
 In any case, bug 534028 is more granular, and when it's fixed, this test will pass.  So that's indeed a better bug # to reference there.
