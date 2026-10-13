@@ -1,0 +1,1851 @@
+issue_id,text_id,text,code,label,matching_category,creation_time,comment_id
+1297315,3,"Hi jmuizelaar,
+I don't know who did the magic that passed -Wno-error=maybe-uninitialized to g++...
+So it is against the warning as error.
+Also I think removing goto statement is benefit for C++ code.
+Please help to review this patch for fixing those warnings.
+Thank you!",PROBLEM_MOTIVATION,0,FULL_TOKEN,2016-08-23T06:37:53Z,11647110.0
+1187056,26,"Comment on attachment 8641169
+Patch
+This is unfortunately most probably not safe.
+We won't reflow at that point, since there are script blockers on stack, but
+doing anything like MetaViewportChanged() during BindToTree looks
+scary to me. One would need to explicitly prove that MetaViewportChanged call may not run scripts.
+So either prove that and assert somewhere hard (RELEASE_ASSERT) that script aren't run, nor events dispatched etc.
+ or
+Would it help if HTMLMetaElement::CreateAndDispatchEvent didn't use 
+asyncDispatcher->PostDOMEvent(); but 
+asyncDispatcher->RunDOMEventWhenSafe() ?",QUESTION,0,FULL_TOKEN,2015-07-30T17:36:34Z,10557274.0
+1249818,20,"I managed to reproduce this bug on Nightly 47.0a1 (2016-02-19).
+I also investigated it using 
+- Windows 10 x64
+- Ubuntu 14.04 x86
+- Mac OS X 10.11.1
+There are some problems with latest Nightly 50.0a1 (2016-07-10) build on Mac - there is a narrow area
+for which two actions are overlapping: window dragging and tab dragging (see the screencast https://drive.google.com/file/d/0B0nYKG6PRiCcVFdNMEh2a21NVnc/view?usp=sharing).
+Also, it seems that on Windows and Mac the fix didn't land yet for Aurora and Beta. I will continue the verification process when the fix will land.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2016-07-11T11:48:16Z,11538123.0
+1142350,6,"Created attachment 8793284
+Bug 1142350 - Remove nsIUserCertPicker, nsICertPickDialogs and associated code from mozilla-central.
+The code is used in comm-central, but is unused in mozilla-central. It will be
+imported into comm-central in Bug 1297368.
+Review commit: https://reviewboard.mozilla.org/r/80070/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/80070/",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-09-21T11:50:48Z,11725446.0
+1249818,15,https://hg.mozilla.org/mozilla-central/rev/4eedf5c4e7e2,UNCODED,0,UNMATCHED,2016-07-07T09:45:24Z,11530057.0
+1262069,3,"Comment on attachment 8738042
+Wrap promise resolution values before storing
+I seem to recall there were actual reasons for storing the value as-is instead of wrapping into the promise compartment.  Have you run the full test suite with this patch?
+In any case, this won't help with the spidermonkey promise implementation, which we're about to turn on.  As in, you're touching code that's about to become dead code.",CODE_REVIEW,0,FULL_TOKEN,2016-04-05T12:52:23Z,11301319.0
+1183934,1,"Created attachment 8633836
+0001-Bug-XXXXXXX-only-log-an-error-saving-JSON-if-an-erro.patch
+Sync logs may include an entry similar to:
+1436815520239	Sync.Engine.History	ERROR	null
+This is more of a problem since bug 1148980 landed as any ""error"" entry in the logs cause Sync to generate an error log and note the error in the browser console.
+Although I haven't yet reproduced this, I'm confident the problem is https://hg.mozilla.org/mozilla-central/file/e7e69cc8c07b/services/sync/modules/engines.js#l786. This is the callback from Utils.jsonSave, which is at https://hg.mozilla.org/mozilla-central/file/e7e69cc8c07b/services/sync/modules/util.js#l369, and as you can see, the callback is made with null when there's no error - but we still log it.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-07-15T01:41:24Z,10494802.0
+1203871,6,*** Bug 1067230 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2016-02-22T04:11:29Z,11183099.0
+1306719,6,https://hg.mozilla.org/mozilla-central/rev/5a68cafd32e5,UNCODED,0,UNMATCHED,2016-10-01T21:05:45Z,11752522.0
+1253516,1,https://treeherder.mozilla.org/logviewer.html#?job_id=22979153&repo=mozilla-inbound,UNCODED,0,UNMATCHED,2016-03-04T05:15:02Z,11217665.0
+1179123,7,Confirmed it is a regression since bug 947854.,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2015-07-02T00:11:00Z,10443377.0
+1191113,5,"While the final decision for uplift is up to release-drivers, I strongly advise against breaking string freeze in aurora and beta. 
+Some exceptions might make sense at the beginning of the cycle, but it's better to live with an hard-coded string for one cycle than dealing with the noise we create by landing the string.
+Also note that we're 5 days from merge day, so it's probably late for any patch to land on beta unless things are utterly broken.",ISSUE_METADATA_CHANGE,0,FULL_TOKEN,2015-08-05T11:05:42Z,10579362.0
+1263083,39,"Comment on attachment 8765412
+Bug 1263083 - Use single-tile layer when less than half the tile size in either dimension;
+This patch fixes a performance regression. Take it in 48 beta 6 and aurora.",UPLIFT_APPROVAL,0,FULL_TEXT,2016-07-06T01:40:48Z,11525762.0
+1203871,3,"roc:
+Do you have some idea to retrieve each character rect from nsTextFrames quickly? It seems that current approach of eQueryTextRect which retrieves union rect of characters in specified range isn't useful for the new eQueryCharRectArray: http://mxr.mozilla.org/mozilla-central/source/dom/events/ContentEventHandler.cpp?rev=e22b3043887e#1296",INFO_REQUEST,0,FULL_TOKEN,2016-02-12T03:19:56Z,11160163.0
+1271750,2,perfect - thank you Abe for the information!,UNCODED,0,UNMATCHED,2016-05-10T22:04:39Z,11398305.0
+1187056,15,"What do you mean? You were able to run it, no?",QUESTION,0,FULL_TEXT,2015-07-28T15:29:44Z,10545935.0
+1249818,17,"Comment on attachment 8768358
+patch
+Approval Request Comment
+[Feature/regressing bug #]: bug 1219215
+[User impact if declined]: see comment 0
+[Describe test coverage new/current, TreeHerder]: n/a
+[Risks and why]: simple code removal, low risk
+[String/UUID change made/needed]: none",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2016-07-09T10:13:14Z,11536095.0
+1249818,18,"Comment on attachment 8768358
+patch
+Review of attachment 8768358:
+-----------------------------------------------------------------
+This patch fixes a regression. Take it in beta 7 and aurora.",UPLIFT_APPROVAL,0,FULL_TEXT,2016-07-10T02:41:47Z,11536441.0
+1271750,4,"Highly related but not 100% the same. Bug 1271725 is specific to mac which is the addon [awesome screenshot] does not function in e10s enabled Firefox with shim enabled or not. Unlike mac, in windows and Linux the addon works fine with e10s and shim enabled. 
+When shim is disabled and e10s is enabled, the addon does not work in all platforms.Which is this bug is about.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2016-05-12T15:11:05Z,11404096.0
+1247539,8,https://hg.mozilla.org/integration/mozilla-inbound/rev/36cbd7121dbe,UNCODED,0,UNMATCHED,2016-02-16T08:04:01Z,11167410.0
+1187966,6,"Created attachment 8640779
+[tools] Download gtk3 for periodic update script
+xpcshell requires gtk3 now, so we download it via tooltool and then set the LD_LIBRARY_PATH.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-07-29T23:05:23Z,10553913.0
+1217663,1,"I420VideoFrame::CreateFrame (media\webrtc\trunk\webrtc\common_video\i420_video_frame.cc) doesn't check (or propagate) the return code from its calls to Plane::Copy. In consequence, if Plane::Copy fails due to OOM (which could be intermittent), CreateFrame still sets its |width_| and |height_| members. If the new height and/or width are larger than the old one(s), this causes other code (such as ViEExternalRendererImpl::RenderFrame) to use the larger height and/or width when reading the frame's plane buffers, which causes that code to read memory to which it has no right.
+The bug is still present in today's trunk: http://hg.mozilla.org/mozilla-central/file/5a6ef7c09c12/media/webrtc/trunk/webrtc/common_video/i420_video_frame.cc .
+Details
+-------
+The bug is in lines 57-9: 
+48: int I420VideoFrame::CreateFrame(int size_y, const uint8_t* buffer_y,
+49:                                 int size_u, const uint8_t* buffer_u,
+50:                                 int size_v, const uint8_t* buffer_v,
+51:                                 int width, int height,
+52:                                 int stride_y, int stride_u, int stride_v) {
+53:   if (size_y < 1 || size_u < 1 || size_v < 1)
+54:     return -1;
+55:   if (CheckDimensions(width, height, stride_y, stride_u, stride_v) < 0)
+56:     return -1;
+57:   y_plane_.Copy(size_y, stride_y, buffer_y);
+58:   u_plane_.Copy(size_u, stride_u, buffer_u);
+59:   v_plane_.Copy(size_v, stride_v, buffer_v);
+60:   width_ = width;
+61:   height_ = height;
+62:   return 0;
+63: }
+The definition of Plane::Copy (from media\webrtc\trunk\webrtc\common_video\plane.cc) is thus:
+69: int Plane::Copy(int size, int stride, const uint8_t* buffer) {
+70:   if (MaybeResize(size) < 0)
+71:     return -1;
+72:   memcpy(buffer_.get(), buffer, size);
+73:   plane_size_ = size;
+74:   stride_ = stride;
+75:   return 0;
+76: }
+The bug can be simulated in the debugger as follows:
+   1.  Start FF with one window, one tab;
+   2.  Start FF Hello and create a conversation;
+   3.  Undock the Hello window from the main window;
+   4.  Copy the conversation link into the address bar and join the conversation;
+   5.  Share tabs in the Hello window after it's connected;
+   6.  Attach a debugger to FF;
+   7.  Set a breakpoint on I420VideoFrame::CreateFrame at the call to |y_plane_.Copy| with the condition |height != height_|.
+   8.  Rapidly increase the vertical size of the main window;
+   9.  When the breakpoint fires:
+       a. record the values of |height| and |height_|; and
+       b. step into each call to |plane::Copy| and simulate an OOM by skipping the call to |MaybeResize| and instead giving control to |return -1;|
+   10. Notice how I420VideoFrame::CreateFrame unconditionally sets |height_ = height|.
+   11. Set a breakpoint on ViEExternalRendererImpl::RenderFrame (media\webrtc\trunk\webrtc\video_engine\vie_renderer.cc), where it calls ExtractBuffer.
+   12. Let execution proceed.
+   13. When the breakpoint fires, step into ExtractBuffer (module webrtc_libyuv.cc) and examine |input_frame.height|. It should be the same as the new value you saw at the breakpoint in I420VideoFrame::CreateFrame;
+   14. Now compute |input_frame.y_plane.allocated_size_ / input_frame.y_plane.stride_| and notice that it equals the old, smaller value of |height_| instead of |input_frame.height|.
+   15. Notice how ExtractBuffer uses |input_frame.height()| (== |input_frame.height|) to compute the bounds for its inner |for| loop;
+   16. If you're using WinDBG (but not VS, alas) set a read breakpoint on the byte just beyond the buffer's end, let execution proceed, and watch it fire (or, if you increased the size of the window a lot, watch it read access-violate).",S2R,0,FULL_TOKEN,2015-10-23T00:30:40Z,10865821.0
+1249818,13,"Created attachment 8768358
+patch",UNCODED,0,UNMATCHED,2016-07-06T09:54:25Z,11526888.0
+1187056,6,And test_gallery_switch_to_camera.py.,PROBLEM_REVIEW,0,FULL_TEXT,2015-07-26T19:34:23Z,10538251.0
+1187056,21,"It's actually strange that it doesn't do that, because in bug 1044019 this was done supposedly.",PROBLEM_REVIEW,0,FULL_TEXT,2015-07-28T17:37:02Z,10546695.0
+1187056,22,Test blocker.,UNCODED,0,UNMATCHED,2015-07-29T22:59:41Z,10553888.0
+1203253,10,"Comment on attachment 8665416
+Patch v2
+Review of attachment 8665416:
+-----------------------------------------------------------------
+::: browser/components/preferences/in-content/tests/browser_cookies_exceptions.js
+@@ +198,5 @@
+nit: doc,
+(don't need to repeat a local variable name if the property has the same name)",CODE_REVIEW,0,FULL_TOKEN,2015-09-24T14:40:31Z,10771521.0
+1254694,22,"https://hg.mozilla.org/mozilla-central/rev/eed38188ee0e
+https://hg.mozilla.org/mozilla-central/rev/0837015740ff",UNCODED,0,UNMATCHED,2016-03-11T15:56:15Z,11239551.0
+1254694,28,"https://hg.mozilla.org/releases/mozilla-release/rev/6b27b0a8ade6
+https://hg.mozilla.org/releases/mozilla-release/rev/156844d61287",UNCODED,0,UNMATCHED,2016-03-13T23:51:39Z,11242718.0
+1263083,23,I'm on the case,DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2016-06-20T15:54:58Z,11490488.0
+1190676,2,"Created attachment 8643082
+Use the right MediaStreamGraph when setting a MediaStream as mozSrcStream on an HTMLMediaElement. r=
+Another instance of the same problem as last time.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-04T15:34:17Z,10574779.0
+1190676,18,"Comment on attachment 8643113
+Part 11 - Fix consumers: Web Speech. r=
+Review of attachment 8643113:
+-----------------------------------------------------------------
+Looks good. I'm not sure which AudioChannel we want to be on. But I assume we were on Normal before, so this is fine.",CODE_REVIEW,0,FULL_TEXT,2015-08-05T16:30:42Z,10581016.0
+1262069,5,"Hopefully a few days, but I said that two weeks ago...
+I guess the code you're adding comes after we've done the thenable thing.  So maybe it's OK to mess with the value at that point.",CODE_REVIEW,0,FULL_TOKEN,2016-04-05T18:39:16Z,11302370.0
+1263083,4,"Default plugins for Mar 7 nightly and latest nightly on new profile should be the same, right?
+Mac OS X 10.11.3 (15D21).",ANSWER_TO_QUESTION,0,FULL_TEXT,2016-04-08T06:17:51Z,11310223.0
+1184282,2,"The associated comment:
+seems to indicate that this is unfortunate, yet expected behavior. Perhaps we should just remove the warning.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2015-07-15T19:21:33Z,10499220.0
+1187056,18,"Oh, I see. That sounds like a bug in the framework. It should actually delete those pictures and only use the picture that was added in the test.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2015-07-28T15:56:04Z,10546103.0
+1176028,2,https://treeherder.mozilla.org/#/jobs?repo=try&revision=9f6f6230e998,UNCODED,0,UNMATCHED,2015-06-19T15:46:49Z,10409226.0
+1179123,9,"Created attachment 8629165
+safeguard patch
+This would still trigger assertion in existing versions, but won't crash.
+I tried to thoroughly fix it, but failed to figure out how.
+This bug happened at the end of nsINode::doRemoveChildAt().
+That method calls nsXULElement::UnbindFromTree() there, which calls nsFrameLoader::Destroy() -> nsDocument::SetSubDocumentFor() to remove the child document from the XUL document, then calls nsElement::UnbindFromTree() -> nsDocument::ExitFullscreen() to exit fullscreen on the root document. Since the child document has been detached at this point, we won't be able to visit that document to exit fullscreen there.
+Then the method calls the destructor of mozAutoDocUpdate, which eventually calls nsDocument::OnPageHide() which again tries to exit fullscreen, but finds the root has exited fullscreen.
+Not sure how this is fixed in the current m-i.
+I thought about replacing FullscreenRoots with FullscreenLeaves to track the leaf documents instead of roots. That could work now, but once the Fullscreen API spec is updated so that the fullscreen element is no longer necessarily in the same containing chain, maintaining the list of leaf documents could be more tricky.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-07-03T01:08:42Z,10448813.0
+1252039,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/be813aef3471,UNCODED,0,UNMATCHED,2016-02-29T13:11:23Z,11202918.0
+1217663,5,Fixed by landing upstream update to branch 43 in bug 1198458,SOLVED_BY_OTHER_ISSUE,0,FULL_TEXT,2015-12-05T16:54:09Z,10991343.0
+1263083,31,"I would say so, but if Markus or you strongly disagrees I'm happy to add it.",ANSWER_TO_QUESTION,0,FULL_TEXT,2016-06-28T18:16:03Z,11508586.0
+1263083,28,"The reason each email has its own layer is because they are marked as will-change. That is the right thing to do. But we should still be single-tiling instead of multi-tiling, so the above patch makes that the case.",SOLUTION_REVIEW,1,FULL_TEXT,2016-06-27T11:46:41Z,11503951.0
+1263083,33,"Made changes requested in comment 28.
+try run here: https://treeherder.mozilla.org/#/jobs?repo=try&revision=f8a2ae3594fe526f1f531ede2db5ec2d9eef2ed4",UNCODED,0,UNMATCHED,2016-06-29T12:05:03Z,11510547.0
+1203253,9,"Created attachment 8665416
+Patch v2
+Thanks for your help in debugging the test failure over Vidyo.
+The permission observer was fired while the test was running, and the permission observer was set up to close the preferences once it had been hit. Since test case #5 adds a permission during the test run using the permission manager, the permission observer is ran before the test has completed. This caused the tab to close and thus the tree.view getting destroyed.
+In the old version of the prefs, the dialog's window.close() was either being done async and/or the references to the dialog within the test kept the window alive long enough to continue the test. However, the test was still written as a no-op since the permission observer was supposed to call cleanUp which would remove the newly added permission causing the rows to be empty at the following check anyways. But... cleanUp() wasn't called, because the permObserver had a typo that was checking for `cleanup`, not `cleanUp`. This is all fixed now.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-09-24T14:14:56Z,10771415.0
+1187056,13,*** Bug 1188226 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2015-07-28T09:32:27Z,10544516.0
+1217663,6,"Randell, what is the ESR38 plan here? We are supposed to take sec-high issue patches on ESR branches.
+Also, is the ""branch 43"" code landing on what branches? 43? Trunk?",QUESTION,0,FULL_TOKEN,2015-12-14T18:30:48Z,11004663.0
+1179123,16,"https://hg.mozilla.org/integration/mozilla-inbound/rev/aba278798298
+https://hg.mozilla.org/integration/mozilla-inbound/rev/1d669992e0da",AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TOKEN,2015-07-04T05:13:55Z,10455559.0
+1263083,44,"I could never reproduce the slowness on my platform (Ubuntu), but I can confirm that the patch fixes what I believe was the cause of the slowness on OS X.",SOLUTION_VERIFICATION,0,FULL_TEXT,2016-07-14T08:03:32Z,11547470.0
+1142350,8,"Thanks!
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=2a7daa5338134c1e589a7ddf3ec360e6ea5850f2",UNCODED,0,UNMATCHED,2016-10-04T11:47:33Z,11758046.0
+1306719,4,https://treeherder.mozilla.org/#/jobs?repo=try&revision=ec538f46ccaf50ebec1e1bdbc319ba28b8205219,UNCODED,0,UNMATCHED,2016-10-01T00:54:53Z,11751736.0
+1263083,42,https://hg.mozilla.org/releases/mozilla-beta/rev/b1b864eb30c8,UNCODED,0,UNMATCHED,2016-07-06T14:36:30Z,11527433.0
+1184282,6,"url:        https://hg.mozilla.org/integration/mozilla-inbound/rev/c281b91bf5f854499806f45c38ca03b6baf126e8
+changeset:  c281b91bf5f854499806f45c38ca03b6baf126e8
+user:       Eric Rahm <erahm@mozilla.com>
+date:       Thu Jul 16 16:43:04 2015 -0700
+description:
+Bug 1184282 - Remove break suggested inside cluster warning. r=roc",UNCODED,0,UNMATCHED,2015-07-16T23:43:20Z,10505922.0
+1209952,4,"Seems like a good bet -- the underlying issue there was bug 913162, which seems related to the testcase here.",ANSWER_TO_QUESTION,0,FULL_TEXT,2015-09-30T17:57:41Z,10795529.0
+1261576,1,"User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0
+Build ID: 20160402102110
+Steps to reproduce:
+There is an issue with the scrollbars in gtk3 builds. Under adwaita, the gtk3 builtin default theme, the scrollbars are not colored blue when selected (only when hovered). The behavior in native gtk3 apps is blue colored selected scrollbars.
+This also works in the gtk2 build so is a regression.",S2R,0,FULL_TOKEN,2016-04-02T09:54:48Z,11296290.0
+1207931,3,That's really more of a layout question than an IPC one.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,2015-09-24T15:49:59Z,10771867.0
+1187056,17,"Yes, but the environment on the device is not specified in enough detail. It loads pictures off the SD card and in my case I have around 80-100 pictures that I took yesterday while trying to reproduce this bug. It seems to me that the test is not expecting that, which is why it's timing out for me. I don't know what set of pictures the test is expecting, and it doesn't appear to be documented anywhere.",ANSWER_TO_QUESTION,0,FULL_TEXT,2015-07-28T15:53:46Z,10546086.0
+1298588,2,"Yeah, I was hoping that we could keep the initial computed values totally static and share them across documents (that's why I introduced StyleStructContext). However, last I talked to dbaron he was skeptical about this approach (in particular with respect to text zooming, IIRC).
+David, could you have a look at http://searchfox.org/mozilla-central/rev/f80822840bc5f3d2d3cae3ece621ddbce72e7f54/layout/style/StyleStructContext.h#15 (both the comment and API surface) and let us know whether you think this is a feasible approach, or whether we should just bite the bullet and make style structs per-document?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-08-27T07:14:01Z,11660570.0
+1187056,31,adding qawanted to test out with gaia ui test once it lands.,STATUS_UPDATE,0,FULL_TEXT,2015-07-31T17:56:16Z,10562088.0
+1263083,10,"James, I've not seen bug 1263170 at all. Things load always for me, just takes a lonnggggg time.
+Gabriele, yeah testing w/ e10s enabled since that is default in a new profile.
+With e10s off: Super slow initial load, including brief beachballing, but otherwise didn't exhibit the bug.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2016-04-08T16:44:59Z,11311434.0
+1203253,6,"Comment on attachment 8659898
+WIP Patch
+Review of attachment 8659898:
+-----------------------------------------------------------------
+::: browser/components/preferences/permissions.js
+@@ -158,5 @@
+this change can be removed.",CODE_REVIEW,0,FULL_TEXT,2015-09-11T14:06:24Z,10720579.0
+1142350,9,"Pushed by ryanvm@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/75a0213cc965
+Remove nsIUserCertPicker, nsICertPickDialogs and associated code from mozilla-central. r=keeler",UNCODED,0,UNMATCHED,2016-10-04T18:55:02Z,11759358.0
+1263083,41,https://hg.mozilla.org/releases/mozilla-aurora/rev/b00ce8e9bee0,UNCODED,0,UNMATCHED,2016-07-06T10:40:58Z,11526945.0
+1187056,12,"I can reproduce this behaviour very intermittently. When I do, I see in WebIDE that the buttons in question don't have their onclick listeners registered, which seems very odd. I don't see how my change could have caused that behaviour, since the onclick listeners are registered unconditionally in frames.js. I'll keep digging.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2015-07-27T20:59:13Z,10542471.0
+1262069,2,"Created attachment 8738042
+Wrap promise resolution values before storing",UNCODED,0,UNMATCHED,2016-04-05T05:47:00Z,11300813.0
+1263083,19,"Sorry, but I've been down this rabbit hole before, and I can't chase Firefox regressions *and* do my day job. It's both incredibly time consuming and depressing.
+I hope filing this bug will help in some future investigation. Good luck and thanks in advance to future spelunkers.
+We used to have staff QA and a community of testers that they'd grown, that had their environments set up for this and had the tools dialed in, but afaict we don't have either anymore?",STATUS_UPDATE,0,FULL_TOKEN,2016-04-12T16:52:56Z,11319539.0
+1254694,29,"https://hg.mozilla.org/releases/mozilla-esr45/rev/6b27b0a8ade6
+https://hg.mozilla.org/releases/mozilla-esr45/rev/156844d61287",UNCODED,0,UNMATCHED,2016-03-14T00:23:15Z,11242735.0
+1187966,12,"I kicked off a build and it succeeded. Here's the treeherder job triggered by the updates:
+https://treeherder.mozilla.org/#/jobs?repo=mozilla-central&revision=23e525e2ba35",SOLUTION_VERIFICATION,0,FULL_TOKEN,2015-07-30T21:18:50Z,10558432.0
+1254694,19,"See bug 1138112.
+If you think you are encountering a different case I may not have identified yet, and would like me to try to reproduce with the search settings of the profile, you can email me the relevant files (see comment 13).
+Not until they are released.",ANSWER_TO_QUESTION,0,FULL_TEXT,2016-03-10T16:34:12Z,11235990.0
+1203871,41,"Humm..  It cannot...
+To use const as parameter, PropertyProvider::GetSpacing(...) must be const function.  But PropertyProvider::GetSpacingInternal() wants to update mTabWidths on PropertyProvider::CalcTabWidths() and CalcTabWidths() adds tab width data to mFrame....",CODE_REVIEW,0,FULL_TOKEN,2016-06-28T09:32:26Z,11507135.0
+1080574,33,Bulk assigning P3 to all open intermittent bugs without a priority set in Firefox components per bug 1298978.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,2016-09-01T18:49:44Z,11676522.0
+1263083,37,"Comment on attachment 8765412
+Bug 1263083 - Use single-tile layer when less than half the tile size in either dimension;
+I'd uplift this to aurora no questions asked, possibly beta but we are late in the cycle?
+Approval Request Comment
+[Feature/regressing bug #]: bug 1221094
+[User impact if declined]: Larger memory allocation, resulting in some websites (like google inbox) being unusably slow.
+[Describe test coverage new/current, TreeHerder]: Been on central for almost a week.
+[Risks and why]: Lowish. The change is straightforward. Could have a potential negative effect on websites with extremely long thin layers, but these will be rare and probably don't work great anyway.
+[String/UUID change made/needed]: N/A",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2016-07-05T14:56:15Z,11523568.0
+1190676,5,"Created attachment 8643088
+Part 1 - Use the right MediaStreamGraph when setting a MediaStream as mozSrcStream on an HTMLMediaElement. r=",UNCODED,0,UNMATCHED,2015-08-04T15:37:23Z,10574796.0
+1263083,16,"So I just checked this on my local (Mac (late 2013 15"", though), OSX 10.11.3, current Nightly) and I can't reproduce it either.
+If we're going to bisect, we can start with bisecting the nightlies from Mar 7 and Mar 8. I can try replicating on the older Nightly but ymmv -- I'm brand new to this and still ramping in. Someone may find the issue via bisection faster than I'll have a new profile set up...",STATUS_UPDATE,0,FULL_TEXT,2016-04-11T21:41:42Z,11317064.0
+1300206,2,"Created attachment 8787781
+Bug 1300206: Add some missing #includes & namespaces in layout/generic, to prevent unified build bustage.
+Review commit: https://reviewboard.mozilla.org/r/76468/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/76468/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,FULL_TOKEN,2016-09-02T22:03:28Z,11683333.0
+1298588,5,"From https://public.etherpad-mozilla.org/p/stylo-taipei :
+It seems that the initial style structs depend on a few different external values (Content-Language for 'direction', device pixel ratio, ...) so we should just have per-document initial style structs rather than sharing them across all documents.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2016-09-22T17:03:08Z,11730040.0
+1187966,7,"Created attachment 8640783
+[buildbotcustom] Set the env for periodic file update jobs.
+We inherit the env so we can make use of TOOLTOOL_CACHE.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-07-29T23:06:54Z,10553921.0
+1254694,34,"Right, updated, merci!",UNCODED,0,UNMATCHED,2016-03-16T14:00:10Z,11251657.0
+1262069,7,"Correct, it's not a problem in the new implementation.
+What bz said. I have all tests passing on Linux and OS X now, but Windows does weird things.
+In any case, this seems like it's a small enough fix that landing it shouldn't hurt. Given that we want to keep open the option of disabling SM Promise if it misbehaves in bad ways on Aurora or Beta, I think it'd make sense to fix issues with the DOM implementation.",SOLUTION_REVIEW,1,FULL_TEXT,2016-04-05T18:43:35Z,11302386.0
+1187056,24,"So what appears to be happening is that the gallery.js code is loaded before the meta-viewport tag has taken effect. This results in ScreenLayout.getCurrentLayout('tiny') returning false (because the innerWidth is 980) and so the fullscreenButtons array gets populated with empty things. This causes the test to fail later on.
+I'm not really sure why the meta-viewport tag is getting processed so late, since it's right at the top of the HTML file, before the <script> tags. Need to dig some more.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2015-07-30T16:41:10Z,10557038.0
+1191113,10,"Created attachment 8644419
+bug_1191113_csp_gcli_localization.patch
+Folded patches together into one. Carrying over r+ from jwalker.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-06T16:07:02Z,10586475.0
+1262069,1,"Promise rejection values are currently stored with whatever wrappers they were passed in with, and re-wrapped for the compartment that the promise belongs to when reporting unhandled rejections, or calling handlers.
+In the case of unhandled rejections, in particular, this causes issues when attempting to report an error that belongs to the same compartment as the promise, but was passed in from a different compartment:
+    let sandbox = Cu.Sandbox(window);
+    sandbox.Promise.reject(new sandbox.Error(""error""));
+    Cu.nukeSandbox(sandbox);
+This leads to a message:
+    JavaScript error: , line 0: uncaught exception: unknown (can't convert to string)
+since the error object was stored as a cross-compartment wrapper, and that wrapper was cut when the sandbox was destroyed, meaning that the exception reporter can no longer report any useful details about it.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2016-04-05T05:44:12Z,11300812.0
+1203871,19,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+https://reviewboard.mozilla.org/r/40057/#review36547
+It seems fine to add this API, but I think the implementation could be cleaned up so as to share code with GetPointFromOffset rather than duplicating it.
+::: layout/generic/nsFrame.cpp:6242
+(Diff revision 1)
+I guess returning a zero-sized rect is OK here, but wouldn't it make more sense to do the same thing as GetPointFromOffset to come up with a position? Maybe just call GetPointFromOffset to get the x,y coords, and then set width and height to zero. Or factor out a helper method?
+::: layout/generic/nsTextFrame.cpp:7142
+(Diff revision 1)
+It seems like we should be able to share a lot of the code here with GetPointFromOffset. The two methods are basically doing the same thing, except that the CharacterRect version adds a lookahead to the next cluster so that it can get the advance.
+Maybe factor out the body of GetPointFromOffset into a helper that GetCharacterRectFromOffset can also call, and then it just needs to do the extra work to get the extent of the rect. Or have a shared helper that returns a rect, and takes a flag telling it whether we want the full rect (position and size) or only its position, which would allow an early return.",CODE_REVIEW,0,FULL_TOKEN,2016-03-15T12:19:06Z,11247340.0
+1203871,37,"Comment on attachment 8730640
+Bug 1203871 - Part 3. Use eQueryTextRectArray on ContentCache for e10s.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40061/diff/3-4/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-23T12:36:46Z,11497537.0
+1306719,3,"Comment on attachment 8796698
+fix-MemoryProtectionExceptionHandler.patch
+Erk, more non-unified bustage? Sorry about that.
+I don't have Mac to compile this on locally, and we don't have a non-unified build in automation for OSX, but if this fixes compilation for you then it's fine.
+Just did a non-unified build on Windows (was easier than I expected), confirmed nothing is missing there.",CODE_REVIEW,0,FULL_TOKEN,2016-09-30T20:51:49Z,11751357.0
+1191113,1,"Firefox Nightly 42.0a1 20140804 and Aurora 41.0a2
+gcli's 'security csp' has a hardcoded English (non-localizable, should be) error message if no CSP is found: ""Could not find any 'Content-Security-Policy' for""",PROBLEM_DESCRIPTION,0,FULL_TEXT,2015-08-04T22:54:10Z,10577335.0
+1263083,21,"We still do, and some of them have commented here...",ANSWER_TO_QUESTION,0,FULL_TEXT,2016-04-12T17:16:57Z,11319639.0
+1187056,28,"Comment on attachment 8641210
+Patch v2
+r+, naturally assuming tryserver results look good",CODE_REVIEW,0,FULL_TEXT,2015-07-30T19:31:24Z,10557841.0
+1187056,20,"Yeah, I couldn't reproduce after 20 retries, but I could reproduce it 2 times out of 10 using 319MB.
+If one would want to reproduce manually, I would recommend trying with 256MB.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2015-07-28T16:15:24Z,10546212.0
+1249818,16,*** Bug 986942 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2016-07-07T10:26:28Z,11530208.0
+1179123,13,"Comment on attachment 8629169
+mochitest patch
+So I don't know how we could then land this.",CODE_REVIEW,0,FULL_TEXT,2015-07-03T22:51:54Z,10455248.0
+1203871,5,Thanks. I'll check current nsTextFrame.,UNCODED,0,UNMATCHED,2016-02-15T00:48:13Z,11164743.0
+1203871,33,"Comment on attachment 8730641
+Bug 1203871 - Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test.
+https://reviewboard.mozilla.org/r/40063/#review56648
+::: dom/base/nsQueryContentEventResult.cpp:160
+(Diff revision 3)
+nit, extra space before * in 'int32_t * aLeft'",CODE_REVIEW,0,FULL_TEXT,2016-06-18T13:45:58Z,11488587.0
+1179123,17,https://hg.mozilla.org/integration/mozilla-inbound/rev/688ccfafb3fb,UNCODED,0,UNMATCHED,2015-07-04T08:54:53Z,10455790.0
+1262069,8,Thanks,UNCODED,0,UNMATCHED,2016-04-05T20:40:36Z,11302689.0
+1203871,31,"Comment on attachment 8730642
+Bug 1203871 - Part 5. Use mozilla::Move for rect array.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40065/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T10:02:18Z,11487481.0
+1080574,28,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=12141890
+repository: mozilla-inbound
+start_time: 2015-07-27T02:48:45
+who: tomcat[at]mozilla[dot]com
+machine: tst-linux32-spot-1058
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: dce7a6fd951f
+134 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",UNCODED,0,UNMATCHED,2015-07-27T10:59:18Z,10539816.0
+1203871,11,Thanks. Looks like nsTArray_Impl:: SwapElements() is useful.,SOLUTION_REVIEW,1,FULL_TEXT,2016-03-14T04:19:49Z,11243148.0
+1261576,16,"Created attachment 8765824
+patch
+I'm unable to find exact commit but indicator_set_over() (from gtkscrolledwindow.c) which sets the ""hovering"" style to thumb was introduced in Gtk 3.16 so I guess it's safe to enable that for gtk3.16+.",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-06-28T10:18:59Z,11507214.0
+1263083,6,"I've been experiencing this too, but recent (last 2-3 days) Nightlies actually don't even load Inbox completely.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2016-04-08T14:16:25Z,11311024.0
+1190676,23,"https://hg.mozilla.org/mozilla-central/rev/905d5f8b66c2
+https://hg.mozilla.org/mozilla-central/rev/865b6a377448
+https://hg.mozilla.org/mozilla-central/rev/1a303a9f74f8
+https://hg.mozilla.org/mozilla-central/rev/23e4bbe07e4c
+https://hg.mozilla.org/mozilla-central/rev/e9856dc51513
+https://hg.mozilla.org/mozilla-central/rev/4d8264b7c691
+https://hg.mozilla.org/mozilla-central/rev/47c3d22006d9
+https://hg.mozilla.org/mozilla-central/rev/c944b51c50d7
+https://hg.mozilla.org/mozilla-central/rev/58786af75f6a
+https://hg.mozilla.org/mozilla-central/rev/7d6a18652417
+https://hg.mozilla.org/mozilla-central/rev/192e65f2ddc2
+https://hg.mozilla.org/mozilla-central/rev/ec2415cfb538",UNCODED,0,UNMATCHED,2015-08-31T19:24:23Z,10678815.0
+1263083,43,"I could not reproduce this bug using Fx 48.0a1 build ID:20160407062903 and ID:20160309030419, on OS X 10.11.1 (tested with both e10s enabled and disabled).
+Can you please confirm if it is still reproducible on your platform?",VERIFICATION_REQUEST,0,FULL_TEXT,2016-07-11T11:40:51Z,11538119.0
+1261576,18,"inHover corresponds to GTK_STATE_FLAG_PRELIGHT which I assume is the :prelight
+(and :hover) pseudoclass.  The .hovering class from indicator_set_over() is different and for overlay scrollbars.
+I assume this is the Adwaita rule involved:
+    .scrollbar .slider:prelight:active {
+      background-color: #2a76c6; }
+The reason why gtkrange sets prelight as if in hover is that the mouse location is
+set to the grab location when the pointer is grabbed during mouse down:
+https://git.gnome.org/browse/gtk+/tree/gtk/gtkrange.c?h=3.20.6#n3437
+This is the same in older versions:
+https://git.gnome.org/browse/gtk+/tree/gtk/gtkrange.c?h=3.4.4#n3349
+I'm a little surprised that Gecko's scrollbar implementation is not similar.",SOLUTION_REVIEW,1,FULL_TOKEN,2016-07-04T23:26:02Z,11522097.0
+1314193,2,"Pushed by danderson@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/373c11f245a7
+Early return in PresShell::Paint if BeginTransaction fails. r=dvander",PROBLEM_DESCRIPTION,0,FULL_TEXT,2016-11-01T20:17:42Z,11829022.0
+1080574,23,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=11473558
+repository: mozilla-inbound
+start_time: 2015-07-08T03:24:54
+who: tomcat[at]mozilla[dot]com
+machine: tst-linux64-spot-1898
+buildname: Ubuntu VM 12.04 x64 mozilla-inbound debug test mochitest-4
+revision: f925296bc0a3
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",UNCODED,0,UNMATCHED,2015-07-08T11:03:50Z,10468645.0
+1297315,12,"Thank you for reviewing, 
+I did not modify the original style keeping it one line.
+But I thnink Jonathan's comment is worth adopting however.",STATUS_UPDATE,0,FULL_TOKEN,2016-08-26T03:41:23Z,11657371.0
+1190676,20,"Created attachment 8653521
+Part 12 - Fix mozCaptureStream. r=
+Hrm, I forgot that I had added this after asking for all the reviews.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-27T14:57:58Z,10666331.0
+1297315,6,"Hi jgilbert,
+I don't know who did the magic that passed -Wno-error=maybe-uninitialized to g++...
+So it is against the warning as error.
+Also I think removing goto statement is benefit for C++ code.
+Please help to review this patch for fixing those warnings.
+Thank you!",UNCODED,0,UNMATCHED,2016-08-24T04:27:02Z,11650289.0
+1265066,9,https://hg.mozilla.org/mozilla-central/rev/0ae340c9ece2,UNCODED,0,UNMATCHED,2016-04-20T09:57:14Z,11340480.0
+1184945,2,"Created attachment 8635272
+Patch",UNCODED,0,UNMATCHED,2015-07-17T13:09:23Z,10507721.0
+1203871,4,"There's no direct API for this, but you could quite easily add a new nsTextFrame API similar to GetPointFromOffset that returns a set of rects.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-02-13T10:30:21Z,11163453.0
+1253884,2,https://hg.mozilla.org/integration/mozilla-inbound/rev/f1ff5388e591,UNCODED,0,UNMATCHED,2016-03-06T23:49:32Z,11222254.0
+1203871,10,"sizeof(nsTArray<nsRect>) is always 8 bytes on 64bit platform and array data is allocated on heap.  Even if using pointer instead, allocated AutoTArray will be on heap.  So as memory fragmentation, it is same result. 
+Can SetEventResult and WidgetQueryContentEvent use c++11 move?",SOLUTION_REVIEW,1,FULL_TOKEN,2016-03-14T03:45:21Z,11243114.0
+1254694,6,"Florian, just passing on some information from JorgeV as others noticed this bug being flagged as well
+ 
+<jorgev> this should give you a rough idea https://addons.mozilla.org/en-US/firefox/search/?appver=45.0&atype=5
+<jorgev> potentially millions
+<kev> yeah, don't know how many people change order of searches and/or use keywords
+ — eviljeff suspects few of the former and very few for the latter
+ <kev> same but should be evaluated, all the same
+<jorgev> also, it looks like the real current usage of these language packs is much higher than the average",PROBLEM_REVIEW,0,FULL_TOKEN,2016-03-09T17:56:13Z,11232497.0
+1300206,1,"Created attachment 8787780
+log of build errors being fixed here
+In bug 1269046, I'm tentatively planning on adding a new file called layout/generic/CSSAlignUtils.cpp.
+When adding it (even as an empty file) to UNIFIED_SOURCES, it shifts unified-compilation grouping a bit, which breaks the build due to some files not including/""using"" stuff that they should.
+Patch coming up to preemptively add some missing includes & declarations to avoid this problem.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-09-02T21:58:06Z,11683317.0
+1261576,9,*** Bug 1269561 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2016-05-04T02:01:18Z,11379934.0
+1263083,35,https://hg.mozilla.org/mozilla-central/rev/81f94d11a924,UNCODED,0,UNMATCHED,2016-06-30T10:46:21Z,11513714.0
+1203871,9,"How about make this a pointer to nsTArray? The array may be big and copied to another instance. If InitForQueryTextRectArray() takes a pointer to this, the caller can specify the dist or nsAutoTArray for avoiding memory fragmentation.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-03-09T00:08:02Z,11230069.0
+1253516,18,*** Bug 1283887 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2016-07-12T16:26:26Z,11542338.0
+1179123,20,"Tracking in other 41, 42 as well because regression.",STATUS_UPDATE,0,FULL_TEXT,2015-07-06T21:31:54Z,10461345.0
+1263083,3,"Any new /updated plugins  ?
+Mac  OSX ## ?",QUESTION,0,FULL_TOKEN,2016-04-08T05:22:11Z,11310191.0
+1080574,27,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=11894152
+repository: mozilla-inbound
+start_time: 2015-07-20T03:16:09
+who: tomcat[at]mozilla[dot]com
+machine: t-w864-ix-093
+buildname: Windows 8 64-bit mozilla-inbound debug test mochitest-4
+revision: 7e15449cb6e8
+142 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Success callback should not have been called after setting geolocation.enabled to false.
+Return code: 1",UNCODED,0,UNMATCHED,2015-07-20T10:55:26Z,10513507.0
+1183934,2,"Created attachment 8633837
+0001-Bug-XXXXXXX-only-log-an-error-saving-JSON-if-an-erro.patch
+Actually, let's make the error more descriptive while we are at it.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-07-15T01:44:03Z,10494813.0
+1190676,14,"Created attachment 8643111
+Part 10 - Fix consumers: AudioDestinationNode. r=",UNCODED,0,UNMATCHED,2015-08-04T16:00:17Z,10574901.0
+1203871,24,"Comment on attachment 8730639
+Bug 1203871 - Part 2. Implement eQueryTextRectArray.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40059/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T09:51:47Z,11487454.0
+1254694,35,"I. 
+Initial Scenario:  Using steps from comment 1 and referring only to the update scenario which breaks search settings.
+44.02 (update to) 45.0
+44.02 (update to) 45.0.1
+45ESR (update to) 45.0.1 ESR
+Windows10 -> reproducible
+Mac -> not reproducible
+Ubuntu -> reproducible
+The update/migration bug can be verified fixed on WINDOWS and UBUNTU for 45.0.1, 45.0.1 ESR with the note that (comment 1) wasn't reproducible on MAC. 
+II. 
+What I noticed for all OS'es was that installing the language pack and setting the "" general.useragent.locale to 'de' "", then just restarting FF was causing the search engines settings to break. (behavior reproducible for 44.02, 45, 45.01, 45.01ESR)
+I also went back a bit and checked if I. and II. scenarios are reproducible for older releases: 42.0 and 43.0.1 with the following result: I. No  II. Yes.
+Please advise if scenario II. should be split up into a separate issue.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2016-03-16T17:44:20Z,11252529.0
+1104875,12,*** Bug 720003 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2015-11-19T12:11:23Z,10946835.0
+1191113,11,"I am about to land some other patch, and this one might fit in quite nicely!",UNCODED,0,UNMATCHED,2015-08-06T18:20:48Z,10587254.0
+1187056,7,"I don't understand why ./flash_pvt.py makes this reproduce, but when I do ./flash_pvt.py -d flame-kk -v mozilla-central --eng -g -G -b 20150624080416 it doesn't.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2015-07-27T12:22:20Z,10540004.0
+1217192,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/8315a152ccb1,UNCODED,0,UNMATCHED,2015-10-23T07:24:43Z,10866474.0
+1179123,22,Sorry I forgot that...,ANSWER_TO_QUESTION,0,FULL_TEXT,2015-07-06T22:54:19Z,10461722.0
+1179123,15,"Comment on attachment 8629169
+mochitest patch
+One day I'll learn why people like Promises so much.
+This took about 10x more time to read than if this hadn't been so Promise heavy ;)
+I can perhaps blame myself, since I write so little JS.
+rs+",CODE_REVIEW,0,FULL_TOKEN,2015-07-03T23:46:58Z,10455292.0
+1217192,4,Pre rebase try run seems to be ok - https://treeherder.mozilla.org/#/jobs?repo=try&revision=6e68d6da0c62,SOLUTION_VERIFICATION,0,FULL_TEXT,2015-10-22T15:34:49Z,10863891.0
+1187966,4,"Well, it's probably going to be me.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2015-07-27T22:32:20Z,10543003.0
+1254694,18,"OK, the loss of order and keywords happened before -- annoying but I have already made a txt list that helps me to restore it manually.
+However with this latest update (v45.0) I cannot even edit the keywords! There's no option for that. Extremely annoying as I do a lot of research and use them hundreds of times every day.
+How is this related to a language pack anyway? I am using English Mozilla.. I think I only have additional Russian spell-checking dictionary installed.
+Florian, can I use the fixes you provided and how?",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2016-03-10T16:26:18Z,11235958.0
+1203253,20,https://hg.mozilla.org/releases/mozilla-aurora/rev/b60e63d9a14b,UNCODED,0,UNMATCHED,2015-10-13T08:55:42Z,10832351.0
+1189924,1,mstange pointed that the minimap's DP is too difficult to see. Let's fix it.,PROBLEM_MOTIVATION,0,FULL_TEXT,2015-07-31T20:46:05Z,10562854.0
+1262069,9,"https://hg.mozilla.org/integration/fx-team/rev/bb1926280d496c73c43f89db6b7b5f8f9165504c
+Bug 1262069: Wrap promise resolution values before storing. r=bz",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-04-08T00:06:03Z,11309807.0
+1263083,26,"Thanks, Jamie. I am on a 4k display and the window is sized to be the entire height and half the width of the display. After your comment, I found that reducing the width substantially improved performance. This likely made each mail fit into one tile, so I think you are on the right track.",SOLUTION_REVIEW,1,FULL_TEXT,2016-06-22T14:03:29Z,11495097.0
+1179123,21,"Created attachment 8630195
+safeguard patch for uplift, r=smaug
+Approval Request Comment
+[Feature/regressing bug #]: bug 947854
+[User impact if declined]: may crash in some cases
+[Describe test coverage new/current, TreeHerder]: test added on m-c
+[Risks and why]: no risk, just a safeguard to ensure we won't crash
+[String/UUID change made/needed]: n/a",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2015-07-06T22:54:01Z,10461721.0
+1247539,7,"Yeah, indeed.",CODE_REVIEW,0,FULL_TEXT,2016-02-16T07:43:55Z,11167389.0
+1265066,6,The leaks on try are due to an unrelated commit that was backed out of fx-team shortly after I refreshed my local copy.,STATUS_UPDATE,0,FULL_TEXT,2016-04-18T19:03:45Z,11335119.0
+1261576,4,"One other issue i notices is that clicking and holding in the scrollbar outside the handle are should move the handle to that area and it should be clue as long as selected.  It is also light gray in that scenario, but that is probably the same sase as the other issue selected and moved.  I am also removing the regression keyword because I think have a regression keyword on a regression that cannot be seen without adding a wip patch is kind of lame.",PROBLEM_REVIEW,0,FULL_TOKEN,2016-04-03T17:40:28Z,11297110.0
+1179123,3,Is this just on OS X? Do you have a crashreport ID or stack? Am I right in thinking 39 is not affected?,QUESTION,0,FULL_TEXT,2015-07-01T11:38:36Z,10440100.0
+1189924,6,https://hg.mozilla.org/integration/mozilla-inbound/rev/c269782a7fa1,UNCODED,0,UNMATCHED,2015-08-04T18:40:12Z,10575825.0
+1080574,26,"log: https://treeherder.mozilla.org/logviewer.html#?repo=try&job_id=9485805
+repository: try
+start_time: 2015-07-17T10:14:53
+who: michael[at]thelayzells[dot]com
+machine: tst-linux64-spot-2045
+buildname: Ubuntu VM 12.04 x64 try debug test mochitest-4
+revision: 9ea244b6f6bd
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",UNCODED,0,UNMATCHED,2015-07-18T02:35:16Z,10510865.0
+1179123,14,"Comment on attachment 8629165
+safeguard patch
+And in fact, this feels like a valid case, so I don't see need for 
+NS_NOTREACHED. Just return. With that, r+",CODE_REVIEW,0,FULL_TOKEN,2015-07-03T22:53:15Z,10455250.0
+1297315,4,"Bug 1297276 will rename the unused.h to Unused.h, so set the dependency.",NEW_ISSUE_FILING,0,FULL_TEXT,2016-08-23T06:44:46Z,11647120.0
+1203871,43,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+https://reviewboard.mozilla.org/r/40057/#review57828",UNCODED,0,UNMATCHED,2016-06-28T10:39:16Z,11507253.0
+1179123,1,"Created attachment 8628124
+testcase
+In non-e10s mode, if a page request fullscreen and call window.exit() in the fullscreenchange handler, Firefox would crash.
+Steps to reproduce:
+1. open a non-e10s window if in e10s mode
+2. open the attachment page
+3. click the page, a new tab will be open
+4. click the newly opened page
+Expected result:
+the new page is closed properly
+Actual result:
+Firefox crashes
+I cannot reproduce this in release channel, hence likely a regression.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2015-07-01T07:40:28Z,10439592.0
+1265066,1,"I have a bookmark keyword ""b"" for going to Bugzilla bugs.  Typing ""b 12345"" ends up looking like this, with a dash is shown at the end:
+bugzilla.mozilla.org: 12345 --",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-04-15T19:48:05Z,11330804.0
+1287522,3,"https://hg.mozilla.org/integration/mozilla-inbound/rev/49bef2408c15ae8e76ee485bd8c338573fa8a1c7
+Bug 1287522 - Apply ToString in correct order in RegExp.prototype.toString. r=evilpie",UNCODED,0,UNMATCHED,2016-07-20T05:12:11Z,11560666.0
+1187056,9,*** Bug 1188007 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2015-07-27T19:31:25Z,10541984.0
+1190676,11,"Created attachment 8643102
+Part 7 - Fix consumers: InputPort and HWMediaStream. r=
+James, it appears that you wrote this code initially, care to have a look at
+this? I mostly need to know if there is a way to know whether the graph will
+need audio when you call GetInstance.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-08-04T15:53:15Z,10574866.0
+1306719,1,"If couple of new source files added to the js/src/asmjs/ the build fails with:
+/Users/yury/Work/mozilla-central/js/src/ds/MemoryProtectionExceptionHandler.cpp:132:25: error: use of undeclared
+      identifier 'STDERR_FILENO'
+    ssize_t ret = write(STDERR_FILENO, aStr, strlen(aStr) + 1);
+                        ^
+/Users/yury/Work/mozilla-central/js/src/ds/MemoryProtectionExceptionHandler.cpp:505:5: error: unknown type name
+      'Thread'
+    Thread handlerThread;
+    ^
+The MemoryProtectionExceptionHandler.cpp was pushed to the different unified build group (and looks like we don't test non-unified build for Mac OSX)",ERROR_MESSAGE,0,FULL_TOKEN,2016-09-30T20:19:57Z,11751269.0
+1253516,16,https://hg.mozilla.org/mozilla-central/rev/ffdeaea4ceae,UNCODED,0,UNMATCHED,2016-03-16T23:34:47Z,11253770.0
+1080574,24,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=11588098
+repository: mozilla-inbound
+start_time: 2015-07-10T18:59:22
+who: tomcat[at]mozilla[dot]com
+machine: t-w732-ix-047
+buildname: Windows 7 32-bit mozilla-inbound debug test mochitest-4
+revision: 07bcf36f5ab2
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS
+Return code: 1",UNCODED,0,UNMATCHED,2015-07-11T13:10:09Z,10482908.0
+1203253,19,"Comment on attachment 8665416
+Patch v2
+Test-only change; ok to uplift to aurora.",UPLIFT_APPROVAL,0,FULL_TEXT,2015-10-12T22:13:13Z,10831206.0
+1066726,61,*** Bug 1058062 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2016-02-24T12:41:49Z,11191104.0
+1179123,23,"Comment on attachment 8630195
+safeguard patch for uplift, r=smaug
+Seems like a pretty safe fix for a crash and has been on m-c for a few days. Let's get this into beta3. Beta+ Aurora+",UPLIFT_APPROVAL,0,FULL_TEXT,2015-07-08T14:45:52Z,10469400.0
+1179123,5,"This is null pointer crash, so shouldn't need to be security sensitive.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2015-07-01T11:55:34Z,10440122.0
+1287522,1,"ToString needs to be applied before retrieving the ""flags"" property.
+Test case:
+---
+RegExp.prototype.toString.call({
+  get source() {
+    print(""get source"");
+    return {toString() {print(""source-tostring"")}};
+  },
+  get flags() {
+    print(""get flags"");
+    return {toString() {print(""flags-tostring"")}};
+  },
+});
+---
+Expected: Prints ""source-tostring"" before ""get flags""
+Actual: Prints ""source-tostring"" after ""get flags""",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-07-18T17:46:50Z,11555913.0
+1190676,9,"Created attachment 8643094
+Part 5 - Fix consumers: PeerConnection. r=
+I needed to stub a number of things to make this work, but I have mostly no
+idea what I'm doing in the FakeMediaStream file.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-08-04T15:41:57Z,10574817.0
+1184282,5,"I'm happy to investigate this further, do you have any specific requests? A sampling of stacks is certainly doable.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2015-07-16T03:36:49Z,10501458.0
+1203253,11,https://hg.mozilla.org/integration/fx-team/rev/8045d8fcbfe5,UNCODED,0,UNMATCHED,2015-09-24T16:23:31Z,10772015.0
+1297315,8,"Thanks for reviewing, please see my reply below.
+If I use |while (false)|, it will break the loop without continuing, the logic is not as expectation.
+Isn't it a good habit to use {} even it is only one line?
+Or any policy that I should not modify this part.
+Thank you.",QUESTION,0,FULL_TOKEN,2016-08-25T02:25:05Z,11653499.0
+1191113,2,"Created attachment 8643370
+bug_1191113_csp_gcli_localization.patch
+Ah, sorry I missed that. We should uplift that patch as well. I will prepare a patch for dev edition and beta.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-04T23:26:38Z,10577517.0
+1189924,5,Inbound is closed,UNCODED,0,UNMATCHED,2015-08-04T16:00:23Z,10574902.0
+1252039,2,"Created attachment 8724678
+MozReview Request: Bug 1252039 - corrected MOZ_ASSERT expression in SeparatorRequiredBetweenTokens. r?roc
+Review commit: https://reviewboard.mozilla.org/r/37115/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/37115/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,FULL_TOKEN,2016-02-29T12:28:40Z,11202870.0
+1209952,3,"I don't think ASAN is needed to reproduce this -- ASAN just gives a more friendly crash message.  But since this is a crash-on-poison, we should crash in the same way regardless of ASAN-ness.
+In a debug build, I get this output before crashing:
+nsBlockReflowContext: Block(div)(1)@7f7743963ea0 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(3)@7f7743964000 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f7743964c10 metrics=1073741824,5400!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439663d0 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,0!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,0!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f7743966028 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(3)@7f7743964000 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,0!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f7743966cc8 metrics=1073741824,2400!
+nsBlockReflowContext: Block(div)(3)@7f7743964000 metrics=1073741824,14400!
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,3000!
+nsBlockReflowContext: Block(div)(1)@7f7743964c10 metrics=1073741824,14400!
+And then I crash, in  nsFloatManager::GetFlowArea calling into nsIFrame::StyleDisplay, on a poisoned nsIFrame object. The frame looks like this:
+ p/x *fi.mFrame
+$6 = {
+  <nsQueryFrame> = {
+    _vptr$nsQueryFrame = 0x7ffffffff0dea7ff
+  }, 
+  members of nsIFrame: 
+  static kFrameIID = 0x28, 
+  static kPrincipalList = 0x1,
+  [...] 
+  mContent = 0x7ffffffff0dea7ff, 
+  mStyleContext = 0x7ffffffff0dea7ff, 
+  mParent = 0x7ffffffff0dea7ff, 
+  mNextSibling = 0x7ffffffff0dea7ff, 
+  mPrevSibling = 0x7ffffffff0dea7ff, 
+  mState = 0x7ffffffff0dea7ff, 
+  [...]
+}
+Looks like all of the pointer-values are poison addresses (and we're crashing when we try to deref one of them, mStyleContext). So, I think this is successfully mitigated by frame poisoning.",STACK_TRACE,0,FULL_TOKEN,2015-09-30T17:54:45Z,10795522.0
+1203253,4,"Yeah, I'm going to take this.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2015-09-09T20:24:12Z,10712122.0
+1268252,3,https://hg.mozilla.org/mozilla-central/rev/03c112d9c4df,UNCODED,0,UNMATCHED,2016-05-12T10:11:03Z,11403196.0
+1142350,7,"Comment on attachment 8793284
+Bug 1142350 - Remove nsIUserCertPicker, nsICertPickDialogs and associated code from mozilla-central.
+https://reviewboard.mozilla.org/r/80070/#review78916
+Awesome - r=me.",CODE_REVIEW,0,FULL_TEXT,2016-09-21T23:09:23Z,11727614.0
+1217663,4,"Tentatively sec-high.  The allocation (in AlignedMalloc()) is using malloc(), and so is fallible (unlike new).  We should check all other derivatives of AlignedMalloc and Plane::Copy, this may well have more duplicates.  Pretty hard to do anything with as it's predicated on an OOM, but using very large planes may allow you to OOM ""early"" with the system still largely usable.
+The update to webrtc.org 43 under way rewrites this code such that it's based on new (and gets rid of the independently-allocated Planes as well).
+A related bug: bug 881742, which landed in 41.
+Bug from upstream; since fixed (between upstream branch 40 and 43) by rewrite",PROBLEM_REVIEW,0,FULL_TOKEN,2015-10-23T19:15:30Z,10868669.0
+1247539,3,"Comment on attachment 8718237
+bug1247539.patch
+Review of attachment 8718237:
+-----------------------------------------------------------------
+::: gfx/thebes/gfxWindowsPlatform.cpp
+@@ +2389,5 @@
+Inside of this branch, ""hr"" is not initialized, so no point in showing the value, right?",CODE_REVIEW,0,FULL_TEXT,2016-02-11T17:44:46Z,11158284.0
+1261576,20,"Comment on attachment 8765480
+patch
+But this patch is good, thanks, with the commit message from the other.",CODE_REVIEW,0,FULL_TEXT,2016-07-04T23:28:19Z,11522100.0
+1249818,22,"I tested this on Nightly 2014-03-06 and also on Nightly 2014-03-08 and I couldn't reproduce the overlapping. Besides this, this problem is encountered on Nightly 2016-07-06 (before Bug 1249818 fix landed to mozilla-central). I will further investigate this as soon as possible.",SOLUTION_VERIFICATION,0,FULL_TEXT,2016-07-11T14:30:40Z,11538517.0
+1203253,1,"Some of the tests that got removed in bug 1140495 should still be kept around as copies of them did not exist under the in-content/ directory, and they are not specific to the windowed preferences.
+See https://hg.mozilla.org/mozilla-central/rev/189cf9021f8b for the files that got removed.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2015-09-09T19:09:56Z,10711879.0
+1261576,11,"Created attachment 8748730
+gtk3-scrollbars-comparison.mp4",UNCODED,0,UNMATCHED,2016-05-04T17:01:36Z,11381947.0
+1187966,5,"I mucked around with this on a dev slave and managed to get it working. Since we only need xpcshell and not a fully functional browser context, I was able to download the gtk3 tarball via tooltool and then get the periodic_update script working by setting the LD_LIBRARY_PATH.
+Should have a patch tomorrow, and I can always run it by hand if we need the in-tree updates sooner.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2015-07-28T01:15:49Z,10543540.0
+1203871,2,"If you'd like to steal this bug from me, feel free to do it ;-)",ASSIGNEE_REQUEST,0,FULL_TEXT,2016-02-03T02:47:01Z,11131840.0
+1203253,16,https://hg.mozilla.org/integration/fx-team/rev/3db46f5d82cc,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2015-09-29T14:02:33Z,10788713.0
+1203871,25,"Comment on attachment 8730640
+Bug 1203871 - Part 3. Use eQueryTextRectArray on ContentCache for e10s.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40061/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T09:51:47Z,11487455.0
+1263083,30,Having a preferences for the magical factor would be an overkill?,QUESTION,0,FULL_TEXT,2016-06-28T17:36:27Z,11508427.0
+1253516,4,chaos... There is no choas mode.,CLARIFICATION,0,FULL_TEXT,2016-03-04T07:45:11Z,11217853.0
+1190676,10,"Created attachment 8643095
+Part 6 - Fix consumers: MediaManager. r=",UNCODED,0,UNMATCHED,2015-08-04T15:42:40Z,10574819.0
+1306719,2,"Created attachment 8796698
+fix-MemoryProtectionExceptionHandler.patch
+(I did not check the Windows yet, which might have the same issue)",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2016-09-30T20:24:42Z,11751286.0
+1080574,31,"log: https://treeherder.mozilla.org/logviewer.html#?repo=fx-team&job_id=4609362
+repository: fx-team
+start_time: 2015-09-09T19:35:46
+who: nigelbabu[at]gmail[dot]com
+machine: t-w732-ix-153
+buildname: Windows 7 32-bit fx-team debug test mochitest-4
+revision: 619a307029d6
+154 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.
+Return code: 1",UNCODED,0,UNMATCHED,2015-09-10T03:07:24Z,10713471.0
+1297315,7,"Comment on attachment 8783831
+Bug 1297315 - Fix Wmaybe-uninitialized warning and get rid of goto statement in GLContextProviderGLX.cpp and GfxTexturesReporter.cpp.
+https://reviewboard.mozilla.org/r/73496/#review71872
+::: gfx/gl/GLContextProviderGLX.cpp:887
+(Diff revision 2)
+`while (false)`
+::: gfx/gl/GLContextProviderGLX.cpp:1322
+(Diff revision 2)
+This doesn't need {}s. Don't change it.",CODE_REVIEW,0,FULL_TEXT,2016-08-25T01:02:41Z,11653391.0
+1203253,8,"Comment on attachment 8665146
+Patch
+Review of attachment 8665146:
+-----------------------------------------------------------------
+Discussed on vidyo - failures because of the permission manager observer that nukes the tab before the test finishes.",CODE_REVIEW,0,FULL_TEXT,2015-09-24T13:47:14Z,10771319.0
+1254694,10,"I can't reproduce, so there must be a detail or a step missing.
+What do you mean with ""enabled""?",QUESTION,0,FULL_TEXT,2016-03-10T10:21:14Z,11234973.0
+1217663,10,I concur,UNCODED,0,UNMATCHED,2016-02-19T05:42:27Z,11178343.0
+1187056,25,"Created attachment 8641169
+Patch
+Ok, so the problem is the async-ness of the DOMMetaAdded dispatch at [1]. The meta viewport tag is parsed before the JS is run, but the DOMMetaAdded event itself isn't dispatched until after, so the MobileViewportManager doesn't update the viewport until after.
+I'm not entirely sure how this was working prior to bug 1178847 since it seems like it should have had the same problem. Nonetheless I think the correct fix is to add a synchronous notification of the meta-viewport tag so that we can update the screen properties immediately. The patch also has the side benefit of not running MobileViewportManager code with random non-viewport meta tags are added, which is nice.
+However I'm not entirely sure it's ok to be running a reflow synchronously from the DOM building code, if it isn't then I don't see a way to fix this in gecko and it will have to be fixed in the gallery app. Smaug, do you know if this is ok?
+Try push in progress at https://treeherder.mozilla.org/#/jobs?repo=try&revision=341db37de415
+[1] http://mxr.mozilla.org/mozilla-central/source/dom/html/HTMLMetaElement.cpp?rev=bd079aadd3fe#97",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-07-30T17:23:49Z,10557214.0
+1254694,32,"Added to the release notes with ""Fix a regression causing search engine metadata to be lost in some context (1254694)"" as wording",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2016-03-16T12:34:22Z,11251424.0
+1080574,32,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=14735337
+repository: mozilla-inbound
+start_time: 2015-09-25T13:22:17
+who: philringnalda[at]gmail[dot]com
+machine: tst-linux32-spot-367
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: 4c0e0c5176e9
+214 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",UNCODED,0,UNMATCHED,2015-09-25T21:06:28Z,10778702.0
+1254694,5,will demote if appropriate after understand what is happening and how large the impact - scope.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,2016-03-09T17:20:18Z,11232387.0
+1252039,3,"Comment on attachment 8724678
+MozReview Request: Bug 1252039 - corrected MOZ_ASSERT expression in SeparatorRequiredBetweenTokens. r?roc
+https://reviewboard.mozilla.org/r/37115/#review33665",AUTO_LINK_CODE_REVIEW,0,FULL_TEXT,2016-02-29T13:09:28Z,11202915.0
+1187056,19,"So what I found out was that I can only repro the bug once for each cold startup.  I have to shutdown and power up the phone and run the script to repro the bug, and after that, I cannot reproduce this unless I turn off the phone again.  Also I am on 319MB config as well.  mwargers is investigating 512MB setup.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2015-07-28T16:09:04Z,10546177.0
+1203871,42,"OK, I guess we'll have to leave that -- thanks for looking into it.",UNCODED,0,UNMATCHED,2016-06-28T10:36:10Z,11507245.0
+1254694,23,"Comment on attachment 8728957
+Fix synchronous code path v2 (with test)
+Approval Request Comment
+[Feature/regressing bug #]: bug 1203167
+[User impact if declined]: users with lots of user-installed search plugins are likely to lose search engine metadata (aliases, order, removed default engine).
+[Describe test coverage new/current, TreeHerder]: the patch contains an xpcshell test.
+[Risks and why]: very low, the patch fixes trivial mistakes in a code path that isn't used in the general case, and that's wrapped in a try/catch block. The code touched by the patch is completely broken without the patch.
+[String/UUID change made/needed]: none",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2016-03-11T16:46:33Z,11239774.0
+1253516,6,"6 automation job failures were associated with this bug in the last 7 days.
+Repository breakdown:
+* mozilla-inbound: 4
+* mozilla-central: 1
+* fx-team: 1
+Platform breakdown:
+* linux64: 3
+* linux32: 3
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1253516&startday=2016-02-29&endday=2016-03-06&tree=all",UNCODED,0,UNMATCHED,2016-03-07T01:02:32Z,11222407.0
+1190676,16,"Comment on attachment 8643111
+Part 10 - Fix consumers: AudioDestinationNode. r=
+Please fold this into attachment 8643091, as I hope that won't compile without this change.",CODE_REVIEW,0,80_PCT_MATCH,2015-08-05T01:26:07Z,10577860.0
+1253516,9,"So this doesn't actually involve CC at all.
+PopTimelineMarkers
+      |
+      V
+acquire lock
+      |
+      V
+create JS objects for markers
+      |
+      V
+nursery GC
+      |
+      V
+attempt to acquire lock to add marker for nursery GC
+      |
+      V
+dead lock
+Hack #1: AutoSuppressGC while creating timeline markers. Not a good solution.
+Hack #2: Some atomic global flag or something that we set while popping timeline markers and then unset when we're done. We would check this before adding nursery markers, and if it was set not add the marker. Less bad thna #1, but still pretty gross.
+Solution #3: Swap the timeline markers into a new vec while we have the lock, but do not allocate any JS obejcts yet, release the lock, operate on our vec to create the JS objects. This would be most ideal, but now I need to learn how the heck all this stuff works.
+Looking into #3 more.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2016-03-14T17:37:26Z,11244684.0
+1203871,22,"Comment on attachment 8730642
+Bug 1203871 - Part 5. Use mozilla::Move for rect array.
+https://reviewboard.mozilla.org/r/40065/#review36847
+::: dom/base/nsQueryContentEventResult.cpp:11
+(Diff revision 1)
+Move.h should be included before TextEvents.h (for a-z order). If you don't mind, could you move nsQueryContentEventResult.h after nsPoint.h?",CODE_REVIEW,0,FULL_TEXT,2016-03-16T01:46:27Z,11250237.0
+1249818,23,"I managed to verify this bug on 
+- latest Nightly 50.0a1 (2016-07-13)
+- latest Aurora 49.0a2 (2016-07-13)
+- 48.0b7 build1 (20160711002726)
+using 
+- Windows 10 x64
+- Ubuntu 14.04 x86
+- Mac OS X 10.11
+The fix landed and it works as expected. I didn't notice any misbehaviour, except the issue mentioned in comment 19, but it seems that this is an old regression and so, I logged Bug 1286545 for it. 
+I will set the corresponding flags.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2016-07-13T14:06:18Z,11545071.0
+1265066,7,"Comment on attachment 8741930
+MozReview Request: Bug 1265066 - Hide the separator em dash in bookmark keyword awesomebar results. r?mak
+https://reviewboard.mozilla.org/r/46849/#review44185",AUTO_LINK_CODE_REVIEW,0,FULL_TEXT,2016-04-19T16:05:37Z,11338065.0
+1268252,1,"Created attachment 8746231
+runnable3.patch",UNCODED,0,UNMATCHED,2016-04-27T21:55:00Z,11362922.0
+1254694,2,"Steps to reproduce:
+1. Create a new profile in Firefox 44.0.2.
+2. Install the German language pack from https://ftp.mozilla.org/pub/firefox/releases/44.0.2/win32/xpi/de.xpi
+3. Open about:config.
+4. Set general.useragent.locale to 'de'
+5. Close and relaunch Firefox.
+6. Open search settings.
+7. Set keyword for Bing search to 'bg'.
+8. Close Firefox.
+9. Launch profile in Firefox 45.0 and accept to upgrade for the language pack.
+10. Open search settings.
+Actual result:
+Search keyword for Bing is gone (search engines have still their order). If I reorder the search engines in step 7, they will be order alphabetically after step 10.
+There is no error in the Browser Console.
+If the language pack doesn't get updated in step 9, keyword and order are untouched after step 10.
+Expected result:
+Search engines unaltered.
+See also bug 1236347 which is also about issues with language packs starting in Firefox 45.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-03-08T22:09:10Z,11229533.0
+1249818,3,"Do the following lines look strange to you?
+3) bug 887397 was requested by MAC USERS ONLY
+4) You got pretty clear feedback in bug 986942 and 5 other duplicates that it's unwanted on Windows
+(3) and (2) mean that they simply wanted a change for change's sake. Therefore (4) means that it's better to let them have their personal regression not affecting at least Windows users.",CLARIFICATION,0,FULL_TOKEN,2016-02-22T11:33:36Z,11183668.0
+1203871,28,"Comment on attachment 8730639
+Bug 1203871 - Part 2. Implement eQueryTextRectArray.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40059/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T10:02:18Z,11487478.0
+1263083,32,"Comment on attachment 8765412
+Bug 1263083 - Use single-tile layer when less than half the tile size in either dimension;
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/60804/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-29T12:03:34Z,11510544.0
+1184282,4,"Hmmm, given that we're now using harfbuzz in most cases (OSX being the notable exception), I'm sort of surprised that this is happening so much. I think removing the warning is fine but we should probably investigate why this happens so much as it may indicate other bugs.",SOLUTION_REVIEW,1,FULL_TEXT,2015-07-16T01:30:24Z,10500939.0
+1217663,7,"What is ""branch 43""? Does that mean status-firefox43 should be ""fixed"" rather than ""affected""? The branch status flags on the other bug weren't set either, but it looks like it landed in Firefox 45, not 43.",ANSWER_TO_QUESTION,0,FULL_TEXT,2015-12-14T18:31:06Z,11004665.0
+1190676,22,"https://hg.mozilla.org/integration/mozilla-inbound/rev/905d5f8b66c2
+https://hg.mozilla.org/integration/mozilla-inbound/rev/865b6a377448
+https://hg.mozilla.org/integration/mozilla-inbound/rev/1a303a9f74f8
+https://hg.mozilla.org/integration/mozilla-inbound/rev/23e4bbe07e4c
+https://hg.mozilla.org/integration/mozilla-inbound/rev/e9856dc51513
+https://hg.mozilla.org/integration/mozilla-inbound/rev/4d8264b7c691
+https://hg.mozilla.org/integration/mozilla-inbound/rev/47c3d22006d9
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c944b51c50d7
+https://hg.mozilla.org/integration/mozilla-inbound/rev/58786af75f6a
+https://hg.mozilla.org/integration/mozilla-inbound/rev/7d6a18652417
+https://hg.mozilla.org/integration/mozilla-inbound/rev/192e65f2ddc2
+https://hg.mozilla.org/integration/mozilla-inbound/rev/ec2415cfb538",UNCODED,0,UNMATCHED,2015-08-31T09:32:00Z,10676519.0
+1261576,10,"Lubuntu 16.04 x64, GTK 3.18, Firefox 46.0. Same situation. Screencast attached.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2016-05-04T16:58:48Z,11381931.0
+1249818,9,How do you intend to fix the regression?,QUESTION,0,FULL_TEXT,2016-07-01T10:12:30Z,11516820.0
+1253516,12,Try push: https://treeherder.mozilla.org/#/jobs?repo=try&revision=bbd8381da834,CODE_IMPLEMENTATION,1,FULL_TEXT,2016-03-14T18:48:42Z,11244985.0
+1253516,13,"Great Nick!
+That was my mistake.  As I commented in comment#0, I thought the deadlock we had been seeing in bug 1244897 might be caused from other threads.  What I don't quite understand is that the assertion message in bug 1244897 is accurate or not.",SOLUTION_REVIEW,1,FULL_TOKEN,2016-03-14T23:05:11Z,11245853.0
+1187056,8,"Fortunately I don't have to do swaps for this one.
+mozilla-inbound regression window:
+Last Working
+Device: Flame
+BuildID: 20150721075041
+Gaia: 4fe0507781f3ed56c8ae5e66dd9489165d1ff68e
+Gecko: 49ae0961591e
+Gonk: 41d3e221039d1c4486fc13ff26793a7a39226423
+Version: 42.0a1 (2.5 Master) 
+Firmware Version: v18D
+User Agent: Mozilla/5.0 (Mobile; rv:42.0) Gecko/42.0 Firefox/42.0
+First Broken
+Device: Flame
+BuildID: 20150721075241
+Gaia: 4fe0507781f3ed56c8ae5e66dd9489165d1ff68e
+Gecko: fee45cd9a4d9
+Gonk: 41d3e221039d1c4486fc13ff26793a7a39226423
+Version: 42.0a1 (2.5 Master) 
+Firmware Version: v18D
+User Agent: Mozilla/5.0 (Mobile; rv:42.0) Gecko/42.0 Firefox/42.0
+Gaia is the same so it's a Gecko issue.
+Gecko pushlog:
+http://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=49ae0961591e&tochange=fee45cd9a4d9
+This issue is likely caused by changes made in Bug 1178847.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2015-07-27T19:12:59Z,10541908.0
+1190676,12,"Created attachment 8643106
+Part 8 - Fix consumers: CameraPreviewMediaStream. r=",UNCODED,0,UNMATCHED,2015-08-04T15:57:27Z,10574886.0
+1203871,16,"Created attachment 8730641
+Bug 1203871 - Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test.
+To test eQueryCharRectArray, I would like to add it to nsIDOMWindowUtils.  Also this will require external keyboard support on Android.
+Review commit: https://reviewboard.mozilla.org/r/40063/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/40063/",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-03-15T10:02:00Z,11247081.0
+1203871,45,"https://hg.mozilla.org/mozilla-central/rev/a1b865bc98fb
+https://hg.mozilla.org/mozilla-central/rev/eeadf50643fe
+https://hg.mozilla.org/mozilla-central/rev/894a2784d498
+https://hg.mozilla.org/mozilla-central/rev/d654463ad5fa
+https://hg.mozilla.org/mozilla-central/rev/99635fa90e92",UNCODED,0,UNMATCHED,2016-06-29T14:25:52Z,11510926.0
+1179123,4,"No. Actually I initially met this crash on Windows, and I can reproduce this on OS X as well.
+I just reproduced it and submit one: bp-e2b8091e-7f3d-4167-8bf1-121152150701
+I'm not sure. I haven't tested Firefox 39. But I guess it shouldn't be affected.",ANSWER_TO_QUESTION,0,FULL_TEXT,2015-07-01T11:50:34Z,10440115.0
+1261576,8,THis is addresses by the pending patches for bug 1234158.,CLARIFICATION,0,FULL_TEXT,2016-04-28T13:27:26Z,11364866.0
+1263083,40,Track this as risk mentioned in comment #36.,UNCODED,0,UNMATCHED,2016-07-06T01:42:16Z,11525766.0
+1263083,13,"Everyone: It's great that it works for you, but the goal is to figure out why it's *not* working for me.
+I've been working on and testing Firefox for over 10 years, so asking me to update to latest build and test it again is not productive - I've been living on nightlies forever ;)
+In the event that the issue *is* fixed by updating to a recent build, then we *still* need to know what regressed the behavior and also what fixed it.
+Please before commenting that it works for you, test the exact scenario I reported, and also compare the Mar 7 build vs most recent nightlies. I'm on the latest version of Mac OS X El Capitan on a new Macbook (the tiny ones) - which may or may not be relevant, so make a note of the hardware you're testing on also.
+Examples of commands that are excruciatingly slow for me are ""o"" to open categories, ""e"" to mark an item as done, and ""z"" to undo. If I go back to Mar 7 nightly, everything is much much faster.",CLARIFICATION,0,FULL_TOKEN,2016-04-11T18:41:13Z,11316460.0
+1207931,5,"Yeah, I think we can get rid of this entirely.",SOLUTION_REVIEW,1,FULL_TEXT,2015-09-24T17:52:40Z,10772419.0
+1207931,1,"RenderFrameParent::mBackgroundColor can be set via SetBackgroundColor(), but
+the value is never read. So that means TabParent::RecvSetBackgroundColor() is a
+no-op.
+billm, is this expected? It seems weird to me. Though maybe this message
+doesn't matter and can be excised on both the child and the parent sides.",PROBLEM_REVIEW,0,FULL_TOKEN,2015-09-24T05:06:14Z,10769704.0
+1217192,1,"See bug 1176052.  It's on all trains, may as well clean up the usages we have and replace with the shorter macro.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2015-10-21T21:16:27Z,10861272.0
+1203871,36,"Comment on attachment 8730639
+Bug 1203871 - Part 2. Implement eQueryTextRectArray.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40059/diff/3-4/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-23T12:36:46Z,11497536.0
+1217663,3,"The bug in I420VideoFrame::CreateFrame also affectsI420VideoFrame::CopyFrame, I420VideoFrame::CloneFrame, and their callers.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2015-10-23T17:43:28Z,10868306.0
+1253516,10,"Actually, `sMutex` is acquired by `TimelineConsumers::PopMarkers` here[0] so that it can touch `mMarkerStores` according to the comment, but then it doesn't touch `mMarkerStores` nor does `ObserveDocShell::PopTimelineMarkers`. So assuming the comment is correct, I think we can just delete this lock acquisition!
+[0] https://dxr.mozilla.org/mozilla-central/source/docshell/base/timeline/TimelineConsumers.cpp#303",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-03-14T18:21:20Z,11244852.0
+1179123,8,"It seems this bug is fixed by some other bug (likely bug 1168705), but we do need some more safeguard as well as patch for uplift.",REQUIREMENT,0,FULL_TEXT,2015-07-03T00:44:37Z,10448756.0
+1203871,30,"Comment on attachment 8730641
+Bug 1203871 - Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40063/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T10:02:18Z,11487480.0
+1190676,4,"Created attachment 8643085
+Make getting a MediaStreamGraph for a channel more explicit. r=
+Hopefully this wil also prevent getting the wrong graph.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-04T15:35:49Z,10574786.0
+1187056,23,"Ok, I tried on a flame-kk and I can reproduce the test failure there. For some reason it doesn't repro on Aries. Anyway I can flash a local gecko build on top of a stock pvtbuild and still repro so I do have a chance at debugging this now. I tried flashing a full local build but that made the issue go away. Haven't tried flashing just gaia yet.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2015-07-30T15:44:57Z,10556757.0
+1080574,25,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=11767856
+repository: mozilla-inbound
+start_time: 2015-07-16T06:43:09
+who: rvandermeulen[at]mozilla[dot]com
+machine: t-w864-ix-055
+buildname: Windows 8 64-bit mozilla-inbound debug test mochitest-4
+revision: e123787104f7
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS
+Return code: 1",UNCODED,0,UNMATCHED,2015-07-16T14:12:55Z,10503075.0
+1263083,34,"Pushed by cbook@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/81f94d11a924
+Use single-tile layer when less than half the tile size in either dimension; r=mstange",UNCODED,0,UNMATCHED,2016-06-29T12:22:12Z,11510574.0
+1207931,9,https://hg.mozilla.org/mozilla-central/rev/22e54267e6c9,UNCODED,0,UNMATCHED,2015-09-28T12:19:52Z,10782858.0
+1297315,11,"Comment on attachment 8783831
+Bug 1297315 - Fix Wmaybe-uninitialized warning and get rid of goto statement in GLContextProviderGLX.cpp and GfxTexturesReporter.cpp.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/73496/diff/2-3/",UNCODED,0,UNMATCHED,2016-08-26T03:22:16Z,11657336.0
+1254694,31,*** Bug 1256737 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2016-03-15T18:26:21Z,11248661.0
+1271750,6,"I can still able to reproduce this with version 2.4.11.
+But it is no more reproducible with the addon's latest version,3.0.7.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2016-06-10T15:52:56Z,11478638.0
+989204,9,*** Bug 921813 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2015-12-22T13:32:56Z,11024763.0
+1249818,5,"Philipp is out, moving to Stephen - Stephen, can you take a look at comment #3 and let me know your thoughts? Thanks!",PROBLEM_REVIEW_REQUEST,0,FULL_TEXT,2016-05-03T15:45:32Z,11377974.0
+1254694,7,:aryx pointed me to this bug. I'm using the en-GB locale build with no language packs installed.,ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2016-03-10T08:35:38Z,11234724.0
+1254694,4,This is likely a side effect of bug 1203167 (large search service refactoring that landed for Firefox 45).,PROBLEM_REVIEW,0,FULL_TEXT,2016-03-09T14:49:54Z,11231864.0
+1187056,34,"This issue is verified as fixed on Flame and Aries. Ran the 'test_gallery_edit_photo.py' locally 10 times on each device/branch and they all passed without issue.
+Device: Aries 2.6
+BuildID: 20151210122424
+Gaia: 7e962276913bd4da7ce5fa7540767107ce322c78
+Gecko: 412e4d7ce98ca4dbc37de133d0f26d7e1a59946f
+Gonk: a19052e4389c3ae2d8fc3e7a74a475401baacc56
+Version: 45.0a1 (2.6) 
+Firmware Version: D5803_23.1.A.1.28_NCB.ftf
+User Agent: Mozilla/5.0 (Mobile; rv:45.0) Gecko/45.0 Firefox/45.0
+Device: Flame 2.6
+BuildID: 20151210030222
+Gaia: 961528f4391668bc89ec0be14fa367cea099b588
+Gecko: b40ba117fa757861c9caa660ae989122718b494b
+Gonk: 205ac4204bbbb2098a8046444acba551ba5dc75a
+Version: 45.0a1 (2.6) 
+Firmware Version: v18Dv4
+User Agent: Mozilla/5.0 (Mobile; rv:45.0) Gecko/45.0 Firefox/45.0
+Device: Flame 2.5
+BuildID: 20151209170211
+Gaia: 7ca639a7bb0bacf27f548841c52617bfc0e3b21f
+Gecko: a35e8eb98969970d1af28b265bf99a9edd11e9c2
+Gonk: 205ac4204bbbb2098a8046444acba551ba5dc75a
+Version: 44.0a2 (2.5) 
+Firmware Version: v18Dv4
+User Agent: Mozilla/5.0 (Mobile; rv:44.0) Gecko/44.0 Firefox/44.0",SOLUTION_VERIFICATION,0,FULL_TOKEN,2015-12-11T01:45:29Z,11000219.0
+1187966,11,In production: https://hg.mozilla.org/build/buildbotcustom/rev/dc0535892866,UNCODED,0,UNMATCHED,2015-07-30T19:54:30Z,10557961.0
+1203871,1,"In e10s mode, ContentCache caches each character rect of composition string. For caching them, ContentCacheInChild dispatches eQueryTextRect for each character, in other words, it's dispatched 20 times if composition string have 20 characters.
+If the start offset is big value and the focused editor is contenteditable, computing the offset is expensive, nevertheless, it's computed many times.
+So, if we implement eQueryCharRectArray as retrieving each character rect in the specified range, we can reduce the cost of preparing to retrieve each character rect except the first one.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2015-09-11T08:32:23Z,10719566.0
+1203253,14,"The previous landing of the patch for this bug had two issues with the browser.ini changes. In both instances, the 'skip-if' line was not kept adjacent to their associated test, causing browser_change_app_handler.js to run on non-Windows platforms (as well as browser_healthreport.js).",COLLATERAL_PROBLEM_ANALYSIS,0,FULL_TEXT,2015-09-25T16:08:13Z,10777361.0
+1254694,12,"Created attachment 8728932
+Fix for synchronous code path
+Someone very helpfully emailed me the relevant parts of a profile that could reproduce the issue without lang pack involved. This profile contains lots of user-installed engines (42), and for some reason the synchronous initialization code path gets triggered. Turns out that code path isn't currently covered by tests, and had trivial mistakes.",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-03-10T11:45:57Z,11235250.0
+1203253,5,"Created attachment 8659898
+WIP Patch
+This adds back the tests that shouldn't have been removed.
+All tests pass except for browser_cookies_exceptions.js, which as a weird failure at line 66, where params.tree.view is undefined for some reason that I can't pinpoint. Any ideas, Matt?",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-09-11T14:05:09Z,10720575.0
+1176028,5,https://hg.mozilla.org/mozilla-central/rev/88f5bdaf1d8e,UNCODED,0,UNMATCHED,2015-06-22T12:10:06Z,10413958.0
+1187056,30,https://hg.mozilla.org/integration/mozilla-inbound/rev/8fa22ffa2da2,UNCODED,0,UNMATCHED,2015-07-31T17:09:52Z,10561917.0
+1263083,27,"Created attachment 8765412
+Bug 1263083 - Use single-tile layer when less than half the tile size in either dimension;
+Review commit: https://reviewboard.mozilla.org/r/60804/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/60804/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,FULL_TOKEN,2016-06-27T11:09:26Z,11503874.0
+1187056,14,"So I'm unable to reproduce the problem manually any more. I also can't reproduce it while running test_gallery_edit_photo.py; instead it just times out while waiting for files to load, even though visually I can see on the device that the files are done loading. This is the command I tried:
+GAIATEST_SKIP_WARNING=1 GAIATEST_ACKNOWLEDGED_RISKS=1 $MARIONETTE_ENV/bin/gaiatest --address=localhost:2828 --testvars gaiatest/testvars_template.json --restart --timeout 120000 gaiatest/tests/functional/gallery/test_gallery_edit_photo.py
+Without a way to reproduce this problem I can't really do much else. I don't think this test/suite has enough documentation on how to properly run it on a local dev machine.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2015-07-28T15:25:10Z,10545894.0
+1261576,2,"Actually they are blue when selected, but as soon as you slide it even a pixel the blue goes away.",PROBLEM_REVIEW,0,FULL_TEXT,2016-04-02T18:07:40Z,11296584.0
+1191113,4,"""Content-Security-Policy for: <host>"" is also not localized:
+   2.139 +          ""    <td> ${csp.header} for: <b>"" + uri + ""</b><br/><br/>"" +
+Do you want a new bug for that?",QUESTION,0,FULL_TEXT,2015-08-05T09:11:41Z,10579001.0
+1268252,2,https://hg.mozilla.org/integration/mozilla-inbound/rev/03c112d9c4df,UNCODED,0,UNMATCHED,2016-05-11T11:15:50Z,11399815.0
+1189924,3,"Created attachment 8641868
+Screenshot 2015-07-31 16.44.18.png",UNCODED,0,UNMATCHED,2015-07-31T20:54:14Z,10562882.0
+1203253,3,"jaws, are you looking for someone else to do this or are you intending to take it on?",ASSIGNEE_REQUEST,0,FULL_TEXT,2015-09-09T20:21:41Z,10712116.0
+1203871,7,"Using gfxTexRun, we can get width per character.  OK, I will take this",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-03-07T07:03:14Z,11223001.0
+1254694,25,"Comment on attachment 8728957
+Fix synchronous code path v2 (with test)
+Fix a migration issue, taking it on all branches.",UPLIFT_APPROVAL,0,FULL_TEXT,2016-03-13T17:42:23Z,11242471.0
+1189924,4,"Comment on attachment 8641863
+MozReview Request: Bug 1189924 - Add a background color to the APZ minimap. r=kats
+https://reviewboard.mozilla.org/r/14629/#review13221
+Ship It!",CODE_REVIEW,0,FULL_TEXT,2015-07-31T21:12:17Z,10562973.0
+1203871,29,"Comment on attachment 8730640
+Bug 1203871 - Part 3. Use eQueryTextRectArray on ContentCache for e10s.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40061/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T10:02:18Z,11487479.0
+1080574,29,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-aurora&job_id=1013313
+repository: mozilla-aurora
+start_time: 2015-08-04T22:37:59
+who: tomcat[at]mozilla[dot]com
+machine: t-w732-ix-116
+buildname: Windows 7 32-bit mozilla-aurora debug test mochitest-4
+revision: a6bb84ddeed3
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS
+Return code: 1",UNCODED,0,UNMATCHED,2015-08-05T08:54:59Z,10578965.0
+1217663,2,There is a similar bug in I420VideoFrame::CreateEmptyFrame.,ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2015-10-23T17:39:27Z,10868295.0
+1247539,2,"Created attachment 8718237
+bug1247539.patch
+This 'works' but anyone encountering a problem is still unlikely to observe it:
+ (1) gfxCriticalNote messages in the child process don't show in about:support
+ (2) On Windows, child process stdout/stderr is broken unless you pipe to file
+ (3) The histogram value - which is definitely getting recorded - does not appear in any ping. I'm not sure how Telemetry in content processes is supposed to work.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-02-11T08:32:02Z,11156671.0
+1254694,3,"Florian, any clue? Merci",PROBLEM_REVIEW_REQUEST,0,FULL_TEXT,2016-03-09T12:38:07Z,11231546.0
+1263083,25,"Sorry for the brain dump, but here's another. Each email is given its own layer. Previously these were single-tiled layers, so only use memory for the size of the layer. But since bug 1221094 we use mutli-tiled layers for them. So each of these short and wide layers are using tiles that are far too tall for them, hence the massive increase in memory usage. Bug 1243589 made it so that we don't use multi-tiled layers when the layers are smaller than the tile size, but only when both the width AND height are smaller, whereas these layers are short but wide.
+We need to update that logic to consider width and height separately. I'm not sure what the correct heuristic would be, but these definitely shouldn't be being multi-tiled. That would fix this regression.
+But I also want to find out why each email is getting its own layer in the first place. I'd guess it's something to do with them being transformed, but ideally they'd all be in the one large multi-tiled layer, at least until you hover over one and it gets animated.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-06-21T17:14:00Z,11493006.0
+1298588,4,"I guess that's not really feasible, given the conversion from relative units to computed values depend on this too. Once you exit the style system you don't have rem units, for example, you should have already converted them to computed values. And to do so you need the font-size of the root.
+Worth waiting for David's input though.",SOLUTION_REVIEW,1,FULL_TOKEN,2016-08-27T09:40:09Z,11660685.0
+1203871,32,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+https://reviewboard.mozilla.org/r/40057/#review56566
+::: layout/generic/nsIFrame.h:1549
+(Diff revision 2)
+The comment here needs to be updated now that you're getting a list of character rects in a range, not just a rect for a single offset.
+::: layout/generic/nsTextFrame.h:799
+(Diff revision 2)
+Please add a comment to clarify why aInOffset is passed as a reference here (as it seems unexpected); looks like it's being clamped to the content range by this method.
+It would be nice to pass aProperties as a const reference, so it's clearly an inparam only. I guess to do that, you'd need to pull the InitializeForDisplay() call out of this method and let the caller do it.
+Also, the ""Get..."" name seems a bit wrong, as the iterator was already created, this method is just changing its position. Maybe something like ""UpdateIteratorForOffset""? And reorder the params so that aIter (the outparam result) is last, please.
+::: layout/generic/nsTextFrame.h:802
+(Diff revision 2)
+Here as well, I think aIter and aProperties should both be const references. And the point can be returned as the function result rather than through an outParam.",CODE_REVIEW,0,FULL_TOKEN,2016-06-17T12:52:31Z,11487732.0
+1261576,13,"Created attachment 8765480
+patch
+There's a simple fix for that. Need to check if we need that for pre-3.20 too.",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-06-27T15:39:32Z,11504639.0
+1203871,39,"Comment on attachment 8730642
+Bug 1203871 - Part 5. Use mozilla::Move for rect array.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40065/diff/3-4/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-23T12:36:46Z,11497539.0
+1249818,11,"Well, removing the clip-path is one option to ""fix"" the regression instance. I am not sure whether or not there are (immediate/easy/upliftable) others, which is why I asked - I don't know that there's a way to restrict the drag stuff without e.g. applying the clip path to the tabstrip (and even then... not 100% that would fix it) which I'd expect to cause other issues (e.g. with dnd on the tabstrip).
+However, I disagree that the current state is necessarily worse than the result of removing the clip path. If we accept the original reason for having the clip path, which was to avoid misclicks/drags on tabs when trying to interact with the titlebar, then the failure mode that results from removing the clip path is worse than having the clip path be dead space. That is, if you try and move a window or otherwise interact with the titlebar and ""miss"" and hit the tabs instead, ""nothing happens"" is better than ""you detach a tab into a window"" or ""you change tab selection and lose your context"".
+As a result I don't think this bug warrants doing anything right now. We can ping Stephen when he's awake and see if we can make progress that way.",SOLUTION_REVIEW,1,FULL_TOKEN,2016-07-01T11:19:06Z,11516943.0
+1189924,7,https://hg.mozilla.org/mozilla-central/rev/c269782a7fa1,UNCODED,0,UNMATCHED,2015-08-05T11:18:44Z,10579502.0
+1254694,33,"""metadata"" seems a bit jargon-ish to me, maybe ""settings"" instead would be more understandable?",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2016-03-16T13:57:30Z,11251647.0
+1249818,4,"You mean that bug 887397 and the 3 dupes that were filed were all from people that were just imagining things, that their problems were somehow not real?
+People would be so much more receptive to your arguments if you weren't so adversarial.
+Anyway.
+Philipp, should we remove the clip path on Windows?",QUESTION,0,FULL_TEXT,2016-02-22T11:56:33Z,11183715.0
+1249818,8,"Can we not wait further for UX input here and just fix the regression? Nothing really changed since this was implemented for Australis, so no strong reason to contest the behavior that we had intentionally implemented.",QUESTION,0,FULL_TEXT,2016-07-01T09:58:55Z,11516781.0
+1249818,1,"STR:
+1. Open new window
+2. Open new tab in that window
+3. Switch it to normal (not maximized) mode
+4. Hover mouse over the top 2 pixels of background tab
+5. Hold left mouse button
+6. Move mouse pointer in any direction
+AR:  Nothing
+ER:  Either A or B
+ A) After Step 5 the background tab should become selected, i.e. fix bug 1200877 already
+ B) At least for now (while 1200877 isn't fixed), window should follow the pointer in Step 6
+This is regression from bug 1219215 (presumably). Regression range:",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-02-19T23:15:15Z,11180864.0
+1191113,8,Thanks - I will incorporate that change in the next iteration of the devtool when we are going to extend the functionality of it.,CODE_REVIEW,0,FULL_TEXT,2015-08-05T16:45:05Z,10581073.0
+1080574,35,Fine by me.,UNCODED,0,UNMATCHED,2016-09-30T20:44:31Z,11751328.0
+1203871,13,"Created attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+IME wants to need the width per character.  Now nsTextFrame/nsIFrmae has only API to get point of string.  So I want to add this method to calculate simply by comment #3.
+If you cannot review this, please change reviewer.
+Review commit: https://reviewboard.mozilla.org/r/40057/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/40057/",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-03-15T10:01:54Z,11247078.0
+1263083,5,Any chance you can get a narrower regression window with mozregression ? You can use the --profile switch to run it against your usual profile.,PROBLEM_REVIEW_REQUEST,0,FULL_TEXT,2016-04-08T08:31:39Z,11310394.0
+1203871,26,"Comment on attachment 8730641
+Bug 1203871 - Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40063/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T09:51:47Z,11487456.0
+1203871,15,"Created attachment 8730640
+Bug 1203871 - Part 3. Use eQueryTextRectArray on ContentCache for e10s.
+Use new event to update cotent process's cache.
+Review commit: https://reviewboard.mozilla.org/r/40061/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/40061/",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-03-15T10:01:58Z,11247080.0
+1314193,1,"Created attachment 8806193
+return-begin-transaction-fails
+Basically the same as bug 1313770.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2016-11-01T00:56:53Z,11826911.0
+1203871,18,"Comment on attachment 8730639
+Bug 1203871 - Part 2. Implement eQueryTextRectArray.
+https://reviewboard.mozilla.org/r/40059/#review36543
+Anyway, it's okay to fix the optimization later.
+::: dom/events/ContentEventHandler.cpp:1309
+(Diff revision 1)
+Hmm, SetRangeFromFlatTextOffset() is very expensive if offset is too large... If this can be optimized, I'd be happy though. But current code also wastes same amount about this, so, not problem for now.
+(If we can retrieve character rects until the end of the frame, we can reduce this call, I guess.)
+::: dom/events/ContentEventHandler.cpp:1330
+(Diff revision 1)
+So, I think that this should be GetCharacterRectsInRange(int32_t aOffset, int32_t aLenght, nsTArray<nsRect>& aRects). Then, offset can be increased with aRect.Length().
+::: widget/EventMessageList.h:229
+(Diff revision 1)
+nit: s/qQueryTextRect/eQueryTextRect",CODE_REVIEW,0,FULL_TOKEN,2016-03-15T10:27:44Z,11247123.0
+1249818,12,"I think the decision in bug 887397 was the wrong one.
+On OS X you can drag the entire window by using any visible chrome surface and on Windows the window drag area is not very short.
+What we currently have due to this bug is dead space. We should make the tab area manipulate the tab and the window area manipulate the window.",SOLUTION_REVIEW,1,FULL_TOKEN,2016-07-01T15:08:38Z,11517340.0
+1263083,15,"Heh, exactly the opposite. Inbox performs normally on Mar 7 build, and later builds perform terribly. I don't know that the problem started on the Mar 8 build though - all I could find that was older at the time I reported was Mar 7, which works fine so I stuck with it ;)
+We really just need someone from QA who's got the mozregression stuff installed and dialed to try and reproduce and narrow the window of regression.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2016-04-11T20:28:00Z,11316844.0
+1190676,13,"Created attachment 8643110
+Part 9 - Fix consumers: AudioCapture. r=",UNCODED,0,UNMATCHED,2015-08-04T16:00:00Z,10574899.0
+1217192,3,"Created attachment 8677125
+Use gfxCriticalNote where appropriate for brevity.
+Rebase",UNCODED,0,UNMATCHED,2015-10-21T21:34:22Z,10861357.0
+1254694,37,"I agree that the scope of this bug was to track and fix the version update issue that was ruining the search settings. In regards to it, the fix can be marked as verified;
+I can also confirm that the bug does not regress on build 2 for 45.0.1 ESR:
+45.0.1 Build-ID  20160316151906 User-Agent  Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+45.0.1Build-ID 20160316151906 Mozilla/5.0 (X11; Linux i686; rv:45.0) Gecko/20100101 Firefox/45.0
+45.0.1 Build-ID 20160316151906 User-Agent Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0) Gecko/20100101 Firefox/45.0
+Adding the above to comment 34 /point I., we can mark this issues as verified on: Ubuntu14.04/Mac10.11/Windows10 for Release 45.0.1 and 45.0.1ESR (build1+build2)",SOLUTION_VERIFICATION,0,FULL_TOKEN,2016-03-17T11:10:02Z,11254937.0
+1263083,14,"Dietrich -- so does this only happen to you on the March 7 build? In case we are reducing to a specific build (and possibly platform), I'd like to target accordingly.",QUESTION,0,FULL_TEXT,2016-04-11T19:36:27Z,11316655.0
+1262069,10,https://hg.mozilla.org/mozilla-central/rev/bb1926280d49,UNCODED,0,UNMATCHED,2016-04-08T10:07:29Z,11310549.0
+1300206,4,"Pushed by dholbert@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/459476bdc5d6
+Add some missing #includes & namespaces in layout/generic, to prevent unified build bustage. r=mats",UNCODED,0,UNMATCHED,2016-09-02T22:23:23Z,11683373.0
+1261576,7,I can confirm this on Gnome 3.20 with GTK+3 3.20 using Adwaita theme. Unfortunately I can't see the scrollbar when hovered/selected/dragged either...,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2016-04-28T12:52:23Z,11364765.0
+1253516,3,"This is tough, I can't catch this while running this test with choas mode repeat=1000!",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2016-03-04T07:41:53Z,11217850.0
+1261576,22,"Pushed by cbook@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/265d5961e81a
+render scrollbar thumb as ""hovered"" to emulate active Gtk thumb style. r=karlt",UNCODED,0,UNMATCHED,2016-07-12T09:22:34Z,11541042.0
+1203253,15,"I backed that out in https://hg.mozilla.org/integration/fx-team/rev/c6d706919dd2 for bustage
+https://treeherder.mozilla.org/logviewer.html#?job_id=4839107&repo=fx-team",IMPLEMENTATION_REVERSION,0,FULL_TOKEN,2015-09-25T18:59:38Z,10778153.0
+1080574,30,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-aurora&job_id=1066816
+repository: mozilla-aurora
+start_time: 2015-08-23T11:46:13
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux32-spot-615
+buildname: Ubuntu VM 12.04 mozilla-aurora debug test mochitest-4
+revision: 20a79fcdc75f
+130 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Success callback should not have been called after setting geolocation.enabled to false.",UNCODED,0,UNMATCHED,2015-08-23T19:22:57Z,10648291.0
+1217663,8,"Sorry - branch 43 means webrtc.org (upstream) stable branch 43, which landed in our tree in Firefox 45.  Upstream stable branches of webrtc.org use numbering that matches the version of Chrome they shipped in (for the last year or so).
+As for ESR-38 - The issue would be we need to create a patch to do the right checking (which shouldn't be hard) and land it in 44 and ESR-38.  This would be (very) hard to exploit since it depends on an allocation failure on a reallocation to a larger size, and then there's a good chance that it would just lead to a crash.  However, as the checking should be simple we could look to land a patch for 44/ESR-38 early next week (I'm on PTO until the 21st, but am checking sec issues).",ANSWER_TO_QUESTION,0,FULL_TOKEN,2015-12-15T00:47:04Z,11005920.0
+1254694,15,"Created attachment 8728957
+Fix synchronous code path v2 (with test)
+Note: Surprisingly, the patch was developped against mozilla-release, but also applies cleanly to the current fx-team.",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-03-10T12:55:15Z,11235382.0
+1253516,2,I guess this was caused by bug 1244897. ni? to me.,PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2016-03-04T05:19:05Z,11217672.0
+1190676,15,"Created attachment 8643113
+Part 11 - Fix consumers: Web Speech. r=",UNCODED,0,UNMATCHED,2015-08-04T16:01:55Z,10574905.0
+1190676,17,"Comment on attachment 8643113
+Part 11 - Fix consumers: Web Speech. r=
+This looks good to me, but I'd like to ask eeejay to please double check since he's more familiar with Synthesis",CODE_REVIEW_REQUEST,0,FULL_TEXT,2015-08-05T07:18:22Z,10578619.0
+1265066,2,"Created attachment 8741930
+MozReview Request: Bug 1265066 - Hide the separator em dash in bookmark keyword awesomebar results. r?mak
+Review commit: https://reviewboard.mozilla.org/r/46849/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/46849/",CODE_IMPLEMENTATION,1,80_PCT_MATCH,2016-04-15T20:18:11Z,11330864.0
+1217663,11,"Dan, if it is sec-moderate, we would most likely wontfix it for esr38. Should I go ahead and do that? Or do we need more discussion/comments on this? Thanks!",QUESTION,0,FULL_TEXT,2016-02-22T21:08:21Z,11185579.0
+1261576,14,This fixes it for me on gtk+ 3.20.6,SOLUTION_VERIFICATION,0,FULL_TEXT,2016-06-27T16:02:20Z,11504724.0
+1263083,12,"I've seen this once last week, very slow load but then everything is fine but can't reproduce it anymore.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2016-04-11T14:22:52Z,11315581.0
+1191113,6,"Comment on attachment 8643370
+bug_1191113_csp_gcli_localization.patch
+Review of attachment 8643370:
+-----------------------------------------------------------------
+::: toolkit/devtools/gcli/commands/security.js
+@@ +144,2 @@
+This is an FYI, not a request for change:
+You could also do:
+    return context.createView({
+      html:
+        ""<table class='gcli-csp-detail' ... valign='top'>"" +
+        ""  <tr>"" +
+        ""    <td><img src='.../gcli_sec_bad.svg' .../> </td> "" +
+        "" <td>${l10n.securityCSPNoCSPOnPage} ...</td>"" +
+        ""  </tr>"" +
+        ""</table>"",
+      data: { l10n: l10n.propertyLookup }
+    });
+Using l10n.propertyLookup means you don't need to get the NO_CSP_ON_PAGE_MSG const",CODE_REVIEW,0,FULL_TOKEN,2015-08-05T16:41:35Z,10581060.0
+1203871,14,"Created attachment 8730639
+Bug 1203871 - Part 2. Implement eQueryTextRectArray.
+It will use on ContentCache.
+Review commit: https://reviewboard.mozilla.org/r/40059/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/40059/",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-03-15T10:01:56Z,11247079.0
+1261576,17,I also verified that this compiles and does not seem to cause any issues if you build using the cairo-gtk2 toolkit.,SOLUTION_VERIFICATION,0,FULL_TEXT,2016-06-28T22:51:33Z,11509441.0
+1190676,8,"Created attachment 8643092
+Part 4 - Fix consumers: CanvasCaptureMediaStream. r=",UNCODED,0,UNMATCHED,2015-08-04T15:39:49Z,10574808.0
+1298588,1,"In Servo the initial computed values for all the properties is completely static. In Gecko, most style struct constructors take a value that is presshell dependent.
+This allows handling, for example, the initial font size depending on zooming[1], and other similar, document-dependent stuff.
+We need to align this behavior between both, but I think it's hard if not impossible handling the amount of things Gecko handles there without per-document style data.
+[1]: http://searchfox.org/mozilla-central/source/layout/style/nsStyleStruct.cpp#224",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-08-27T07:00:58Z,11660562.0
+1263083,2,"Hi David, dcamp pointed me your way for Firefox perf issues these days. Can you route this into the right hands?
+We should try to not ship this regression, and the clock is running on that, so appreciate any help.",ASSIGNEE_REQUEST,0,FULL_TOKEN,2016-04-08T05:12:33Z,11310184.0
+1191113,12,https://hg.mozilla.org/integration/mozilla-inbound/rev/2170e194fe60,UNCODED,0,UNMATCHED,2015-08-06T18:35:03Z,10587300.0
+1249818,6,"I'd like to sum up _facts_ about this whole thing:
+1) It started in bug 887397 where _firefox_developers_ (who of course were using MacOS) decided
+   to fix their flaw in Australis theme (on MacOS). There're also 2 duplicates reported for MacOS.
+2) Bug 887397 was fixed in a very unusual way: instead of increasing margin (or height of empty area)
+   it was decided to ""sometimes ignore mouse actions applied to background tab""
+   Firefox is the only application in my lifetime which does such malicious thing.
+3) As a response to bug 887397 (MacOS-only issue, remember?) there were several reports from
+   Windows users. It's a real breakage on Windows (let's forget about Australis itself for now).
+4) All users in CC list in bug 887397 are familiar to Nightly, except for arminwagner2008, but still
+   there're no reports about this issue, and most of those people aren't even in CC list in this bug.
+   I conclude that they just wanted that fancy breakage for one moment, and now they forgot about it.
+5)(minor) On Windows (if you ever used it), it's really convenient to drag window using area around
+   caption buttons (minimize,resize,close).
+It'd be a great idea (at least on Windows) to remove the bug implemented in bug 887397 and instead create/improve a special empty area preserved for dragging OR increase draggable area above tabs as said in (2). OR compress background tabs in height (also a bad option), to avoid 'dead areas' and 'magic buttons' occurrences. OR just remove the bug 887397, because there were no such bug on Windows.
+// I just noticed that I already left similar comment, but now (4) is way more actual
+That's quite ""adversarial"" as well, don't you think? Yes, I meant that, and yet I'm right, see (4)
+BUT, even if it was real issue, it doesn't mean that the issue must be resolved the way it was ""fixed"" in bug 887397. Moreover, it doesn't mean that MacOS users can speak for Windows users.
+Nobody reported such issue on Windows -> ""don't fix it if it ain't broke""",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-05-04T12:59:51Z,11381093.0
+1184945,3,"Comment on attachment 8635272
+Patch
+Review of attachment 8635272:
+-----------------------------------------------------------------
+Nice!  How often are we still taking a slow path because of an undersized template object?  It would be nifty to be able to size the result object's array based on the number of matches needed, for better memory utilization and robustness.
+::: js/src/jit/CodeGenerator.cpp
+@@ +1008,5 @@
+Preexisting, but it would be nice if this constant was in a header file that could be referenced by createMatchResultTemplateObject when sizing the template array.",CODE_REVIEW,0,FULL_TOKEN,2015-07-17T16:38:14Z,10508755.0
+1297315,2,"Created attachment 8783831
+Bug 1297315 - Fix Wmaybe-uninitialized warning and get rid of goto statement in GLContextProviderGLX.cpp and GfxTexturesReporter.cpp.
+Review commit: https://reviewboard.mozilla.org/r/73496/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/73496/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,FULL_TOKEN,2016-08-23T06:32:42Z,11647101.0
+1187966,3,Thanks for the helpful reply. Any ideas who might be able to assist in getting this security process unbroken?,ASSIGNEE_REQUEST,0,FULL_TEXT,2015-07-27T22:22:52Z,10542938.0
+1254694,30,We should perform further Exploratory Testing around this scenario.,VERIFICATION_REQUEST,0,FULL_TEXT,2016-03-15T07:54:34Z,11246782.0
+1187056,27,"Created attachment 8641210
+Patch v2
+Yeah using RunDOMEventWhenSafe also fixes it, thanks for the tip! Try push at https://treeherder.mozilla.org/#/jobs?repo=try&revision=fe342ec1f1f9",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-07-30T18:30:13Z,10557566.0
+1203871,8,https://treeherder.mozilla.org/#/jobs?repo=try&revision=66b36b32fd14,UNCODED,0,UNMATCHED,2016-03-08T04:39:42Z,11226510.0
+1217192,6,https://hg.mozilla.org/mozilla-central/rev/8315a152ccb1,UNCODED,0,UNMATCHED,2015-10-23T22:44:49Z,10869337.0
+1203253,12,"Backed out for bustage: https://treeherder.mozilla.org/logviewer.html#?job_id=4819315&repo=fx-team
+https://hg.mozilla.org/integration/fx-team/rev/cb4bff637489",IMPLEMENTATION_REVERSION,0,FULL_TOKEN,2015-09-24T18:30:32Z,10772620.0
+1179123,10,"Created attachment 8629169
+mochitest patch",UNCODED,0,UNMATCHED,2015-07-03T01:15:41Z,10448826.0
+1183934,3,https://hg.mozilla.org/integration/fx-team/rev/e37fbad568b7,UNCODED,0,UNMATCHED,2015-07-16T00:59:37Z,10500848.0
+1179123,25,https://hg.mozilla.org/releases/mozilla-beta/rev/35932b9e5b6a,UNCODED,0,UNMATCHED,2015-07-08T19:01:59Z,10470540.0
+1209952,1,"Created attachment 8667880
+Crash test case
+User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.78.2 (KHTML, like Gecko) Version/6.1.6 Safari/537.78.2
+Steps to reproduce:
+Am using asan-build from https://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-central-linux64-asan/1443610148/ on Ubuntu 14.04 x64
+Please note that this crashes latest firefox on OS X and Windows as well but feel free to remove the security restrictions since it's a use-after-poison.
+Actual results:
+Opening the test case yields:
+==52781==ERROR: AddressSanitizer: use-after-poison on address 0x6250002a1118 at pc 0x7f2062625d2a bp 0x7fff94e3ab20 sp 0x7fff94e3ab18
+READ of size 8 at 0x6250002a1118 thread T0 (Web Content)
+    #0 0x7f2062625d29 in nsIFrame::StyleDisplay() const /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/dom/html/../../dist/include/nsStyleStructList.h:101
+    #1 0x7f20641c3196 in nsFloatManager::GetFlowArea(mozilla::WritingMode, int, nsFloatManager::BandInfoType, int, mozilla::LogicalRect, nsFloatManager::SavedState*, nsSize const&) const /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsFloatManager.cpp:219
+    #2 0x7f206416fe91 in GetFloatAvailableSpaceWithState /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowState.cpp:350
+    #3 0x7f206416fe91 in GetFloatAvailableSpace /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowState.h:60
+    #4 0x7f206416fe91 in nsBlockReflowState::AddFloat(nsLineLayout*, nsIFrame*, int) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowState.cpp:633
+    #5 0x7f20640ea8f2 in GetOutermostLineLayout /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsLineLayout.h:186
+    #6 0x7f20640ea8f2 in nsLineLayout::ReflowFrame(nsIFrame*, unsigned int&, nsHTMLReflowMetrics*, bool&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsLineLayout.cpp:999
+    #7 0x7f2064154201 in nsBlockFrame::ReflowInlineFrame(nsBlockReflowState&, nsLineLayout&, nsLineList_iterator, nsIFrame*, LineReflowStatus*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:4035
+    #8 0x7f2064152a0d in nsBlockFrame::DoReflowInlineFrames(nsBlockReflowState&, nsLineLayout&, nsLineList_iterator, nsFlowAreaRect&, int&, nsFloatManager::SavedState*, bool*, LineReflowStatus*, bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3837
+    #9 0x7f20641491d2 in nsBlockFrame::ReflowInlineFrames(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3703
+    #10 0x7f2064139591 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2712
+    #11 0x7f2064139591 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #12 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #13 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #14 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #15 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #16 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #17 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #18 0x7f206419e1d1 in nsContainerFrame::ReflowChild(nsIFrame*, nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, mozilla::WritingMode const&, mozilla::LogicalPoint const&, nsSize const&, unsigned int, unsigned int&, nsOverflowContinuationTracker*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:998
+    #19 0x7f2064188514 in nsColumnSetFrame::ReflowChildren(nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&, nsColumnSetFrame::ReflowConfig const&, bool, nsCollapsingMargin*, nsColumnSetFrame::ColumnBalanceData&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:638
+    #20 0x7f206418c4bb in ReflowColumns /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:344
+    #21 0x7f206418c4bb in nsColumnSetFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:1075
+    #22 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #23 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #24 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #25 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #26 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #27 0x7f206419e1d1 in nsContainerFrame::ReflowChild(nsIFrame*, nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, mozilla::WritingMode const&, mozilla::LogicalPoint const&, nsSize const&, unsigned int, unsigned int&, nsOverflowContinuationTracker*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:998
+    #28 0x7f2064188514 in nsColumnSetFrame::ReflowChildren(nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&, nsColumnSetFrame::ReflowConfig const&, bool, nsCollapsingMargin*, nsColumnSetFrame::ColumnBalanceData&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:638
+    #29 0x7f206418c4bb in ReflowColumns /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:344
+    #30 0x7f206418c4bb in nsColumnSetFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:1075
+    #31 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #32 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #33 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #34 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #35 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #36 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #37 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #38 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #39 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #40 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #41 0x7f206419e1d1 in nsContainerFrame::ReflowChild(nsIFrame*, nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, mozilla::WritingMode const&, mozilla::LogicalPoint const&, nsSize const&, unsigned int, unsigned int&, nsOverflowContinuationTracker*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:998
+    #42 0x7f2064183839 in nsCanvasFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsCanvasFrame.cpp:685
+    #43 0x7f206422c700 in ReflowChild /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:998
+    #44 0x7f206422c700 in nsHTMLScrollFrame::ReflowScrolledFrame(ScrollReflowState*, bool, bool, nsHTMLReflowMetrics*, bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsGfxScrollFrame.cpp:524
+    #45 0x7f206422db89 in nsHTMLScrollFrame::ReflowContents(ScrollReflowState*, nsHTMLReflowMetrics const&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsGfxScrollFrame.cpp:636
+    #46 0x7f206422ff46 in nsHTMLScrollFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsGfxScrollFrame.cpp:871
+    #47 0x7f206419e58e in nsContainerFrame::ReflowChild(nsIFrame*, nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, int, int, unsigned int, unsigned int&, nsOverflowContinuationTracker*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:1040
+    #48 0x7f20643acf0f in ViewportFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsViewportFrame.cpp:215
+    #49 0x7f206408eace in PresShell::DoReflow(nsIFrame*, bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/base/nsPresShell.cpp:9070
+    #50 0x7f20640a24f8 in PresShell::ProcessReflowCommands(bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/base/nsPresShell.cpp:9242
+    #51 0x7f20640a1a4a in PresShell::FlushPendingNotifications(mozilla::ChangesToFlush) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/base/nsPresShell.cpp:4137
+    #52 0x7f2063ff648b in nsDocumentViewer::LoadComplete(nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/base/nsDocumentViewer.cpp:932
+    #53 0x7f2064c59cbf in nsDocShell::EndPageLoad(nsIWebProgress*, nsIChannel*, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/docshell/base/nsDocShell.cpp:7366
+    #54 0x7f2064c56333 in nsDocShell::OnStateChange(nsIWebProgress*, nsIRequest*, unsigned int, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/docshell/base/nsDocShell.cpp:7185
+    #55 0x7f2064c5cddf in non-virtual thunk to nsDocShell::OnStateChange(nsIWebProgress*, nsIRequest*, unsigned int, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/docshell/base/Unified_cpp_docshell_base0.cpp:7192
+    #56 0x7f205f67aecb in nsDocLoader::DoFireOnStateChange(nsIWebProgress*, nsIRequest*, int&, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/uriloader/base/nsDocLoader.cpp:1250
+    #57 0x7f205f67a1b3 in nsDocLoader::doStopDocumentLoad(nsIRequest*, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/uriloader/base/nsDocLoader.cpp:831
+    #58 0x7f205f6773bf in nsDocLoader::DocLoaderIsEmpty(bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/uriloader/base/nsDocLoader.cpp:721
+    #59 0x7f205f679143 in nsDocLoader::OnStopRequest(nsIRequest*, nsISupports*, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/uriloader/base/nsDocLoader.cpp:605
+    #60 0x7f205f679b7c in non-virtual thunk to nsDocLoader::OnStopRequest(nsIRequest*, nsISupports*, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/uriloader/base/Unified_cpp_uriloader_base0.cpp:609
+    #61 0x7f205e007079 in nsLoadGroup::RemoveRequest(nsIRequest*, nsISupports*, nsresult) /builds/slave/m-cen-l64-asan-000000000000000/build/src/netwerk/base/nsLoadGroup.cpp:640
+    #62 0x7f206035a4cc in nsDocument::DoUnblockOnload() /builds/slave/m-cen-l64-asan-000000000000000/build/src/dom/base/nsDocument.cpp:9068
+    #63 0x7f206035a16e in nsDocument::UnblockOnload(bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/dom/base/nsDocument.cpp:8996
+    #64 0x7f206032dc10 in nsDocument::DispatchContentLoadedEvents() /builds/slave/m-cen-l64-asan-000000000000000/build/src/dom/base/nsDocument.cpp:5163
+    #65 0x7f20603f46e0 in apply<nsDocument, void (nsDocument::*)()> /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/dom/base/../../dist/include/nsThreadUtils.h:661
+    #66 0x7f20603f46e0 in nsRunnableMethodImpl<void (nsDocument::*)(), true>::Run() /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/dom/base/../../dist/include/nsThreadUtils.h:868
+    #67 0x7f205de5975f in nsThread::ProcessNextEvent(bool, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/xpcom/threads/nsThread.cpp:960
+    #68 0x7f205ded281a in NS_ProcessNextEvent(nsIThread*, bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/xpcom/glue/nsThreadUtils.cpp:277
+    #69 0x7f205e7705e9 in mozilla::ipc::MessagePump::Run(base::MessagePump::Delegate*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/glue/MessagePump.cpp:95
+    #70 0x7f205e6de4ec in RunInternal /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/chromium/src/base/message_loop.cc:234
+    #71 0x7f205e6de4ec in RunHandler /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/chromium/src/base/message_loop.cc:227
+    #72 0x7f205e6de4ec in MessageLoop::Run() /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/chromium/src/base/message_loop.cc:201
+    #73 0x7f20637aa807 in nsBaseAppShell::Run() /builds/slave/m-cen-l64-asan-000000000000000/build/src/widget/nsBaseAppShell.cpp:156
+    #74 0x7f20655fa3e2 in XRE_RunAppShell /builds/slave/m-cen-l64-asan-000000000000000/build/src/toolkit/xre/nsEmbedFunctions.cpp:785
+    #75 0x7f205e6de4ec in RunInternal /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/chromium/src/base/message_loop.cc:234
+    #76 0x7f205e6de4ec in RunHandler /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/chromium/src/base/message_loop.cc:227
+    #77 0x7f205e6de4ec in MessageLoop::Run() /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/chromium/src/base/message_loop.cc:201
+    #78 0x7f20655f9acc in XRE_InitChildProcess /builds/slave/m-cen-l64-asan-000000000000000/build/src/toolkit/xre/nsEmbedFunctions.cpp:621
+    #79 0x48d670 in content_process_main(int, char**) /builds/slave/m-cen-l64-asan-000000000000000/build/src/ipc/app/../contentproc/plugin-container.cpp:237
+    #80 0x7f205b809ec4 in __libc_start_main /build/buildd/eglibc-2.19/csu/libc-start.c:287
+    #81 0x48c9cc in _start (/home/symeon/Desktop/firefox/plugin-container+0x48c9cc)
+0x6250002a1118 is located 2072 bytes inside of 8192-byte region [0x6250002a0900,0x6250002a2900)
+allocated by thread T0 (Web Content) here:
+    #0 0x474fe1 in __interceptor_malloc /builds/slave/moz-toolchain/src/llvm/projects/compiler-rt/lib/asan/asan_malloc_linux.cc:74
+    #1 0x7f206b70de86 in PL_ArenaAllocate /builds/slave/m-cen-l64-asan-000000000000000/build/src/nsprpub/lib/ds/plarena.c:203
+    #2 0x7f2063dd8535 in nsPresArena::Allocate(unsigned int, unsigned long) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/base/nsPresArena.cpp:165
+    #3 0x7f2063d0d2e5 in AllocateByObjectID /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/style/../base/nsPresArena.h:65
+    #4 0x7f2063d0d2e5 in PresShell /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/style/../base/nsIPresShell.h:255
+    #5 0x7f2063d0d2e5 in operator new /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/style/nsStyleStruct.h:1362
+    #6 0x7f2063d0d2e5 in nsRuleNode::ComputePositionData(void*, nsRuleData const*, nsStyleContext*, nsRuleNode*, nsRuleNode::RuleDetail, mozilla::RuleNodeCacheConditions) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/style/nsRuleNode.cpp:7619
+    #7 0x7f2063ce8df3 in nsRuleNode::WalkRuleTree(nsStyleStructID, nsStyleContext*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/style/nsRuleNode.cpp:2407
+    #8 0x7f206419d8d8 in StylePosition /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/layout/generic/../../dist/include/nsStyleStructList.h:90
+    #9 0x7f206419d8d8 in nsContainerFrame::ComputeAutoSize(nsRenderingContext*, mozilla::WritingMode, mozilla::LogicalSize const&, int, mozilla::LogicalSize const&, mozilla::LogicalSize const&, mozilla::LogicalSize const&, bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:912
+    #10 0x7f20641a8906 in nsFrame::ComputeSize(nsRenderingContext*, mozilla::WritingMode, mozilla::LogicalSize const&, int, mozilla::LogicalSize const&, mozilla::LogicalSize const&, mozilla::LogicalSize const&, nsIFrame::ComputeSizeFlags) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsFrame.cpp:4266
+    #11 0x7f2064170d77 in FloatMarginISize(nsHTMLReflowState const&, int, nsIFrame*, nsCSSOffsetState const&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowState.cpp:688
+    #12 0x7f2064161c4a in nsBlockReflowState::FlowAndPlaceFloat(nsIFrame*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowState.cpp:754
+    #13 0x7f206416fca6 in nsBlockReflowState::AddFloat(nsLineLayout*, nsIFrame*, int) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowState.cpp:629
+    #14 0x7f20640ea8f2 in GetOutermostLineLayout /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsLineLayout.h:186
+    #15 0x7f20640ea8f2 in nsLineLayout::ReflowFrame(nsIFrame*, unsigned int&, nsHTMLReflowMetrics*, bool&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsLineLayout.cpp:999
+    #16 0x7f2064154201 in nsBlockFrame::ReflowInlineFrame(nsBlockReflowState&, nsLineLayout&, nsLineList_iterator, nsIFrame*, LineReflowStatus*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:4035
+    #17 0x7f2064152a0d in nsBlockFrame::DoReflowInlineFrames(nsBlockReflowState&, nsLineLayout&, nsLineList_iterator, nsFlowAreaRect&, int&, nsFloatManager::SavedState*, bool*, LineReflowStatus*, bool) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3837
+    #18 0x7f20641491d2 in nsBlockFrame::ReflowInlineFrames(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3703
+    #19 0x7f2064139591 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2712
+    #20 0x7f2064139591 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #21 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #22 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #23 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #24 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #25 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #26 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #27 0x7f206419e1d1 in nsContainerFrame::ReflowChild(nsIFrame*, nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, mozilla::WritingMode const&, mozilla::LogicalPoint const&, nsSize const&, unsigned int, unsigned int&, nsOverflowContinuationTracker*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsContainerFrame.cpp:998
+    #28 0x7f2064188514 in nsColumnSetFrame::ReflowChildren(nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&, nsColumnSetFrame::ReflowConfig const&, bool, nsCollapsingMargin*, nsColumnSetFrame::ColumnBalanceData&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:638
+    #29 0x7f206418c4bb in ReflowColumns /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:344
+    #30 0x7f206418c4bb in nsColumnSetFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsColumnSetFrame.cpp:1075
+    #31 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #32 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #33 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #34 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+    #35 0x7f2064131fc8 in nsBlockFrame::Reflow(nsPresContext*, nsHTMLReflowMetrics&, nsHTMLReflowState const&, unsigned int&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:1160
+    #36 0x7f206414fe47 in nsBlockReflowContext::ReflowBlock(mozilla::LogicalRect const&, bool, nsCollapsingMargin&, int, bool, nsLineBox*, nsHTMLReflowState&, unsigned int&, nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockReflowContext.cpp:306
+    #37 0x7f2064145bad in nsBlockFrame::ReflowBlockFrame(nsBlockReflowState&, nsLineList_iterator, bool*) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:3348
+    #38 0x7f20641395b3 in ReflowLine /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2709
+    #39 0x7f20641395b3 in nsBlockFrame::ReflowDirtyLines(nsBlockReflowState&) /builds/slave/m-cen-l64-asan-000000000000000/build/src/layout/generic/nsBlockFrame.cpp:2247
+SUMMARY: AddressSanitizer: use-after-poison /builds/slave/m-cen-l64-asan-000000000000000/build/src/obj-firefox/dom/html/../../dist/include/nsStyleStructList.h:101 nsIFrame::StyleDisplay() const
+Shadow bytes around the buggy address:
+  0x0c4a8004c1d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c4a8004c1e0: 00 00 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x0c4a8004c1f0: f7 f7 f7 f7 f7 00 00 00 00 00 00 00 00 00 00 00
+  0x0c4a8004c200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c4a8004c210: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f7
+=>0x0c4a8004c220: f7 f7 f7[f7]f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x0c4a8004c230: f7 f7 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c4a8004c240: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c4a8004c250: 00 00 00 00 00 00 00 00 00 00 f7 f7 f7 f7 f7 f7
+  0x0c4a8004c260: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x0c4a8004c270: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:    
+  ==52781==ABORTING
+Am attaching the test case",STACK_TRACE,0,FULL_TOKEN,2015-09-30T13:47:37Z,10794240.0
+1203253,2,[Tracking Requested - why for this release]: The tests were removed in Firefox43 while on m-c (and uplifted to Aurora42). We should get these added back soon before a regression gets created and unnoticed.,ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2015-09-09T19:11:17Z,10711889.0
+1203871,40,"Hmm, that's too bad. It really should be a const method, but it looks like doing that would involve pushing the const-ness down through various subsidiary methods, and eventually providing both const and non-const variants of the GetCharacterGlyphs() accessor.
+I think that would be a good thing to do, but it turns into a big enough change that it's probably best done in a separate bug. I've filed bug 1282248 for this. With that, can we use more const here as well?",NEW_ISSUE_FILING,0,FULL_TEXT,2016-06-25T18:59:50Z,11502241.0
+1263083,17,"Tested again on MacBook Pro (Retina, 15-inch, late 2013) OS X 10.11 with the latest Nightly (2016-04-11) and I can't reproduce this issue.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2016-04-12T07:38:00Z,11318100.0
+1249818,2,"I'm pretty sure we'd want to fix this and wontfix bug 1200877, see:
+https://dxr.mozilla.org/mozilla-central/rev/af6356a3e8c56036b74ba097395356d9c6e6c5a3/browser/themes/windows/browser.css#2007-2015
+and bug 987067 / bug 887397.
+It looks like this regression has affected OS X ever since they made the switch away from mozmousehittest, but nobody noticed. Since bug 1219215 it will have affected Windows as well. The cause is that the entire tab element is marked as ""no-drag"", and we use the clip-path only on the background of the tab. So we should probably tweak the drag region for these items in Firefox's theme code...",PROBLEM_REVIEW,0,FULL_TOKEN,2016-02-22T09:55:20Z,11183507.0
+1189924,2,"Created attachment 8641863
+MozReview Request: Bug 1189924 - Add a background color to the APZ minimap. r=kats
+Bug 1189924 - Add a background color to the APZ minimap. r=kats",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-07-31T20:48:38Z,10562867.0
+1187056,2,"Ok, I can reproduce this manually too, when you after the Gallery is open, you quickly tap on the image to open it as a fullscreen image.
+So this looks like a regression to me. We should find out when this regressed.",PROBLEM_REVIEW,0,FULL_TEXT,2015-07-23T22:09:50Z,10531807.0
+1253884,3,https://hg.mozilla.org/mozilla-central/rev/f1ff5388e591,UNCODED,0,UNMATCHED,2016-03-07T10:38:09Z,11223410.0
+1249818,7,"While this is a recent regression in 47, it seems polishy to me. If the end-users happen to click on the top 5 pixels and are unable to switch tabs, they can workaround by using the other areas of the background tab header area and switch tabs. I think it might be too late to fix this in 47 and would not consider it a release blocker.",PROBLEM_REVIEW,0,FULL_TEXT,2016-05-31T20:26:23Z,11452386.0
+1203871,27,"Comment on attachment 8730642
+Bug 1203871 - Part 5. Use mozilla::Move for rect array.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40065/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T09:51:47Z,11487457.0
+1217192,2,"Created attachment 8677111
+Use gfxCriticalNote where appropriate for brevity.",UNCODED,0,UNMATCHED,2015-10-21T21:18:47Z,10861281.0
+1184945,1,"In octane-regexp we often miss our fastpath to go from ion jit -> irregexp jit because we need more space in the MatchResultTemplateObject. As a result we take the slow path and do ""ion jit"" -> c++ -> ""irregexp jit"".
+We allow up to 6 submatches in the fast case. In the benchmark we see cases up to 11 submatches. For these we take a slow path.
+I doubled the size of the TemplateObject to be a (8 to 16), which allows 14 submatches.
+This gives me an improvement from 2950 to 3450 on regexp.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2015-07-17T13:08:29Z,10507714.0
+1263083,22,I can definitely still repro this. I looked into it a bit and it seems like layerization is going crazy. My guess is that we end up putting every message into its own layer. Matt/Jamie can one of you look?,PROBLEM_REVIEW_REQUEST,0,FULL_TEXT,2016-06-20T15:37:49Z,11490422.0
+1247539,5,"Created attachment 8719063
+about:support with child graphics annotations
+Does this resolve #1?",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-02-12T23:36:56Z,11163033.0
+1253516,14,"To be honest, I don't really understand the locking scheme in use here and exactly what is protected by which lock and where the critical sections are. I defer to :tromey and :vporof for that information, as they were much more involved in authoring the timeline consumers infrastructure than I was.",CLARIFICATION,0,FULL_TEXT,2016-03-14T23:08:58Z,11245862.0
+1254694,11,"Created attachment 8728922
+Fix v1
+One-line fix. I'll try to write a test.",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-03-10T11:06:28Z,11235170.0
+1203871,44,"Pushed by m_kato@ga2.so-net.ne.jp:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/a1b865bc98fb
+Part 1. Add nsIFrame::GetCharacterRectsInRange. r=jfkthame
+https://hg.mozilla.org/integration/mozilla-inbound/rev/eeadf50643fe
+Part 2. Implement eQueryTextRectArray. r=masayuki
+https://hg.mozilla.org/integration/mozilla-inbound/rev/894a2784d498
+Part 3. Use eQueryTextRectArray on ContentCache for e10s. r=masayuki
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d654463ad5fa
+Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test. r=masayuki,smaug
+https://hg.mozilla.org/integration/mozilla-inbound/rev/99635fa90e92
+Part 5. Use mozilla::Move for rect array. r=masayuki",UNCODED,0,UNMATCHED,2016-06-29T06:23:32Z,11509976.0
+1179123,2,"Since it causes crash in the coming Beta, mark it as security sensitive bug.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2015-07-01T07:41:43Z,10439595.0
+1254694,13,"Those providers have appeared in the search bar's drop down list.
+I have ""user-installed engines"" but only 4, including Bugzilla@Mozilla (this site), FxSiteCompat.com (my site), MDN and GitHub.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2016-03-10T11:52:22Z,11235266.0
+1261576,23,https://hg.mozilla.org/mozilla-central/rev/265d5961e81a,UNCODED,0,UNMATCHED,2016-07-12T14:33:42Z,11541937.0
+1190676,1,"Created attachment 8642798
+testcase
+Assertion failure: cycleStackMarker == ps->mCycleMarker, at dom/media/MediaStreamGraph.cpp:756",PROBLEM_DESCRIPTION,0,FULL_TEXT,2015-08-04T02:58:39Z,10571513.0
+1252039,1,"The Static Analysis tool Coverity added that in the following context:
+operands don't affect the result since |""unexpected nsCSSTokenSerializationType value""| will always translate to a valid memory address thus the MOZ_ASSERT becoming useless.",UNCODED,0,UNMATCHED,2016-02-29T12:24:50Z,11202867.0
+1263083,36,Nightly is *dramatically* better now with Inbox. Thanks. I recommend we uplift this to 48 if you are comfortable.,UPLIFT_NOMINATION_REQUEST,0,FULL_TEXT,2016-07-05T14:45:10Z,11523528.0
+1248726,2,"Comment on attachment 8719927
+simplify_pclocationmap_further-v0.diff
+Review of attachment 8719927:
+-----------------------------------------------------------------
+Thanks!",CODE_REVIEW,0,FULL_TEXT,2016-02-16T20:52:05Z,11169574.0
+1209952,2,"Possibly the same underlying issue as bug 942794?
+(updating my ASAN tree now to take a look...)",QUESTION,0,FULL_TOKEN,2015-09-30T17:41:51Z,10795469.0
+1187056,32,https://hg.mozilla.org/mozilla-central/rev/8fa22ffa2da2,UNCODED,0,UNMATCHED,2015-08-01T00:12:16Z,10563679.0
+1203871,20,"Comment on attachment 8730640
+Bug 1203871 - Part 3. Use eQueryTextRectArray on ContentCache for e10s.
+https://reviewboard.mozilla.org/r/40061/#review36833",UNCODED,0,UNMATCHED,2016-03-16T01:38:19Z,11250220.0
+1248726,3,"https://hg.mozilla.org/integration/mozilla-inbound/rev/1ef77d653c4f7f5ea0452b010a9c6a85c9e87b5d
+Bug 1248726 - Simplify PCLocationMap even further; r=fitzgen",UNCODED,0,UNMATCHED,2016-02-17T17:51:44Z,11172766.0
+1187056,10,"[Blocking Requested - why for this release]:
+Broken functionality and a regression so nominating this 2.5?
+Kartikaya, can you take a look at this please? This looks to have been caused by the changes made for bug 1178847.",QUESTION,0,FULL_TOKEN,2015-07-27T20:07:35Z,10542178.0
+1184945,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/066e0b4423c9,UNCODED,0,UNMATCHED,2015-07-22T08:10:58Z,10523144.0
+1184282,1,"+++ This bug was initially created as a clone of Bug #385719 +++
+This warning [1], introduced in bug 385719 in 2007, shows up in the following test suites:
+It shows up in 26 tests. A few of the most prevalent:
+[1] https://hg.mozilla.org/mozilla-central/annotate/49683d4e9ebd/gfx/thebes/gfxTextRun.cpp#l220",STACK_TRACE,0,FULL_TEXT,2015-07-15T19:19:40Z,10499211.0
+1254694,24,"Comment on attachment 8729028
+Fix for engines from language packs, v2 (with test)
+Approval Request Comment
+[Feature/regressing bug #]: bug 1203167
+[User impact if declined]: users using a language pack are likely to lose search engine metadata (aliases, order, removed default engine).
+[Describe test coverage new/current, TreeHerder]: the patch contains an xpcshell test.
+[Risks and why]: low; one line fix, modifying the engine id, which is only ever used during metadata migration.
+[String/UUID change made/needed]: none",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2016-03-11T16:49:17Z,11239785.0
+1263083,8,I don't reproduce this on my Linux machine so it might be Mac-specific. Are you in e10s mode or not? If you are then can you try running in non-e10s mode and see if the problem goes away?,QUESTION,0,FULL_TEXT,2016-04-08T14:31:50Z,11311072.0
+1132964,3,"Can we close this? It appears to be working as desired:
+Name 	Firefox
+Version 	46.0a2
+Build ID 	20160205004003
+User Agent 	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0",SOLUTION_VERIFICATION,0,FULL_TOKEN,2016-02-05T22:31:04Z,11142820.0
+1261576,21,"Created attachment 8769835
+patch for check-in
+Try:  https://treeherder.mozilla.org/#/jobs?repo=try&revision=a591ade2dbd3",UNCODED,0,UNMATCHED,2016-07-11T19:29:00Z,11539445.0
+1179123,24,https://hg.mozilla.org/releases/mozilla-aurora/rev/4d659b6e1c67,UNCODED,0,UNMATCHED,2015-07-08T17:50:52Z,10470172.0
+1263083,24,"I cannot personally reproduce the noticeable performance regression, each of these operations always takes about 1 second for me. I did however notice a change in how it layerizes on the 9th. Dietrich, is it correct that the 7th is the last good build *you aware of*, but that doesn't mean the 8th is necessarily the first bad build? That's how I read the above comments, and is consistent with my findings.
+The change I notice is that we are using more multi-tiled layers than before. This would explain why it only affects OS X, although even with tiling enabled on linux I cannot reproduce a noticeable performance regression. I ran a bisection looking out for the extra multi-tiled layers and found bug 1221094 to be the culprit, which makes sense. Memory usage after that commit is greater than before. Each of the operations listed as slow will now result in more memory allocations required to perform them. (Perhaps on a hi-dpi display this would be even more pronounced and therefore cause a more noticeable slow down.)
+The commit in question usually causes positive improvements in my experience. But I think the combination of it along with some existing bad decisions on this page is what's causing problems. There should be a way to layerize this page better, I'll keep investigating.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2016-06-21T13:02:30Z,11492340.0
+1252039,5,https://hg.mozilla.org/mozilla-central/rev/be813aef3471,UNCODED,0,UNMATCHED,2016-03-01T11:13:24Z,11206798.0
+1254694,17,https://treeherder.mozilla.org/#/jobs?repo=try&revision=324cc19768c3,UNCODED,0,UNMATCHED,2016-03-10T16:00:19Z,11235887.0
+1203871,17,"Created attachment 8730642
+Bug 1203871 - Part 5. Use mozilla::Move for rect array.
+To optimize copy of text rect array, we should use mozilla::Move.  Also, after using it, we should mark is invalid result into SetEventResult
+Review commit: https://reviewboard.mozilla.org/r/40065/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/40065/",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-03-15T10:02:02Z,11247082.0
+1203253,13,https://hg.mozilla.org/integration/fx-team/rev/ee1649a0952f,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2015-09-25T16:06:37Z,10777354.0
+1261576,19,"Comment on attachment 8765824
+patch
+Not this patch, because this bug is unrelated to 3.16 and ""hovering"" is a different concept.",CODE_REVIEW,0,FULL_TEXT,2016-07-04T23:27:20Z,11522098.0
+1190676,21,"Comment on attachment 8653521
+Part 12 - Fix mozCaptureStream. r=
+Review of attachment 8653521:
+-----------------------------------------------------------------
+One of these in CaptureStreamInternal() should suffice.",CODE_REVIEW,0,FULL_TEXT,2015-08-27T15:05:48Z,10666383.0
+1187056,11,"Thanks, I'll take a look.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2015-07-27T20:11:31Z,10542222.0
+1190676,19,"This is orange on try, but I think 962719 will fix the errors.",UNCODED,0,UNMATCHED,2015-08-11T11:12:29Z,10602883.0
+1191113,7,"Let me prepare a new patch including that change as well, no need for a new bug.",ANSWER_TO_QUESTION,0,FULL_TEXT,2015-08-05T16:44:22Z,10581069.0
+1297315,14,https://hg.mozilla.org/mozilla-central/rev/f91e6ea2609b,UNCODED,0,UNMATCHED,2016-08-30T14:00:06Z,11666465.0
+1179123,6,"I can repro on windows on 42, but not on 39.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2015-07-01T12:03:37Z,10440136.0
+1263083,7,"I filed bug 1263170 for the 'failed to load' issue, which appears in Beta too so it's probably an Inbox change.",NEW_ISSUE_FILING,0,FULL_TEXT,2016-04-08T14:27:15Z,11311057.0
+1297315,5,"Comment on attachment 8783831
+Bug 1297315 - Fix Wmaybe-uninitialized warning and get rid of goto statement in GLContextProviderGLX.cpp and GfxTexturesReporter.cpp.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/73496/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-08-24T04:24:45Z,11650286.0
+1187966,2,The environment running this job obviously doesn't have gtk3 installed.,CLARIFICATION,0,FULL_TEXT,2015-07-27T21:25:29Z,10542620.0
+1254694,36,"Unless I'm misunderstanding something, II. may not be a real issue. When you switch to a different language pack, you switch to a different set of default search engines, so settings can't really be kept, or at least not all of them. We may want to try to preserve the settings automatically for engines that have the same name for both languages (eg. 'Google'), but that's not something we should attempt to do in a dot release. Us losing some settings when the user actively switches back and forth between languages is very different from (and less problematic than) losing settings during an update.",CLARIFICATION,0,FULL_TEXT,2016-03-16T17:55:18Z,11252589.0
+1179123,12,"Actually, what is the test trying to test? Making sure we don't crash here anymore? Well, 
+why do we want to execute NS_NOTREACHED(""Fullscreen root should be a fullscreen doc..."");
+while running mochitets?",QUESTION,0,FULL_TOKEN,2015-07-03T22:51:29Z,10455246.0
+1207931,4,It looks like the use of the variable was added in bug 694706 and removed in bug 1056427. Just a bit of dead code that was missed. So I think it is okay to remove the message.,POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2015-09-24T15:59:44Z,10771902.0
+1183934,4,https://hg.mozilla.org/mozilla-central/rev/e37fbad568b7,UNCODED,0,UNMATCHED,2015-07-17T08:20:26Z,10506884.0
+1261576,12,"Now that scrollbar themeing has landed, perhaps someone can take a look at this bug?
+Thank you.",ASSIGNEE_REQUEST,0,FULL_TOKEN,2016-06-19T23:50:05Z,11489249.0
+1297315,1,"Try Fix 
+1. 
+Warning: -Wmaybe-uninitialized in gfx/gl/GLContextProviderGLX.cpp: 'pixmap' may be used uninitialized in this function gfx/gl/GLContextProviderGLX.cpp:1328:80: warning: 'pixmap' may be used uninitialized in this function [-Wmaybe-uninitialized]
+and 
+gfx/gl/GfxTexturesReporter.cpp: 'unit' may be used uninitialized in this function
+gfx/gl/GfxTexturesReporter.cpp:52:31: warning: 'unit' may be used uninitialized in this function [-Wmaybe-uninitialized]
+2. Remove goto statement in C++ code.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-08-23T06:29:56Z,11647098.0
+1261576,15,I can verify that this fixes the issue for me under both gtk 3.20 and gtk 3.18.,SOLUTION_VERIFICATION,0,FULL_TEXT,2016-06-27T23:24:49Z,11506205.0
+1217663,9,"[Tracking Requested - why for this release]:
+This fix is about to ship in Firefox 45, so we have to decide whether to fix this on ESR-38. The description of how to trigger this bug in comment 7 makes it sound more like a sec-moderate issue.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2016-02-18T01:45:56Z,11174384.0
+1253516,11,"Created attachment 8730325
+Do not acquire a lock that protects data that is not used
+`sMutex` protects the `mMarkersStores` data member, but neither
+`TimelineConsumers::PopMarkers` nor `ObservedDocShell::PopMarkers` use that
+data member.
+Removing this lock acquisition also fixes a dead lock where we re-entrantly
+attempt to acquire the lock when triggering a GC when allocating JS objects
+inside `ObservedDocShell::PopMarkers`.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-03-14T18:44:09Z,11244955.0
+1249818,14,"Pushed by dgottwald@mozilla.com:
+https://hg.mozilla.org/integration/fx-team/rev/4eedf5c4e7e2
+Remove clip-path from background tabs. r=gijs",UNCODED,0,UNMATCHED,2016-07-06T10:24:21Z,11526925.0
+1263083,38,"Not late - 48 happens to be an eight week beta, we have until the end of July.",ANSWER_TO_QUESTION,0,FULL_TEXT,2016-07-05T16:48:50Z,11523962.0
+1263083,18,"Considering they can't reproduce, any chance you can try using ./mach mozregression yourself to reproduce the issue on your local machine and get an inbound branch (fx-team, m-i, b2g-i or whatever) regression window? It seems like having such a window might also shed some light on why others aren't reproducing...",REPRODUCTION_REQUEST,0,FULL_TEXT,2016-04-12T09:05:29Z,11318290.0
+1253884,1,"Created attachment 8727138
+neg-zero
+The lack of .0 causes the token to be classified as an integer and then the -0 is lost.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2016-03-06T02:56:53Z,11221716.0
+1247539,6,I realize it'd have trouble for non-main thread content messages.,CODE_REVIEW,0,FULL_TEXT,2016-02-12T23:37:31Z,11163037.0
+1248726,1,"Created attachment 8719927
+simplify_pclocationmap_further-v0.diff
+The memory management of this structure is quite weird, so add a comment and assertions detailing how it is all supposed to work.
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=852de5cfc93b",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-02-16T20:49:43Z,11169569.0
+1253516,15,https://hg.mozilla.org/integration/mozilla-inbound/rev/ffdeaea4ceae,UNCODED,0,UNMATCHED,2016-03-16T10:02:59Z,11251056.0
+1265066,10,"I have reproduced this with Nightly 48.0a1 (2016-04-16) on Elementary OS 64bit. 
+This fix is now verified on Firefox release 48.0
+Build ID 	20160726073904
+User Agent 	Mozilla/5.0 (X11; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0
+[bugday-20160803]",SOLUTION_VERIFICATION,0,FULL_TOKEN,2016-08-07T06:54:22Z,11604743.0
+1254694,8,Do you have specific steps to reproduce that don't involve a language pack?,S2R_REQUEST,0,FULL_TEXT,2016-03-10T09:34:17Z,11234852.0
+1080574,34,"The change for bug #1218627 has landed, hence I this should be de-facto fixed as geo isn't using the MozSettings API anymore.
+If you're ok I guess we can just close this.",SOLVED_BY_OTHER_ISSUE,0,FULL_TOKEN,2016-09-30T20:43:37Z,11751326.0
+1271750,7,resolving unless beta shows some issues - all awesome screen shot issues should be resolved.  no longer use shims.  this was in the late July fix that they worked on with our testing.,STATUS_UPDATE,0,FULL_TOKEN,2016-08-12T17:49:50Z,11621641.0
+1253516,17,"11 automation job failures were associated with this bug in the last 7 days.
+Repository breakdown:
+* mozilla-inbound: 9
+* try: 1
+* fx-team: 1
+Platform breakdown:
+* linux64: 6
+* linux32: 5
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1253516&startday=2016-03-14&endday=2016-03-20&tree=all",UNCODED,0,UNMATCHED,2016-03-21T01:03:53Z,11262318.0
+1048721,10,https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext#Sync_objects,UNCODED,0,UNMATCHED,2016-04-22T19:04:22Z,11349165.0
+1254694,26,"https://hg.mozilla.org/releases/mozilla-aurora/rev/5b899aff5f55
+https://hg.mozilla.org/releases/mozilla-aurora/rev/83559d0c94aa",UNCODED,0,UNMATCHED,2016-03-13T23:49:41Z,11242714.0
+1247539,1,There's pretty much no way to know when we fail to create a D3D11 device in the content process.,PROBLEM_MOTIVATION,0,FULL_TEXT,2016-02-11T08:22:26Z,11156660.0
+1207931,7,"Comment on attachment 8665743
+Remove no-longer-needed SetBackgroundColor IPC message
+Review of attachment 8665743:
+-----------------------------------------------------------------
+::: layout/base/nsPresShell.cpp
+@@ -5292,5 @@
+Nice. This is the code that was fixed in bug 1199534 because it was spamming messages constantly. Turns out it wasn't needed at all!",CODE_REVIEW,0,FULL_TEXT,2015-09-25T02:58:39Z,10774525.0
+1184282,7,https://hg.mozilla.org/mozilla-central/rev/c281b91bf5f8,UNCODED,0,UNMATCHED,2015-07-17T14:38:11Z,10508179.0
+1248726,4,https://hg.mozilla.org/mozilla-central/rev/1ef77d653c4f,UNCODED,0,UNMATCHED,2016-02-18T11:26:54Z,11175228.0
+1263083,29,"Comment on attachment 8765412
+Bug 1263083 - Use single-tile layer when less than half the tile size in either dimension;
+https://reviewboard.mozilla.org/r/60804/#review57906
+The heuristic sounds good, but please factor out the condition into a separate variable and add a comment. Something like ""don't waste more than 50% of the tile's pixels in either direction"".",CODE_REVIEW,0,FULL_TEXT,2016-06-28T17:11:31Z,11508332.0
+1221593,4,"https://hg.mozilla.org/integration/mozilla-inbound/rev/e3c1281a9e07a966c4ea06264eaa95ebab928aae
+Bug 1221593 - Don't reset other axis' scroll position during APZ drag. r=kats",UNCODED,0,UNMATCHED,2015-11-06T18:07:09Z,10911210.0
+1261576,6,"Yes, I see that now.  I should not have been trying to go from memory.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2016-04-03T19:55:52Z,11297185.0
+1254694,16,"Created attachment 8729028
+Fix for engines from language packs, v2 (with test)",UNCODED,0,UNMATCHED,2016-03-10T15:59:14Z,11235884.0
+1190676,6,"Created attachment 8643089
+Part 2 - Force explicitely passing in a MediaStreamGraph when creating a DOMMediaStream. r=
+Hopefully this will prevent cross-graph connections.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-04T15:37:52Z,10574799.0
+1187056,4,I cannot reproduce this issue using shallow flashing whatsoever. That means I'll have to full flash to find the window and won't be able to do swaps to find out whether it's Gecko or Gaia issue.,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2015-07-24T23:20:31Z,10536616.0
+1203871,35,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40057/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-23T12:36:46Z,11497535.0
+1176028,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/88f5bdaf1d8e,UNCODED,0,UNMATCHED,2015-06-20T17:20:07Z,10411752.0
+1249818,19,"https://hg.mozilla.org/releases/mozilla-aurora/rev/9f0d18b6adc5
+https://hg.mozilla.org/releases/mozilla-beta/rev/ebd3919e8a3a",UNCODED,0,UNMATCHED,2016-07-10T20:29:44Z,11536702.0
+1300206,5,https://hg.mozilla.org/mozilla-central/rev/459476bdc5d6,UNCODED,0,UNMATCHED,2016-09-03T15:23:04Z,11684006.0
+1184945,6,https://hg.mozilla.org/mozilla-central/rev/066e0b4423c9,UNCODED,0,UNMATCHED,2015-07-22T20:38:51Z,10526349.0
+1187966,8,"Here's the job output from these changes running in dry-run mode (-n) in staging. The script returns 2 in dry-run mode if there are updates which is why it's marked as failed.
+http://dev-master2.bb.releng.use1.mozilla.com:8044/builders/Linux%20x86-64%20mozilla-central%20periodic%20file%20update/builds/0",SOLUTION_VERIFICATION,0,FULL_TEXT,2015-07-29T23:08:33Z,10553928.0
+1247539,4,"Yeah, this is completely not in place.
+They should show up in the crash reports though, except for the case where we're messaging from a non-main thread on the child process, but I'd like to confirm that.",SOLUTION_REVIEW,1,FULL_TEXT,2016-02-12T20:44:20Z,11162471.0
+1184282,3,"Created attachment 8634353
+Remove break suggested inside cluster warning",UNCODED,0,UNMATCHED,2015-07-15T20:43:40Z,10499649.0
+1254694,20,"Thanks, Florian -- I thought I tried everything, glad the keywords still work.
+I think my case is the same as https://bugzilla.mozilla.org/show_bug.cgi?id=1254694#c11 -- lots of search engines installed. In fact I am now removing some that I don't ever use.",CLARIFICATION,0,FULL_TOKEN,2016-03-10T17:21:19Z,11236186.0
+1271750,5,"What version of Awesome Screenshot were you testing? According to its version history a new release came out on June 7.
+https://addons.mozilla.org/en-US/firefox/addon/awesome-screenshot-capture-/versions/?page=1#version-2.4.11
+Any way to tell if the new version fixes the issue?",QUESTION,0,FULL_TOKEN,2016-06-10T01:34:07Z,11477324.0
+1187056,29,"Try looks good. There's a frequent M-3 failure on B2G but looking at the ""similar jobs"" pane shows a lot of other pushes from the same time hit that too. More retriggers on it are coming up green, so I assume some glitch in the environment caused those.
+I'll land it once inbound reopens.",CODE_REVIEW,0,FULL_TOKEN,2015-07-31T13:47:14Z,10561176.0
+1263083,20,"Closing as WFM, since nobody else can reproduce.",STATUS_UPDATE,0,FULL_TEXT,2016-04-12T16:54:52Z,11319544.0
+1298588,3,"I guess the basic alternative I was imagining would be that consumers (which are document-aware) would post-process the values when they're used. So I guess the question is whether there are transformations that are not commutative with respect to the cascade.
+Also, the only time that Gecko calls these constructors is for the initial computed values (everything else is copy-on-write modified from those). Does that match Gecko, and is there any reason that would cause problems if we started making the style structs document-dependent? We'd presumably need to throw them away and regenerate them if text zoom changes, but I wonder if there's anything else.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2016-08-27T07:19:29Z,11660583.0
+1187056,3,"Confirmed comment 1. It seems that the bug will only reproduce if I tap into a picture while Gallery is still loading.
+Flame 2.2 prevented this behavior. If a certain picture is not ready to enter Edit mode, Edit button is grayed out until it's ready.
+Working on getting the window.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2015-07-24T22:26:04Z,10536438.0
+1265066,5,"Test fixes due to re-setting the type attribute:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=7058cf4d38c7",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-04-15T21:57:10Z,11331136.0
+1254694,21,"https://hg.mozilla.org/integration/fx-team/rev/eed38188ee0ef70c90db4767dd614508a1a9042c
+Bug 1254694 - Fix synchronous code path for search engines metadata migration, r=adw.
+https://hg.mozilla.org/integration/fx-team/rev/0837015740ff57ed9c40a6733987f437985b9d9b
+Bug 1254694 - Fix search engines metadata migration for engines from language packs, r=adw.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2016-03-10T20:06:10Z,11236855.0
+1253516,7,"Thanks for the digging, Hiroyuki! This indeed should not be re-entrant, and I'm not sure why it is. Investigating.",PROBLEM_REVIEW,0,FULL_TEXT,2016-03-07T19:22:46Z,11224929.0
+1179123,11,"Hmm, my patches for bug 1160014 reintroduce this bug again. If I land the mochitest before that, I would probably have hard time then. :(",STATUS_UPDATE,0,FULL_TEXT,2015-07-03T01:39:23Z,10448902.0
+1262069,6,"Comment on attachment 8738042
+Wrap promise resolution values before storing
+You should probably set value to undefined too, or something....
+And you probably want a test for whatever thing it is you care about here, so someone doesn't simplify things and re-break it.
+r=me",CODE_REVIEW,0,FULL_TOKEN,2016-04-05T18:40:47Z,11302375.0
+1187966,10,"Comment on attachment 8640779
+[tools] Download gtk3 for periodic update script
+Review of attachment 8640779:
+-----------------------------------------------------------------
+https://hg.mozilla.org/build/tools/rev/7a9a79f809aa",CODE_REVIEW,0,FULL_TEXT,2015-07-30T19:51:16Z,10557936.0
+1203871,38,"Comment on attachment 8730641
+Bug 1203871 - Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40063/diff/3-4/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-23T12:36:46Z,11497538.0
+1253516,8,"20 automation job failures were associated with this bug in the last 7 days.
+Repository breakdown:
+* mozilla-inbound: 9
+* fx-team: 7
+* try: 2
+* mozilla-central: 2
+Platform breakdown:
+* linux64: 16
+* linux32: 4
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1253516&startday=2016-03-07&endday=2016-03-13&tree=all",UNCODED,0,UNMATCHED,2016-03-14T01:03:17Z,11242886.0
+1207931,8,https://hg.mozilla.org/integration/mozilla-inbound/rev/22e54267e6c9,UNCODED,0,UNMATCHED,2015-09-28T04:56:45Z,10781564.0
+1263083,9,"Hey Gij, sorry I cannot narrow the window right now. I added the keywords so hopefully someone will be able to.",ANSWER_TO_QUESTION,0,FULL_TEXT,2016-04-08T16:33:50Z,11311376.0
+1306719,5,"Pushed by ryanvm@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/5a68cafd32e5
+Fix unified build compilation of MemoryProtectionExceptionHandler.cpp. r=ehoogeveen",UNCODED,0,UNMATCHED,2016-10-01T15:55:51Z,11752281.0
+1191113,13,https://hg.mozilla.org/mozilla-central/rev/2170e194fe60,UNCODED,0,UNMATCHED,2015-08-07T11:18:32Z,10590916.0
+1261576,3,"OK.  Just to clarify further the difference between the old behavior and the behavior under Gtk3 with the pending patch for bug 1234158 applied.  With this patch applied under Gtk3, the scrollbar handle is light gray normally, dark gray when hovered and blue when selected (all of which are correct and agree with the old behavior)  What is wrong is that if you keep the scrollbar selected and drag it to actually scroll it reverts to the default light gray instead of remaining blue as expected.",PROBLEM_REVIEW,0,FULL_TOKEN,2016-04-02T18:34:12Z,11296602.0
+1300206,3,"Comment on attachment 8787781
+Bug 1300206: Add some missing #includes & namespaces in layout/generic, to prevent unified build bustage.
+https://reviewboard.mozilla.org/r/76468/#review74558",AUTO_LINK_CODE_REVIEW,0,FULL_TEXT,2016-09-02T22:20:07Z,11683361.0
+1263083,1,"STR:
+1. Log in to inbox.google.com
+2. Do *anything* in the message list (actions below)
+Actions:
+* use keyboard shortcuts to move up and down the message list
+* click on a category to open the list of messages
+* click on a message header to open the email
+Expected: Actions take less than or up to 1 second to complete. This is what happens with the Mar 7 build.
+Actual: Actions take between 3 and 10 seconds.
+Environment: Mac. Tried both dirty and new profiles.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-04-08T05:05:51Z,11310183.0
+1254694,1,"After upgrading from Firefox 44.0.2 64 bit to 45.0 64 bit on a Windows 8.1 machine, my search engines have all lost their keywords and their order (it's alphabetic now). I wasn't able to reproduce with a new profile created in 44.0.2 and launching that in 45.0 but will test with a copy of my backup tomorrow.
+Further information:
+- The profile is very old. But this shouldn't matter since the search engines got migrated from files to a database like structure.
+- Some of the search engines got added with the extension 'Add To Search Bar': https://addons.mozilla.org/firefox/addon/add-to-search-bar/
+- amazon.de is twice in my list of search engines (might have been done by myself): Once as 'amazon.de', once as 'Amazon.de'",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2016-03-08T21:32:16Z,11229374.0
+1187056,5,This is also a problem with test_gallery_delete_image.py.,PROBLEM_REVIEW,0,FULL_TEXT,2015-07-26T19:32:52Z,10538249.0
+1271750,3,Is this not a dupe of 1271725?,QUESTION,0,FULL_TEXT,2016-05-12T14:02:34Z,11403838.0
+1187056,1,"Description:
+test_gallery_edit_photo test is failing after opening the gallery app and selecting a photo to embiggen. While on large photo view, test taps the edit button but no action resolves, leaving the test to timeout. Saw this issue reproduce once manually but have not discovered STR at this time.
+* http://jenkins1.qa.scl3.mozilla.com/view/UI/job/flame-kk-319.mozilla-central.nightly.ui.functional.non-smoke.2.bitbar/181/HTML_Report/
+* http://jenkins1.qa.scl3.mozilla.com/job/flame-kk.ui.adhoc.bitbar/146/HTML_Report/
+PreReq:
+* picture in gallery app
+Repro Steps:
+1) Update phone to 20150723010205
+2) Open Gallery app
+3) Tap picture
+4) Tap Edit button
+Actual:
+Phone does not transition to edit view; test times out
+Expected: 
+Phone transitions to edit view; test continues editting
+Traceback (most recent call last):
+File ""/var/lib/jenkins/jobs/flame-kk-319.mozilla-central.nightly.ui.functional.non-smoke.2.bitbar/workspace/.env/lib/python2.7/site-packages/marionette_client-0.16-py2.7.egg/marionette/marionette_test.py"", line 296, in run
+testMethod()
+File ""/var/lib/jenkins/jobs/flame-kk-319.mozilla-central.nightly.ui.functional.non-smoke.2.bitbar/workspace/tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_edit_photo.py"", line 28, in test_gallery_edit_photo
+edit_image = image.tap_edit_button()
+File ""/var/lib/jenkins/jobs/flame-kk-319.mozilla-central.nightly.ui.functional.non-smoke.2.bitbar/workspace/tests/python/gaia-ui-tests/gaiatest/apps/gallery/regions/fullscreen_image.py"", line 92, in tap_edit_button
+return EditPhoto(self.marionette)
+File ""/var/lib/jenkins/jobs/flame-kk-319.mozilla-central.nightly.ui.functional.non-smoke.2.bitbar/workspace/tests/python/gaia-ui-tests/gaiatest/apps/gallery/regions/edit_photo.py"", line 27, in __init__
+*self._canvas_locator))))
+File ""/var/lib/jenkins/jobs/flame-kk-319.mozilla-central.nightly.ui.functional.non-smoke.2.bitbar/workspace/.env/lib/python2.7/site-packages/marionette_driver-0.9-py2.7.egg/marionette_driver/wait.py"", line 143, in until
+cause=last_exc)
+TimeoutException: TimeoutException: Timed out after 10.3 seconds
+Environmental Variables:
+Device firmware (base) 	L1TC000118D0
+Device firmware (date) 	23 Jul 2015 08:24:55
+Device firmware (incremental) 	eng.cltbld.20150723.042443
+Device firmware (release) 	4.4.2
+Device identifier 	flame
+Device memory 	219772 kB
+Device serial 	356cd044
+Device uptime 	0 days 0 hours 2 minutes 8 seconds
+Gaia date 	22 Jul 2015 18:44:09
+Gaia revision 	f04fdbfa1943
+Gecko build 	20150723010205
+Gecko revision 	2ddec2dedced
+Gecko version 	42.0a1
+Reproducible manually: Once, cannot reproduce at this time
+Repro frequency: 3/6",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2015-07-23T21:05:54Z,10531502.0
+1287522,4,https://hg.mozilla.org/mozilla-central/rev/49bef2408c15,UNCODED,0,UNMATCHED,2016-07-20T09:45:03Z,11561325.0
+1203253,18,"Comment on attachment 8665416
+Patch v2
+Approval Request Comment
+[Feature/regressing bug #]: bug 1140495
+[User impact if declined]: no impact, only additional automated tests
+[Describe test coverage new/current, TreeHerder]: automated tests being run on mozilla-central
+[Risks and why]: none expected
+[String/UUID change made/needed]: none",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2015-10-12T21:45:44Z,10831107.0
+1287522,2,"Created attachment 8772226
+Apply ToString in correct order in RegExp.prototype.toString.
+Added explicit ToString call to pattern and flags, in correct order, and renumbered the spec steps.",CODE_IMPLEMENTATION,1,FULL_TEXT,2016-07-19T01:10:53Z,11557156.0
+1221593,3,https://treeherder.mozilla.org/#/jobs?repo=try&revision=05aa755504da,UNCODED,0,UNMATCHED,2015-11-04T18:13:39Z,10903400.0
+1142350,10,https://hg.mozilla.org/mozilla-central/rev/75a0213cc965,UNCODED,0,UNMATCHED,2016-10-05T00:02:32Z,11760211.0
+1221593,1,"So when I saw this bug I remembered that we caught it during code review. I found the old review here:
+https://bugzilla.mozilla.org/show_bug.cgi?id=1199885#c97
+I recall applying all these changes but perhaps they never got qref into the final patch.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2015-11-04T16:32:16Z,10902953.0
+1203253,17,https://hg.mozilla.org/mozilla-central/rev/3db46f5d82cc,UNCODED,0,UNMATCHED,2015-09-29T22:57:08Z,10791505.0
+1187966,1,"Looks like GTK3 fallout?
+http://people.mozilla.org/~coop/hsts_failures/central-failure-july25.log
+INFO: Generating new HSTS preload list...
+INFO: Running ""LD_LIBRARY_PATH=. ./xpcshell /builds/slave/m-cen-l64-periodicupdate-00000/getHSTSPreloadList.js /builds/slave/m-cen-l64-periodicupdate-00000/""
+./xpcshell: error while loading shared libraries: libcairo-gobject.so.2: cannot open shared object file: No such file or directory",STACK_TRACE,0,FULL_TOKEN,2015-07-27T15:45:11Z,10540842.0
+1184945,5,"For normal regexps we don't anymore (e.g. never in octane-regexp). For RegExp with more than 14 submatches we still do, which I think doesn't happen often...",ANSWER_TO_QUESTION,0,FULL_TEXT,2015-07-22T08:12:54Z,10523148.0
+1265066,4,"Comment on attachment 8741930
+MozReview Request: Bug 1265066 - Hide the separator em dash in bookmark keyword awesomebar results. r?mak
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/46849/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-04-15T21:56:58Z,11331135.0
+1253516,5,"I thought the dead lock might be caused from other thread but it was in the same, the main thread!
+A stack trace at the point:
+06:43:31     INFO -   7  libxul.so!mozilla::TimelineConsumers::IsEmpty() [TimelineConsumers.cpp:77192f60c4a5 : 172 + 0xd]
+06:43:31     INFO -   8  libxul.so!mozilla::CycleCollectedJSRuntime::GCNurseryCollectionCallback(JSRuntime*, JS::GCNurseryProgress, JS::gcreason::Reason) [CycleCollectedJSRuntime.cpp:77192f60c4a5 : 852 + 0x10]
+06:43:31     INFO -   9  libxul.so!js::gcstats::Statistics::beginNurseryCollection(JS::gcreason::Reason) [Statistics.h:77192f60c4a5 : 199 + 0x14]
+06:43:31     INFO -  10  libxul.so!js::Nursery::collect(JSRuntime*, JS::gcreason::Reason, mozilla::Vector<js::ObjectGroup*, 0u, js::SystemAllocPolicy>*) [Nursery.cpp:77192f60c4a5 : 402 + 0x5]
+06:43:31     INFO -  11  libxul.so!js::gc::GCRuntime::minorGCImpl(JS::gcreason::Reason, mozilla::Vector<js::ObjectGroup*, 0u, js::SystemAllocPolicy>*) [jsgc.cpp:77192f60c4a5 : 6653 + 0x19]
+06:43:31     INFO -  12  libxul.so!js::gc::GCRuntime::evictNursery(JS::gcreason::Reason) [GCRuntime.h:77192f60c4a5 : 604 + 0x15]
+06:43:31     INFO -  13  libxul.so!js::gc::GCRuntime::gcCycle(bool, js::SliceBudget&, JS::gcreason::Reason) [jsgc.cpp:77192f60c4a5 : 6263 + 0xf]
+06:43:31     INFO -  14  libxul.so!js::gc::GCRuntime::collect(bool, js::SliceBudget, JS::gcreason::Reason) [jsgc.cpp:77192f60c4a5 : 6424 + 0x1b]
+06:43:31     INFO -  15  libxul.so!js::gc::GCRuntime::gcSlice(JS::gcreason::Reason, long long) [jsgc.cpp:77192f60c4a5 : 6497 + 0x4a]
+06:43:31     INFO -  16  libxul.so!js::gc::GCRuntime::gcIfRequested(JSContext*) [jsgc.cpp:77192f60c4a5 : 6717 + 0x1d]
+06:43:31     INFO -  17  libxul.so!js::gc::GCRuntime::gcIfNeededPerAllocation(JSContext*) [Allocator.cpp:77192f60c4a5 : 34 + 0xf]
+06:43:31     INFO -  18  libxul.so!JSExternalString* js::Allocate<JSExternalString, (js::AllowGC)1>(js::ExclusiveContext*) [Allocator.cpp:77192f60c4a5 : 55 + 0x8]
+06:43:31     INFO -  19  libxul.so!JSExternalString::new_(JSContext*, char16_t const*, unsigned int, JSStringFinalizer const*) [String-inl.h:77192f60c4a5 : 319 + 0x5]
+06:43:31     INFO -  20  libxul.so!JS_NewExternalString(JSContext*, char16_t const*, unsigned int, JSStringFinalizer const*) [jsapi.cpp:77192f60c4a5 : 1548 + 0x1d]
+06:43:31     INFO -  21  libxul.so!XPCStringConvert::StringBufferToJSVal(JSContext*, nsStringBuffer*, unsigned int, JS::MutableHandle<JS::Value>, bool*) [xpcpublic.h:77192f60c4a5 : 242 + 0x7]
+06:43:31     INFO -  22  libxul.so!XPCStringConvert::ReadableToJSVal(JSContext*, nsAString_internal const&, nsStringBuffer**, JS::MutableHandle<JS::Value>) [XPCString.cpp:77192f60c4a5 : 95 + 0x15]
+06:43:31     INFO -  23  libxul.so!xpc::NonVoidStringToJsval(JSContext*, nsAString_internal&, JS::MutableHandle<JS::Value>) [XPCString.cpp:77192f60c4a5 : 116 + 0xa]
+06:43:31     INFO -  24  libxul.so!xpc::NonVoidStringToJsval(JSContext*, nsAString_internal const&, JS::MutableHandle<JS::Value>) [xpcpublic.h:77192f60c4a5 : 310 + 0xf]
+06:43:31     INFO -  25  libxul.so!mozilla::dom::ProfileTimelineStackFrame::ToObjectInternal(JSContext*, JS::MutableHandle<JS::Value>) const [ProfileTimelineMarkerBinding.cpp:77192f60c4a5 : 560 + 0xd]
+06:43:31     INFO -  26  libxul.so!mozilla::JavascriptTimelineMarker::AddDetails(JSContext*, mozilla::dom::ProfileTimelineMarker&) [ToJSValue.h:77192f60c4a5 : 231 + 0xe]
+06:43:31     INFO -  27  libxul.so!mozilla::ObservedDocShell::PopMarkers(JSContext*, nsTArray<mozilla::dom::ProfileTimelineMarker>&) [ObservedDocShell.cpp:77192f60c4a5 : 141 + 0x1b]
+We need to be careful not to invoke cycle collection while PopMarkers is being processed.  But how?
+I don't know much about cycle collection.  Nick, you are the author who introduced AutoGlobalTimelineMarker in cycle collection codes in bug 1141614.  Any ideas?",PROBLEM_REVIEW_REQUEST,0,FULL_TOKEN,2016-03-05T04:19:22Z,11220968.0
+1254694,9,"I have just upgraded from 44.0.2 to 45. And I don't have search engine related extensions neither. No extra steps.
+My default search provider is DuckDuckGo that remains as-is. The order of other search providers, Google was first in my case, was lost, and some of my disabled search providers, Bing and Chanbers (UK), were enabled once upgraded.",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2016-03-10T09:51:04Z,11234892.0
+1179123,19,Is this something that you plan to uplift to 40? Tracking in 40 because regression.,QUESTION,0,FULL_TEXT,2015-07-06T21:30:58Z,10461340.0
+1262069,4,"A few tests are still running, but so far most of them have passed.
+I could see choosing not to re-wrap the value, on the expectation that some
+handlers may be in the same compartment that fulfilled the promise. But I
+don't think that should cause any actual problems, unless there are some weird
+corner cases with cached WN reflectors.
+Even if there are, though, I think that re-wrapping for the target compartment
+is the expected behavior. A call to a promise handler for a promise in a
+different compartment should be the same as any other call that passes a value
+into that compartment. Any code that relies on different behavior is, I think,
+broken.
+How soon will it be turned on?
+I just tested with spidermonkey promises enabled, and I no longer get these
+errors. But the unhandled rejections aren't reported, either.
+From a quick read through Promise.js and Promise.cpp, it looks like the
+resolution values should be wrapped for the compartment that owns the promise
+before calling the self-hosted fulfillment methods, so this may not be a
+problem there.
+Either way, if the new implementation isn't going to be turned on in this
+release, I'd still like to address this. These errors are extremely confusing
+for users, and I'm worried that they may mask issues in our tests.",SOLUTION_REVIEW,1,FULL_TOKEN,2016-04-05T18:24:18Z,11302322.0
+1297315,10,"Mozilla coding style calls for bracing all control structures, even when the braces are redundant.[1] Is there a compelling reason for this code _not_ to follow that guideline?
+(Skimming through the file concerned, I see that it's a bit of a mix, but even for the if-statements where the controlled code is a single |return| statement, the braced examples outnumber brace-less by at least 2:1, so it doesn't look like ""use the prevailing style"" readily trumps the style guide here...)
+[1] https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style#Control_Structures",CLARIFICATION,0,FULL_TEXT,2016-08-25T15:41:58Z,11655111.0
+1207931,6,"Created attachment 8665743
+Remove no-longer-needed SetBackgroundColor IPC message
+This seems to work.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-09-25T02:04:09Z,10774340.0
+1203871,12,"We can use mozilla::Move instead.  Also, I should mark this event is invalid after using it.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2016-03-14T06:48:29Z,11243226.0
+1142350,5,"P2 because I intend to remove this code within a few weeks.
+I will look into moving this code to c-c, but if that fails, I will just remove the code from m-c.
+Alternatively, if someone working on c-c code would like to reimplement the code in a cleaner fashion (the current code suffers from basically the same issues as the client auth code as pointed out in Bug 307081), then I can wait for that work to finish first.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-07-16T17:09:26Z,11552795.0
+1221593,5,https://hg.mozilla.org/mozilla-central/rev/e3c1281a9e07,UNCODED,0,UNMATCHED,2015-11-09T14:41:50Z,10915622.0
+1203871,34,"https://reviewboard.mozilla.org/r/40057/#review56566
+OK, but, although gfxTextRun::GetAdvanceWidth cannot be set as const function, we cannot use const aPropertyProvider on parameter.",CODE_REVIEW,0,FULL_TEXT,2016-06-23T08:45:45Z,11497096.0
+1203871,21,"Comment on attachment 8730641
+Bug 1203871 - Part 4. Implement QUERY_TEXT_RECT_ARRAY to nsIDOMWindowUtils for unit test.
+https://reviewboard.mozilla.org/r/40063/#review36841
+I think that this also needs sr of smaug because you changes *.idl.",CODE_REVIEW,0,FULL_TEXT,2016-03-16T01:43:59Z,11250231.0
+1249818,10,"I have no intention, it's your regression ;)
+Are you implying that there's no good way to fix this regression? In that case we should just go ahead and remove the clip-path without waiting for UX input, since the current behavior is clearly broken and the worst of all available options.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2016-07-01T10:27:43Z,11516848.0
+1265066,3,https://treeherder.mozilla.org/#/jobs?repo=try&revision=a13a484b9480,UNCODED,0,UNMATCHED,2016-04-15T20:19:09Z,11330866.0
+1254694,14,"Do you have an add-on enabled that forces a synchronous initialization of the search service? (This causes a warning in the browser console)
+If you would like me to try to reproduce with your profile, you can email me these files from the profile:
+- search.json
+- search-metadata.json
+- the searchplugins/ folder",INFO_REQUEST,0,FULL_TOKEN,2016-03-10T12:10:50Z,11235306.0
+1261576,5,No need for patches. Just compile the current firefox release and link against gtk+ 3.18. The issue is there too.,CLARIFICATION,0,FULL_TEXT,2016-04-03T19:26:55Z,11297163.0
+1203253,7,"Created attachment 8665146
+Patch
+Gijs, do you have any idea why the browser_cookies_exception.js test is failing at the line annotated with ""Test failing with params.tree.view is undefined, see bug XXX""
+The original test doesn't fail here.
+Try push, https://treeherder.mozilla.org/#/jobs?repo=try&revision=09e8e1eb849e",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-09-23T21:58:42Z,10768555.0
+1191113,9,"Created attachment 8643787
+bug_1191113_csp_gcli_localization2.patch
+Joe, once r+ed I will fold that patch into the other one. Those are just the new changes on top.
+I figured it makes sense to have a unified behavior whenever we encounter a CSP or not. For that reason, I also removed the "":"" after ""for:"".
+Sorry I missed those hardcoded strings the first time around when we landed the devtool.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2015-08-05T17:09:55Z,10581183.0
+1207931,2,"Created attachment 8665264
+RenderFrameParent::mBackgroundColor is unused
+Patch demonstrating the situation.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-09-24T05:06:17Z,10769705.0
+1271750,1,"This is e10s specific issue when shim is disabled.  When e10s is disabled, the addon works fine regadless of the shim status (true or false).
+Steps to Reproduce:
+1.Install addon from https://addons.mozilla.org/en-US/firefox/addon/awesome-screenshot-capture-/?src=search
+2.Go to about:config 
+3.Set 'extensions.interposition.enabled' to 'false' to disable shim
+4.Access https://pinterest.com/
+5.Select an option from the addon menu to take screenshot
+Actual Result:
+Addon does not take screenshot.
+Expected Result:
+Addon should take screenshot with e10s enabled and shim disabled.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2016-05-10T19:04:58Z,11397684.0
+1187056,33,"I just tested locally test_gallery_edit_photo.py and repeated 10 times. I didn't get any failure. Normally, I would definitely see this failure within 5 times, so I think this is really fixed.
+Thanks for fixing this, Kats!",SOLUTION_VERIFICATION,0,FULL_TOKEN,2015-08-03T16:59:24Z,10568935.0
+1203871,23,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40057/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,FULL_TEXT,2016-06-17T09:51:47Z,11487453.0
+1187966,9,"Comment on attachment 8640783
+[buildbotcustom] Set the env for periodic file update jobs.
+Review of attachment 8640783:
+-----------------------------------------------------------------
+https://hg.mozilla.org/build/buildbotcustom/rev/dc0535892866",CODE_REVIEW,0,FULL_TEXT,2015-07-30T19:47:56Z,10557917.0
+1297315,9,"You're right about do{}while(false). We need while(true) for continue.
+In this module, we want {} for single lines unless they are control flow statements. (return, break, continue)",CODE_REVIEW,0,FULL_TOKEN,2016-08-25T15:09:50Z,11655014.0
+1263083,11,"Hi,
+I have tested this issue on Mac OS X 10.10 with FF Nightly 48.0a1 (2016-04-10) and I can't reproduce the issue. Can you please retest this with the latest build?",REPRODUCTION_REQUEST,0,FULL_TEXT,2016-04-11T09:28:16Z,11315024.0
+1247539,9,https://hg.mozilla.org/mozilla-central/rev/36cbd7121dbe,UNCODED,0,UNMATCHED,2016-02-17T11:11:34Z,11171510.0
+1297315,13,"Pushed by ryanvm@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/f91e6ea2609b
+Fix Wmaybe-uninitialized warning and get rid of goto statement in GLContextProviderGLX.cpp and GfxTexturesReporter.cpp. r=jgilbert",UNCODED,0,UNMATCHED,2016-08-29T19:04:55Z,11664256.0
+1191113,3,"This patch hasn't made it yet to beta. As this would break string freeze on Aurora and is something normal users won't see, I recommend to wontfix it on that branch. NI flod for confirmation.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2015-08-05T08:44:07Z,10578883.0
+1314193,3,https://hg.mozilla.org/mozilla-central/rev/373c11f245a7,UNCODED,0,UNMATCHED,2016-11-03T02:43:37Z,11832965.0
+1179123,18,"https://hg.mozilla.org/mozilla-central/rev/aba278798298
+https://hg.mozilla.org/mozilla-central/rev/1d669992e0da
+https://hg.mozilla.org/mozilla-central/rev/688ccfafb3fb",UNCODED,0,UNMATCHED,2015-07-04T18:09:18Z,10456087.0
+1221593,2,"Created attachment 8683204
+patch
+These are the changes asked for in your previous review. They got pushed to try but they got lost somewhere along the way.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-11-04T18:02:08Z,10903340.0
+1187056,16,"So I locally ran the test using today's nightly build, and I can repro the error.  Basically it times out after tapping the edit button, and waiting for the canvas view.  (Because canvas view doesn't come up).  I tapped the edit button manually after the test failed, and it was still unresponsive.  
+Kats, if you need me to try something out here, let me know.  It's strange that this happens with low repro rate when I do it manually.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2015-07-28T15:51:00Z,10546057.0
+1190676,7,"Created attachment 8643091
+Part 3 - Make getting a MediaStreamGraph for a channel more explicit. r=
+Hopefully this wil also prevent getting the wrong graph.",UNCODED,0,UNMATCHED,2015-08-04T15:38:36Z,10574804.0
+1254694,27,"https://hg.mozilla.org/releases/mozilla-beta/rev/6f9cd7e53af2
+https://hg.mozilla.org/releases/mozilla-beta/rev/67c6886836d1",UNCODED,0,UNMATCHED,2016-03-13T23:50:12Z,11242716.0
+1265066,8,https://hg.mozilla.org/integration/fx-team/rev/0ae340c9ece2,UNCODED,0,UNMATCHED,2016-04-19T16:32:48Z,11338167.0
+1249818,21,"Could you please check if it was reproducible before bug 887397, e.g. on Nightly from 2014-03-06 ?",VERIFICATION_REQUEST,0,FULL_TEXT,2016-07-11T12:41:05Z,11538236.0
+1190676,3,"Created attachment 8643083
+Force explicitely passing in a MediaStreamGraph when creating a DOMMediaStream. r=
+Hopefully this will prevent cross-graph connections and other madness.",CODE_IMPLEMENTATION,1,FULL_TEXT,2015-08-04T15:35:06Z,10574783.0

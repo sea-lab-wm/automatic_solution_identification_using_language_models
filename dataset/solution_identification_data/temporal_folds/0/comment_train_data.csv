@@ -1,0 +1,2019 @@
+issue_id,text_id,text,code,label,matching_category,creation_time,comment_id
+687754,23,"Created attachment 565090
+Only set unread when busy is removed
+Fixes the different times ""unread"" is set in tab 1 and tab 2+",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-10-06T00:31:41Z,5762202.0
+561168,5,"Created attachment 443133
+patch 1: basic CanvasLayer + 2D code
+- Implement basic CanvasLayer (gfxASurface only)
+- Teach 2D context how to return a CanvasLayer
+- move nsHTMLCanvasElement.h into public dir
+- teach HTMLCanvasFrame how to render using layers",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-03T17:50:25Z,4674941.0
+687754,7,"- unread points to the document in the tab
+- titleChanged points to the title of the document in the tab
+If Gmail has reloaded the page, I agree and would wonder if it wouldn't be marked unread.
+If Gmail only changes the title on an already read page, you can mark that easy with .tabbrowser-tab[titleChanged]
+I wouldn't like to see a tab marked unread after I did read it, only because the page likes to circle through a couple of headlines in the title.
+I prefer to differ between page title and the page itself. So you have the choice to mark the tab depending on which one you want and how. Give the user a chance to decide what he wants.
+If you want both marked the same way, you can do it for example like this:
+/* set color for titleChanged and unread (and not selected) tabs to blue */
+.tabbrowser-tab[unread],
+.tabbrowser-tab[titleChanged]
+{ color: blue ! important; }
+You can even mark the case of a changed title on an already read tab differently (i.e. red).
+Or you could use the text color for one case and the background color for the other case.
+The user has the choice.",SOLUTION_REVIEW,1,FULL_TOKEN,2011-09-25T19:03:01Z,5736075.0
+634654,9,"Also, (for verification) inspecting the GMail js file by hand I see 31 instances where RegExp is called directly (despite minification), at least in a handful of cases with tiny literal strings.",SOLUTION_VERIFICATION,0,FULL_TEXT,2011-10-09T16:25:32Z,5770119.0
+687929,2,Almost certainly a regression from the workers rewrite.,PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2011-09-20T18:25:17Z,5726207.0
+642412,2,"I started analyzing pbkdf2. According to Shark we spend at least 8% in stubs::SetElem. Most of the time is spent inside sjcl.hash.sha256.prototype.C. This function has many setelem's, the most important one is inside the loop, something like this:
+b = d[a & 15] = (int + int) | 0;
+Type inference output:
+#35:00285:  zero
+  type 0: int
+#35:00286:  bitor
+  type 0: int
+#35:00287:  setelem
+  type 0: int
+  monitored
+I think this is bug 621937 (JM not generating IC's for monitored setelem)",PROBLEM_REVIEW,0,FULL_TOKEN,2011-03-17T14:35:19Z,5350665.0
+554061,19,"Something we should mention on MDC, or?",QUESTION,0,FULL_TEXT,2010-03-25T12:30:19Z,4603589.0
+601999,2,"    Relevant stack bit:
+    169 PresShell::FlushPendingNotifications(mozFlushType) + 706
+    (nsPresShell.cpp:4800)
+    170 PresShell::HandlePostedReflowCallbacks(int) + 250 (nsPresShell.cpp:4692)
+    171 PresShell::DidDoReflow(int) + 40 (nsPresShell.cpp:7215)
+    172 PresShell::ProcessReflowCommands(int) + 419 (nsPresShell.cpp:7479)
+    173 PresShell::FlushPendingNotifications(mozFlushType) + 706
+    (nsPresShell.cpp:4800)",UNCODED,0,UNMATCHED,2010-10-05T19:08:21Z,4987608.0
+634654,18,Looks good on try. Will post for review this afternoon.,SOLUTION_VERIFICATION,0,FULL_TEXT,2011-10-11T17:01:22Z,5774862.0
+576837,9,"Created attachment 485837
+Fix character class range with builtin character class on any side.
+No need to cache/flush the character class like we do the unescaped characters, since a range with a builtin character class in it is always a syntax error.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-10-25T20:17:10Z,5035162.0
+554061,1,"Created attachment 433939
+screenshot before/after mouse-over
+maybe regression by bug 538187 and/or bug 508482",UNCODED,0,UNMATCHED,2010-03-22T16:00:34Z,4596702.0
+577462,6,Pushed http://hg.mozilla.org/mozilla-central/rev/7ea77e6340c4.,UNCODED,0,UNMATCHED,2010-07-13T22:37:33Z,4792903.0
+686900,7,Filed bug 687113 for simplifying that stuff. Someone take it--it's a nice opportunity to improve behavior and delete code at the same time!,NEW_ISSUE_FILING,0,FULL_TEXT,2011-09-16T17:48:22Z,5720445.0
+597071,10,"Try server failed this bug's test (timeout) on linux, see try build http://hg.mozilla.org/try/rev/617debdc2f5e",SOLUTION_VERIFICATION,0,FULL_TEXT,2010-09-21T04:21:18Z,4954596.0
+667586,15,"I don't have that much of a problem with the URL floating in the location bar with some odd white padding on the right side for now.  Not ideal, but I think it works better than a grey box that exists but contains no information.  We'll want to play with it on the UX branch though.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2011-06-29T21:32:35Z,5565605.0
+558970,16,I filed bug 560201.,NEW_ISSUE_FILING,0,FULL_TEXT,2010-04-19T12:46:46Z,4646465.0
+687754,3,"'unread' is indicating a new/reloaded document in a tab that is not selected.
+DOMTitleChanged doesn't necessary indicates a new/reloaded document and fires on selected tabs too.
+Some JS in a document could for example change the title every few seconds.
+You see the difference?
+The attachment is fixing the inconsistency between the first and the following tabs. It was caused by the different handling of those tabs by the tabbrowser itself. Now all tabs get the unread attribute after they finished loading the document. A selected tab will not have that attribute.
+Example of use of 'unread' in userChrome.css:
+/* set color for unread (and not selected) tabs to blue */
+.tabbrowser-tab[unread]
+{ color: blue ! important; }
+If you additionally want the same coloring while a document loads and if the title has changed, you can add that to the css selector. Watch out that 'busy' and 'titlechanged' both need the additional not(selected).",SOLUTION_REVIEW,1,FULL_TOKEN,2011-09-21T12:51:40Z,5727947.0
+687754,4,"Comment on attachment 561102
+unread - fix
+Looking into a minor change.
+Modified version should be up in a few hours.",STATUS_UPDATE,0,FULL_TOKEN,2011-09-23T12:56:03Z,5733450.0
+670853,3,"Fixing summary. Hope you don't mind, Alex. :)",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2011-07-12T06:20:59Z,5586068.0
+600489,2,http://hg.mozilla.org/tracemonkey/rev/da5a3ef843f8,UNCODED,0,UNMATCHED,2010-09-29T23:14:33Z,4976188.0
+551837,4,"Created attachment 441050
+Optimized DoubleToECMAInt32 for ARM.
+ * I don't like using assembly in this way, particularly outside the back-ends, but I couldn't get close to the performance of this routine using pure C. I do have a C version which still provides an excellent improvement over the slow path, and it should also work for any little-endian IEEE-754 system.
+ * I've added many comments to my assembly to try to explain what's going on, but this does make the code look somewhat long (even though the output is tiny). Suggestions are welcome! The comments are important; I don't want this to be a write-only routine, and this kind of assembly algorithm can get unreadable pretty quickly.
+ * I get a 5.5% performance improvement on A8 with this patch. That's rather surprising, considering that it's only one function, but I won't complain! (My pure C implementation is 3.9% faster than the slow-path on A8.)
+ * I tested the routine in a standalone harness to ensure that all the code-paths were exercised. It appears functionally equivalent to the slow path.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-04-23T15:38:33Z,4656559.0
+597389,5,"Click a link in the Flash Object. Then, you'll open a page on current tab. Then, the keyboard layout limitation isn't canceled.
+I can reproduced this bug on 10.5 and 10.6. The original reporter in Japan said that he/she can reproduce this bug on 10.4 too.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2010-09-17T18:11:37Z,4948260.0
+687754,1,"Created attachment 561102
+unread - fix
+While the first tab gets the attribute after it finished loading the page, all other tabs are getting it far to early (at start of loading).
+Attribute should not reset when in _previewMode.
+Added patch to fix both",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-09-20T02:30:14Z,5724720.0
+558970,6,"Comment on attachment 439468
+Patch v2.0
+Just return early if !sysGroup  || !elmP.
+NS_ENSURE_STATE(sysGroup && elmP);
+Same here. Just return some error code if !target
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+Could you file a followup for this.
+I think HTMLEditor should be listening for contextmenu event.
+I don't understand this.
+why you need ConnectToHTMLEditor? 
+r+ if you fix all the comments and either explain or fix ConnectToHTMLEditor handling.",CODE_REVIEW,0,FULL_TOKEN,2010-04-18T14:25:57Z,4645393.0
+561168,3,"I don't think so, normal scrolling is broken because ScrollWindowEx doesn't work. It should in theory have nothing to do with invalidation.",ANSWER_TO_QUESTION,0,FULL_TEXT,2010-04-22T19:37:10Z,4654967.0
+561168,4,"Move GetLayerManagerForDoc to nsLayoutUtils and share it please!
++  nsIntRect mUpdatedRect;
+You don't need this. Updated can be a no-op for BasicCanvasLayer.",CODE_REVIEW,0,FULL_TOKEN,2010-04-22T22:29:37Z,4655314.0
+593387,22,"The issue here seems to be that we are trying to display content in an iframe where the server specifically says:
+x-frame-options: DENY
+It seems to me this really should just not work.
+Perhaps if the header said x-frame-options: SAMEORIGIN some exception for this case would make more sense?  Perhaps somehow treating about:addons and addons.mozilla.org as being the same origin? Still a kludge but makes more sense than permitting something that there is an explicit specific deny on the server-side.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2010-09-11T14:56:39Z,4931388.0
+623742,2,"Created attachment 503984
+v1",UNCODED,0,UNMATCHED,2011-01-14T22:25:29Z,5201188.0
+626855,5,Pushed http://hg.mozilla.org/mozilla-central/rev/b22bb39e834f,UNCODED,0,UNMATCHED,2011-01-19T16:56:42Z,5210665.0
+677173,5,"What do you want to translate in french? I'm one of the devs of this website if you mean us by ""them"".
+Here is your explanation translated (in case it's what you want to translate) :
+Donc, le site considère que si .csstransforms3d est défini, le navigateur doit être WebKit ou implémenter les transformations 3D sans préfixe.
+Malheureusement, cette classe EST définie avec la nightly actuelle puisque le site utilise Modernizr, qui cherche la propriété ""MozPerspective"" qui, comme nous le savons, donne le résultat des patches du bug 505115.
+I supposed the ""now"" in the last line is a ""know"".",UNCODED,0,UNMATCHED,2011-08-08T17:02:38Z,5639829.0
+561168,21,"-        persist=""screenX screenY width height sizemode""> 
++        persist=""screenX screenY width height sizemode""
++	>
+Discard this hunk
+@@ -1781,6 +1799,7 @@ public:
+   ~nsAutoScriptBlocker() {
+     nsContentUtils::RemoveScriptBlocker();
+   }
++
+and this one
+@@ -5980,3 +6031,4 @@ nsIContentUtils::IsSafeToRunScript()
+ {
+   return nsContentUtils::IsSafeToRunScript();
+ }
++
+and this one
++  NS_IMETHOD RenderContextsExternal (gfxContext *ctx, gfxPattern::GraphicsFilter aFilter) = 0;
+unnecessary space before (
+ WebGLContext::Render(gfxContext *ctx, gfxPattern::GraphicsFilter f)
+ {
+...
++    return NS_ERROR_NOT_IMPLEMENTED;
+Hmm ... shouldn't this be fixed before checking in? I assume this gets called when we use the canvas as an image source via nsLayoutUtils::SurfaceForElement?
++    //    if (mCanvasLayer)
++    //        return mCanvasLayer;
+Might as well remove this
++    // This flush is required
++    MakeContextCurrent();
++    gl->fFlush();
+why is it required?
++    nsRefPtr<layers::CanvasLayer> mCanvasLayer;
+Not used, remove. Even with retained layers, you will not be remembering your layer directly, you'll ask the FrameLayerBuilder (new class) for your old layer.
++    canvasLayer->SetIsOpaqueContent(PR_FALSE);
+Should probably respect the canvas opaque attribute. Maybe instead of the canvas context exporting GetCanvasLayer, it should be GetCanvasData, returning a CanvasLayer::Data that the caller creates a layer for? Then the rest of the layer initialization can be shared across contexts.
++    nsRefPtr<CanvasLayer> mCanvasLayer;
+Don't have this here in the 2D context either. Just create a new one every time.
++      nsCOMPtr<nsIContent> content = do_QueryInterface(static_cast<nsIDOMHTMLCanvasElement*>(mCanvasElement));
++    nsCOMPtr<nsIContent> content = do_QueryInterface(static_cast<nsIDOMHTMLCanvasElement*>(mCanvasElement));
++    nsCOMPtr<nsIContent> content = do_QueryInterface(static_cast<nsIDOMHTMLCanvasElement*>(mCanvasElement));
+teletype issue
++    //    if (mCanvasLayer)
++    //        return mCanvasLayer;
+remove
++  } else {
++    nsRect r = frame->GetRect();
++    r.x = r.y = 0;
++    frame->Invalidate(r);
+Should invalidate just the content area, so invalidate GetContentRect() - GetPosition().
+nsHTMLCanvasElement::GetCanvasLayer should take a layer manager as a parameter instead of using LayerManagerForDocument. You might be asked to create a canvas layer for a different layer manager than the one being used to render the browser window (e.g., if someone does drawWindow to an arbitrary Thebes context).
++  struct Data {
++      Data()
++  : mSurface(nsnull), mGLContext(nsnull)
++      { }
+Fix indent!!
++   * CONSTRUCTION PHASE ONLY
++   * Initialize this CanvasLayer with the given data.  The data must
++   * have either mSurface or mGLContext initialized (but not both), as
++   * well as mSize.
++   */
+Say that this can only be called once?
++   * CONSTRUCTION PHASE ONLY
++   * Notify this CanvasLayer that the rectangle given by aRect
++   * has been updated, and any work that needs to be done
++   * to bring the contents from the Surface/GLContext to the
++   * Layer in preparation for compositing should be performed.
++   */
+Say that the canvas buffer contents must not be modified during the layer transaction? That gives the implementation the flexiblity to avoid copying buffer data unless/until it needs it after the end of the transaction.
++  if (aData.mSurface) {
++    mSurface = aData.mSurface;
+Assert here that aData.mGLContext is null
++  mSurface = aData.mSurface;
+delete
++  if (mGLContext) {
++    nsRefPtr<gfxImageSurface> isurf =
++      new gfxImageSurface(gfxIntSize(mBounds.width, mBounds.height),
++                          IsOpaqueContent() ? gfxASurface::ImageFormatRGB24 : gfxASurface::ImageFormatARGB32);
++    if (!isurf || isurf->CairoStatus() != 0) {
++      return;
++    }
++
++    mGLContext->MakeCurrent();
++    mGLContext->fReadPixels(0, 0, mBounds.width, mBounds.height,
++                            LOCAL_GL_BGRA, LOCAL_GL_UNSIGNED_INT_8_8_8_8_REV,
++                            isurf->Data());
+Shouldn't we only be reading back mUpdatedRect, or something like that? Is that future work? Probably deserves a comment at least.
+I think the readback should happen during ::Paint, though (if mUpdatedRect is non-empty).
++    //gfxUtils::PermultiplyImageSurface(isurf);
+What's this about? Do we need to premultiply?
++CanvasLayerOGL::Initialize(const Data& aData)
++{
++  NS_ASSERTION(mSurface == nsnull, ""BasicCanvasLayer::Initialize called twice!"");
++
++  mUpdatedRect.Empty();
+Shouldn't need to set the rect to empty here, it starts empty
+I'm sad that we need platform-specific pbuffer code here, but I know nothing about this so I have nothing else to suggest.
+Like for BasicLayers, I think the CanvasLayerOGL code should defer all the real work until RenderLayer in case there are multiple Updated calls. Seems simpler that way anyway.
++      fprintf (stderr, ""Error: %d %x %p\n"", err, err, (void*) mGLContext->GetNativeData(GLContext::NativePBuffer)); fflush(stderr);
++const GLContextProvider::ContextFormat GLContextProvider::ContextFormat::BasicRGBA32Format(GLContextProvider::ContextFormat::BasicRGBA32);
++#define A2_(_x,_y)  do { attribs.AppendElement((CGLPixelFormatAttribute) _x); attribs.AppendElement((CGLPixelFormatAttribute) _y); } while(0)
+wrap somewhere
++LibrarySymbolLoader::LoadSymbols(SymLoadStruct *firstStruct, bool tryplatform, const char *prefix)
+PRBool
+Looks like all the GLContext code needs to be using a* parameter names
++    mInitialized = (bool) LoadSymbols(&symbols[0], trygl, prefix);
+Just change mInitialized to PRBool
+Personally I suspect the A1/A2 macros aren't worth it...
+Shouldn't nsHTMLCanvasFrame::GetCanvasSize return 0,0 for errors?",CODE_REVIEW,0,FULL_TOKEN,2010-05-11T04:08:16Z,4686965.0
+585832,2,I tested this on my HP TouchSmart tx2 laptop which runs Windows 7 and that machine loads the sites such as https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/google/particles/index.html fine. Perhaps this is hardware related?,QUESTION,0,FULL_TEXT,2010-08-10T01:20:27Z,4850533.0
+642412,4,"Brian, the type information for function C (line 344) is really bad. I'm not sure why but the type of all locals, arg and this is all ""unknown"". Better type information may get rid of the monitored setelem and is needed to make this benchmark fast.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2011-03-17T15:06:52Z,5350733.0
+658675,3,"Yes, when the user changes the server setting to use a custom server, we'll have to refetch the captcha. But given how few people do that, I'm willing to accept that. I'm not sure what the captcha has to do with the username at all.",ANSWER_TO_QUESTION,0,FULL_TEXT,2011-05-20T22:30:52Z,5483865.0
+552359,6,"Created attachment 434998
+WIP
+So, this patch does two things.  First, it uses the onfocus event handler on input elements to make sure to run the test only when they're focused.  It also modifies the reftest platform to make sure that the window is raised and focused before running each test.
+This same code is used for browser chrome tests, but it doesn't work in the reftest framework.  I couldn't figure out why, asking for Neil's feedback who knows a lot more about our focus code than me.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-03-25T21:32:46Z,4604824.0
+552359,24,"Then I think this should be another bug, but let's make sure.
+Yes:
+make -C /path/to/objdir reftest TEST_PATH=layout/reftests/forms/placeholder/reftest.list
+If you get the same failure with make reftest as well, please file a new bug and attach a reftest log of the failure.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-04-20T17:16:53Z,4649621.0
+538721,1,"http://mxr.mozilla.org/mozilla-central/source/layout/reftests/svg/smil/reftest.list#91
+fails == anim-strokewidth-1xml.svg anim-standard-ref.svg # bug 436267
+This isn't an SMIL bug :)  What's the correct bug for animating strokewidth?",QUESTION,0,FULL_TEXT,2010-01-09T03:04:07Z,4479967.0
+554061,3,"Customize Toolbar and Done, make them into the normal state",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-03-22T17:12:13Z,4596867.0
+576837,7,"Sorry, that pattern is actually valid! The restrictions on ClassAtomNoDash's SourceCharacter (but not one of '\' or ']' or '-') are still suspect, just have to come up with a pattern that triggers it.",CLARIFICATION,0,FULL_TEXT,2010-10-25T18:54:11Z,5034863.0
+597071,7,"I pushed a workaround for this in bug 596592:
+http://hg.mozilla.org/mozilla-central/rev/f1eec85dcfdc
+It should be backed out when this bug is fixed.",SOLVED_BY_OTHER_ISSUE,0,FULL_TOKEN,2010-09-18T16:26:27Z,4950178.0
+682449,2,"I love how something that's ""deprecated"" throws a SyntaxError.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2011-08-26T22:56:18Z,5681851.0
+677173,14,"Created attachment 553088
+Remove the IDL properties for now",UNCODED,0,UNMATCHED,2011-08-15T02:40:08Z,5653415.0
+677173,23,"Comment on attachment 555325
+Remove the IDL properties for now v2
+r=dbaron",UNCODED,0,UNMATCHED,2011-08-31T14:32:25Z,5690599.0
+593387,21,"A new issue.
+With current trunk and pending patch for bug 584693 applied, this patch no longer causes the Get Add-ons content to display.
+For whatever it is worth, the original patch here at least still works.",NEW_ISSUE_FILING,0,FULL_TOKEN,2010-09-11T14:40:30Z,4931368.0
+552359,21,"Oups, why did I forget that? :)
+I'm using GNU/Linux.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-04-19T09:26:16Z,4646291.0
+593387,40,"http://hg.mozilla.org/mozilla-central/rev/f5c0015afe0e
+I used the bug summary as the commit message, which seems suboptimal.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-09-19T16:06:07Z,4951230.0
+554061,10,*** Bug 554574 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-03-24T08:53:42Z,4600906.0
+687754,15,"I see no difference. My suggestion was just for code formatting, not for other purpose.",CLARIFICATION,0,FULL_TEXT,2011-09-28T16:20:10Z,5743383.0
+687754,33,"Comment on attachment 565090
+Only set unread when busy is removed
+This feels like a bug with low user impact that can wait until 10 ships. If there's some large number of users having a really bad experience can you please explain that and re-nominate.",CODE_REVIEW,0,FULL_TEXT,2011-10-11T21:36:50Z,5775885.0
+634654,16,billm pointed out that it does because we don't background finalize anything with clasp->finalize.,CLARIFICATION,0,FULL_TEXT,2011-10-10T18:43:48Z,5772178.0
+687929,1,"1. https://crypto.cat/?c=test
+2. Shutdown
+3. Crash Aurora/8, Nightly/9 - Windows, Mac, Linux - Debug at least. Beta does not crash.
+Program received signal EXC_BAD_ACCESS, Could not access memory.
+Reason: KERN_PROTECTION_FAILURE at address: 0x000000fc
+0x06d01633 in JS_BeginRequest (cx=0x0) at /work/mozilla/builds/nightly/mozilla/js/src/jsapi.cpp:899
+899	    cx->outstandingRequests++;
+(gdb) bt
+#0  0x06d01633 in JS_BeginRequest (cx=0x0) at /work/mozilla/builds/nightly/mozilla/js/src/jsapi.cpp:899
+#1  0x066e3050 in JSAutoRequest::JSAutoRequest (this=0xbfffcffc, cx=0x0, _notifier=@0xbfffd008) at jsapi.h:794
+#2  0x05bb6dbe in mozilla::dom::workers::RuntimeService::ResumeWorkersForWindow (this=0x27f1e5a0, aCx=0x0, aWindow=0x24d047f0) at /work/mozilla/builds/nightly/mozilla/dom/workers/RuntimeService.cpp:1064
+#3  0x05bb6ea0 in mozilla::dom::workers::ResumeWorkersForWindow (aCx=0x0, aWindow=0x24d047f0) at /work/mozilla/builds/nightly/mozilla/dom/workers/RuntimeService.cpp:460",ERROR_MESSAGE,0,FULL_TOKEN,2011-09-20T18:19:46Z,5726186.0
+552359,11,"Created attachment 435325
+Patch (v1)
+So, Neil said that the main reason behind the problem is that the XUL browser element inside the chrome document is not focused.  Calling gBrowser.focus() seems to solve the problem.
+So, I've fixed that problem in this patch.  I've also modified the placeholder reftests to actually depends on the focus event.  This means that they would still fail if the window is not focused, but they would time out this time, which is a lot better (at least, it's not misleading as a rendering problem.)
+Also, note that the Tinderbox machines use |make reftest| which uses automation.py which passes -foreground to firefox, and it makes sure that the window is initially raised on Mac.
+I think that the attached patch is enough for this bug.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-03-27T00:11:26Z,4607216.0
+593387,37,"Because the ""frame"" in this case is actually the same thing as a browser tab for practical purposes.  It happens to have a slightly different implementation in the layout engine, but that's just a bug that needs to be fixed.  If that bug were fixed, this issue would not arise at all; this patch is just working around that bug.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-09-16T23:21:34Z,4946241.0
+634654,1,Splitting this off from the toSource cache lazy-construction patch in bug 614155.,FILED_FROM_OTHER_ISSUE,0,FULL_TEXT,2011-02-16T18:29:35Z,5283619.0
+593387,23,"Of course, if besides DENY and SAMEORIGIN, x-frame-options could also specify a whitelist of things permitted to include this in a frame, this would probably be helpful not only here, but in other cases as well.  But, I guess Microsoft never thought of that when they specified this.",SOLUTION_REVIEW,1,FULL_TOKEN,2010-09-11T15:05:22Z,4931405.0
+552359,23,"It shows in foreground so the issue is not linked with an unfocused input otherwise, |setTimeout| wouldn't fix it. It sounds much more like a repaint which is done after the reftest check.
+There is a way to launch |make reftest| without doing _ALL_ reftests ? There is no 'reftest' target inside layout/ directory.
+Btw, it also concerns placeholder-8.html.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-04-20T14:42:46Z,4649211.0
+691184,8,"Well it meant I finally ventured into the world of Mochitests for the first time (yeah long overdue!) in creating the v1 patch, so was fairly constructive regardless :-)",UNCODED,0,UNMATCHED,2011-10-06T23:44:25Z,5765167.0
+561168,14,"Patch 2 contains your LayerManagerOGL canvas implemention, shouldn't that be in patch 1 or its own patch?",QUESTION,0,FULL_TEXT,2010-05-03T23:54:16Z,4675837.0
+660762,2,"Created attachment 536247
+patch",UNCODED,0,UNMATCHED,2011-05-31T07:48:13Z,5502755.0
+593387,17,I'm not sure what you mean; what policy are you trying to enforce?,QUESTION,0,FULL_TEXT,2010-09-08T01:13:00Z,4920537.0
+687754,34,"Comment on attachment 565397
+Don't remove unread in preview mode (final)
+This feels like a bug with low user impact that can wait until 10 ships. If there's some large number of users having a really bad experience can you please explain that and re-nominate.",UNCODED,0,UNMATCHED,2011-10-11T21:37:09Z,5775887.0
+686900,9,"https://hg.mozilla.org/mozilla-central/rev/2778cb07c697
+https://hg.mozilla.org/mozilla-central/rev/ae99d33a2290
+https://hg.mozilla.org/mozilla-central/rev/be380e98f383",UNCODED,0,UNMATCHED,2011-09-20T14:41:20Z,5725515.0
+552359,19,I used |firefox - reftest| on a x86 platform.,ANSWER_TO_QUESTION,0,FULL_TEXT,2010-04-18T23:00:07Z,4645812.0
+642412,1,"TI+JM is slower than trunk JM on all Kraken crypto tests. TI and JM should do very well on crypto tests, so I'd like to investigate what's happening here. 
+TI is also slower on SS crypto-aes, it's probably related.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2011-03-17T12:10:51Z,5350461.0
+658675,9,http://hg.mozilla.org/services/services-central/rev/c69124dfd7b7,UNCODED,0,UNMATCHED,2011-06-06T18:40:30Z,5515608.0
+623742,4,verified with 1.6.2,SOLUTION_VERIFICATION,0,FULL_TEXT,2011-01-19T17:54:42Z,5210862.0
+561168,11,"Your lack of 'a' prefixes on parameters makes me itch. I will let it slide on the canvas rendering context code, but not elsewhere in content/ or in layers.
++/* XXX move into nsContentUtils */
+This needs to actually move into nsContentUtils :-).
+Also the version in nsHTMLMediaElement has improved, so you should move that one to nsContentUtils.
++    PRBool mIsOpaque;
+We don't need this. You can just use mIsOpaqueContent/SetIsOpaqueContent that the layer already has.
++  virtual void Initialize(const Data& aData) = 0;
++  virtual void Updated(const nsIntRect& aRect) = 0;
+Document these --- and CanvasLayer itself.
++  NS_ASSERTION(mUpdatedRect.IsEmpty(), ""CanvasLayer::Updated called more than once during a transaction!"");
++  NS_ASSERTION(mUpdatedRect.IsEmpty() || mBounds.Contains(mUpdatedRect), ""CanvasLayer: Updated rect bigger than bounds!"");
+Break these lines ... think of the teletypes!
++  nsIntRect mBounds;
+We only need an nsIntSize here, right?
++  nsIntRect mUpdatedRect;
+We don't need this in BasicLayers, so I would just not have it at all.
+Shouldn't we be calling Updated() somewhere?
++#if 0
+   void PaintVideo(nsIRenderingContext& aRenderingContext,
+                    const nsRect& aDirtyRect, nsPoint aPt);
+-                              
++#endif
+Er ... lose this?",CODE_REVIEW,0,FULL_TOKEN,2010-05-03T23:49:49Z,4675828.0
+623742,1,"Currently if you are using the 1.6.1 Sync add-on and you click ""Add a device"" in the Sync Options you are taken to http://support.mozilla.com/kb/How+to+set+up+Firefox+Home+on+your+iPhone
+Instead we should send people to https://support.mozilla.com/kb/add-a-device-to-firefox-sync",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2011-01-06T23:01:51Z,5181225.0
+677173,17,http://hg.mozilla.org/releases/mozilla-aurora/rev/e55d507e6a6b,UNCODED,0,UNMATCHED,2011-08-19T00:54:23Z,5664297.0
+687754,30,"Checkin to mozilla-central needed
+Additional approval for mozilla-aurora requested",UPLIFT_NOMINATION_REQUEST,0,FULL_TOKEN,2011-10-08T02:55:44Z,5768765.0
+686900,5,"Or: ""Object initialization shouldn't involve a fixed-point computation"" :)",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2011-09-15T18:43:00Z,5718958.0
+561168,22,"Created attachment 444923
+updated, v3
+Updated with review comments.  Note that this omits all the pure-file removals.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-12T18:19:27Z,4690533.0
+658675,6,"I tested with server-full running on localhost (it has captchas disabled by default), but I've just noticed a small problem with the last wizard page, it doesn't always close properly, probably because of my wizard.pageIndex hackery. New patch coming up.",CODE_REVIEW,0,FULL_TEXT,2011-06-05T20:27:16Z,5514268.0
+634654,6,"Created attachment 565763
+WIP: Cache |RegExpPrivate|s.
+Puts a RegExpPrivate cache on the ThreadData for JSAtom sources only. Hurray immutability!
+I want to do a little bit of browsing-in-the-name-of-science before I put it up for review. Particularly, I want to see how many non-atom sources we ""could have hit on if we cached those"" and how much memory overhead that produces.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-10-08T23:20:54Z,5769641.0
+634654,11,Looking at the code this patch is not TraceMonkey related. Putting TM in front of bugs was some weird thing being done back in these days.,ANSWER_TO_QUESTION,0,FULL_TEXT,2011-10-09T17:16:45Z,5770171.0
+551837,5,Very nice. Do you think we should use your C version on Intel as well?,CODE_REVIEW,0,FULL_TEXT,2010-04-23T18:25:38Z,4656887.0
+627984,23,"Brendan and I talked about this on IRC yesterday or the day before.
+Two reasons not to do it that way: first, js_UpdateWatchpointsForShape is called at a weird time; the method property exists but the slot isn't populated yet. No big deal; I could populate the slot from shape->methodValue(), then trip the read barrier.
+Second, and more importantly, js_UpdateWatchpointsForShape's relevant caller (js_SetPropertyHelper) doesn't expect it to trip the read barrier, so it will unconditionally write the noncloned function to the slot. To avoid that, the caller would have to check whether js_UpdateWatchpointsForShape changed the shape. That adds a branch to the no-watchpoint path, and it complicates code outside jsdbgapi.cpp.
+So I put the added complexity in js_watch_set, which seemed more consistent with the design.",SOLUTION_REVIEW,1,FULL_TOKEN,2011-02-10T21:44:05Z,5270764.0
+642412,6,"Several fixes to inference precision.  These mostly fall into the category of not overapproximating to capture the behavior of an unlikely event (calling a non-function, indexing an object with a non-integer), but waiting for it to happen dynamically.
+http://hg.mozilla.org/projects/jaegermonkey/rev/a900619f0e04
+http://hg.mozilla.org/projects/jaegermonkey/rev/bff02e9994e3
+http://hg.mozilla.org/projects/jaegermonkey/rev/ac5f63354ab2
+http://hg.mozilla.org/projects/jaegermonkey/rev/b48f1d51c6f5
+There is still some imprecision because of a few accesses to Math which are JSOP_NAME rather than GNAME.  That can be fixed similarly to how we do monitored SETNAME/SETPROP, will file separately.  For now adding '| 0' to the calls to Math.round and Math.floor should fix precision.  I get these times:
+JM+TI (old): 691
+JM+TI (new): 438
+JM: 474
+JM+TM: 345
+V8: 229
+Looking at shark, JM seems to be getting killed by the slow paths it takes for the '(...) | 0' operations in C's inner loop.  We try to branchTruncateToInt32 on these, but on average about 1.5 times per iteration this truncation fails (the double does not fit in an int32) and we take I think a very expensive slow path.  We could instead call an infallible native like the tracer does, but to get to V8's performance I think we should instead generate inline code which is good enough to capture the large finite doubles being truncated here.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-03-18T19:48:52Z,5354061.0
+551837,8,"Yep, indeed, though I'm concerned about introducing many code paths to maintain and test. We now have i386, ARM, generic, and potentially a IEEE-754 routine, and if we end up optimizing other routines we will quickly bloat the source files with #if blocks.
+I think the best way to handle this, if it becomes a common optimization trick, would be to have something equivalent to the NativeARCH files so that fast-paths can be implemented for each platform. We can combine that with macros to allow tidy fall-backs to slow, but platform-agnostic paths. In any case, that's a subject for another bug, so I'll get this pushed as-is for now.",CLARIFICATION,0,FULL_TOKEN,2010-04-27T07:30:16Z,4662324.0
+576837,3,"TL;DR: YARR wrong. Will fix.
+YARR treats the dash as being a member of the character class (brackets) when it precedes a built-in character class (like \s).
+js> /[C-\s]/.exec(' ') 
+["" ""]
+js> /[C-\s]/.exec('-') 
+[""-""]
+This string is accepted by the grammar by the following derivation, so it's not a syntax error due to the grammar:
+...
+-> Atom
+-> CharacterClass
+-> ""["" ClassRanges ""]""                    (remaining: ""C-\s"")
+-> NonEmptyClassRanges
+-> ClassAtom ""-"" ClassAtom ClassRanges
+-> ClassAtom ""-"" ClassAtom [empty]
+-> ClassAtomNoDash ""-"" ClassAtomNoDash
+-> SourceCharacter ""-"" ""\"" ClassEscape
+-> ""C"" ""-"" ""\"" CharacterClassEscape
+-> ""C"" ""-"" ""\"" ""s""                        (accepted)
+However, 15.10 tacks additional restrictions onto the grammar; namely, ECMAScriptv5 15.10.2.15 production NonemptyClassRanges :: ClassAtom - ClassAtom ClassRanges calls the abstract operation CharacterRange(A, B) in step 4, and CharacterRange step 1 says that if B does not contain exactly one character then a SyntaxError must be thrown, and all the builtin character classes contain more than one character.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2010-08-27T23:17:04Z,4897017.0
+634654,5,"Created attachment 516796
+WIP: RegExp cache.
+RegExpCache stats:
+  hits:                  1804
+  flagMisses:              34
+  constructs:              36
+  lookups:               3572
+  removals:                 4
+  puts:                  1804
+  nonAtoms:              2443
+We get a nice hit rate among the atoms, but there is a large number of non-atoms we may be missing.
+Here is a map from patterns to hits-that-we-miss-out-on:
+{'#((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '&amp;': 19,
+ '(^(?:.|\\r|\\n)*?)#((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '(^(?:.|\\r|\\n)*?):((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)(?:\\(([\'""]?)((?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\3\\))?(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '(^(?:.|\\r|\\n)*?):(nth|eq|gt|lt|first|last|even|odd)(?:\\((\\d*)\\))?(?=[^\\-]|$)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '(^(?:.|\\r|\\n)*?)\\.((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '(^(?:.|\\r|\\n)*?)\\[name=[\'""]*((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)[\'""]*\\](?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '(^(?:.|\\r|\\n)*?)^((?:[\\w\\u00c0-\\uFFFF\\*\\-]|\\\\.)+)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '(^|.)facebook.(com)([^.]*)$': 19,
+ '(^|\\.)(\\.|$)': 421,
+ '(^|\\s)addthis_counter(\\s|$)': 1,
+ '(^|\\s)hidden_elem(?:\\s|$)': 1,
+ ':((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)(?:\\(([\'""]?)((?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\2\\))?(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ ':(nth|eq|gt|lt|first|last|even|odd)(?:\\((\\d*)\\))?(?=[^-]|$)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ ':(nth|eq|gt|lt|first|last|even|odd)(?:\\((\\d*)\\))?(?=[^\\-]|$)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ ':(only|nth|last|first)-child(?:\\((even|odd|[\\dn+-]*)\\))?(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '\\%\\{tweets\\}': 20,
+ '\\%\\{url\\}': 41,
+ '\\+': 39,
+ '\\.((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '\\[name=[\'""]*((?:[\\w\\u00c0-\\uFFFF\\-]|\\\\.)+)[\'""]*\\](?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '\\bgbg0l\\b': 20,
+ '\\bgbgt\\b': 23,
+ '\\bgbgtd\\b': 20,
+ '\\bgbkc\\b': 2,
+ '\\bgbmt\\b': 20,
+ '\\bgbzt\\b': 29,
+ '\\s*[,;]$': 1,
+ '^((?:[\\w\\u00c0-\\uFFFF\\*\\-]|\\\\.)+)(?![^\\[]*\\])(?![^\\(]*\\))': 1,
+ '^(?:([^:\\/?#.]+):)?(?:\\/\\/(?:([^\\/?#]*)@)?([\\w\\d\\-\\u0100-\\uffff.%]*)(?::([0-9]+))?)?([^?#]+)?(?:\\?([^#]*))?(?:#(.*))?$': 2,
+ '^([\\[\\]])$': 119,
+ '^,': 20,
+ '^Yahoo Application State Plugin$': 1,
+ '^[\\s]+|[\\s]+$': 2}
+What's interesting about this set is that we can get 796 of the 834 potential non-atom hits if we only atomize strings of length 16-or-less. That may be a decent compromise to avoid atomization overheads.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-03-04T04:47:18Z,5320935.0
+627984,15,What a mess.,UNCODED,0,UNMATCHED,2011-02-04T21:39:25Z,5256284.0
+674446,7,http://hg.mozilla.org/mozilla-central/rev/d20e5ec041a4,UNCODED,0,UNMATCHED,2011-08-09T16:03:28Z,5642401.0
+677173,30,"Mozilla/5.0 (X11; Linux i686; rv:8.0) Gecko/20100101 Firefox/8.0
+Mozilla/5.0 (X11; Linux i686; rv:9.0a2) Gecko/20111007 Firefox/9.0a2
+Mozilla/5.0 (X11; Linux i686; rv:10.0a1) Gecko/20111007 Firefox/10.0a1
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:8.0) Gecko/20100101 Firefox/8.0
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0a2) Gecko/20111004 Firefox/9.0a2 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:10.0a1) Gecko/20111005 Firefox/10.0a1
+Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20100101 Firefox/8.0
+Mozilla/5.0 (Windows NT 5.1; rv:9.0a2) Gecko/20111006 Firefox/9.0a2
+Mozilla/5.0 (Windows NT 5.1; rv:10.0a1) Gecko/20111006 Firefox/10.0a1
+Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0
+Mozilla/5.0 (Windows NT 6.1; rv:9.0a2) Gecko/20111006 Firefox/9.0a2
+Mozilla/5.0 (Windows NT 6.1; rv:10.0a1) Gecko/20111006 Firefox/10.0a1
+Photos at link mentioned in bug description slide using the -moz-transition properties; Firebug shows the following rules:
+-moz-transition-duration: 0.3s
+-moz-transition-property: margin",SOLUTION_VERIFICATION,0,FULL_TOKEN,2011-10-10T11:03:51Z,5771089.0
+576837,1,"/[C-\s]/;
+YARR: accepts it
+OLD:  ""invalid range in character class""",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2010-07-04T07:29:26Z,4781691.0
+658675,11,http://hg.mozilla.org/mozilla-central/rev/c69124dfd7b7,UNCODED,0,UNMATCHED,2011-06-15T09:30:18Z,5533499.0
+561168,7,"Created attachment 443135
+patch 3: WebGL/pbuffers on OSX
+- fix some refcounting issues
+- add support for creating pbuffers on OSX
+- move WebGL to GLContext pbuffers on OSX",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-03T17:53:45Z,4674949.0
+561168,2,"Created attachment 440844
+first pass
+Here's the first pass at this; posting up here to get feedback, because for some reason invalidation doesn't work.  The canvas is drawn at the correct spot, but only get invalidates if I scroll around and reveal the new areas.
+However, with layers, scrolling is broken in general, so is this just more of the same problem?",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-04-22T19:18:19Z,4654927.0
+687929,3,"Full stack:
+mozjs.dll!JS_BeginRequest(JSContext * cx)
+xul.dll!JSAutoRequest::JSAutoRequest(JSContext * cx)
+xul.dll!mozilla::dom::workers::RuntimeService::ResumeWorkersForWindow(JSContext * aCx, nsPIDOMWindow * aWindow)
+xul.dll!mozilla::dom::workers::ResumeWorkersForWindow(JSContext * aCx, nsPIDOMWindow * aWindow)
+xul.dll!nsGlobalWindow::ResumeTimeouts(int aThawChildren)
+xul.dll!nsResumeTimeoutsEvent::Run()
+xul.dll!nsThread::ProcessNextEvent(int mayWait, int * result)
+...
+xul.dll!XRE_main(int argc, char * * argv, const nsXREAppData * aAppData)
+This one is simple, just need to make sure ResumeWorkersForWindow can handle a null context. It's not really needed, but if we have one we need a request.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2011-09-20T21:06:24Z,5726713.0
+554061,7,"I'm not sure what to do here. We don't restyle the document because HasDocumentStateDependentStyle doesn't find the :-moz-window-inactive rule because it's in an XBL stylesheet. For normal content state changes we can inspect XBL stylesheets because we can get the binding from the content node (in nsBindingManager::WalkRules), but when the document state changes we only have the root node and no way of getting to the right binding.
+Does this mean we'll have to iterate over the whole content tree whenever the document state changes?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2010-03-23T15:46:36Z,4599087.0
+597389,13,Verified fixed in 1.9.2 with Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.11pre) Gecko/20100923 Namoroka/3.6.11pre. Verified fixed in 1.9.1 with Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.1.14pre) Gecko/20100923 Shiretoko/3.5.14pre.,SOLUTION_VERIFICATION,0,FULL_TEXT,2010-09-23T23:43:50Z,4963161.0
+677173,2,"Regression window(m-c hourly):
+Works:
+http://hg.mozilla.org/mozilla-central/rev/3735fb1cd5ef
+Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0a1) Gecko/20110803 Firefox/8.0a1 ID:20110803030753
+Fails:
+http://hg.mozilla.org/mozilla-central/rev/c35c69e1ce99
+Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0a1) Gecko/20110803 Firefox/8.0a1 ID:20110803015018
+Pushlog:
+http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=3735fb1cd5ef&tochange=c35c69e1ce99
+Regression window(m-i hourly):
+Works:
+http://hg.mozilla.org/integration/mozilla-inbound/rev/29232fea6e19
+Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0a1) Gecko/20110802 Firefox/8.0a1 ID:20110802200330
+Fails:
+http://hg.mozilla.org/integration/mozilla-inbound/rev/166f4f247772
+Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0a1) Gecko/20110802 Firefox/8.0a1 ID:20110802200834
+Pushlog:
+http://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=29232fea6e19&tochange=166f4f247772
+Triggered by:
+Bug 505115 - CSS3 3D-Transforms",UNCODED,0,UNMATCHED,2011-08-08T10:54:58Z,5639062.0
+554061,11,*** Bug 554627 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-03-24T14:05:44Z,4601180.0
+642412,7,"The patch in bug 643037 fixes the truncate-double paths and brings the JM+TI time down to 361 (still with the modification to the Math calls).  Other things that should help:
+1. Know that 'a' is an integer within the loop in the C function.  It is initially an array but is then reused as an integer.  Could use SSA-style techniques to add some flow sensitivity to let the inference distinguish its uses, or (probably better) make a Crankshaft-style speculation it is an integer within the loop body and hoist a check to the loop header.  This is worth about 20ms (easy to test by hand).
+2. Hoist array bounds checks and LICM the slots pointer computation on the 'd' array.
+3. Regalloc tuning on the loop, get another GPR (heavy register pressure here).
+4. Typed natives or inline code for various Array natives.  Shark thinks we spend a decent amount of time in these.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-03-18T23:59:29Z,5354716.0
+675961,4,http://hg.mozilla.org/mozilla-central/rev/840fd3069d1f,UNCODED,0,UNMATCHED,2011-08-05T16:08:29Z,5635968.0
+558970,7,"It guarantees that the mEditor is nsHTMLEditor or its sub class. If I remove this, we need to QI in nsHTMLEditorEventListener instead of cast by GetHTMLEditor.",ANSWER_TO_QUESTION,0,FULL_TEXT,2010-04-18T14:53:11Z,4645426.0
+627984,3,"Reduced further:
+--
+var o = Array;
+o.watch('p', function() { }); 
+for(var x in o) {  };
+delete o.p;
+o.p = function() {};
+print(o.p);
+--",TEST_CASES,0,FULL_TOKEN,2011-01-22T12:10:41Z,5219276.0
+677173,18,"Backed on Aurora and Inbound because of test failures:
+hg.mozilla.org/releases/mozilla-aurora/rev/ebe4b5370436
+https://hg.mozilla.org/integration/mozilla-inbound/rev/2586082fbd94",SOLUTION_VERIFICATION,0,FULL_TOKEN,2011-08-19T02:08:35Z,5664397.0
+659018,3,I think we are not handling nsIAccessibleEvent::EVENT_NAME_CHANGE on the atk code.,PROBLEM_REVIEW,0,FULL_TEXT,2011-05-23T18:25:28Z,5487090.0
+593387,9,"Created attachment 471922
+fix
+Add a system principal check.  Boris, perhaps you can tell me the most efficient way to get a principal from a nsIDOMWindow.  I'll also add a test.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-09-03T18:35:27Z,4913519.0
+687754,6,"If Gmail changes its title in background, I'm sure it should be marked as unread. If some JS changes the title indeed, it must indicate that there's something new, otherwise it could be a fault.",SOLUTION_REVIEW,1,FULL_TEXT,2011-09-25T14:13:04Z,5735945.0
+686900,1,"Object and Function initialization are intricately intertwined.  To initialize Object, you need Function to be initialized for the function properties on Object.prototype and Object.  But to initialize Function, you need Object.prototype for Function.prototype's [[Prototype]]!  Since the two are so intricately interdependent, their bootstrapping should be one-off and not use functionality that thinks that these things have already been bootstrapped -- they should do it from scratch.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2011-09-15T17:12:02Z,5718760.0
+687754,35,"The unread attribute got added to FF9 on 2011-09-15 (see Bug 487242) and I think it would be better to have it completely fixed before FF9 is getting released.
+It's a no risk fix. Since this second patch only moves the 3 lines (add and remove attribute) of the first patch to a different position in the code, there is no reason why it should have any bad impact.
+Seamonkey already released version 2.4 with the adapted patch from bug 487242 and there is a question from only 2 days ago if this second patch will be adapted too. I saw on userstyles.org the addition of ""unread"" in FF9 is noted there too. I think this shows the interest in having this old regression (bug 487242) finally fixed.",CLARIFICATION,0,FULL_TOKEN,2011-10-12T02:59:15Z,5776530.0
+554061,16,http://hg.mozilla.org/mozilla-central/rev/df1c1421e2a5,UNCODED,0,UNMATCHED,2010-03-25T09:27:10Z,4603416.0
+687754,28,"Comment on attachment 565359
+Don't remove unread in preview mode (next try)
+just remove this comment",CODE_REVIEW,0,FULL_TEXT,2011-10-06T21:57:54Z,5764830.0
+593387,6,Sadly this prevents us also in Beta5 and down to Beta3 to show the one and only location where the Addons Compatibility Reporter is promoted. I would expect more negative via feedback.,ISSUE_IMPACT,0,FULL_TEXT,2010-09-03T17:10:12Z,4913298.0
+687754,26,"Comment on attachment 565093
+Don't remove unread in preview mode (alternative version)
+Please move this to the earlier !this._previewMode section. It doesn't matter that it doesn't correlate with the other pieces there, as those pieces don't correlate with each other either.",CODE_REVIEW,0,FULL_TEXT,2011-10-06T13:47:28Z,5763197.0
+667586,4,"Created attachment 542247
+patch
+On a non-verified page, typing in the URL bar makes the identity box revert to default favicon, no text, and gray background.
+This simply makes it work the same way for verified pages to avoid mode errors.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-06-27T20:17:05Z,5559595.0
+552914,4,"Created attachment 435856
+Patch v2.0
+yeah, but I removed the change from the patch. I'll post the patch in separated bug.
+I agree.
+And I found a bug:
+The condition is always false, but the comment doesn't expect so, of course. I replaced all flag checking to the new accessor methods for suppressing the mistake.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-03-30T09:27:59Z,4611524.0
+597071,14,Pushed http://hg.mozilla.org/mozilla-central/rev/7b85cdce3ea6 to followup on the bustage. I can't do what I had done in the Makefile (don't know why it worked locally!),CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-21T22:30:22Z,4957170.0
+601999,7,"OK -- the first affected changeset is 4a50f3c34d5a, and the crash goes away if I comment out this line that was added in that changeset:
+http://hg.mozilla.org/mozilla-central/diff/4a50f3c34d5a/layout/generic/nsFrame.cpp",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-10-28T20:32:00Z,5043519.0
+627984,2,"Created attachment 506096
+Stacktrace",UNCODED,0,UNMATCHED,2011-01-22T12:00:36Z,5219269.0
+601999,17,"Created attachment 488377
+fix v2
+Here's a fix along the lines of comment 15 (just guarding the NS_UpdateHint call with a NS_FRAME_IN_REFLOW state-check.)
+This fixes this bug's testcases, but not Bug 587336's testcases -- Bug 587336 is going to need its own patch.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-11-05T00:25:31Z,5060078.0
+687754,31,"http://hg.mozilla.org/integration/mozilla-inbound/rev/2561f2a8512c
+http://hg.mozilla.org/integration/mozilla-inbound/rev/52bde8206312",UNCODED,0,UNMATCHED,2011-10-08T08:46:02Z,5769005.0
+667586,10,"Created attachment 542325
+method 2: hide the entire block, including its border
+Here's the alternate approach of hiding the entire identity block (and the arrow panel icons to the left of it) including its border.
+Feels weird, since it leaves the URL bar text floating a large number of pixels away from the left border of the URL bar.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-06-27T23:50:26Z,5560286.0
+677173,25,Landed on inbound: http://hg.mozilla.org/integration/mozilla-inbound/rev/0c6cbf58eaa0,UNCODED,0,UNMATCHED,2011-08-31T23:39:38Z,5692424.0
+601999,13,"Not sure off the top of my head -- I've been working with the testcases in bug 587336 more recently than the testcases here.  However, just a restyle is sufficient to cause problems, in that bug's testcases -- see e.g. the stack in attachment 486783. (& description in bug 587336 comment 4).",ANSWER_TO_QUESTION,0,90_PCT_MATCH,2010-11-04T22:01:13Z,5059636.0
+687754,13,"http://mxr.mozilla.org/mozilla-central/source/browser/base/content/tabbrowser.xml#911
+913             if (!this._previewMode) {
+914 #ifdef MOZ_E10S_COMPAT
+915               // Bug 666816 - TypeAheadFind support for e10s
+916 #else
+917               this._fastFind.setDocShell(this.mCurrentBrowser.docShell);
+918 #endif
+919 
+920               this.updateTitlebar();
+921 
+922               this.mCurrentTab.removeAttribute(""titlechanged"");
+923             }
+It would be better to place removeAttribute(""unread"") here.",CODE_REVIEW,0,FULL_TEXT,2011-09-28T01:42:44Z,5742071.0
+554061,14,"Created attachment 434724
+v1",UNCODED,0,UNMATCHED,2010-03-24T23:08:26Z,4602621.0
+658675,2,"Tricky bit is custom servers, each server has a separate captcha keypair, so I wouldn't prefetch then.  There's definitely room for prefetching though, maybe once we have a validated username?",SOLUTION_REVIEW,1,FULL_TOKEN,2011-05-20T22:25:24Z,5483855.0
+552914,7,"http://hg.mozilla.org/mozilla-central/rev/97aec61ae55f
+I'll file a bug for the previous comment.",NEW_ISSUE_FILING,0,FULL_TEXT,2010-04-12T03:53:22Z,4633309.0
+554061,20,"Bug 508482 needs to be documented, not this bug, as far as I can see.",ANSWER_TO_QUESTION,0,FULL_TEXT,2010-03-25T12:42:53Z,4603618.0
+561168,29,"Nope, that's the right fix -- missed that while I was munging removals.  Just pushed a fix.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-18T17:08:58Z,4700501.0
+674446,4,Let's get this landed when all of the patches have been reviewed.,STATUS_UPDATE,0,FULL_TEXT,2011-07-27T18:59:21Z,5617329.0
+627984,24,"Jason's right, the ancient watchpoint design, which predates user-defined setters, tries to modularize watchpoints by putting their overhead behind a setter wrapper. This hasn't aged particularly well. His preferred approach would add a few
+    if (JS_UNLIKELY(obj->watched())) { // obj->flags & WATCHED
+        . . .
+    }
+clauses. Sounds worth filing and doing after fx4.
+/be",SOLUTION_REVIEW,1,FULL_TOKEN,2011-02-11T07:03:14Z,5271872.0
+597071,6,"Comment on attachment 476464
+Patch v0.1
+Alas, I think dietrich should do the review here, I don't know session restore well enough to judge the impact of this. Even though it's a 1-line change.
+...
+Really? :)",CODE_REVIEW,0,FULL_TEXT,2010-09-18T03:24:41Z,4949692.0
+593387,1,"User-Agent:       Mozilla/5.0 (Windows NT 6.1; WOW64; rv:2.0b6pre) Gecko/20100903 Firefox/4.0b6pre
+Build Identifier: 
+Looks like it doesn't like being loaded in an iframe. I see an error page on screen, and a really long error logged to the error console (due to all of my extensions being parts of the requested URL?).
+Reproducible: Always
+Steps to Reproduce:
+1. Open Addons Manager
+2. Go to ""Get Addons"" pane
+3. See the error.
+Actual Results:  
+Content from AMO is restricted by X-FRAME-OPTIONS header.
+Expected Results:  
+Content from AMO is displayed in the pane.
+X-FRAME-OPTIONS: blocked https://services.addons.mozilla.org/en-US/firefox/discovery/4.0b6pre/WINNT#{%22CompactMenuCE@Merci.chao%22:{%22name%22:%22Personal%20Menu%22,%22version%22:%224.3.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22contacts@labs.mozilla.com%22:{%22name%22:%22Contacts%22,%22version%22:%220.3.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22dataman@kairo.at%22:{%22name%22:%22Data%20Manager%22,%22version%22:%221.0.1%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22downloadbadge@jes_jm.software%22:{%22name%22:%22Download%20Badge%22,%22version%22:%220.1.7%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22firebug@software.joehewitt.com%22:{%22name%22:%22Firebug%22,%22version%22:%221.6X.0b1%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22inspector@mozilla.org%22:{%22name%22:%22DOM%20Inspector%22,%22version%22:%222.0.8%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22jid0-t3eeRQgGANLCH9c50lPqcTDuNng@jetpack%22:{%22name%22:%22Add-ons%20Builder%20Helper%22,%22version%22:%220.0.5%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22locationbar2@design-noir.de%22:{%22name%22:%22Locationbar%C2%B2%22,%22version%22:%221.0.5%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22omnibar@ajitk.com%22:{%22name%22:%22Omnibar%22,%22version%22:%220.7.0.20100707%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22rtse-nightly@shawnwilsher.com%22:{%22name%22:%22RT%20Site%20Extender%22,%22version%22:%221.2.0.20100829%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22siteprefs.mehdi@mozilla.com%22:{%22name%22:%22Site%20Preferences%22,%22version%22:%220.1.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22tabsintitlebar@roosterteethsiteextender.com%22:{%22name%22:%22Tabs%20in%20Titlebar%22,%22version%22:%220.1%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:true,%22isBlocklisted%22:false},%22testpilot@labs.mozilla.com%22:{%22name%22:%22Test%20Pilot%22,%22version%22:%221.0.1%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22twitternotifier@naan.net%22:{%22name%22:%22Echofon%22,%22version%22:%221.9.6.5RC2%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{02450954-cdd9-410f-b1da-db804e18c671}%22:{%22name%22:%22Screengrab%22,%22version%22:%220.96.3%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{1280606b-2510-4fe0-97ef-9b5a22eafe80}%22:{%22name%22:%22Console%C2%B2%22,%22version%22:%220.6.1%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{2e61e246-e640-4c56-b1ed-f146dbed48cd}%22:{%22name%22:%22Stop%20Autoplay%22,%22version%22:%220.7.6%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{46551EC9-40F0-4e47-8E18-8E5CF550CFB8}%22:{%22name%22:%22Stylish%22,%22version%22:%221.0.11%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{59c81df5-4b7a-477b-912d-4e0fdf64e5f2}%22:{%22name%22:%22ChatZilla%22,%22version%22:%220.9.86%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}%22:{%22name%22:%22Adblock%20Plus%22,%22version%22:%221.3a.20100831%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{e4a8a97b-f2ed-450b-b12d-ee082ba24781}%22:{%22name%22:%22Greasemonkey%22,%22version%22:%220.8.20100408.6.3%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{000a9d1c-beef-4f90-9363-039d445309b8}%22:{%22name%22:%22Google%20Gears%22,%22version%22:%220.5.36.0%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{3252b9ae-c69a-4eaf-9502-dc9c1f6c009e}%22:{%22name%22:%22Default%20Manager%22,%22version%22:%222.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{27182e60-b5f3-411c-b545-b44205977502}%22:{%22name%22:%22Search%20Helper%20Extension%22,%22version%22:%221.0%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{73a6fe31-595d-460b-a920-fcc0f8843232}%22:{%22name%22:%22NoScript%22,%22version%22:%222.0.2.5rc1%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{972ce4c6-7e08-4474-a285-3208198ce6fd}%22:{%22name%22:%22Default%22,%22version%22:%224.0b6pre%22,%22type%22:%22theme%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%2233@personas.mozilla.org%22:{%22name%22:%22Groovy%20Blue%22,%22version%22:%22%22,%22type%22:%22theme%22,%22userDisabled%22:true,%22isCompatible%22:true,%22isBlocklisted%22:false},%22215507@personas.mozilla.org%22:{%22name%22:%22Firefox%20Cup%20-%20USA%22,%22version%22:%22%22,%22type%22:%22theme%22,%22userDisabled%22:true,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{06b38f9d-7392-47a0-b3de-bb9304e66837}%22:{%22name%22:%22Microsoft%C2%AE%20Windows%20Media%20Player%20Firefox%20Plugin%22,%22version%22:%221.0.0.8%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{9b29438d-3436-4cc8-821e-d2cf929caa9c}%22:{%22name%22:%22Foxit%20Reader%20Plugin%20for%20Mozilla%22,%22version%22:%221.0.1.1117%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{776c1d62-6afa-49e3-ba60-6c8e02129836}%22:{%22name%22:%22Google%20Update%22,%22version%22:%221.2.183.29%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{6a5396e5-ae37-4c8e-b7bc-7d9a2ac0fed7}%22:{%22name%22:%22Shockwave%20Flash%22,%22version%22:%2210.1.82.76%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{ea5854ac-49c9-4532-97c0-1216098104c4}%22:{%22name%22:%22Garmin%20Communicator%20Plug-In%22,%22version%22:%222.8.1.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{f723e9b0-4dff-48f1-8e4e-76154c57abe6}%22:{%22name%22:%22Java(TM)%20Platform%20SE%206%20U21%22,%22version%22:%226.0.210.7%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{cacaa5d6-9843-4b9e-b013-8ec3c3247ec4}%22:{%22name%22:%22Java%20Deployment%20Toolkit%206.0.210.7%22,%22version%22:%226.0.210.7%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{76952b67-64de-4320-9cd2-2f2dd392ef84}%22:{%22name%22:%22Silverlight%20Plug-In%22,%22version%22:%224.0.50524.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{6870bba4-7f50-4676-8fb2-784bcccee91b}%22:{%22name%22:%22Microsoft%20Office%202010%22,%22version%22:%2214.0.4730.1010%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{b9284f3e-b0fc-4115-9c49-eadfc63c47a6}%22:{%22name%22:%22Microsoft%20Office%202010%22,%22version%22:%2214.0.4761.1000%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{0410798f-2e26-40f7-bd38-c1cfd461dc57}%22:{%22name%22:%22Microsoft%20Office%20Live%20Plug-in%20for%20Firefox%22,%22version%22:%222.0.3009.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{e1274911-3d4c-483d-a5c5-89d15abe4ec6}%22:{%22name%22:%22Windows%20Live%C2%99%20Photo%20Gallery%22,%22version%22:%2215.4.3002.810%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{f6df2a89-4624-4cc4-a3af-8724e8dc6c81}%22:{%22name%22:%22VLC%20Multimedia%20Plug-in%22,%22version%22:%221.0.5.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false}}",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2010-09-03T15:53:12Z,4913096.0
+558970,8,"But only nsHTMLEditor should create nsHTMLEditorEventListener.
+So you know that editor is nsHTMLEditor.",CLARIFICATION,0,FULL_TOKEN,2010-04-18T15:12:54Z,4645451.0
+597389,6,CC'ing Charles because it appears it might also be a Flash regression,ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2010-09-17T18:26:08Z,4948311.0
+552914,2,"Comment on attachment 433027
+Patch v1.0
+smaug, can you review this? I requested to perterv, but there are no replies...",CODE_REVIEW_REQUEST,0,FULL_TEXT,2010-03-25T01:06:07Z,4602892.0
+554061,9,View Source window is also affected and exhibits the same behavior.,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2010-03-23T20:02:50Z,4599748.0
+597389,4,"(Following up comment #3)
+I get the same results on OS X 10.6.4.
+By the way, on both OS versions I tested with en-US Firefox and the preferred language was set to English.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2010-09-17T17:04:52Z,4948020.0
+558970,13,"I don't understand this well. Looks like nsHTMLEditorEventListener can listen ""contextmenu"" event by nsIDOMContextMenuListener. The argument of nsIDOMContextMenuListener::ContextMenu() is the cause of opening the context menu, right?
+I'm not sure the event comes before or after the event. If it comes before the event, it should prevent the default of the mouse event. But if it comes after the event, looks like mouse down handler still needs to check the event is opening context menu or not for Mac. So, I don't understand if latter is correct.",SOLUTION_REVIEW,1,FULL_TOKEN,2010-04-19T08:48:58Z,4646260.0
+576837,18,It looks like this bug was almost fixed. What's left to do on it?,QUESTION,0,FULL_TEXT,2010-12-10T01:21:13Z,5134604.0
+597389,2,"This bug can be reproduced on Fx3.5 too. However, it's going to be dropped but SeaMonkey is going to continue to use 1.9.1 for a while. So, we should fix this bug on 1.9.1 too.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2010-09-17T13:48:00Z,4947573.0
+551837,10,http://hg.mozilla.org/mozilla-central/rev/e8dfe85fca00,UNCODED,0,UNMATCHED,2010-05-04T17:42:30Z,4677040.0
+642412,8,"Get precise type information for the results of JSOP_NAME/JSOP_CALLNAME (358ms on the unmodified test).
+http://hg.mozilla.org/projects/jaegermonkey/rev/9ee17aa5f938
+This exposed an existing bug in the recompilation mechanism, where we would convert integer slots to doubles even if the recompiled code knew they were integers.  The FrameState can be either more or less precise than the inferred types, and we only require args/locals inferred as int|double to be doubles at join points (the revised algorithm only uses the FrameState, not the inferred types, to figure out what needs repatching, and is a good deal cleaner).
+http://hg.mozilla.org/projects/jaegermonkey/rev/7154281e487b",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-03-19T19:34:41Z,5355487.0
+677173,7,"That's what I guessed reading you. I'm the server-side dev/admin so I haven't dug enough.
+Anyway, it's a great news to see 3D transforms available in Firefox!
+I will make the needed changes tomorrow.
+I hope there are not too much webkitists like my client-side dev. It may cause trouble when ffx 8 will be the rc (I'm the Linux-Mozillist of the team ).
+""...no point... Not much point..."", I'll probably be happy to read your english for a while as it shows me how to improve my own. :)
+By the way, the last sentence becomes :
+Malheureusement, cette classe EST définie avec la nightly actuelle puisque le site utilise Modernizr, qui cherche la propriété ""MozPerspective"" que nous avons depuis les patches du bug 505115.
+Thank you very much for your lights.",UNCODED,0,UNMATCHED,2011-08-08T19:21:06Z,5640264.0
+554061,15,"Comment on attachment 434724
+v1
+r=dbaron",CODE_REVIEW,0,FULL_TEXT,2010-03-25T00:30:46Z,4602822.0
+600489,1,"Created attachment 479341
+patch (against 54625:7dcc52c49fc4)
+insBranch() can return NULL if a conditional branch is optimized so that its condition never succeeds.  jstracer.cpp doesn't account for this, it just calls branch->setTarget(label).  This hasn't mattered up until now, but with bug 600127 doing a better job of optimizing guard/branch conditions, it does matter.
+This patch adds label() to handle this.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-29T09:56:49Z,4974012.0
+667586,1,"Steps to reproduce:
+1. Go to https://twitter.com
+2. Focus the URL bar and start typing.
+Expected results:
+The identity box with the text ""Twitter Inc."" should disappear.
+Actual results:
+The identity box remains, which is confusing, because it looks like you're entering a search to Twitter or giving it a command.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2011-06-27T19:56:41Z,5559557.0
+634654,2,"Instrumenting RegExp::create and visiting a bunch of high-profile sites for some informal profiling I got:
+atomized regexp sources:                 473
+non-atomized regexp sources:            7863
+So 94% of the sources were not atomized. I'll go with the atomize-and-cache approach and time how many cycles we spend atomizing versus our regexp cache hit rate on a similar workload.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2011-03-04T00:49:16Z,5320501.0
+551837,3,"No such luck; I get some failing trace-tests with this, so there must be something non-portable in the i386 code. I will investigate and provide something similar for ARM.",SOLUTION_REVIEW,1,FULL_TEXT,2010-03-12T00:50:26Z,4580781.0
+561168,32,*** Bug 565321 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-05-24T09:03:25Z,4710013.0
+552914,6,"Created attachment 438372
+Patch v3.0
+O.K. But I'll post the patch in another new bug.",STATUS_UPDATE,0,FULL_TEXT,2010-04-11T18:00:45Z,4632878.0
+554061,8,I think this is toolkit bug. (and also in seamonkey 2.1 nightlies),ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2010-03-23T16:13:17Z,4599137.0
+687754,24,"Created attachment 565092
+Don't remove unread in preview mode
+Fix on old position",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-10-06T00:32:43Z,5762205.0
+677173,20,"Does it work if you:
+ * comment out the bits of property_database.js
+ * hack ListCSSProperties.cpp to exclude them?",COLLATERAL_POTENTIAL_SOLUTION,0,FULL_TOKEN,2011-08-24T02:38:46Z,5673905.0
+551837,1,"Just by adding ""__arm__"" to the i386 #ifdef in js_DoubleToECMAInt32 seems to get us a 5% performance improvement on Cortex-A8. The i386 code in the block looks fairly generic so I don't see any harm in doing this (though it does require IEEE format doubles). It may also benefit x64, but I have no idea about how x64 handles floating-point and there may be some reason why it won't work.
+5% seems surprisingly large (and may just indicate an anomalous result), so I want to investigate further before filing a patch, but there's certainly something we can do here. Also, if the function really does take as much profile time as the improvement would suggest, it may be worth hand-writing some assembly to do this (unless the compiler output is already good).
+Also, js_DoubleToECMAUint32 is a potential target, so I'll have a look at that one too.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2010-03-12T00:18:03Z,4580720.0
+659018,5,"Created attachment 539725
+patch
+atk_set_name() sends the proper event for us, so on a name change event we can just see if the name has actually changed and if so set it causing atk to send the signal for us.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-06-16T05:41:46Z,5536013.0
+687754,17,"a) Maybe switching lines
+to
+if that seems more convenient.
+This would still keep it right were the tab gets selected and viewed, the reason why ""unread"" is getting removed. It's a clear chain of commands that are logically tight connected to each other. Like removing ""busy"" leads to setting ""unread"" (if not selected). Easy to understand and maintain.
+b) I can't guarantee the Listener calls do not lead to (rare) cases where ""unread"" wouldn't be removed. Is there someone able to guarantee that for now and in the future? Why even take that risk? At this point in code the tab is already selected and shouldn't have the attribute anymore.
+c) After those Listeners we have the code block that handles fastFind and TitleBar if not in _previewMode.
+The only connection I can see here is _previewMode.
+Does it really make sense to move it down 40+ lines to save a single 'if' and at the same time loosing the easy logical understanding of why it has to be removed (selected/viewed => read) plus wondering if those Listener calls might at some point cause something related to removing ""unread"" we haven't thought of right now.
+If those arguments don't catch, we can even try to move it down another 30+ lines to the TabSelect events where the _previewMode is handled too and test it there.",SOLUTION_REVIEW,1,MANUAL,2011-10-05T13:34:10Z,5760085.0
+558970,11,"Ah, sounds good. I'll do it before landing the new patch tomorrow.",STATUS_UPDATE,0,FULL_TEXT,2010-04-18T15:38:58Z,4645478.0
+552359,28,bug 565594 opened. Thansk Ehsan :),NEW_ISSUE_FILING,0,FULL_TEXT,2010-05-13T08:37:53Z,4691960.0
+634654,12,"I made the chars we read out of the token stream and the strings we XDR decode into atoms and we look good hit rate wise:
+21787 events
+20526 hits, 1261 misses (94.21% hit ratio)
+kind        | count
+------------+------
+cold        | 648  
+hit         | 20526
+eviction    | 22   
+uncacheable | 591
+Since we were be creating fresh JSStrings for those token-stream-read creations the atomizing should have added very little overhead, but I'll make an opt build to time it just to be sure.
+Without any purging we keep a ~2.5K hash table around to cache all the values. Half the RegExpPrivates that exist are there because they're non-atom sources, so I still need more memory usage and execution time data -- maybe atomizing more things would be worth it to reduce the duplication.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-10-09T19:38:45Z,5770356.0
+627984,26,"I will land this as soon as bug 631723 gets review.
+The second assertion passes the whole test suite, so I'll uncomment it.
+The first assertion can be tripped, and not only that, I found another assertion in js_watch_set that can also be tripped. Filed bug 633637. I'm removing the trippable assertions from this patch for now.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2011-02-14T15:45:10Z,5276988.0
+554061,18,All themes need to be changed. Sorry for that.,ANSWER_TO_QUESTION,0,FULL_TEXT,2010-03-25T12:06:19Z,4603571.0
+585832,4,"Since 20100917 build, I have the same issue with a new profile.
+I checked that webgl.enabled_for_all_site is set to true.
+It seems to be linked to bug 594874 fix.
+Every Intel card as been declared as ""Webgl not recommended"", so webgl is not enabled. 
+Either, ""webgl not recommended"" status must not disabled webgl, or at least some recent graphic cards must have ""webgl available"" status.
+Adapter Description : Mobile Intel(R) 4 Series Express Chipset Family
+Vendor ID : 8086
+Device ID : 2a42
+Adapter RAM : Unknown
+Adapter Drivers : igdumd64 igd10umd64 igdumdx32 igd10umd32
+Driver Version : 8.15.10.2202
+Driver Date : 8-25-2010
+Direct2D Enabled : true
+DirectWrite Enabled : true
+GPU Accelerated Windows1/1 Direct3D 9",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-09-17T13:42:47Z,4947563.0
+576837,5,"Comment on attachment 482286
+Fix character class range with builtin character class on RHS.
+[jwalden@find-waldo-now src]$ dbg/js
+js> /[C-\s]/.exec(""-"")
+invalid range in character class
+js> /[\s-C]/.exec(""-"")
+[""-""]
+Test needs to make sure to address the reversed cases, too.",CODE_REVIEW,0,FULL_TOKEN,2010-10-21T23:29:48Z,5028919.0
+552359,3,"http://tinderbox.mozilla.org/showlog.cgi?log=Firefox/1269511430.1269512875.31049.gz
+OS X 10.5.2 mozilla-central opt test reftest on 2010/03/25 03:03:50  
+s: moz2-darwin9-slave17",UNCODED,0,UNMATCHED,2010-03-25T10:35:23Z,4603473.0
+552359,2,"Looking at the test images, the <input> have the placeholder text, so it
+seems to not have focus when the snapshot was taken?
+I don't see how my caret cleanup (bug 544852) could have broken this
+but I could be missing something...",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2010-03-15T02:37:01Z,4584530.0
+691184,2,"I'll fix it, unless you'd like to... I've got the tests locally.",STATUS_UPDATE,0,FULL_TEXT,2011-10-02T19:53:12Z,5752987.0
+561168,26,"Created attachment 445006
+y-axis flipping followup
+Small followup -- fixes y-axis flip issues when rendering WebGL using BasicLayers.  WebGL is rendered correctly when using OpenGL layers, but normal 2d canvases will be flipped upside down -- I'll fix this next, but it's going to depend on bug 565435 being fixed, since I have to fiddle with texcoords.  Might take a day or two.  I don't think it's an issue for now, since we don't have accelerated rendering for the browser window currently.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-12T23:23:04Z,4691333.0
+552359,9,"This particular problem, I think, shows an actual problem in the focus code.  Neil said that he's willing to debug this.
+To debug this, run the reftests like this:
+/path/to/firefox -reftest layout/reftests/forms/placeholder/reftest.list
+so that the Firefox window is initially in the background.  Running tests that way makes them fail 100% of the time for me.",PROBLEM_REVIEW,0,FULL_TOKEN,2010-03-26T20:23:47Z,4606800.0
+593387,25,"This simple answer to the b6 issue would be to NOT specify the x-frame-options header on the 4.0b6 page on the server side, yet continue to specify it on the 4.0b7pre page so that this issue can continue to be worked.
+This would result in Get Add-ons working for the beta builds only.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-09-12T10:53:39Z,4932514.0
+691184,4,"Created attachment 565286
+Tests
+Tests I promised.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-10-06T18:01:29Z,5764018.0
+576837,2,Same with /[f-\d]/,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2010-07-04T07:50:15Z,4781697.0
+561168,30,"http://hg.mozilla.org/mozilla-central/rev/d29a248fb5a9
+http://hg.mozilla.org/mozilla-central/rev/e11ef37d8108
+http://hg.mozilla.org/mozilla-central/rev/f3d0956d3413
+http://hg.mozilla.org/mozilla-central/rev/56f033dd888a
+http://hg.mozilla.org/mozilla-central/rev/652733ce0792
+http://hg.mozilla.org/mozilla-central/rev/89b1ef9ebec3",UNCODED,0,UNMATCHED,2010-05-18T17:47:48Z,4700620.0
+593387,47,It's been fixed after beta 6 was released. The (hopefully) upcoming beta 7 will include the fix.,STATUS_UPDATE,0,FULL_TEXT,2010-10-25T04:53:51Z,5033549.0
+593387,36,I really do not understand this bug at all.  THe client is trying to display from the server in a frame.  THe server sepcifacally says this content can not be displayed in a frame under any circumstances.  So exactly why should code be changed to actually allow the content to be displyed in the frame??,QUESTION,0,FULL_TOKEN,2010-09-16T22:37:47Z,4946086.0
+593387,13,"Two comments on the patch:
+1)  If a chrome page in a content docshell loads site A which then frames site B, the framing will be allowed with this patch.  Is this desired?
+2)  Getting the principal of the current document can just be done with
+    NodePrincipal(); no need to get it off thisWindow.",CODE_REVIEW,0,FULL_TOKEN,2010-09-04T03:09:48Z,4914474.0
+670853,1,"After chat with Jamie we agreed that it's worth to use mixed state for undetermined progressmeters (both HTML and XUL) to allow AT distinguish determined vs undetermined progressmeters.
+Any thoughts?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2011-07-12T06:16:32Z,5586060.0
+634654,10,"This is very interesting data. Is the bug title correct, assuming that TM refers to TraceMonkey, that this bug is for TM only? IIUC TM is disabled when TI is enabled, and is set to go away entirely when IM is ready.",QUESTION,0,FULL_TEXT,2011-10-09T16:51:45Z,5770143.0
+597389,7,"OK, thanks.  Now I can reproduce it.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2010-09-17T18:49:17Z,4948401.0
+597389,12,"http://hg.mozilla.org/releases/mozilla-1.9.2/rev/c0c261de23ec
+http://hg.mozilla.org/releases/mozilla-1.9.1/rev/e532600954d0",UNCODED,0,UNMATCHED,2010-09-21T04:13:21Z,4954586.0
+686900,3,"Created attachment 560386
+2 - Move js_InitFunctionClass to GlobalObject code",UNCODED,0,UNMATCHED,2011-09-15T17:14:01Z,5718765.0
+687754,9,http://hg.mozilla.org/mozilla-central/rev/0eacb6c66396,UNCODED,0,UNMATCHED,2011-09-27T15:06:25Z,5740181.0
+593387,10,"Comment on attachment 471922
+fix
+  nsCOMPtr<nsIScriptObjectPrincipal> objPrin = do_QueryInterface(topWindow);
+  nsIPrincipal* topPrincipal = objPrin->GetPrincipal();
+This should be a subsumes() check.
+Or more interest to me....  Why is this a problem at all?  Are we seriously loading content off the web in a chrome-type iframe, and if so, why?",CODE_REVIEW,0,FULL_TOKEN,2010-09-03T18:44:46Z,4913548.0
+667586,13,"If it is easy enough to clear the identity block out of the ui, without shifting the text of the URL (just having it turn invible), then I'm fine with us doing this now.  It does bother me that it looks like you are sending information to the identity of the site that you are currently on.  If it isn't easy, we can just try to fix this with a bunch of proposed changes later on.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-06-29T20:35:36Z,5565446.0
+558970,14,"Well, just file a followup bug ""Sort out editor's contextmenu/mouse event handling""
+or something like that.",NEW_ISSUE_FILING,0,FULL_TOKEN,2010-04-19T09:02:11Z,4646269.0
+585832,8,"Created attachment 476827
+relax WebGL feature test
+Regenerated the patch (line ending issue)",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-20T16:10:25Z,4952582.0
+596726,3,This has been fixed on trunk by some of the patches that I landed as part of the work in bug 240933.,SOLVED_BY_OTHER_ISSUE,0,FULL_TEXT,2010-09-16T18:07:50Z,4944933.0
+674446,3,"Created attachment 548782
+Also add logging to the dlopen case
+The Windows file already has error handling, this adding logging to OS X and dlopen.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-07-27T14:43:45Z,5616594.0
+682449,1,"************************************************************
+* Call to xpconnect wrapped JSObject produced this error:  *
+[Exception... ""Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [nsIXPCComponents_Utils.import]""  nsresult: ""0x80520012 (NS_ERROR_FILE_NOT_FOUND)""  location: ""JS frame :: resource://services-sync/status.js :: checkSetup :: line 93""  data: no]
+************************************************************
+Caused by:
+JS Component Loader: ERROR resource://services-sync/resource.js:412
+                     SyntaxError: redefining delete is deprecated",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2011-08-26T22:54:19Z,5681844.0
+601999,4,"It's this reflow callback for the nsHTMLScrollFrame (inside the <select> element), which gets registered here:
+826   // Restore the old scroll position, for now, even if that's not valid anymore
+827   // because we changed size. We'll fix it up in a post-reflow callback, because
+828   // our current size may only be temporary (e.g. we're compute XUL desired sizes).
+829   PlaceScrollArea(state, oldScrollPosition);
+830   if (!mInner.mPostedReflowCallback) {
+831     // Make sure we'll try scrolling to restored position
+832     PresContext()->PresShell()->PostReflowCallback(&mInner);
+http://hg.mozilla.org/mozilla-central/annotate/882525a98119/layout/generic/nsGfxScrollFrame.cpp#l825
+The callback function itself is nsGfxScrollFrameInner::ReflowFinished
+http://hg.mozilla.org/mozilla-central/annotate/882525a98119/layout/generic/nsGfxScrollFrame.cpp#l2873
+Regression range for this bug:
+  20100813031312 d5e211bdd793
+  20100814030707 656d99ca089c
+http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=d5e211bdd793&tochange=656d99ca089c
+The lowest push in that range looks most related:
+http://hg.mozilla.org/mozilla-central/pushloghtml?changeset=29114207a571",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-10-28T18:06:05Z,5043053.0
+552359,27,"Hmm, based on this log, this is a different bug.  Please file it separately.
+Also, it would be great if you could debug this locally (because I haven't been able to reproduce this).  You could set a breakpoint in nsCaret::DrawCaret, and see the code path which invokes it for the reference file, and see what happens differently in the original test file when this fails randomly.
+Marking this bug as FIXED again.",VERIFICATION_REQUEST,0,FULL_TOKEN,2010-05-13T02:14:54Z,4691658.0
+634654,13,"Duplicate code savings: sum: 183,668B; avg per RegExpPrivate: 895.94; stddev: 3,087.15
+At least in my benchmark the code savings is negligible. We can always atomize more stuff later if we find that's a win in the real world, and just caching the naturally atomized stuff is better than what we have now. Will have a patch with purging soon.",STATUS_UPDATE,0,FULL_TOKEN,2011-10-09T21:08:29Z,5770452.0
+593387,14,*** Bug 593819 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-09-06T16:46:07Z,4917135.0
+691184,3,"Created attachment 565276
+Patch v1
+https://tbpl.mozilla.org/?tree=Try&rev=b3000af72f01",UNCODED,0,UNMATCHED,2011-10-06T17:37:20Z,5763932.0
+593387,20,What are the chances of this making b6? I don't think it blocks it but it'd be super awesome to get it in as AMO are going to be rolling out the new UI in there next week,STATUS_UPDATE,0,FULL_TEXT,2010-09-09T22:06:17Z,4926939.0
+576837,14,http://hg.mozilla.org/tracemonkey/rev/8ae5fce0f19b,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2010-11-09T17:17:47Z,5067705.0
+601912,4,"I'm not crazy about this feature; we'd need to extend the CSS counter model to do this, and it's complicated enough already.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-10-05T15:11:18Z,4986957.0
+551837,9,http://hg.mozilla.org/tracemonkey/rev/e8dfe85fca00,UNCODED,0,UNMATCHED,2010-04-27T07:38:04Z,4662329.0
+627984,21,"Created attachment 510780
+v1
+This patch applies on top of the patches in bug 631723 and bug 631305.
+This patch does not address comment 17 item 5 or comment 18 item 6. I will file follow-up bugs for those.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-02-08T22:13:24Z,5264443.0
+596726,2,Seems to be WFM on Trunk on WinXP (Mozilla/5.0 (Windows NT 5.1; rv:2.0b6pre) Gecko/20100913 Firefox/4.0b6pre ID:20100913041656).,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2010-09-15T23:16:24Z,4942873.0
+601999,16,"OK, the reason we're doing that is to ensure that the ancestors' overflow areas are updated. But during reflow that's going to happen anyway. So we need to suppress that additional reflow request when the frame affected is currently being reflowed. I think you can just check FRAME_IN_REFLOW somewhere.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-11-04T23:34:37Z,5059927.0
+576837,6,"The restrictions on ClassAtomNoDash are also not enforced because the character class parser is a very simple DFA. Any non-descending single-character range is considered valid. Check out this awesome pattern:
+/[--/]/.exec('.') 
+["".""]",CLARIFICATION,0,FULL_TOKEN,2010-10-25T18:50:38Z,5034852.0
+561168,1,"Canvas needs to use a custom Layer for rendering, so that the compositing can be hardware accelerated where possible (e.g. WebGL).",PROBLEM_MOTIVATION,0,FULL_TEXT,2010-04-22T19:17:11Z,4654926.0
+677173,19,"This is failing lots of tests because the properties still exist in property_database.js. I've tried removing those too, but multiple tests also check css_properties.js and fail there.
+Any idea how we can get these tests to pass?",QUESTION,0,FULL_TEXT,2011-08-24T02:09:31Z,5673839.0
+623742,3,"1.6.x: https://hg.mozilla.org/services/fx-sync/rev/0fe88045dccc
+default: https://hg.mozilla.org/services/fx-sync/rev/54bbabff19c4",UNCODED,0,UNMATCHED,2011-01-16T22:59:13Z,5203984.0
+576837,12,"Comment on attachment 485837
+Fix character class range with builtin character class on any side.
+Plain true/false don't do it for me for readability, suggest checkRangeValid/checkRangeInvalid methods forwarding to one common method.
+Add in some tests with \b and \B since those aren't treated as character class escapes.
+Good style appears to suggest m_sawCharacterClass, to make upstreaming easier.
+As far as good style goes, it appears that this code parenthesizes equality expressions that aren't the whole of conditions -- so |((m_character == '-') && m_sawCharacterClass)|.
+I think this would be more readable if you didn't put the sawCharacterClass in the else-block.  It makes more sense (even if one doesn't subscribe to else-after-return being evil) to say that *if* the just-passed character class starts a range, *then* it's an error and you exit.  But the sawCharacterClass assignment applies to both arms of the if below, so it seems it makes more sense to something like this:
+(Add parentheses per the earlier comment.)
+I had trouble understanding both parts of your condition here -- suggest adding something noting that the first part handles things like [a-\d] and the second part handles things like [\w-\s].  For that matter, the most obvious place for any of these checks, in |case cachedCharacter|, is only hit (I think) in the case of [\w-a] or [\w-\b] -- may as well add a comment to that effect there, too.",CODE_REVIEW,0,FULL_TOKEN,2010-10-29T21:59:37Z,5046320.0
+577462,1,"Created attachment 456428
+Use GetDC where we can
+For opaque SYSTEMMEM textures we can call the GetDC method on the primary surface to draw directly to a DC. We should use this for layers where mIsOpaqueContent is true.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-07-08T11:41:43Z,4785905.0
+627984,5,security sensitive per jandem's request.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,2011-01-22T12:56:37Z,5219301.0
+627984,19,"To clarify a little on comment 17 item 2,",UNCODED,0,UNMATCHED,2011-02-08T21:45:35Z,5264336.0
+687754,14,"I think I have answered that before in comment #6.
+""titlechanged"" /= ""unread""
+Basically ""unread"" says 'page is loaded from network in background' and removed as soon as the tab is selected.
+It is not and should not been connected to the title. ""titlechanged"" has it's own logic when it is set and removed. You will have some overlapping but that is all. ""titlechanged"" might come without ""unread"", but it's nothing that ""unread"" has to worry about.
+""unread"" tells you if you have selected (unread/read) a tab after a page was loaded from the web.
+""titlechanged"" tells you if the title of a tab has changed (no matter what caused it).
+To move removeAttribute(""unread"") down to where you suggested means, to put it after several ProcessListeners are started and than into or after the patch of bug 540248 (related to titlebar).
+To remove unread right after selecting a tab (selected -> read) and than let the ProcessListeners get called seems the far better choice to me.
+You have the chance to let both attributes lead to the same marking of the tab, like you want to. Others like me don't like that and can handle them separate or ignore ""titlechanged"".",SOLUTION_REVIEW,1,FULL_TOKEN,2011-09-28T14:14:16Z,5743049.0
+667586,2,"Alex, do you think it makes sense to do this now, or should we wait for the larger identity block changes that will come with the conditional forward button, etc.?",QUESTION,0,FULL_TEXT,2011-06-27T20:03:25Z,5559567.0
+667586,6,"We're already clearing the favicon. If you're concerned about the shifting of the input text, how about setting visibility: hidden on #identity-icon-labels, instead of visibility: collapse?
+The main thing is that we don't want the browser to look like it's in a domain-specific mode, because it's not.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-06-27T21:06:15Z,5559731.0
+601999,12,"I think we need that wherever -moz-element needs to observe changes in the rendering of an HTML element.
+Why is invalidation triggering a reflow?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-11-04T21:49:57Z,5059595.0
+576837,4,"Created attachment 482286
+Fix character class range with builtin character class on RHS.
+Produces the same error message for us as the rest of the character class badnesses, but I added a new error code for upstreamy goodness.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-10-11T18:28:10Z,5002125.0
+675961,3,http://hg.mozilla.org/integration/mozilla-inbound/rev/840fd3069d1f,UNCODED,0,UNMATCHED,2011-08-05T05:50:38Z,5635185.0
+677173,22,"Created attachment 556341
+Remove the IDL properties for now - mozilla-central
+Also remove the -moz-transform-style properties on mozilla-central",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-08-28T01:55:28Z,5683157.0
+554061,21,"Verified fixed in Shredder 3.2a1pre and SeaMonkey 2.1a1pre nightly builds.
+[Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.3a4pre) Gecko/20100326 SeaMonkey/2.1a1pre]",SOLUTION_VERIFICATION,0,FULL_TEXT,2010-03-26T20:14:28Z,4606779.0
+593387,41,"While we're at it, this bug seems to be in the wrong component as well.",UNCODED,0,UNMATCHED,2010-09-19T16:07:02Z,4951232.0
+593387,8,That is the unrelated bug 584693,UNCODED,0,UNMATCHED,2010-09-03T17:19:20Z,4913334.0
+667586,12,"Comment on attachment 542338
+method 1: clear text & icons but keep gray bg & border
+This breaks the autocomplete activity icon. Also, clicking the identity block is supposed to restore the page's URL.",CODE_REVIEW,0,FULL_TEXT,2011-06-29T12:45:46Z,5564266.0
+677173,27,http://hg.mozilla.org/mozilla-central/rev/0c6cbf58eaa0,UNCODED,0,UNMATCHED,2011-09-01T08:57:43Z,5693107.0
+627984,8,The branded shape and the slot holding the method are out of sync here. This is at least pretty scary.,ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2011-01-30T05:00:44Z,5238237.0
+627984,9,"var o = Array;
+o.p = function() {};
+o.watch('p', function() { });
+Object.keys(o);
+delete o.p;
+o.p = function() {};
+print(o.p);
+The iteration seems necessary here (keys), I don't know why.",TEST_CASES,0,FULL_TOKEN,2011-01-30T05:10:55Z,5238241.0
+558970,10,"Perhaps you could just add an ifdef DEBUG block to somewhere to check that
+nsHTMLEditorEventListener is connected to HTMLEditor?
+That should be enough to capture possible problems in the future.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2010-04-18T15:32:42Z,4645470.0
+561168,27,"Created attachment 445806
+filter followup
+and one more followup -- the image-rendering mode was being ignored.  try server run going again, this was the only reftest that failed last time.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-17T21:00:10Z,4699014.0
+601912,5,Confirming: not implemented in FF4b10.,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2011-02-02T13:36:05Z,5246989.0
+682449,5,http://hg.mozilla.org/mozilla-central/rev/84c0f1877335,UNCODED,0,UNMATCHED,2011-08-31T18:40:32Z,5691540.0
+552359,1,"Created attachment 432476
+Log with data: URIs
+http://tinderbox.mozilla.org/showlog.cgi?log=Firefox/1268611926.1268613545.12202.gz
+OS X 10.5.2 mozilla-central opt test reftest on 2010/03/14 17:12:06
+See attach error log snippet for test image vs. reference image.",STACK_TRACE,0,90_PCT_MATCH,2010-03-15T02:33:30Z,4584526.0
+667586,8,Maybe the label could be really faint instead of hidden to prevent the identity box from looking broken.,SOLUTION_REVIEW,1,FULL_TEXT,2011-06-27T21:17:51Z,5559761.0
+686900,8,"https://hg.mozilla.org/integration/mozilla-inbound/rev/2778cb07c697
+https://hg.mozilla.org/integration/mozilla-inbound/rev/ae99d33a2290
+https://hg.mozilla.org/integration/mozilla-inbound/rev/be380e98f383",UNCODED,0,UNMATCHED,2011-09-19T22:01:33Z,5724149.0
+660762,5,"Pushed:
+http://hg.mozilla.org/mozilla-central/rev/b8664f450508",UNCODED,0,UNMATCHED,2011-06-03T10:09:28Z,5510652.0
+593387,26,"Bummer.  Well, that proposal was only to prevent the case in the first part of your comment 12:
+I suppose we can punt on that case since we ultimately get to decide who the site A is that we'll be framing in the product, and we can avoid choosing sites that will be framing other X-F-O:DENY pages.  Sound fair?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-09-13T23:42:25Z,4936136.0
+593387,18,"X-Frame-Options 1) restricts ""DENY"" documents from being framed in any context and 2) restricts ""SAMEORIGIN"" documents to be framed only if the top-level browsing context is the same origin as the document.
+This bug is about adding exceptions to the above policy for chrome.  We want to allow chrome to frame any resource but we don't want to allow content to frame other content if it would violate any of the above policy.
+My thinking about GetSameTypeRootTreeItem is:
+1) any inner content document with X-F-O: DENY should be blocked if there exists a content docshell anywhere in its parent chain
+2) any inner content document with X-F-O: SAMEORIGIN should be blocked if the top content docshell in its parent chain is a different origin
+3) we don't need to worry about the ""content > chrome > content"" chain because we don't allow content to frame chrome in any case
+How does that sound?
+FYI, the canonical documentation for the feature is still Eric Lawrence's blog post:
+http://blogs.msdn.com/b/ieinternals/archive/2010/03/30/combating-clickjacking-with-x-frame-options.aspx",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2010-09-08T17:37:45Z,4922431.0
+597071,2,How can we detect whether _getCurrentState is called during shutdown?,QUESTION,0,FULL_TEXT,2010-09-17T16:53:40Z,4947983.0
+677173,9,"I added the rules to the css :
+html.csstransforms3d .slideshow.horizontal > ol.slides > li.current {
+	-webkit-transform:translate3d(0, 0, 0);
+	-moz-transform:translate3d(0, 0, 0);
+	-o-transform:translate3d(0, 0, 0);
+	-ms-transform:translate3d(0, 0, 0);
+	transform:translate3d(0, 0, 0);
+}
+Nothing changed... The slides don't move. And firebug doesn't show the rule.
+Let's be patient!",SOLUTION_REVIEW,1,FULL_TOKEN,2011-08-08T20:27:37Z,5640428.0
+585832,6,"Marcia: still need to know what's your graphics card! If it's Intel and doesn't have GL drivers on Windows, then your issue is a dupe of the fact that we need to use ANGLE in your case (known issue).",INFO_REQUEST,0,FULL_TEXT,2010-09-17T18:48:24Z,4948397.0
+627984,6,"This one crashes with -j in a release build:
+--
+var o = Array;
+o.watch('p', function() { }); 
+for(var x in o) {};
+delete o.p;
+o.p = function() {};
+for(var i=0; i<20; i++) {
+    print(o.p);
+}
+--
+Stack trace:
+Program received signal EXC_BAD_ACCESS, Could not access memory.
+Reason: KERN_PROTECTION_FAILURE at address: 0x0000001c
+0x00194fea in js::MethodReadBarrier ()
+(gdb) bt
+#0  0x00194fea in js::MethodReadBarrier ()
+#1  0x00382f08 in ?? ()
+#2  0x001b326c in js::ExecuteTree ()
+Previous frame inner to this frame (gdb could not unwind past this frame)",STACK_TRACE,0,FULL_TOKEN,2011-01-22T13:00:22Z,5219306.0
+554061,2,The menus are greyed out on startup using the default theme.  Mousing over them will put them back into the normal state.,UNCODED,0,UNMATCHED,2010-03-22T17:03:05Z,4596842.0
+675961,2,"Created attachment 550099
+patch 1
+This fixes tests 3.6 and 3.7 from https://github.com/oberstet/Autobahn",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-08-02T16:05:26Z,5627891.0
+552359,26,"Created attachment 444802
+Log for placeholder-7.html randomness",UNCODED,0,UNMATCHED,2010-05-12T00:28:55Z,4689068.0
+551837,7,"Comment on attachment 441050
+Optimized DoubleToECMAInt32 for ARM.
+Looks great to me -- should figure out what to do with the C version, since it sounds like that could be useful on non-x86 platforms where we don't have an optimized version.",CODE_REVIEW,0,FULL_TEXT,2010-04-26T18:56:32Z,4660890.0
+552359,10,"Replacing the focus manager with a mock (controllable by preference) might be an interesting possibility, although preserving ability to dispatch and respond to OS-level events seems tricky.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-03-26T20:33:25Z,4606817.0
+677173,24,"Comment on attachment 556341
+Remove the IDL properties for now - mozilla-central
+r=dbaron",UNCODED,0,UNMATCHED,2011-08-31T14:33:47Z,5690603.0
+597071,1,"This came out of bug 596592, where entering PB mode with just a popup and then leaving causes the last opened window to reopen.
+_getCurrentState is actually lying about the current state when there is a single window open and it's a popup (and there was a recently closed non-popup). It shifts a closed window into the open window list
+http://mxr.mozilla.org/mozilla-central/source/browser/components/sessionstore/src/nsSessionStore.js#1953
+This is fine for when quitting and we've been doing such for a long time. But I don't think it's the right thing to do when entering/exiting private browsing mode.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2010-09-16T17:51:21Z,4944880.0
+687754,27,"Created attachment 565359
+Don't remove unread in preview mode (next try)
+Additionally moved leading comment into the 'if' to avoid confusion with that other patch.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-10-06T21:34:50Z,5764745.0
+627984,16,"OK. My first instinct here was to trigger the method *read* barrier in UpdateWatchpointShape. If a method property would be watched, the barrier would convert it an ordinary data property. Then you would watch that.
+But that would go seriously against the grain, because UpdateWatchpointShape gets called at a point where the method property has been added, but before the slot is filled.
+So for now watchpoints need to know about the method barrier. (Which after all is only consistent. They know about everything else.)
+I have a sort of patch, but unfortunately the assertions I'm trying to add keep failing, and I'm out of time for the day.",SOLUTION_REVIEW,1,FULL_TOKEN,2011-02-05T00:33:00Z,5256985.0
+674446,2,"Comment on attachment 548676
+add logging
+While you're here, I'd suggest to add similar logging to nsGlueLinkingDlopen.cpp and nsGlueLinkingWin.cpp. (And it's expected you can't use PR_LOG: nspr is not available from the xpcom standalone glue).
+Note that I'm not an xpcom peer.",CODE_REVIEW,0,FULL_TEXT,2011-07-27T06:02:31Z,5615877.0
+585832,7,"Created attachment 476815
+relax WebGL feature test
+ok, let's play safe and only do this for WebGl.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-20T15:36:36Z,4952485.0
+667586,9,"Created attachment 542324
+method 1: clear text & icons but keep gray bg & border
+Making that entire region blank felt weird, since it left the text floating in space, so I removed the text & icons while leaving the block's background and border.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-06-27T23:48:08Z,5560280.0
+601999,18,"Thanks for looking into this, Daniel, and sorry that I didn't speak up sooner.
+Uh oh, shame on me for lack of test coverage. I'll write a test that would break asap.
+The call to InvalidateDirectRenderingObservers has the purpose of invalidating (purely visually) any elements that use the current element as a -moz-element paint server. The fact that it can also cause reflows is unfortunate, and in fact it's never necessary, at least not from nsIFrame::InvalidateInternal. (It is necessary when, for example, a filter's overflow actually changes, but then we're notified elsewhere and don't need to do anything in InvalidateInternal.)
+Maybe we should split rendering observers into two types? One ""visual"" type for -moz-element and another for filters, masks, etc. Then we'd only invalidate visual observers from nsIFrame::InvalidateInternal, which must not cause reflows, and the problem is gone.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-11-05T16:32:17Z,5061125.0
+601999,15,"Meant to reference this code (nsSVGFilterProperty::DoUpdate) for this step:
+http://mxr.mozilla.org/mozilla-central/source/layout/svg/base/src/nsSVGEffects.cpp?mark=276-278#265",CLARIFICATION,0,FULL_TOKEN,2010-11-04T23:28:24Z,5059910.0
+593387,39,"If you're going to use checkin-needed, please include a commit message in your patch.  (Really, you should always include it so the reviewer can review it.)
+I don't understand this well enough to write a good commit message, so I can't check it in.",CODE_REVIEW,0,FULL_TOKEN,2010-09-18T18:23:38Z,4950313.0
+561168,10,"Created attachment 443138
+patch 5: cleanup
+(Forgot to qrefresh patch 5 before attaching, this is the real one)",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-05-03T17:58:13Z,4674961.0
+593387,15,"Comment on attachment 471988
+fix v2
+Pending answers to the questions.",UNCODED,0,UNMATCHED,2010-09-06T19:10:17Z,4917340.0
+593387,31,"Just spoke to Boris and we decided on a better approach which is to mimic the GetSameTypeRootTreeItem behavior for finding the ""top"" docshell, but with an additional check that will make us stop when we find the first non-SystemPrinicpal-having item.  Patch coming up...",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2010-09-14T21:36:40Z,4938825.0
+601999,21,"Thanks for the feedback, Markus!  Your suggestion sounds promising, but I personally am a little hesitant to implement that change, when there's a more targeted fix available, primarily because:
+ - it sounds like it could be somewhat risky, this late in the game (for the potential benefit)
+ - any other as-yet-undetected bugs of this sort are likely to be sg:dos at worst (infinite loops)
+ - as roc pointed out, the situation here will change post-Firefox 4
+ - there are other blockers that need my attention :)
+So, I'd lean towards sticking with the fix strategies in the patches attached here and on bug 587336, and then perhaps implementing Markus's suggestion in a separate bug if anyone can get to it, but probably not blocking the Firefox 4 release on that. Does that sound reasonable?",SOLUTION_REVIEW,1,FULL_TOKEN,2010-11-10T01:06:40Z,5069234.0
+593387,16,"Good point.  I'm not sure how often we have chrome top-level page framing web content, but this would happen in those cases.  Perhaps I should get DocShells and call GetSameTypeRootTreeItem()?
+Yep, I'll fix this for the next version of the patch.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-09-07T23:59:59Z,4920353.0
+538721,3,"Thanks for the report, Jesse!
+Robert is correct on both counts. (FWIW, in bug 436276, I intended ""non-length"" to mean ""non-nsSVGLength2"" -- and strokeWidth is non-nsSVGLength2. Hence the dependency on that bug).
+In any case, bug 534028 is more granular, and when it's fixed, this test will pass.  So that's indeed a better bug # to reference there.
+Fixed:
+http://hg.mozilla.org/mozilla-central/rev/2ac64027f304",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-01-09T20:33:31Z,4480472.0
+561168,13,"Oops, disregard comment #11. I see we need that for the drag code, not Aero Peek.",UNCODED,0,UNMATCHED,2010-05-03T23:54:01Z,4675836.0
+677173,13,This bug is not about a crash.,CLARIFICATION,0,FULL_TEXT,2011-08-09T21:31:12Z,5643480.0
+558970,15,"http://hg.mozilla.org/mozilla-central/rev/d7085006cb18
+I'll file the bug.",UNCODED,0,UNMATCHED,2010-04-19T12:39:47Z,4646454.0
+627984,29,"Given gal's analysis and several agreements that the code was a mess, is [sg:critical?] more accurate a severity rating?",QUESTION,0,FULL_TEXT,2011-02-18T20:09:46Z,5290367.0
+577462,5,Pushed http://hg.mozilla.org/mozilla-central/rev/30984290515f.,UNCODED,0,UNMATCHED,2010-07-13T22:36:05Z,4792894.0
+667586,16,"It's not clear to me that this bug even started with the right premise. While the identity box doesn't correspond to the location bar value anymore when editing it, which can hardly be a surprise to someone editing the value, it does correspond to the page. I see no reason to give this away when all proposed solutions are somehow weird in their own way.",SOLUTION_REVIEW,1,FULL_TEXT,2011-06-30T06:40:48Z,5566566.0
+561168,16,"Bas, roc, do you guys mind if I just merge all the patches?  (With the large file removal patch kept separate still.)  Would be easier to make changes as the patches really build on top of one another and aren't discrete chunks of work.
+Martijn, nope, that's an issue with Linux.",QUESTION,0,FULL_TOKEN,2010-05-05T20:13:39Z,4679564.0
+593387,12,"Oh, wait.  I guess this is about the add-ons-manager-in-browser-tab case? In that situation, I can see why this is being a problem....",CLARIFICATION,0,FULL_TOKEN,2010-09-04T03:08:24Z,4914472.0
+576837,13,"For what it's worth, I found the intricate handoffs between parsing escapes, parsing non-escapes, and the state of CharacterClassDelegate to be way too confusing.  But I am loath to suggest significant adjustment as it seems likely to complicate the maintenance burden upstream updates would cause in concert with such changes.",CODE_REVIEW,0,FULL_TOKEN,2010-10-29T22:02:50Z,5046332.0
+626855,2,"Created attachment 504880
+Crash: trying to scroll HTML page with frameset",PROBLEM_DESCRIPTION,0,FULL_TEXT,2011-01-18T23:52:10Z,5209062.0
+561168,17,"Comment on attachment 443133
+patch 1: basic CanvasLayer + 2D code
+Presumably debug code :-)
+We probably want to either return here, in case we want this check in release builds (I suspect we do), or assert, because right now this would be a pointless if in a release build.
+If we require it to be empty, wouldn't assigning be cheaper than Union? It would save us a little bit of if-ing in UnionRect.",CODE_REVIEW,0,FULL_TEXT,2010-05-06T00:27:15Z,4680061.0
+676248,1,"We did this in bug 596303 but backed it out for performance reasons.
+However, we'll need it for bug 675410 and bug 676241.
+I think I've tracked down the real reasons why making the GL context transparent regressed performance:
+ - it seems to force on V-Sync
+ - we start repainting window background behind our GL context
+Every time we touch the window buffer (like when repainting the window background), something tries to sync the window buffer surface with the GL context surface and blocks on GL flush completion.
+We can work around that by moving our GL repaints away from setNeedsDisplay and drawRect. Then we'll no longer redraw the window background unnecessarily and we'll no longer block on anything.
+But until we can activate V-Sync (bug 555834), we can't make the context transparent.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2011-08-03T14:24:12Z,5630354.0
+577462,4,"Comment on attachment 456644
+Use GetDC where we can v2
+Someplace you should put a comment that says that GetDC is not supported
+on surfaces of D3DFMT_A8R8G8B8 format and that that's the motivation
+for splitting things out here.",CODE_REVIEW,0,FULL_TOKEN,2010-07-12T14:33:16Z,4789901.0
+585832,5,"Created attachment 476323
+relax graphics feature tests
+OK, indeed our feature tests were too strict in that ""not recommended"" ended up blocking. This patch relaxes them so we only block when the feature is really blocked or not available.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-17T18:47:05Z,4948391.0
+597071,9,Sent to try with 595236,STATUS_UPDATE,0,FULL_TEXT,2010-09-20T19:03:01Z,4953167.0
+601999,14,"So to answer comment 11 a little better -- what happens in the testcase here is basically the following:
+ (1) We're reflowing the page
+ (2) When we reflow the scrollFrame's child-block-frame, that triggers the InvalidateDirectRenderingObservers call from Ccomment 6
+ (3) That uses NS_UpdateHint to request an (asynchronous) reflow.
+ (4) At the end of our current reflow, we call HandlePostedReflowCallbacks, which runs a callback to update our scroll frame's scrollbars. (noted in comment 3)
+ (5) That callback returns true, which makes us call FlushPendingNotifications at the last line of HandlePostedReflowCallbacks.
+ (6) This flush makes us synchronously run the reflow that we'd requested in Step 3.
+   (Return to step 1; repeat until stack is exhausted)",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-11-04T23:27:03Z,5059903.0
+674446,5,"Mike, Benjamin r+ the previous patch. The current one adds the extra logging you asked for. Is it OK?",CODE_REVIEW_REQUEST,0,FULL_TEXT,2011-08-08T17:51:01Z,5639972.0
+691184,9,"Comment on attachment 565389
+Patch v1 (minus tests)
+The spec is bad, but I don't care enough to complain.",CODE_REVIEW,0,FULL_TEXT,2011-10-07T08:53:51Z,5765900.0
+677173,1,"Steps to Reproduce
+---------------------------------------
+1. go to http://dev.openclic.fr/
+2. click on arrows arround the photo
+3.
+What should have happened:
+---------------------------------------
+Photos should slide (using css -moz-transition)
+What actually happened:
+----------------------------------------
+they don't",S2R,0,FULL_TOKEN,2011-08-08T09:50:30Z,5639007.0
+667586,17,"We hide the bookmark star while the location bar value is being edited exactly because this UI is confusing.
+If we end up moving the identity block as part with the changes for bug 674744, then this problem will also be fixed. I won't be working on this anymore until there's a clear direction following those changes.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-08-16T01:22:01Z,5655842.0
+677173,11,"I added it via about:config.
+There is no animation but the photos move. If I change too much times, ffx chrashes.",SOLUTION_REVIEW,1,FULL_TOKEN,2011-08-08T21:20:44Z,5640583.0
+677173,28,"Cannot reproduce on Firefox 6.0.2 Linux using the testcase in the original comment. Based on check-ins I don't think this should be fixed in 6.0.2.
+Can someone please either confirm that 6.0.2 is fixed or provide a test case which reproduces this bug so that QA can verify? Thanks.",VERIFICATION_REQUEST,0,FULL_TEXT,2011-09-09T22:13:06Z,5711716.0
+585832,1,"Seen while running  Mozilla/5.0 (Windows; Windows NT 6.1; WOW64; rv:2.0b3) Gecko/20100805 Firefox/4.0b3. I tried in 32 bit mode and the same thing happens.
+STR:
+1. Enable WebGL with the about:config pref
+2. Load the site in the URL, or one of the demos from http://www.ambiera.com/copperlicht/demos.html
+Expected: it would work as it does using Windows XP and Vista using the same build
+Actual: I get an error saying that ""This demo requires a WebGL-enabled browser""
+I have seen Bug 560975 and I do not have those prefs set in about:config since I am using a new profile.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2010-08-10T01:08:33Z,4850510.0
+627984,22,"Wow, what a mess indeed. Sorry I forgot about watchpoints when doing the method stuff.
+Could you fix sevearl of these bugs before the js_watch_set setter is invoked, in js_UpdateWatchpointsForShape? Joined methods are an optimization, so deoptimizing as soon as there's sign of a watchpoint seems fine, and it looks from this patch like it would be simpler.
+/be",CODE_UPDATE_REQUEST,0,FULL_TOKEN,2011-02-09T02:28:11Z,5265176.0
+593387,44,Verified fixed with Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0b7pre) Gecko/20101006 Firefox/4.0b7pre. Also tested with 4.0b8pre builds on other platforms.,SOLUTION_VERIFICATION,0,FULL_TEXT,2010-10-11T22:06:03Z,5002762.0
+677173,26,And on Aurora: http://hg.mozilla.org/releases/mozilla-aurora/rev/03b0d42603f8,UNCODED,0,UNMATCHED,2011-08-31T23:45:57Z,5692442.0
+601999,1,"Created attachment 480993
+testcase (crashes Firefox when loaded)
+(Split from bug 550306)
+I'm hitting this a lot, and it's hard to distinguish too-much-recursion crashes from each other, so this makes fuzzing difficult.",PROBLEM_MOTIVATION,0,FULL_TEXT,2010-10-05T18:50:11Z,4987542.0
+587434,2,"Created attachment 468830
+Fix CALLXMLNAME
+Slow push thisv on CALLXMLNAME checks to make sure we're not pushing a call object onto the stack, sets |this| to NULL.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-08-24T22:26:07Z,4887418.0
+634654,15,"(Oh, and it passes shell tests in that form.)",SOLUTION_VERIFICATION,0,FULL_TEXT,2011-10-09T23:31:13Z,5770577.0
+627984,12,"This is the state right before we hit the methodReadBarrier in print(o.p). The object has clearly not the right method value in the slot:
+Breakpoint 4, JSObject::methodReadBarrier (this=0x100d0d068, cx=0x1008130e0, shape=@0x10111a5c8, vp=0x7fff5fbfede0) at jsobjinlines.h:165
+165	    if (!js_SetPropertyHelper(cx, this, shape.id, 0, vp, false))
+(gdb) call js_DumpObject(this)
+object 0x100d0d068
+class 0x100438ea0 Object
+flags: method_barrier inDictionaryMode hasPropertyTable
+properties:
+    enumerate method(0x100d0bd80) ""p"": slot 2
+    enumerate method(0x100d0bd00) ""q"": slot 1
+proto <Object at 0x100d030d8>
+parent <global object at 0x100d03048>
+slots:
+   0 = undefined
+   1 = <unnamed function (x.js:4) at 0x100d0bd00 (JSFunction at 0x100d0bd00)>
+   2 = undefined
+(gdb)",ERROR_MESSAGE,0,FULL_TOKEN,2011-01-30T05:57:46Z,5238274.0
+659018,1,"User-Agent:       Mozilla/5.0 (X11; Linux x86_64; rv:2.0.0) Gecko/20100101 Firefox/4.0
+Build Identifier: Thunderbird 3.4a1pre
+When the inbox is refreshed in Thunderbird and the number of unread messages changes, the inbox label (and consequently the name of its accessible) changes, but a property-changed::accessible-name is not fired.  This causes problems with Orca and AT-SPI2 since AT-SPI expects to receive the event and continues to read the old cached value (unless AT-SPI 2.0.2 or later is used and setCacheMask is called to disable caching of the name--I plan on proposing that Orca do this for now as a work-around).
+As I was testing, I saw the property-changed event being fired when I had the setCacheMask work-around in place but not when I did not have it included, so either this only happens sometimes or the event can be triggered somehow (perhaps calling atk_object_get_name on the accessible triggers the event).  I'm marking this as ""happens sometimes"" since I'm not entirely sure which is the case.
+Reproducible: Sometimes
+Steps to Reproduce:
+1. Start Orca.  If there is a setCacheMask call in the Thunderbird script, then remove it.
+2. Open Thunderbird.
+3. Do something to cause the number of unread inbox messages to change.
+Actual Results:  
+Orca continues to read the old inbox label.
+Expected Results:  
+I would have expected Thunderbird to send a property-changed::accessible-name when the label gets updated, so Orca would read the new label when it gains focus.  Note that it should also be possible to reproduce this with Accerciser using similar steps.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2011-05-23T16:45:03Z,5486755.0
+674609,1,"TI uses about 15% more memory than m-c for storing scripts.  About 1/2 to 2/3 of this overhead is the extra 2 byte tag on each property access indexing into the observed type sets for the script, the rest is an increase in sizeof(JSScript) by five words.  The property access overhead can be eliminated either by doing a binary search for the type set on each property access in the interpreter or by requiring all interpreted scripts to have gone through bytecode analysis, which can index the type sets in storage that will be wiped out on GC.  Inclined to go with the latter here.  The sizeof(JSScript) increase can be reduced to two words, by combining two of the fields into a union (function and global, as the global can be determined from the script's function) and moving the others into a now-heap-allocated TypeScript.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-07-27T18:33:50Z,5617220.0
+627984,14,"There is a bunch of bugs here actually. In js_NativeSet we never trigger the method write barrier if a property is added (added=true), because we think that can't cause a shape change, but that's not true for watchpoint setters which fire for additions as well since they are persistent. So in other words watch makes our write barrier more expensive in general. Super lame.
+There is a second bug. The slot is initialized to undefined when we call the setter, so even if we would call the method write barrier it would see undefined (old) == undefined (new) and not brand.
+I think this is all pretty seriously broken and all sorts of unsafe. I vote for a hard blocker. This probably wants jorendorff or brendan, though I think I can fix it if push comes to shove.",SOLUTION_REVIEW,1,FULL_TOKEN,2011-01-30T09:07:51Z,5238386.0
+634654,20,"(Sorry luke, didn't qref the removal of that one fprintf chunk!)",UNCODED,0,UNMATCHED,2011-10-11T23:33:45Z,5776209.0
+601912,7,"Created attachment 509097
+Test case: changing start value or count order with CSS
+This test case illustrates that you can, with CSS:
+- start an ordered list with a specific value (same as HTML start attribute),
+- count in bigger increments (no HTML equivalent that I know of),
+- count backwards (i.e. in negative increments).
+But you can't:
+- use CSS to count backwards (countdown style) unless you already know the number of items and you hardcode that value in your CSS.",TEST_CASES,0,FULL_TOKEN,2011-02-02T14:48:00Z,5247102.0
+677173,29,The CSS 3d-transforms patches that caused this bug never landed on 6.,COLLATERAL_PROBLEM_ANALYSIS,0,FULL_TEXT,2011-09-10T13:26:41Z,5712493.0
+658675,5,"Comment on attachment 537459
+v1
+Review of attachment 537459:
+-----------------------------------------------------------------
+OK, this looks good to me. Really need a way of testing with a 404 captcha page, though.",CODE_REVIEW,0,FULL_TEXT,2011-06-05T19:29:15Z,5514220.0
+561168,28,"WebGLArray.h was removed from the EXPORTS in content/canvas/public/Makefile.in, but the file itself sits still in said directory and is an #include dependency for WebGLContextNotSupported.cpp. The build breaks due to not finding the header file. I commented #include WebGLArray.h out and WebGLContextNotSupported.cpp was compiled successfully. Dunno if that's the right fix as another possibility would be to add WebGLArray.h back to the EXPORTS in the Makefile. Please give me a hint that I can open a follow-up bug with a proper fix. I'm building on OS/2 w/o WebGL dissabled (of course), thanks.",SOLUTION_VERIFICATION,0,FULL_TEXT,2010-05-18T07:03:22Z,4699786.0
+597071,3,"if (_this._loadState == STATE_QUITTING)
+  // move last closed non-popup
+I think we also want to check something about _restoreLastWindow (for the all browser windows are closed, but view-source was left open), since we'll still have STATE_RUNNING.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-09-17T17:03:15Z,4948013.0
+627984,27,http://hg.mozilla.org/tracemonkey/rev/589bb166be02,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2011-02-14T23:55:07Z,5278471.0
+658675,4,"Created attachment 537459
+v1",UNCODED,0,UNMATCHED,2011-06-05T16:54:51Z,5514128.0
+659018,2,"FWIW, NVDA always picks up the change in unread messages on Windows.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2011-05-23T17:24:33Z,5486902.0
+687754,32,"https://hg.mozilla.org/mozilla-central/rev/2561f2a8512c
+https://hg.mozilla.org/mozilla-central/rev/52bde8206312",UNCODED,0,UNMATCHED,2011-10-09T14:36:11Z,5770022.0
+667586,7,"Yes.
+Might look weird, but that's the only compromise I could think of as well.",SOLUTION_REVIEW,1,FULL_TEXT,2011-06-27T21:14:38Z,5559749.0
+576837,11,"Comment on attachment 485837
+Fix character class range with builtin character class on any side.
+That's because I didn't put it in a character class. Duh. (One of those days.)",CLARIFICATION,0,FULL_TEXT,2010-10-25T20:22:47Z,5035179.0
+687754,11,Sorry about that. Leftover from a test line when copying over.,CLARIFICATION,0,FULL_TEXT,2011-09-27T19:27:12Z,5740948.0
+596726,1,"User-Agent:       Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.9) Gecko/20100824 Firefox/3.6.9
+Build Identifier: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.9) Gecko/20100824 Firefox/3.6.9
+See the attached URL for a working example of the problem which appeared in Firefox 3.6.9.
+If a <pre> has contentEditable=true, deleting the first character on a line will bring that line up to the previous line.  Similarly, trying to enter a character with the caret at the beginning of a blank line will actually add the character to the next line.
+The demo url is the best explanation of this.
+Reproducible: Always
+Steps to Reproduce:
+1. Click inside a contentEditable div
+2. Delete the first character of any line
+Or
+3.  Add a character at the beginning of a blank line.
+Actual Results:  
+Deleting the first character of a line moves the rest of the line to the end of the previous line.
+Adding a character to the beginning of a blank line actually adds it to the beginning of the next line.
+Expected Results:  
+Characters should be inserted and deleted without changing surrounding lines.",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2010-09-15T20:50:32Z,4942334.0
+593387,5,Taking this.  Will have a patch shortly.,DEVELOPER_SELECTION_DECISION,0,FULL_TOKEN,2010-09-03T17:09:00Z,4913296.0
+597071,8,"Comment on attachment 476464
+Patch v0.1
+This makes sense, makes the API more consistent. To make the test only run for Win/Linux, move the check to the makefile so that it doesn't run at all. r=me w/ that change.",CODE_REVIEW,0,FULL_TEXT,2010-09-20T08:36:47Z,4951887.0
+601999,24,Sure. Thanks!,UNCODED,0,UNMATCHED,2010-11-10T10:24:30Z,5069996.0
+576837,10,"Comment on attachment 485837
+Fix character class range with builtin character class on any side.
+Hmm, I think /\s\w-\W/ should be failing as well.",CODE_REVIEW,0,FULL_TEXT,2010-10-25T20:20:08Z,5035171.0
+561168,31,"Sorry, it appears that you removed to much here:
+weakld: error: Unresolved symbol (UNDEF) '_kDOMClassInfo_WebGLFramebuffer_interf
+aces'.
+weakld: info: The symbol is referenced by:
+    E:\mozbuild4\mozilla\dom\base\jsdombase_s.lib(nsDOMClassInfo.o)
+and so on
+ DOMCI_DATA(CanvasRenderingContextWebGL, void)
+-DOMCI_DATA(WebGLBuffer, void)
+-DOMCI_DATA(WebGLTexture, void)
+-DOMCI_DATA(WebGLProgram, void)
+-DOMCI_DATA(WebGLShader, void)
+-DOMCI_DATA(WebGLFramebuffer, void)
+-DOMCI_DATA(WebGLRenderbuffer, void)
+These lines have to be added back",CODE_REVIEW,0,FULL_TOKEN,2010-05-18T19:13:53Z,4700875.0
+577462,2,Ignore the accelerated=11 part in the beginning =),UNCODED,0,UNMATCHED,2010-07-08T23:26:19Z,4786578.0
+659018,6,"Comment on attachment 539725
+patch
+Review of attachment 539725:
+-----------------------------------------------------------------
+::: accessible/src/atk/nsAccessibleWrap.cpp
+@@ +1082,5 @@
+does it really make sense to check whether name weren't changed? I'd guess this can happen iff atk name was requested before we handled the event. Do you handle this case?",QUESTION,0,FULL_TEXT,2011-06-16T07:26:46Z,5536113.0
+593387,45,*** Bug 605005 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-10-17T19:40:34Z,5015951.0
+677173,15,"Comment on attachment 553088
+Remove the IDL properties for now
+r=dbaron
+Sorry for the delay getting to this.
+We need to get this in on aurora to fix the fact that something that was supposed to be disabled wasn't fully disabled.",CODE_REVIEW,0,FULL_TOKEN,2011-08-16T19:22:02Z,5657798.0
+660762,4,"Comment on attachment 536539
+patch
+Review of attachment 536539:
+-----------------------------------------------------------------",UNCODED,0,UNMATCHED,2011-06-01T23:19:51Z,5507598.0
+585832,3,What is the graphics card in the machine that can't run WebGL demos?,QUESTION,0,FULL_TEXT,2010-08-10T03:07:58Z,4850663.0
+627984,13,"We call the watch point in SetMethod after we have updated the shape and then write that value into the slot. The watch point returns undefined and that value is written. It might be possible to trick the property cache into calling the wrong function with this:
+(gdb) s
+obj_watch_handler (cx=0x1008130e0, obj=0x100d0d068, id={asBits = 4299215808}, old={asBits = 18444773748872577024, debugView = {payload47 = 0, tag = JSVAL_TAG_UNDEFINED}, s = {payload = {i32 = 0, u32 = 0, why = JS_ARRAY_HOLE, word = 18444773748872577024}}, asDouble = -nan(0x9000000000000), asPtr = 0xfff9000000000000}, nvp=0x7fff5fbfed90, closure=0x100d0e058) at ../jsobj.cpp:1310
+1310	    callable = (JSObject *) closure;
+(gdb) n
+1312	    callbacks = JS_GetSecurityCallbacks(cx);
+(gdb) n
+1313	    if (callbacks && callbacks->findObjectPrincipals) {
+(gdb) n
+1332	    key.obj = obj;
+(gdb) n
+1333	    key.id = id;
+(gdb) n
+1334	    if (!js_StartResolving(cx, &key, JSRESFLAG_WATCH, &entry))
+(gdb) n
+1336	    if (!entry)
+(gdb) n
+1338	    generation = cx->resolvingTable->generation;
+(gdb) n
+1340	    argv[0] = IdToValue(id);
+(gdb) n
+1341	    argv[1] = Valueify(old);
+(gdb) n
+1342	    argv[2] = Valueify(*nvp);
+(gdb) n
+1343	    ok = ExternalInvoke(cx, obj, ObjectOrNullValue(callable), 3, argv, Valueify(nvp));
+(gdb) p *nvp
+$63 = {
+  asBits = 18445477440623000960, 
+  debugView = {
+    payload47 = 4308647296, 
+    tag = JSVAL_TAG_OBJECT
+  }, 
+  s = {
+    payload = {
+      i32 = 13680000, 
+      u32 = 13680000, 
+      why = 13680000, 
+      word = 18445477440623000960
+    }
+  }, 
+  asDouble = -nan(0xb800100d0bd80), 
+  asPtr = 0xfffb800100d0bd80
+}
+(gdb) n
+1344	    js_StopResolving(cx, &key, JSRESFLAG_WATCH, entry, generation);
+(gdb) p *nvp
+$64 = {
+  asBits = 18444773748872577024, 
+  debugView = {
+    payload47 = 0, 
+    tag = JSVAL_TAG_UNDEFINED
+  }, 
+  s = {
+    payload = {
+      i32 = 0, 
+      u32 = 0, 
+      why = JS_ARRAY_HOLE, 
+      word = 18444773748872577024
+    }
+  }, 
+  asDouble = -nan(0x9000000000000), 
+  asPtr = 0xfff9000000000000
+}
+(gdb) 
+(gdb) l
+5662	                getter = CastAsPropertyOp(funobj);
+5663	            }
+5664	        }
+5665	
+5666	        shape = obj->putProperty(cx, id, getter, setter, SHAPE_INVALID_SLOT,
+5667	                                 attrs, flags, shortid);
+5668	        if (!shape)
+5669	            return JS_FALSE;
+5670	
+5671	        if (defineHow & JSDNP_CACHE_RESULT)
+(gdb) n
+5668	        if (!shape)
+(gdb) n
+5671	        if (defineHow & JSDNP_CACHE_RESULT)
+(gdb) n
+5672	            TRACE_1(AddProperty, obj);
+(gdb) l
+5667	                                 attrs, flags, shortid);
+5668	        if (!shape)
+5669	            return JS_FALSE;
+5670	
+5671	        if (defineHow & JSDNP_CACHE_RESULT)
+5672	            TRACE_1(AddProperty, obj);
+5673	
+5674	        /*
+5675	         * Initialize the new property value (passed to setter) to undefined.
+5676	         * Note that we store before calling addProperty, to match the order
+(gdb) n
+5679	        if (obj->containsSlot(shape->slot))
+(gdb) n
+5680	            obj->nativeSetSlot(shape->slot, UndefinedValue());
+(gdb) n
+5683	        if (!CallAddPropertyHook(cx, clasp, obj, shape, vp)) {
+(gdb) p *vp
+$54 = {
+  data = {
+    asBits = 18445477440623000960, 
+    debugView = {
+      payload47 = 4308647296, 
+      tag = JSVAL_TAG_OBJECT
+    }, 
+    s = {
+      payload = {
+        i32 = 13680000, 
+        u32 = 13680000, 
+        why = 13680000, 
+        word = 18445477440623000960
+      }
+    }, 
+    asDouble = -nan(0xb800100d0bd80), 
+    asPtr = 0xfffb800100d0bd80
+  }
+}
+(gdb) call js_DumpValue(*vp)
+<unnamed function (x.js:6) at 0x100d0bd80 (JSFunction at 0x100d0bd80)>
+(gdb) s
+CallAddPropertyHook (cx=0x1008130e0, clasp=0x100438ea0, obj=0x100d0d068, shape=0x10111a5c8, vp=0x7fff5fbfed90) at ../jsobj.cpp:4576
+4576	    if (clasp->addProperty != PropertyStub) {
+(gdb) n
+4586	    return true;
+(gdb) fin
+Run till exit from #0  CallAddPropertyHook (cx=0x1008130e0, clasp=0x100438ea0, obj=0x100d0d068, shape=0x10111a5c8, vp=0x7fff5fbfed90) at ../jsobj.cpp:4586
+0x0000000100106c62 in js_SetPropertyHelper (cx=0x1008130e0, obj=0x100d0d068, id={asBits = 4299215808}, defineHow=5, vp=0x7fff5fbfed90, strict=0) at ../jsobj.cpp:5683
+5683	        if (!CallAddPropertyHook(cx, clasp, obj, shape, vp)) {
+Value returned is $55 = true
+(gdb) n
+5687	        added = true;
+(gdb) p *vp
+$56 = {
+  data = {
+    asBits = 18445477440623000960, 
+    debugView = {
+      payload47 = 4308647296, 
+      tag = JSVAL_TAG_OBJECT
+    }, 
+    s = {
+      payload = {
+        i32 = 13680000, 
+        u32 = 13680000, 
+        why = 13680000, 
+        word = 18445477440623000960
+      }
+    }, 
+    asDouble = -nan(0xb800100d0bd80), 
+    asPtr = 0xfffb800100d0bd80
+  }
+}
+(gdb) n
+5690	    if (defineHow & JSDNP_CACHE_RESULT)
+(gdb) n
+5691	        JS_PROPERTY_CACHE(cx).fill(cx, obj, 0, 0, obj, shape, added);
+(gdb) n
+5693	    return js_NativeSet(cx, obj, shape, added, vp);",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-01-30T06:08:55Z,5238281.0
+682449,3,"Created attachment 556165
+v1",UNCODED,0,UNMATCHED,2011-08-26T23:05:58Z,5681877.0
+561168,25,"Comment on attachment 444923
+updated, v3
++  NS_IMETHOD RenderContextsExternal (gfxContext *ctx, gfxPattern::GraphicsFilter aFilter) = 0;
+Unnecessary space before (
++    nsRefPtr<gfxImageSurface> surf = new gfxImageSurface(gfxIntSize(mWidth, mHeight),
++                                                         gfxASurface::ImageFormatARGB32);
++    if (surf->CairoStatus() != 0)
++        return NS_ERROR_FAILURE;
+ 
+-        int bwidth = mGLPbuffer->Width();
+-        int bheight = mGLPbuffer->Height();
++    MakeContextCurrent();
++    gl->fReadPixels(0, 0, mWidth, mHeight,
++                    LOCAL_GL_BGRA,
++                    LOCAL_GL_UNSIGNED_INT_8_8_8_8_REV,
++                    surf->Data());
+Can you ASSERT that surf->Stride() is what you expect?
++    nsRefPtr<layers::CanvasLayer> mCanvasLayer;
+You removed all uses of mCanvasLayer, but you still need to remove this declaration.
++    if (!LibrarySymbolLoader::LoadSymbols(mOGLLibrary, &pbufferSymbols[0], (LibrarySymbolLoader::PlatformLookupFunction)fGetProcAddress)) {
++        // this isn't an error, just means that pbuffers aren't supported
++        fCreatePbuffer = nsnull;
++    }
++
++    if (!LibrarySymbolLoader::LoadSymbols(mOGLLibrary, &pixFmtSymbols[0], (LibrarySymbolLoader::PlatformLookupFunction)fGetProcAddress)) {
+Teletype
++    // the future we should use mUpdatedRect, thoug hwith WebGL we don't
+Fix typo",CODE_REVIEW,0,90_PCT_MATCH,2010-05-12T23:14:15Z,4691309.0
+691184,7,"Created attachment 565389
+Patch v1 (minus tests)
+https://tbpl.mozilla.org/?tree=Try&rev=19fdc5b8499f
+(with Ms2ger's test changeset this time)",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-10-06T23:16:05Z,5765086.0
+658675,1,"When using a slow-ish internet connection, the captcha wizard page is a UX nightmare. There's little to no indication that there's even something loading. When using a custom server, we briefly display the page until we find out that there's a 404 and we move on. That flicker should also go away.
+The solution that I'm proposing is to preload the captcha as soon as the user decides to create a new sync account rather than connect to an existing one.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2011-05-20T22:07:56Z,5483815.0
+593387,2,"This feels like a bug in the X-FRAME-OPTIONS implementation, since we are a
+chrome privileged page loading content in browser element.",PROBLEM_LOCALIZATION,0,FULL_TOKEN,2010-09-03T15:58:32Z,4913114.0
+667586,11,"Created attachment 542338
+method 1: clear text & icons but keep gray bg & border
+s/visibility: hidden/opacity: 0/",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-06-28T00:32:57Z,5560434.0
+552914,5,"Comment on attachment 435856
+Patch v2.0
+Perhaps this could be called
+PRBool UseAsyncUpdate() const
+Maybe just
+PRBool NoCSS() const
+Maybe just 
+PRBool DontEchoPassword() const
+I think you could make nsEditorListener::mEditor to be
+type nsEditor. Currently it is nsIEditor. That way you wouldn't need the static_cast.
+Though, it is possible that you'd need a static_cast then elsewhere. But try and see
+what leads to easiest-to-read code.
+If mEditor was nsEditor, this QI wouldn't be needed.
+DontEchoPassword()?",CODE_REVIEW,0,FULL_TOKEN,2010-04-08T14:55:44Z,4628135.0
+687754,22,"fastFind and TitleBar are even less related. So using the 'if (!this._previewMode)' of the TabSelect block makes more sense if we want to move it down to save a separate 'if' for removing the attribute.
+Anyway. To make some progress I am going to split the patch into 2 parts:
+Part 1: Only set unread when busy is removed
+Part 2: Don't remove unread in preview mode (fix on old position)
+Part 2 alternate: Don't remove unread in preview mode (moved down to use existing if)
+This way part 1 can get applied and you can choose (or we can discuss further) which one of part 2 is better.
+After the fixes did land in mozilla-central, we should take care they are getting in aurora too before FF9 moves to beta.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-10-06T00:31:01Z,5762198.0
+558970,12,"Created attachment 439869
+Patch v2.1",UNCODED,0,UNMATCHED,2010-04-19T08:03:41Z,4646226.0
+627984,11,"No resolve hook needed. Just adding another function (which causes rebranding) will do it.
+var o = ({});
+o.p = function() {};
+o.watch('p', function() { });
+o.q = function() {}
+delete o.p;
+o.p = function() {};
+print(o.p);",TEST_CASES,0,FULL_TOKEN,2011-01-30T05:17:39Z,5238250.0
+561168,6,"Created attachment 443134
+patch 2: remove nsICanvasElement
+- move nsICanvasElement functionality into nsHTMLCanvasElement
+- create nsICanvasElementExternal, for outside-of-layout consumers",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-03T17:52:21Z,4674946.0
+601999,10,"Created attachment 488050
+fix: delete regressing line
+This is ""Strategy A"" from comment 8. (delete the regressing line)
+Includes a crashtest from this bug & one from related bug 587336, both of which fail (hang or crash) pre-patching but pass post-patching.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-11-03T23:04:24Z,5057325.0
+597389,8,"Comment on attachment 476234
+Patch v1.0
+This looks fine to me.",CODE_REVIEW,0,FULL_TEXT,2010-09-17T18:52:07Z,4948409.0
+593387,27,"And by ""punt on that case"" I mean ""allow chrome to frame any document regardless of its X-F-O preferences"".",ANSWER_TO_QUESTION,0,FULL_TEXT,2010-09-13T23:55:26Z,4936172.0
+554061,4,"Yes Alice that is true, but you have to do it everytime you restart Minefield.",SOLUTION_REVIEW,1,FULL_TEXT,2010-03-22T20:40:16Z,4597403.0
+552359,8,"Caret reftests depend on having focus too.
+What I would really like to do is have a way for tests to *pretend* a browser window has OS-level focus when it really doesn't.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2010-03-26T02:23:24Z,4605379.0
+552359,4,"http://tinderbox.mozilla.org/showlog.cgi?log=Firefox/1269516844.1269518375.8836.gz
+OS X 10.5.2 mozilla-central opt test reftest on 2010/03/25 04:34:04
+s: moz2-darwin9-slave18",UNCODED,0,UNMATCHED,2010-03-25T12:05:12Z,4603569.0
+593387,34,"This is marked betaN but I would really like to see this in for feature freeze. Brandon, possible to get the comments and checkin turned around today?",CODE_UPDATE_REQUEST,0,FULL_TEXT,2010-09-16T18:43:04Z,4945104.0
+593387,11,"Created attachment 471988
+fix v2
+The Add-ons Manager folks will have to speak to that, but in the meantime here's the patch with the Subsumes check.
+I'm still having trouble with the test, but I'll see if I can get attached to the bug relatively soon.",STATUS_UPDATE,0,FULL_TEXT,2010-09-03T21:47:26Z,4913944.0
+677173,12,Adding crash signature so it gets picked up on the Socorro side.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,2011-08-09T21:14:22Z,5643395.0
+658675,7,"Created attachment 537475
+v2
+Use wizard.advance() instead of manipulating wizard.pageIndex and move this piece of code from onWizardAdvance to onPageShow to avoid infinite recursion.
+Also don't call Service.login(). It made closing the wizard kind of slow and jerky and it's so not needed anymore.
+Asking for review again for those two changes.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-06-05T20:29:54Z,5514269.0
+601999,3,The obvious question: which reflow callback is it?,INFO_REQUEST,0,FULL_TEXT,2010-10-05T19:49:40Z,4987711.0
+561168,15,Will this help bug 520776?,QUESTION,0,FULL_TEXT,2010-05-05T16:35:19Z,4678990.0
+558970,5,"Created attachment 439469
+Patch v2.0 (-w)",UNCODED,0,UNMATCHED,2010-04-16T04:55:01Z,4642145.0
+601999,8,"NOTE: up until the changeset in Comment 6, mozilla-central only had one call to nsSVGEffects::InvalidateDirectRenderingObservers -- in nsFrame::DestroyFrom(nsIFrame* aDestructRoot).",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2010-11-03T20:16:31Z,5056829.0
+670853,4,"I'm grateful, and thank you :)",UNCODED,0,UNMATCHED,2011-07-12T08:13:51Z,5586166.0
+674609,2,"Created attachment 549142
+patch
+Remove the two byte typeset tag following every property read and call op, and require analysis of the bytecode in such scripts when they are interpreted (should be cheap to do, need to see how it affects the inference-pools memory).  Refactor TypeScript to be heap-allocated rather than embedded in JSScript, and reduce the size of JSScript by three words.  This patch touches a lot of code outside of inference in simple ways, should just need to be skimmed for review.
+http://hg.mozilla.org/projects/jaegermonkey/rev/65c33bba9d01",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-07-28T16:31:41Z,5619599.0
+597389,3,"I can't reproduce this bug (testing in FF 3.6.9 on OS X 10.5.8) ... or
+at least I don't think I can.
+Here's what I did:
+1) Load this bug's URL (http://www.tbs.co.jp/radio/todays954/) and
+   click somewhere in the Flash object.
+   Notice that it's no longer possible to choose Kotoeri Hiragana or
+   Katakana from the ""flags"" menu (those choices are greyed out).
+2) Click elsewhere in the page.
+   Now it's once again possible to choose Hiragana or Katakana.
+3) Click on the Flash object -- Hiragana and Katakana are greyed out.
+4) Switch tabs -- Hiragana and Katakana are no longer greyed out.
+5) Switch back to the tab with http://www.tbs.co.jp/radio/todays954/
+   in it -- Hiragana and Katakana are still not	greyed out.
+6) Click on the Flash object -- Hiragana and Katakana are greyed out.
+7) Close the current tab (with http://www.tbs.co.jp/radio/todays954/
+   in it) -- Hiragana and Katakana are no longer greyed out.
+Later I'll try it on OS X 10.6.4.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2010-09-17T16:55:41Z,4947990.0
+552914,3,"Comment on attachment 433027
+Patch v1.0
+I don't understand this method. Nothing seems to call it ever.
+So you are, at least in theory, changing the behavior here.
+Have you tested password fields with IME?
+I think I would do this in different way.
+Really start use nsEditor::mFlags always, and remove mFlags from nsTextEditRules.
+nsTextEditRules can always access nsEditor::mFlags when needed.
+Or is there some reason to not use nsEditor::mFlags, but nsTextEditRules::mFlags?",CODE_REVIEW,0,FULL_TOKEN,2010-03-28T22:12:05Z,4608902.0
+677173,4,"I sent them mail, but if someone who can write French sanely wants to do that too, that would be great!",UNCODED,0,UNMATCHED,2011-08-08T16:49:38Z,5639772.0
+597071,12,"Created attachment 477282
+Patch v1.0 (for checkin)
+Used #ifndef XP_MACOSX in the Makefile to target win/linux. Also moved the listener off the tabContainer to gBrowser, since that's what was most likely causing the timeout (tabContainer doesn't capture page loads, just favicons)",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-21T21:13:51Z,4956865.0
+627984,10,"Object.keys triggers the resolve hook on Array. This simplified test case crashes too:
+var o = Array;
+o.p = function() {};
+o.watch('p', function() { });
+o.length;
+delete o.p;
+o.p = function() {};
+print(o.p);
+Looks like we mess up the write barrier here. Watch sets a getter which makes shape no longer say yes to ""isMethod"", and resolving another method on that causes bad things. Pretty sketchy stuff.",TEST_CASES,0,FULL_TOKEN,2011-01-30T05:16:30Z,5238248.0
+576837,15,"Backout: http://hg.mozilla.org/tracemonkey/rev/f4444a398ec1
+Somehow I missed bug 351463: with a hyphen between two character classes we are intentionally not compliant to the spec.",IMPLEMENTATION_REVERSION,0,FULL_TOKEN,2010-11-09T19:54:16Z,5068206.0
+682449,4,http://hg.mozilla.org/services/services-central/rev/84c0f1877335,UNCODED,0,UNMATCHED,2011-08-26T23:49:17Z,5681981.0
+551837,2,"I should add that the 5% improvement is on SunSpider on the JS shell, using Trace Monkey.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-03-12T00:19:19Z,4580723.0
+601999,22,It does to me.,ANSWER_TO_QUESTION,0,FULL_TEXT,2010-11-10T03:07:42Z,5069525.0
+687754,12,"Created attachment 562836
+unread - fix (corr)
+Comments deleted, typo corrected",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-09-27T19:33:46Z,5740962.0
+561168,20,"Created attachment 444506
+updated and marged
+This merges the patches and updates them with review comments.  It can largely be reviewed in toplevel chunks -- that is, per directory/directory group.
+mUpdatedRect and friends are easier to keep as a rect than a Size due to unioning/clipping/etc.  In the future I think it might be possible to call updated more than once before finalization, hence the checks, though maybe I need to think through that a little more.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-10T23:24:58Z,4686617.0
+593387,46,"User-Agent:       Mozilla/5.0 (Windows NT 5.1; rv:2.0b6) Gecko/20100101
+Firefox/4.0b6
+Build Identifier: Mozilla/5.0 (Windows NT 5.1; rv:2.0b6) Gecko/20100101
+Firefox/4.0b6
+I'm here as a Dupe via Comment 44 .
+Fixed ? : When I click [Tools][Add-ons] I get this page as the default http://www.mozilla.org/ , and if I click another Tab below ""Get Add-ons"" (EG: Extensions, Themes, or Plug-ins) and then ""Get Add-ons"" again I get a Blank rendering - there is NO frame. A right-click the SECOND time (in the frame area) says the URL is now ""about:addons"" (the ""frame"" is gone).
+Rob",SOLUTION_VERIFICATION,0,FULL_TOKEN,2010-10-25T04:32:56Z,5033537.0
+686900,4,"Created attachment 560387
+3 - Rewrite js_InitFunctionAndObjectClasses
+The pièce de résistance!  The sine qua non!  The cliched concluding phrase!",UNCODED,0,UNMATCHED,2011-09-15T17:16:15Z,5718770.0
+593387,42,*** Bug 594682 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-10-04T02:46:34Z,4983603.0
+593387,35,"Created attachment 476053
+fix v4
+This addresses Boris' review comments, but I'm still struggling to get a test working.  If drivers want to land this in the meantime, by all means...",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-09-16T22:28:18Z,4946035.0
+561168,18,I'd actually like that. It would make it easier to review as well.,ANSWER_TO_QUESTION,0,FULL_TEXT,2010-05-06T01:01:23Z,4680108.0
+627984,17,"Elaborating a little on comment 16:
+There are three bugs I know very clearly how to fix.
+1. js_watch_set passes the property's old slot value (the one we're about to overwrite) to wp->handler without checking to see if the property is a method. If it's a method, the old value is an uncloned function object that must not be exposed to script! The fix is for js_watch_set to trip the read barrier before calling wp->handler.
+2. js_watch_set can get called at an unfortunate time. The order of adding a data property, such as a method, is like this:
+    - add the shape to the object
+    - call the setter
+    - store the value in the slot
+So suppose we watch a property, then delete it, and then use JSOP_INITMETHOD to create it again. Here's what happens:
+    - add the (watched method) shape to the object
+    - call js_watch_set, which calls wp->handler
+    - store the uncloned function object in the slot
+Note js_watch_set is called *after* the METHOD property is added to obj but *before* the slot is assigned. So the slot value is undefined. To my mind, this state is a violation of the method invariant. We do not want to be calling back into the interpreter with the object in that state. The fix, again, is for js_watch_set to trip the method barrier before calling wp->handler.
+3. The watchpoint handler could delete the property and re-add it as a method property again. Then whatever value it returns must not be stored in the slot of that method property; it would violate the method invariant. So after the handler returns, we probably need to call methodWriteBarrier. (This one I'm not quite sure about.)
+There are also at least 2 other issues:
+4. Bug 631723 - Deleted watchpoints can make obj->addProperty/putProperty return a shape not in obj.
+5. If wp->handler deletes the property, wp->shape is not set to NULL. I think I have seen wp->shape be wrong (that is, != obj->nativeLookup(propid)) in other circumstances, too, which would be bad. This needs another look, possibly in a follow-up bug.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-02-05T00:50:57Z,5257019.0
+601912,1,"User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.10) Gecko/20100914 Firefox/3.6.10 (.NET CLR 3.5.30729)
+Build Identifier: Mozilla/5.0 (en-US; rv:1.9.2.10) Gecko/20100914 Firefox/3.6.10
+HTML 5's <li> reversed attribute is ignored. It was supposed to reverse the list numbering.
+Reproducible: Always",PROBLEM_DESCRIPTION,0,FULL_TEXT,2010-10-05T12:20:37Z,4986652.0
+552359,17,"Comment on attachment 439691
+Patch for placeholder-7.html
+Canceling review per previous comment.
+Someone else can reproduce this random failure ?",VERIFICATION_REQUEST,0,FULL_TEXT,2010-04-18T18:27:56Z,4645579.0
+558970,1,"Created attachment 438648
+Patch v1.0
+separated from bug 552914.
+Current nsEditorEventListener stores the editor as nsIEditor. However, if we change this to nsEditor, we can remove may casts and QIs.
+And also we can remove null check of mEditor because it's set at constructor. And it's never modified, so, it always valid pointer.
+There are some random thought.
+1. nsEditorEventListener::KeyPress() still QIs nsIPlaintextEditor.
+nsEditorEventListener is for nsEditor, so, we shouldn't store the editor as nsPlaintextEditor I think. 
+I think that we should move HandleKeyPress() from nsIPlaintextEditor to nsIEditor. Besides, nsIPlaintextEditor should inherit nsIEditor. Then, we don't change the interfaces actually. (And also we can move the flags of nsIPlaintextEditor to nsIEditor too)
+If we do so, we can move the contents of nsEditorEventListener::KeyPress() to nsEditor::HandleKeyPress() and nsPlaintextEditor::HandleKeyPress().
+# But I'm not sure whether the method should be defined in idl because there are not merits of it being scriptable.
+2. nsEditorEventListener::MouseClick() still QIs nsIEditorMailSupport.
+nsIEditorMailSupport is implemented nsPlaintextEditor, so, the contents of nsEditorEventListener can be moved to nsEditor::HandleMouseClick() and nsPlaintextEditor::HandleMouseClick() like HandleKeyPress().",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-04-13T02:30:04Z,4635433.0
+552359,5,This orange boils down to the fact that the input text boxes are not actually focused.  I think the issue will be solved by making sure that the reftest window is in foreground while reftests are running.  I'm still investigating a solution.,POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-03-25T20:14:40Z,4604548.0
+626855,1,"STR with Fennec:
+1) Open http://www.htmlcodetutorial.com/frames/frameset.html
+2) Try to scroll (in a debug build)",S2R,0,FULL_TOKEN,2011-01-18T23:51:34Z,5209057.0
+590389,3,http://hg.mozilla.org/mozilla-central/rev/177b41f10269,UNCODED,0,UNMATCHED,2011-05-27T06:54:38Z,5497058.0
+585832,9,http://hg.mozilla.org/mozilla-central/rev/901fd772c4da,UNCODED,0,UNMATCHED,2010-09-20T17:29:15Z,4952854.0
+687754,10,Backed out since this contained a typo (mismatched brackets) that completely broke Firefox.,COLLATERAL_PROBLEM_ANALYSIS,0,FULL_TEXT,2011-09-27T16:33:50Z,5740459.0
+554061,17,"Darn, I was hoping this would fix the problem with themes other than default, but it does not.  Any chance of that happening or do all the themes need to be changed?",QUESTION,0,FULL_TOKEN,2010-03-25T11:42:21Z,4603555.0
+677173,6,"Yep, that's exactly what I meant by ""them"".  If you're here, then there's no point translating anything to French as long as you're happy reading my English.  Not much point in me sending feedback through the form on the site if you're reading this bug already.  :)
+No, it's ""now"".  As in, we did not use to have it, and now we do have it.
+I suspect that just adding a -moz-transform:translate3d to that last CSS block from comment 2 and likewise for the other several places this selector pattern appears should help.  You should probably add the -o- and -ms- versions too.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2011-08-08T17:24:41Z,5639903.0
+576837,8,"Eh, I think it's okay. Expanding the productions under NonEmptyClassRanges, you get the following regular patterns, with CA short for ClassAtom, CAND short for ClassAtomNoDash, and ... indicating a permitted top-level recursion:
+CA
+CA CA
+CA CAND* CA
+CA CAND - CA ...
+CA - CA ...
+CA CAND - CA ...
+The semantic errors for the |CAND - CA| and |CA - CA| forms are the same, so we should be able to figure out all the appropriate places for a dash with mode bits, as we do now. I'll just fix the error and shut up now. :-)",CLARIFICATION,0,FULL_TOKEN,2010-10-25T19:36:43Z,5035026.0
+576837,17,Reopening because it was backed out -- I still have to follow up by committing with the two-character-class range removed as a syntax error.,STATUS_UPDATE,0,FULL_TEXT,2010-11-23T12:41:47Z,5100194.0
+601912,6,"Created attachment 509082
+Test case: OL lists with start, value, and reversed attributes
+Firefox 4 implements:
+- <ol start=integer> (with positive and negative integers),
+- <li value=integer> (likewise).
+Doesn't implement:
+- <ol reversed>",TEST_CASES,0,FULL_TOKEN,2011-02-02T13:39:07Z,5246993.0
+593387,30,"We're talking about loading a document that has the system principal (so is trusted) in a type=""content"" docshell and this document then creating a subframe into which it loads an untrusted document.
+If the document that has the system principal were loaded in a type=""chrome"" docshell itself, there would be no issue; X-Frame-Options would not treat it as the root document for the content and everything would Just Work (this is the case for the browser itself, say, where the XUL document for the UI is loaded in a chrome docshell and has type=""content"" subframes).  But the ""ui in tab"" thing is implemented in a particularly silly way in that it uses type=""content"" docshells.  As a result, anything that gets same-type docshell parents for subframes of that UI will find the docshell the UI is loaded in (e.g. if you frame AMO in the addons manager, window.top evaluated on AMO will actually return the addons manager window).  So X-Frame-Options is finding the addons UI as the root docshell, and you get this bug.
+Are we on the same page so far?
+Yes.
+Where the first ""we"" includes extensions, right?  It doesn't seem that unlikely to me, given that...
+All the in-tab UI stuff, plus any extensions that do similar things.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-09-14T17:12:28Z,4937773.0
+686900,2,"Created attachment 560385
+1 - Move js_InitObjectClass to GlobalObject code
+All this stuff will live in vm/GlobalObject.cpp, so first I'm moving the sub-bits of this to there.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-09-15T17:13:26Z,5718761.0
+593387,7,"Created attachment 471899
+screenshot
+Oddly, if the ""Get Add-ons"" pane is pre-selected when the addon manager loads (previously open the AOM, click ""get addons"", close the tab, reopen the tab), I get this page loading.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2010-09-03T17:15:52Z,4913322.0
+552359,18,"Mounir, how did you run the tests?  Did you use |make reftest| or |firefox -reftest ...|?  Also, which platform did you try this on?",QUESTION,0,FULL_TOKEN,2010-04-18T21:20:28Z,4645729.0
+593387,4,*** Bug 593346 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-09-03T16:34:43Z,4913205.0
+587434,1,"(function() {
+  function::a(eval(""false""), true);
+  function a({}) {}
+})()
+asserts js debug shell on JM changeset 89b775191b9d without -m nor -j at Assertion failure: IsSaneThisObject(vp[1].toObject()), at ../jsinterp.cpp:4734",PROBLEM_DESCRIPTION,0,FULL_TOKEN,2010-08-15T10:02:05Z,4863822.0
+691184,11,"https://hg.mozilla.org/mozilla-central/rev/d5c6d21109da
+https://hg.mozilla.org/mozilla-central/rev/45249d949463",UNCODED,0,UNMATCHED,2011-10-07T19:45:09Z,5767599.0
+552914,1,"Created attachment 433027
+Patch v1.0
+nsEditor::mFlags is set only when nsEditor::Init() is called.
+nsPlaintextEditor::SetFlags() and nsHTMLEditor::SetFlags() don't call nsEditor::SetFlags(), so, nsEditor::mFlags are not modified forever.
+I guess that this makes a problem after type attribute or readonly attribute of <input> element is modified and some code path which refer nsEditor::mFlags run. However, I'm not sure there are actual problems.
+My patch removes nsEditor::mFlags. It's not needed. And the code should check the flags via GetFlags() method.
+My patch also removes a special code for unix password editor in ForceCompositionEnd() which has never needed right now because we support ime-mode CSS property. So, even if the editor is password field, nsIWidget::ResetInputState() should be called at that time.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-03-17T09:57:00Z,4588820.0
+659018,4,"correct, we could use this event to update atk name (atk_object_set_name), I think this should emit this event automatically.
+Fernando, Trevor, can you take it?",ASSIGNEE_REQUEST,0,FULL_TEXT,2011-05-24T03:43:10Z,5488351.0
+687754,25,"Created attachment 565093
+Don't remove unread in preview mode (alternative version)
+Alternative version; moved down to use existing if",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-10-06T00:33:09Z,5762206.0
+552359,20,"I meant, which OS?  ;-)",QUESTION,0,FULL_TOKEN,2010-04-19T01:22:49Z,4645930.0
+627984,25,"Comment on attachment 510780
+v1
+Nit: spaces around --, should rewrap nicely.
+Uncomment (fix if needed?) or remove.
+Super-duper-nit: no need to parenthesize the whole ?: expression.
+Would wrap better if written
+                    /*
+                     * It is not the setter's job to call methodWriteBarrier,
+                     * but js_watch_set must do so, because the caller will be
+                     * fooled into not doing it: shape does *not* have the
+                     * default setter and therefore seems not to be a method.
+                     */
+Great work, r=me. Thanks for diving on this grenade.
+/be",CODE_REVIEW,0,FULL_TOKEN,2011-02-11T07:13:14Z,5271882.0
+554061,6,"This just showed up in shredder too.
+Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.3a4pre) Gecko/20100322 Shredder/3.2a1pre",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2010-03-23T04:11:43Z,4598302.0
+593387,24,*** Bug 595494 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-09-11T20:07:53Z,4931720.0
+552359,12,http://hg.mozilla.org/mozilla-central/rev/e75d28fbaa0b,UNCODED,0,UNMATCHED,2010-03-27T15:18:49Z,4607822.0
+677173,3,"From http://dev.openclic.fr/css/all.css:
+  html.no-csstransforms .slideshow.horizontal > ol.slides > li.current {
+    left:0;
+  }
+  html.csstransforms.no-csstransforms3d .slideshow.horizontal > ol.slides >
+   li.current {
+    -moz-transform:translateX(0);
+    -webkit-transform:translateX(0);
+    -o-transform:translateX(0);
+    -ms-transform:translateX(0);
+    transform:translateX(0);
+  }
+  html.csstransforms3d .slideshow.horizontal > ol.slides > li.current {
+    -webkit-transform:translate3d(0, 0, 0);
+    transform:translate3d(0, 0, 0);
+  }
+So the site assumes that if .csstransforms3d is set then the browser must be either WebKit or implement unprefixed 3D transforms.
+Unfortunately, that class _is_ set in a current nightly, because the site is using Modernizr, which looks for a ""MozPerspective"" property, which we now have as a result of the patches in bug 505115.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2011-08-08T16:43:47Z,5639750.0
+687754,21,"The attribute removal should happen before the TabSelect event, I think. Other than that, it's not really correlated with the TabSelect event. As I said, everything in this method is about a tab being selected.",REQUIREMENT,0,FULL_TEXT,2011-10-05T19:43:10Z,5761276.0
+677173,16,http://hg.mozilla.org/integration/mozilla-inbound/rev/6409a44ecb17,UNCODED,0,UNMATCHED,2011-08-19T00:44:16Z,5664282.0
+601912,2,"I hope that you have tested this with FF4beta and not only with 3.6.x ?
+Please attach a testcase if you get this with FF4.6beta6 or later",TESTCASE_REQUEST,0,FULL_TEXT,2010-10-05T14:04:12Z,4986826.0
+627984,7,"This seems relatively obscure, and seems not to be sg:critical, so that this late, I think it only needs to be a softblocker.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2011-01-24T21:29:04Z,5223003.0
+687754,2,"Comment on attachment 561102
+unread - fix
+Review of attachment 561102:
+-----------------------------------------------------------------
+::: browser/base/content/tabbrowser.xml
+@@ +567,5 @@
+Can ""unread"" state be set on DOMTitleChanged as well? DOMTitleChanged means another kind of ""unread"", doesn't it? Plus it will avoid the inconsistency between the first tab and other tabs.
+@@ +877,5 @@
+Move it lower to be parallel to removeAttribute(""titlechanged"").",CODE_REVIEW,0,FULL_TEXT,2011-09-20T09:30:10Z,5725114.0
+686900,6,"Comment on attachment 560387
+3 - Rewrite js_InitFunctionAndObjectClasses
+Looks great. The new code is a little longer but the strange loops in the old code were far from obvious. I don't suppose we can rip out the protection around resolve hooks now, can we?",CODE_REVIEW,0,FULL_TEXT,2011-09-16T17:36:17Z,5720402.0
+658675,8,"Comment on attachment 537475
+v2
+Review of attachment 537475:
+-----------------------------------------------------------------
+Looks good to me.",CODE_REVIEW,0,FULL_TEXT,2011-06-06T18:29:14Z,5515579.0
+601999,6,"Created attachment 486696
+testcase 2 (crashes firefox when loaded)
+Here's a somewhat-simpler testcase with an explicit scrollframe (using ""overflow-x: scroll"" instead of <select>).
+In this testcase, the filter itself & the element to which it applies are both just the div with ""overflow-x"" (rather than the entire document).",TEST_CASES,0,FULL_TOKEN,2010-10-28T19:17:54Z,5043306.0
+597071,13,Pushed http://hg.mozilla.org/mozilla-central/rev/03a1f45d2099,UNCODED,0,UNMATCHED,2010-09-21T22:06:03Z,4957082.0
+600489,3,http://hg.mozilla.org/mozilla-central/rev/da5a3ef843f8,UNCODED,0,UNMATCHED,2010-10-01T13:11:23Z,4979849.0
+627984,20,"Kindly disregard comment 19. My clarification wasn't going to be correct anyway. (If item 2 isn't clear, wait for the patch -- there's a test.)
+I found another bug.
+7. A method is ostensibly an ordinary data property--but getting its value the first time will trigger a watchpoint on that property.
+  var obj = {m: function () {}};
+  obj.watch(""m"", function () { throw 'FAIL'; });
+  var f = obj.m;  // FAIL
+Patch coming!",SOLUTION_REVIEW,1,FULL_TOKEN,2011-02-08T22:06:39Z,5264413.0
+687754,19,"So you want the attribute to be removed down where the tab select events are?
+This would make more sense to me than the fastFind/TitleBar block.
+In a few hours I could run some quick tests and upload the new patch.",STATUS_UPDATE,0,FULL_TOKEN,2011-10-05T15:27:07Z,5760364.0
+601999,19,"Daniel, do you think the approach I suggested in the last comment would fix bug 587336, too?
+I mean, the patches here and in bug 587336 are fine, but maybe the fact that we're unnecessarily triggering restyles during invalidation at all has caused more bugs of this kind which we don't know about yet. Restoring the pre-bug 506826 state might be the less risky approach.",CLARIFICATION,0,FULL_TEXT,2010-11-05T16:44:49Z,5061167.0
+634654,14,"Created attachment 565841
+WIP: cache with purging.
+This is close to done, but I have to fix a few things that are bothering me:
+1) I'm pretty sure this assertion method doesn't work with background sweeping. I *could* deallocate the cache pre-mark and assume refcounting correctness, but the debug refcounting assertions are nice. I either have to figure out a way to do it in JS_THREADSAFE that doesn't make your eyes bleed, or only perform the assertions when !JS_THREADSAFE (which seems undesirable).
+2) The string regexp methods are violating the RegExpPrivate boundary quite heavily in order to avoid creating a RegExpObject. This leads to more annoying problems in the refcount assertions where I have to say, ""check that the string regexp methods are appropriate messing around with RegExpPrivates behind our back,"" which is gross.
+3) Switch the RegExpPrivates from taking JSContext parameters to JSRuntime parameters now that they live in the ThreadData.
+4) There's too many scary verbs on the RegExp data structures... purge, finalize, reset, decref. If I can't consolidate any of those verbs they at least need a big comment at the top of RegExpObject.h to say how they all work together with the ThreadData cache.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-10-09T23:29:52Z,5770575.0
+687754,20,It is slightly different for add-ons to put it before or after the TabSelect event's dispatching.,ANSWER_TO_QUESTION,0,FULL_TEXT,2011-10-05T17:09:50Z,5760707.0
+627984,28,"cdleary-bot mozilla-central merge info:
+http://hg.mozilla.org/mozilla-central/rev/589bb166be02",UNCODED,0,UNMATCHED,2011-02-15T20:13:29Z,5280689.0
+667586,5,"This seems less than ideal when editing a URL rather than replacing it, which could be the reason why it wasn't done this way in the first place.",SOLUTION_REVIEW,1,FULL_TEXT,2011-06-27T20:31:56Z,5559639.0
+626855,3,"Comment on attachment 504880
+Crash: trying to scroll HTML page with frameset
+Layers were not properly getting their scroll IDs updated if there is no root scroll pane for a presshell. This happens for <framesets> at least.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2011-01-18T23:53:01Z,5209069.0
+597389,11,"Comment on attachment 476234
+Patch v1.0
+Approved for 1.9.2.11 and 1.9.1.14, a=dveditz for release-drivers",CODE_REVIEW,0,FULL_TEXT,2010-09-20T17:34:44Z,4952876.0
+593387,29,"I am not sure if I am parsing your comment incorrectly or if you are misunderstanding the use case. Aren't we talking about loading a _content_ page in a _chrome area_?  This bug addresses the case where about:addons frames a page from services.addons.mozilla.org.
+If we go forward with comment 26, the only cases where we end up with less secure behavior is if chrome frames a page that in turn frames another page who doesn't want to be framed.  This proposal would allow that inner page to be framed because the top-level context is chrome.  For there to be any real security impact, the page we chose to frame under the top-level chrome document would have to be a bad actor and do something malicious with the page it in turn framed (e.g. clickjacking).  It seems highly unlikely that we would frame any web content in the product that we don't trust or have control over.
+Can you explain the danger you see here a bit more?  What are the cases where we load a chrome page in a content area and how is our comparison between the framed content and the top-level page not sufficient for those cases?",SOLUTION_REVIEW_REQUEST,0,FULL_TOKEN,2010-09-14T16:45:50Z,4937699.0
+552359,13,"FYI, on Linux, you can use Xephyr to run tests on its own X server to avoid
+focus problems.  As a bonus, it also makes it easier to limit CPU resources
+using 'nice' for the tests.",PROBLEM_REVIEW,0,FULL_TOKEN,2010-04-01T20:39:24Z,4616677.0
+601912,3,"<html><body>
+<ol reversed>
+<li>3</li>
+<li>2</li>
+<li>1</li>
+</ol>
+</body></html>
+prints:
+1. 3
+2. 2
+3. 1
+but it should print:
+3. 3
+2. 2
+1. 1",TEST_CASES,0,FULL_TOKEN,2010-10-05T14:32:39Z,4986880.0
+677173,21,"Created attachment 555325
+Remove the IDL properties for now v2
+Looks like it does, yes. Thanks!
+Try push: http://tbpl.allizom.org/?tree=Try&usebuildbot=1&pusher=mwoodrow@mozilla.com",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-08-24T05:09:47Z,5674078.0
+597071,4,"Created attachment 476464
+Patch v0.1
+Fix it all up and it even includes a test (win/linux only).
+I didn't have a windows machine handy, but Sean has run this and says it passes with the fix, and fails without.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-09-18T01:46:11Z,4949600.0
+634654,4,An interesting observation: when we create regexps from literals in the source text the parser creates a regexp from the jschar token buffer. The string generated from this jschar run is not atomized! I'll try to re-run the measurements with those literal-derived strings atomized and see how things change.,PROBLEM_REVIEW,0,FULL_TEXT,2011-03-04T02:27:18Z,5320691.0
+576837,16,http://hg.mozilla.org/mozilla-central/rev/8ae5fce0f19b,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2010-11-22T17:10:52Z,5098011.0
+561168,23,"Created attachment 444924
+file removals patch
+just the file removals",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-05-12T18:19:48Z,4690537.0
+552359,15,"Created attachment 439691
+Patch for placeholder-7.html",UNCODED,0,UNMATCHED,2010-04-17T13:22:30Z,4644211.0
+674446,6,Pushed to inbound.,CODE_REVIEW,0,FULL_TEXT,2011-08-09T03:16:34Z,5641374.0
+538721,2,It is probably a typo for bug 436276 but that's wrong too as strokeWidth is a length. I'd say bug 534028 makes more sense as a dependency.,POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-01-09T11:43:35Z,4480145.0
+687754,5,"Created attachment 562201
+unread - fix (new)
+A little cleaner and better fitting into the latest code change",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-09-24T00:39:34Z,5734894.0
+634654,8,"Created attachment 565810
+Top offenders.
+My benchmark was to run an already-atomized-only cache and instrument RegExpPrivate creation. I was a lot more scientific this time, and it had very interesting results.
+Opening the following 6 sites from session restore: Twitter, GReader, GMail, TechCrunch, Facebook, and Delicious, the hit rate was miserable.
+22112 events
+62 hits, 22050 misses (0.28 % hit ratio)
+As the text file shows, we get nice contributions from GMail, Twitter's pheonix-core thing and even our own nsSessionStore. The nsSessionStore is due to not atomizing regexp sources out of XDR, which (NOTE REVIEWER! :-) I will fix in this bug.
+All of these top offenders were uncacheable due to being non-atoms. If we atomize all of these patterns that are less than 16 chars. If we atomize strings we see with <= 16 chars we should hit a nice speed/usage tradeoff at a 98.3% hit rate for this workload.
+Upcoming science: time the aggregate atomization overhead, dump code sizes as well so we can know how much duplication we're talking about eliminating.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2011-10-09T16:15:16Z,5770113.0
+558970,3,"Comment on attachment 438648
+Patch v1.0
+I'm hoping to get a bit different patch.
+Ping me on IRC if you have any questions.",CODE_REVIEW,0,FULL_TOKEN,2010-04-14T09:32:12Z,4638098.0
+551837,6,"Created attachment 441439
+Little-endian, IEEE-754 C implementation.
+It's unlikely to outperform the optimized i386 version, but it might be worth a try. I've attached it for reference, but note that it isn't at all polished in its current state, and it's in the form of a C function, not a patch. (I didn't generate a patch when I tested it in the JS engine, but the code is the same.)",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-04-26T07:13:17Z,4659818.0
+597071,11,"Rather, here's the proper build log: http://tinderbox.mozilla.org/showlog.cgi?log=MozillaTry/1285017295.1285018434.11888.gz&fulltext=1",CLARIFICATION,0,FULL_TEXT,2010-09-21T04:25:06Z,4954599.0
+552359,7,Hmmm.  I rather liked the idea that reftests can work even when the window isn't focused.  I wonder if it's worth converting these to mochitests in order to preserve that.  Thoughts?,CODE_REVIEW,0,FULL_TOKEN,2010-03-26T02:19:46Z,4605374.0
+576837,19,"I made us conform to our old, 1.9.2 behavior, so the m_sawCharacterClass was unnecessary after all.
+http://hg.mozilla.org/tracemonkey/rev/08f2504e5f44",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-01-08T01:10:17Z,5184174.0
+674446,1,"Created attachment 548676
+add logging
+The attached patch helped me debug why my build was not starting on 10.5. I tried to change fprintf to PR_LOG, but got undefined references to _PR_LogPrint.",CODE_IMPLEMENTATION,1,FULL_TEXT,2011-07-27T03:25:44Z,5615759.0
+561168,12,"+ * This interface contains methods that are needed outside of the content/layout
++ * modules, specifically widget.  It should eventually go away when we support
++ * libxul builds, and nsHTMLCanvasElement be used directly.
++ *
++ * Code internal to content/layout should /never/ use this interface; if the
++ * same functionality is needed in both places, two separate methods should be
++ * used.
+I think the correct thing to do would be to move Aero Peek out of widget. We could put the interfaces in xpcom/system and the implementation in toolkit/system.",UNCODED,0,UNMATCHED,2010-05-03T23:52:06Z,4675830.0
+658675,10,verified with latest s-c builds,SOLUTION_VERIFICATION,0,FULL_TEXT,2011-06-14T17:12:51Z,5531692.0
+687754,29,"Created attachment 565397
+Don't remove unread in preview mode (final)
+Done.",UNCODED,0,UNMATCHED,2011-10-06T23:48:17Z,5765185.0
+552359,14,"I still have a random orange for placeholder-7.html. On 10 tries, I got it failing 7 times.
+I simple workaround is to change disableReftestWait(); to setTimeout(disableReftestWait, 5);.",COLLATERAL_POTENTIAL_SOLUTION,0,FULL_TEXT,2010-04-17T13:21:22Z,4644208.0
+659018,9,http://hg.mozilla.org/mozilla-central/rev/b7a93f1279b7,UNCODED,0,UNMATCHED,2011-06-22T04:28:14Z,5547408.0
+576837,20,http://hg.mozilla.org/mozilla-central/rev/08f2504e5f44,UNCODED,0,UNMATCHED,2011-01-08T09:04:33Z,5184699.0
+601999,9,"So I see a few possible strategies here:
+ A. Remove the line mentioned in Comment 6.
+ B. Check for cycles in nsSVGRenderingObserver::InvalidateViaReferencedElement
+ C. Check for cycles in nsSVGEffects::AddRenderingObserver
+I just tried (A) -- removing the regressing line -- on TryServer, and it doesn't actually break any unit tests, which is encouraging.  I'm guessing it'd be possible to construct a -moz-element testcase that would end up painting stale data as a result of that change, but I'm not immediately sure what that testcase would look like.
+(B) and (C) might be better for correctness, but I'm not entirely sure how to best check for cycles there. Maybe we'd disallow rendering-observer-notifications being sent to an element from any of its ancestors?  And even if that's the right thing to do, it could still be undesirable perf-wise (it'd make us walk the DOM tree on every InvalidateViaReferencedElement or AddRenderingObserver call).
+Also: I'm not sure that (C) would work after tree-surgery -- i.e. when we re-parent an element, do we un-register and then re-register it as a rendering observer?  If not, then you could still construct testcases that fail here, if they just do some node-reparenting at the last minute.
+I tend to lean towards strategy (A), but I'm open to suggestions/advice.  (Maybe there's another obvious solution I'm missing?)",SOLUTION_REVIEW,1,FULL_TOKEN,2010-11-03T22:34:51Z,5057241.0
+554061,5,"Also, the menu bar is not highlighted ever with any other theme.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2010-03-22T20:47:18Z,4597424.0
+642412,5,"First step, assume that arithmetic involving objects produces integers (rather than unknown values), monitor double/string/XML results dynamically.
+http://hg.mozilla.org/projects/jaegermonkey/rev/897c257e5405",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-03-18T04:46:49Z,5352721.0
+561168,9,"Created attachment 443137
+patch 5: cleanup
+A bunch of cleanup from earlier patches; remove obsolete WebGL pbuffer interfaces, remove non-layers code paths from canvas.
+Things that are still to do:
+- Linux pbuffers
+- Use the context attribs in pbuffers better, and teach webgl how to request the proper ones
+- Check callers of RenderContextsExternal (such as d&d code) to make sure that they still work",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-05-03T17:56:30Z,4674956.0
+677173,10,"Hmm.  That's a problem on our end.  It looks like all.js has:
+  pref(""layout.3d-transforms.enabled, false);
+(ignoring for the moment that it's missing a '""' there) but the IDL properties are added unconditionally.  That's not good.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2011-08-08T20:58:49Z,5640525.0
+627984,1,"This asserts in interpreter/-m/-j:
+--
+var o = Array;
+o.p = function() {};
+o.watch('p', function() { }); 
+for(var x in o) { 
+    o[x]; 
+}
+delete o.p;
+o.p = function() {};
+print(o.p);
+--
+Assertion failure: isObject(), at ../jsvalue.h:602",TEST_CASES,0,FULL_TOKEN,2011-01-22T11:57:58Z,5219267.0
+593387,32,"Created attachment 475890
+fix v3
+Find the top non-systemPrincipal docshell in our parent chain to avoid comparing principals with chrome documents (who are allowed to frame X-F-O pages).",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-09-16T17:13:47Z,4944753.0
+660762,1,"User-Agent:       Mozilla/5.0 (Windows NT 6.1; rv:7.0a1) Gecko/20110530 Firefox/7.0a1
+Build Identifier: 
+Not a useful killswitch since MathML has shipped for some time now.
+Reproducible: Always",PROBLEM_MOTIVATION,0,FULL_TEXT,2011-05-31T07:43:53Z,5502753.0
+634654,17,"Created attachment 566104
+WIP: cache with purging.
+Looks like this is passing jsreftests. Interesting note to self: you can't legitimately free up memory from a thread-data level cache when you're doing compartmental GCs.
+Pushed to try.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2011-10-11T01:23:09Z,5773395.0
+593387,3,"Blocks last beta I think, though I think it'd be really really good to see a fix somehow for b6, maybe involving removing the header from AMO till this is done.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2010-09-03T16:18:06Z,4913154.0
+627984,30,"The issues pointed out in comment 0 and ultimately fixed in this bug are correctness bugs, so this bug isn't sg:anything per se.
+However several of the comments here, particularly comment 17 item 4, point to bug 631723, which is [sg:critical?]. So I'm not sure this should be opened.
+(Given all that, I'm really not sure what should be done to this bug exactly.)",ANSWER_TO_QUESTION,0,FULL_TOKEN,2011-02-18T22:28:50Z,5290864.0
+634654,7,"Oh, and I still have to add a purge-to-size mechanism. (That's how we emulate HashTable shrink-to-size these days.) The number of entries will drop to zero on GC later due to bug 673189.",STATUS_UPDATE,0,FULL_TEXT,2011-10-08T23:30:39Z,5769645.0
+590389,2,"Created attachment 532552
+fix",UNCODED,0,UNMATCHED,2011-05-16T02:24:22Z,5471543.0
+601999,11,"Comment on attachment 488050
+fix: delete regressing line
+mstange, I'd appreciate any thoughts you have on this, if you get a chance (in particular, what it might break, & if any better fix-strategies jump out at you).",CODE_REVIEW_REQUEST,0,FULL_TEXT,2010-11-03T23:09:33Z,5057342.0
+552359,16,"Adding timeouts generally doesn't fix orange, it just makes it harder to reproduce.
+We need to understand why this test fails without the timeout and then we can fix it properly.",CODE_REVIEW,0,FULL_TOKEN,2010-04-18T11:49:56Z,4645276.0
+670853,2,"btw, :indeterminate pseudo-class should be used to implement this state.",REQUIREMENT,0,FULL_TEXT,2011-07-12T06:17:38Z,5586063.0
+558970,4,"Created attachment 439468
+Patch v2.0
+nsEditorEventListener can connect/disconect to editor now.
+All public methods should check whether mEditor is null or not, but protected/private methods should check as assertion.
+The listener installation code and uninstallation code are moved to nsEditorEventListener, by this change, we can uninstall the listener certainly when it's discorrected.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-04-16T04:54:37Z,4642144.0
+687754,18,"All of updateCurrentBrowser runs because the tab gets selected.
+I don't see why it wouldn't be removed.
+Right.",ANSWER_TO_QUESTION,0,FULL_TEXT,2011-10-05T14:46:24Z,5760272.0
+597389,1,"Created attachment 476234
+Patch v1.0
+1. Load above page with Fx3.6 and Flash Player 10.1.x.x
+2. Click a link in the Flash Player which is center of the page (the radio program list)
+Then, you cannot use non-Roman keyboard layout on Fx.
+Flash Player disables non-Roman keyboard layout and if you click the link, Flash Player doesn't recover the keyboard layout state when it's destroying. Gecko stores latest keyboard layout state when Gecko changes it because 10.4 doesn't provide any APIs for getting the state. And Gecko reduces unnecessary API call at nsTSMManager::SetRomanKeyboardsOnly(). Therefore, Gecko doesn't restore the keyboard state until Gecko's password field gets focus.
+# NOTE #1: This bug isn't reproduced on Minefield, probably, the reason is that Minefield uses new APIs which are usable 10.5 and later.
+# NOTE #2: This bug isn't reproduced with Flash Player 10.0.x.x. So, this is a regression of Flash Player.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2010-09-17T13:23:53Z,4947536.0
+687754,16,Why exactly would it matter whether the attribute got removed before or after calling these listeners?,QUESTION,0,FULL_TEXT,2011-10-05T08:48:52Z,5759691.0
+593387,38,"Created attachment 476434
+fix v5
+Now with test.  Carrying forward Boris' review.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2010-09-17T23:53:00Z,4949363.0
+634654,19,"Created attachment 566392
+Cache |RegExpPrivate|s, purge cache on global GC.
+Depends on laziness patch from bug 673188.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2011-10-11T23:32:24Z,5776203.0
+597389,9,"Comment on attachment 476234
+Patch v1.0
+Thank you, Steven.
+This patch just removes an optimizing code for reducing API call. I think that this change doesn't affect to performance.",CODE_REVIEW,0,FULL_TEXT,2010-09-17T19:04:21Z,4948447.0
+593387,33,"Comment on attachment 475890
+fix v3
+Just nsIPrincipal* is fine.
+Call that curDocShellItem or something?
+You only use these inside the loop.  Why not just declare them there?
+I'd think we want to fail safe here (so deny if we can't get an SSM).
+I'm pretty sure you should be able to assert that topDoc is non-null, but if we want ot keep the null-check we should just fail out if !topDoc. 
+r=me woth those nits addressed.",CODE_REVIEW,0,FULL_TOKEN,2010-09-16T18:29:17Z,4945034.0
+558970,9,"Currently, yes. However, isn't it risky in future? If you don't mind that, I'll just remove it.",QUESTION,0,FULL_TEXT,2010-04-18T15:27:48Z,4645465.0
+558970,2,"Created attachment 438649
+Patch v1.0 (-w)",UNCODED,0,UNMATCHED,2010-04-13T02:30:41Z,4635434.0
+659018,8,"Comment on attachment 539725
+patch
+ok, r=me",CODE_REVIEW,0,FULL_TEXT,2011-06-21T05:03:56Z,5544579.0
+601999,5,"Hm, I take that back -- a targeted build at that push is unaffected.
+Now I'm suspecting this cset:
+ http://hg.mozilla.org/mozilla-central/rev/1bf9a4c8c8b4
+ Bug 572689 - Make nsSVGRenderingObservers observe elements instead of frames
+I think something like this is going on: we reflow our scrollframe, and that invalidates the filter (which the scrollframe is a part of), and that triggers a reflow of the frames to which the filter is applied (including the scrollframe). This continues in a death-spiral.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2010-10-28T19:14:25Z,5043283.0
+601999,20,"That would work, and I'd definitely take a patch for that.
+However, one of our post-FF4 priorities is to rework invalidation to compare ""before"" and ""after"" display lists instead of using the nsIFrame::Invalidate machinery. That will make all these issues go away, or at least behave very differently.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2010-11-06T04:43:40Z,5062585.0
+554061,13,"As i noted in bug 554574, the gray text only changes permanently to black if the window is in the foreground.  if you have two windows and the one in the background has its menu mouse-over'd it will go back to gray",REQUIREMENT,0,FULL_TOKEN,2010-03-24T17:34:51Z,4601691.0
+642412,3,"Created attachment 519915
+Standalone pbkdf2 benchmark
+This is a beautified, single-file version of stanford-crypto-pbkdf2.",PROBLEM_REVIEW,0,FULL_TEXT,2011-03-17T14:54:54Z,5350705.0
+691184,6,"No problem, I should have expressed myself more clearly. (I've been working on updating these tests, and I'd rather get closer to my expected end-result than farther away from it :).)",STATUS_UPDATE,0,FULL_TEXT,2011-10-06T21:03:53Z,5764628.0
+593387,28,It sounds like a footgun to me...  I doubt people expect that loading a chrome page in a content area will suddenly give it less secure behavior than loading it as chrome to start with.,ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-09-14T00:50:30Z,4936344.0
+627984,4,"The first bad revision is:
+changeset:   58560:52d20032116a
+user:        Jason Orendorff <jorendorff@mozilla.com>
+date:        Thu Dec 09 12:04:35 2010 -0600
+summary:     Bug 614051 - TM: wrong behavior setting existing properties to joined function object values again. r=brendan.",UNCODED,0,UNMATCHED,2011-01-22T12:44:59Z,5219297.0
+691184,1,"Tested by
+http://www.w3c-test.org/html/tests/submission/PhilipTaylor/canvas/2d.text.align.invalid.html
+http://www.w3c-test.org/html/tests/submission/PhilipTaylor/canvas/2d.text.baseline.invalid.html",UNCODED,0,UNMATCHED,2011-10-02T19:40:28Z,5752980.0
+597071,5,"Comment on attachment 476464
+Patch v0.1
+Dietrich / Dolske: whoever gets to it first wins! I know the timing is pretty crappy, but Panorama needs this to fix a b7 blocker (it really just makes test behavior for some private browsing tests accurate).
+It is a bit changy - API consumers will get an accurate state as opposed to the fake state we've been providing.",STATUS_UPDATE,0,FULL_TOKEN,2010-09-18T01:48:42Z,4949601.0
+677173,8,"Thanks!
+Yeah, that's what we have a 3-month testing period for. :)",UNCODED,0,UNMATCHED,2011-08-08T19:43:20Z,5640330.0
+627984,18,"6. js_NativeSet skips the slot write if the before and after shape of the property are different. This means that unwatching from a watchpoint can cause the slot write to be skipped:
+var obj = {m: 'o'};
+var other = {a: 1};
+obj.watch(""m"", function (id, oldval, newval) { 
+        delete other.a;
+        obj.unwatch('m');
+        return newval;
+    });
+obj.m = 'n';  // since the watchpoint unconditionally returns newval,
+              // this value should not be lost
+assertEq(obj.m, 'n');  // FAILS
+Similarly, scripts can detect the transition to dictionary mode (which re-creates all Shapes) this way.
+var N = 129;
+var obj = {m: ""fail""};
+var other = {a: 1};
+obj.watch(""m"", function (id, oldval, newval) {
+        for (var j = 0; j < N; j++)
+            obj['x' + j] = 0;
+        delete other.a;
+        return newval;
+    });
+obj.m = 'ok';
+assertEq(obj.m, 'ok');  // FAILS when N >= 128",SOLUTION_REVIEW,1,FULL_TOKEN,2011-02-08T19:36:20Z,5263929.0
+659018,10,*** Bug 493685 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2011-09-04T00:49:52Z,5698764.0
+659018,7,"I think the cost is pretty low, and it ensures that we don't have a race like you describe where we send an event say the name has changed when it actually hasn't.  I'm not sure what you mean by the do you handle this case question.  If your asking why I make the check then I think, if something else not sure.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2011-06-16T09:56:46Z,5536249.0
+601999,23,Landed: http://hg.mozilla.org/mozilla-central/rev/3dac4e710157,UNCODED,0,UNMATCHED,2010-11-10T06:01:30Z,5069720.0
+634654,3,"So with the tabs: GMail, GReader, Tech Crunch, Twitter, and CAD comic I get the following stats:
+RegExpCache stats:
+  hits:                  2244
+  flagMisses:              34
+  constructs:              24
+  lookups:               3979
+  removals:                23
+  puts:                  1759
+Which is a hearty 56% hit rate. When I switch the protocol to only put cache entries that are atomized (and only do lookups for atomized strings) I get:
+RegExpCache stats:
+  hits:                    72
+  flagMisses:               0
+  constructs:              19
+  lookups:                112
+  removals:                 3
+  puts:                    59
+So atomizing the strings makes this cache useful. I'll rdtsc the atomization overhead.",PROBLEM_REVIEW,0,FULL_TOKEN,2011-03-04T01:55:33Z,5320628.0
+587434,3,http://hg.mozilla.org/tracemonkey/rev/9ce0b72525ba,UNCODED,0,UNMATCHED,2010-09-08T08:55:23Z,4921212.0
+590389,1,We cannot use nsIUnicodeEncoder / nsIUnicodeDecoder interface from script.  so getUnicode* methods should not scriptable.,PROBLEM_MOTIVATION,0,FULL_TOKEN,2010-08-25T02:44:44Z,4888023.0
+593387,19,"It not relevant here, since in this case the chrome is being loaded in a content-type docshell, so the top content docshell in this case is the chrome page...  That old issue with chrome principal vs chrome docshell coming back to bite us.  :(",SOLUTION_REVIEW,1,FULL_TOKEN,2010-09-08T18:32:56Z,4922656.0
+667586,14,"It's really easy. How clear should it be? Should the entire space taken up by the block  turn white, or should its contents simply become blank while retaining its background and border?",QUESTION,0,FULL_TOKEN,2011-06-29T20:40:53Z,5565458.0
+561168,19,"Generally a single big patch is harder to review, but if it's a lot of work to produce cleanly separated patches, I'm willing to review a big patch.",ANSWER_TO_QUESTION,0,FULL_TEXT,2010-05-06T02:34:38Z,4680215.0
+675961,1,"from bug 664344 - a description of receiving first-frag, ping, last-frag causing multiple pongs in response along with general wonkiness.
+problem is in removing the ping from the fragment frame, length reset to 0 before a calculation was made.
+1 line fix.",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TEXT,2011-08-02T16:00:41Z,5627876.0
+561168,8,"Created attachment 443136
+patch 4: add WGL pbuffer support
+- add GLContext pbuffer support for Win32, use it in WebGL",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-05-03T17:54:45Z,4674953.0
+691184,5,"Ah sorry I thought you meant you had the Philip Taylor tests locally, rather than an updated test_canvas.html. Thanks!",CLARIFICATION,0,FULL_TEXT,2011-10-06T18:09:11Z,5764043.0
+660762,3,"Created attachment 536539
+patch",UNCODED,0,UNMATCHED,2011-06-01T07:42:54Z,5505439.0
+593387,43,*** Bug 601521 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2010-10-04T02:47:14Z,4983605.0
+691184,10,"Thanks for the fast review :-)
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d5c6d21109da
+https://hg.mozilla.org/integration/mozilla-inbound/rev/45249d949463",UNCODED,0,UNMATCHED,2011-10-07T09:27:44Z,5765953.0
+577462,3,"Created attachment 456644
+Use GetDC where we can v2
+Updated to use a UseOpaqueSurface function taken from the BasicLayers code.",CODE_IMPLEMENTATION,1,FULL_TEXT,2010-07-09T23:45:14Z,4788422.0
+634654,21,"Comment on attachment 566392
+Cache |RegExpPrivate|s, purge cache on global GC.
+Waldo said he would be willing to take this review (and his review queue is less loaded).",STATUS_UPDATE,0,FULL_TEXT,2011-10-12T18:47:47Z,5778149.0
+554061,12,"It seems like we'd only have to iterate over all XBL binding style sheets in the document... and that the binding manager itself could coalesce all the document state bits into one for all of them.
+We'd probably need a different WalkRuleProcessors mechanism to do this, though.",SOLUTION_REVIEW,1,FULL_TOKEN,2010-03-24T15:04:52Z,4601279.0
+597389,10,NOTE: the method is called at focus moving only when IME state is changed by new focused content.,CODE_REVIEW,0,FULL_TEXT,2010-09-17T19:07:14Z,4948458.0
+552359,22,"So, when you run the test, does the window appear in the foreground or in the background?  Also, is it focued or not?  What happens when you use make reftest instead?  Also, do you get a reftest failure, or a timeout?
+Here's why I'm asking these questions.  I found out that on Mac, if you use firefox -reftest, the Firefox window will appear in the background, so the text boxes are not focused, and that obviously messes up the placeholder tests, because they rely on the reftest window being focused.  Using make reftest solves this, because it runs Firefox in the foreground (and make reftest is what Tinderbox machines use).
+On Linux, however, this should _not_ be an issue, AFAIK.",QUESTION,0,FULL_TOKEN,2010-04-19T15:41:22Z,4646790.0
+561168,24,"Oh, some comments on the patch:
+WebGL specifies a different mechanism for opaqueness (one that we'll want to transition our 2d stuff to as well); we just don't implement it yet.  So currently webgl canvases can't be opaque, hence why this is always PR_FALSE for now.
+Whoops, yes; I implemented gfxUtils::PremultiplyImageSurface based on the fast premult/unpremult code we had in Canvas 2D.  I couldn't convert that code to it since it actually premults/unpremults between an image surface and a raw buffer.  It could be fixed with a bit of wrapping of the raw data in an image surface, but I didn't do that here.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2010-05-12T18:23:20Z,4690544.0
+626855,4,"To potential approvers: patch is low risk, and fixes panning for sites without scroll frames.",CLARIFICATION,0,FULL_TEXT,2011-01-19T16:48:16Z,5210637.0
+667586,3,"Never mind. After revising the bug to fix what is actually broken, it makes sense to do this now.",CLARIFICATION,0,FULL_TEXT,2011-06-27T20:14:41Z,5559587.0
+687754,8,"Comment on attachment 562201
+unread - fix (new)
+...
+We don't need these comments, they just read out the code.",CODE_REVIEW,0,FULL_TEXT,2011-09-27T14:53:44Z,5740146.0
+552359,25,"Let me be more clear here.  Unless we have a log besides the one attached in comment 0 which shows that this failure happens when the window actually has the focus here, I think this is a focus related issue, and this bug is FIXED now.",CLARIFICATION,0,FULL_TOKEN,2010-05-11T23:58:34Z,4688988.0

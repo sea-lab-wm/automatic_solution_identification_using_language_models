@@ -1,0 +1,1885 @@
+issue_id,text_id,text,code,label,matching_category,creation_time,comment_id
+866470,42,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22662358&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-06 19:11:55
+slave: t-w864-ix-075
+19:21:57     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T02:47:05Z,7393887.0
+790547,44,"Created attachment 666171
+Part 3: Add send Location Status Event in RIL. v11
+rebase",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-29T04:00:03Z,6678350.0
+866470,30,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22585444&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-04 03:12:07
+slave: t-w864-ix-009
+03:23:00     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-04T14:21:30Z,7387753.0
+866470,64,"Created attachment 747203
+Make the style context lookup in nsDisplayList match what nsCSSRendering does
+Bit of a guess, but that's the only reason I can see why they might come up with different results.",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-05-09T00:04:36Z,7402997.0
+866470,24,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22546094&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-03 03:10:46
+slave: t-w864-ix-006
+03:13:55    ERROR -  abort: HTTP Error 500: Internal Server Error
+03:13:56    ERROR -  Automation Error: hg not responding
+03:13:56    ERROR - Return code: -1
+03:13:56    ERROR - Can't run command ['c:/mozilla-build/hg/hg', '--config', 'ui.merge=internal:merge', 'branch'] in non-existent directory C:\slave\test\build\tools!
+03:13:56    ERROR - Can't run command ['c:/mozilla-build/hg/hg', '--config', 'ui.merge=internal:merge', 'update', '-C'] in non-existent directory 'C:\slave\test\build\tools'!
+03:22:23     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-03T10:55:52Z,7384093.0
+819493,24,"*sigh* I knew this is one trait that would end up biting me instead, but the solution is simple: I will refrain from doing this from now on.",UNCODED,0,UNMATCHED,2013-03-28T09:15:23Z,7253234.0
+779500,137,"Created attachment 662059
+part B - nsIDOMFMRadio IDL, v1.2
+Removed signalStrength and onsignalstrengthchange",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-18T07:48:36Z,6642799.0
+833964,4,"I only see these... which seem different:
+https://crash-stats.mozilla.com/report/list?product=B2G&query_search=signature&query_type=contains&query=layers%3A%3AAsyncPanZoomController%3A%3AContentReceivedTouch&reason_type=contains&date=02%2F05%2F2013%2019%3A59%3A13&range_value=1&range_unit=weeks&hang_type=any&process_type=any&do_query=1&signature=mozilla%3A%3Alayers%3A%3AAsyncPanZoomController%3A%3AContentReceivedTouch
+https://crash-stats.mozilla.com/report/index/1c7e05a0-dd5e-4934-af89-f27cf2130131",PROBLEM_REVIEW,0,FULL_TOKEN,2013-02-05T20:02:31Z,7072662.0
+833964,31,"We tested this page ""http://www.naver.com""",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-05-23T08:25:22Z,7454740.0
+833964,6,"I saw the crash on unagi, but none of this code is device specific.",UNCODED,0,UNMATCHED,2013-02-11T19:35:51Z,7091395.0
+779500,118,"Here is the enum definition for the country:
+So, we should map the ""fmRadio.regionCode"" setting like this:
+  us -> 0, eu -> 1, de -> 4
+If we change the enum, say insert FM_RADIO_COUNTRY_CN before FM_RADIO_COUNTRY_EU, the map will have to be changed like this:
+  us -> 0, eu -> 2, de -> 5
+unless we promise all the new values will be appended and no value will be removed.
+If i am wrong, please correct me.",SOLUTION_REVIEW_REQUEST,0,FULL_TOKEN,2012-09-13T04:09:28Z,6631277.0
+811773,5,It would indeed if we think there's a sec-critical bug lurking here. Do we need this on the ESR-10 branch as well?,QUESTION,0,FULL_TEXT,2012-11-30T00:08:14Z,6866540.0
+866470,18,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22510556&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-05-02 09:56:18
+slave: talos-mtnlion-r5-074
+10:05:08     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T17:33:02Z,7380686.0
+794507,12,"To set expectations here, once this has baked for a bit, we'll uplift to FF20 on Aurora and likely land for B2G in the 20+ timeframe. Since we shipped FF18 and FFOS v1.0.0 without this fix, it can wait one more cycle.",CLARIFICATION,0,FULL_TEXT,2013-01-23T21:16:35Z,7031603.0
+855335,10,https://hg.mozilla.org/integration/mozilla-inbound/rev/146c6ca0aa6d,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2013-04-11T15:23:18Z,7303969.0
+790547,33,"Hi, philikon
+Thanks for your review.
+Yes, I understand this.
+Sorry for not pointing this out in comments,
+in STK spec(TS 11.14), Location Information TLV will be used in several places, proactive command, terminal response, and even call control envelope command(Bug 791939). So finally I move those members of locationInfo out of MozStkLocationEvent and make it MozLocationInfo. So this object could be reused in other places.
+Sounds good, I'll make it
+void sendStkEventDownload(in jsval eventData);
+with moving eventType inside eventData.
+For this envelope command, RIL(ICC) won't return any response.
+So I update the documentation to point this out.
+Thanks for your commens. :)",ANSWER_TO_QUESTION,0,FULL_TOKEN,2012-09-26T02:20:58Z,6666880.0
+866470,26,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22553611&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-03 08:04:40
+slave: t-w864-ix-049
+08:17:43     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-03T16:36:54Z,7385046.0
+866470,27,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22554237&tree=Jamun
+Rev5 MacOSX Mountain Lion 10.8 jamun debug test reftest on 2013-05-03 08:30:35
+slave: talos-mtnlion-r5-042
+08:39:18     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-03T23:02:39Z,7386674.0
+855335,12,https://hg.mozilla.org/mozilla-central/rev/146c6ca0aa6d,UNCODED,0,UNMATCHED,2013-04-11T19:53:48Z,7305310.0
+835157,3,https://hg.mozilla.org/integration/mozilla-inbound/rev/77bfa657b930,UNCODED,0,UNMATCHED,2013-01-29T00:18:45Z,7046896.0
+790547,38,"Comment on attachment 664868
+Part 3: Add send Location Status Event in RIL. v9
+Review of attachment 664868:
+-----------------------------------------------------------------
+::: dom/system/gonk/ril_consts.js
+@@ +544,5 @@
+Small nit: this is not a const we need to ""export"", it's an implementation detail, so IMHO would be better at the top of ril_worker (e.g. like PDU_HEX_OCTET_SIZE).
+::: dom/system/gonk/ril_worker.js
+@@ +2326,5 @@
+I'm not quite sure why these can't be const'ed, but I'll take your word for it. This is just a personal pet peeve, I don't want to bikeshed over something unimportant.",CODE_REVIEW,0,FULL_TEXT,2012-09-26T18:22:31Z,6669134.0
+823917,1,MSVC11 supports C++11 final keyword.,PROBLEM_MOTIVATION,0,FULL_TEXT,2012-12-21T14:35:36Z,6937375.0
+866470,20,"Matt, can you get the ball rolling on this please? We're hitting it pretty frequently across all platforms.",PROBLEM_REVIEW_REQUEST,0,FULL_TEXT,2013-05-02T17:35:41Z,7380708.0
+790547,22,"Comment on attachment 664335
+WIP - Part 4: xpcshell test case for writing Location Info. v3
+Hi, philikon
+This is the xpcshell test for testing writeLocationInfoTlv.
+Could you review this for me?
+Thank you.",CODE_REVIEW_REQUEST,0,FULL_TOKEN,2012-09-25T03:25:47Z,6663061.0
+794507,2,"When this bug is fixed, the patch in bug 788365 should be backed out.",ISSUE_IMPACT,0,FULL_TEXT,2012-09-26T17:01:40Z,6668702.0
+790547,37,"Comment on attachment 664831
+Part 1: IDL for sendEventDownload v3
+Review of attachment 664831:
+-----------------------------------------------------------------
+Looks good, thanks!
+::: dom/icc/interfaces/nsIDOMIccManager.idl
+@@ +193,5 @@
+s/respond/respond with/",CODE_REVIEW,0,FULL_TEXT,2012-09-26T18:20:13Z,6669123.0
+817531,14,Relanded as https://hg.mozilla.org/integration/mozilla-inbound/rev/a381a84d7af2,CODE_IMPLEMENTATION,1,FULL_TEXT,2012-12-07T01:41:08Z,6890413.0
+840284,24,"Created attachment 720856
+csmith fuzzing material
+Here are ~100 csmith reduced testcases. I turned on full debug logging in them so they do more ffi calls.",SOLUTION_VERIFICATION,0,FULL_TEXT,2013-03-04T20:52:42Z,7166374.0
+676248,7,Sorry I missed your comment. 60Hz in this context was not in any ways an upper bound. Proper vsync is very important to us but we need to solve some other bugs first.,CLARIFICATION,0,FULL_TEXT,2013-03-05T20:35:30Z,7171294.0
+852135,11,"Created attachment 737239
+Part d: Move to WebIDL bindings, remove CI and QS",UNCODED,0,UNMATCHED,2013-04-14T11:23:26Z,7312842.0
+768901,11,https://hg.mozilla.org/integration/mozilla-inbound/rev/b275f72aba11,UNCODED,0,UNMATCHED,2012-10-10T03:25:37Z,6714014.0
+811773,7,"Since no sec-crit was found, I'll drop that keyword and mark everything as ""fixed"" so it doesn't show up in any queries.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2012-11-30T19:32:48Z,6869579.0
+852135,3,"Created attachment 732225
+Patch v1.1",UNCODED,0,UNMATCHED,2013-04-02T08:36:22Z,7265969.0
+752781,26,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=21381700&tree=Mozilla-B2g18
+Rev5 MacOSX Mountain Lion 10.8 mozilla-b2g18 opt test mochitest-1 on 2013-04-02 21:30:57
+slave: talos-mtnlion-r5-027
+46016 ERROR TEST-UNEXPECTED-FAIL | /tests/content/events/test/test_bug607464.html | Pixel scrolling should have finished after one refresh driver iteration. We shouldn't be scrolling smoothly, even though the pref is set. - got 0, expected 15",UNCODED,0,UNMATCHED,2013-04-03T11:54:08Z,7271232.0
+790547,7,"Created attachment 662127
+WIP - Part 3: Add sendLocationStatus in RIL. v2
+Add RILContentHelper and update bugs in writing locationStatus",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-18T11:54:02Z,6643218.0
+790547,36,"Created attachment 664868
+Part 3: Add send Location Status Event in RIL. v9
+Hi, philikon
+I addressed your comments to const the size of TLVs,
+but for some TLVs, their size will vary according to content.
+So in this patch I just const some of them,
+but I am not sure if this is better.
+Could you review this part again?
+Thank you.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-09-26T10:23:22Z,6667598.0
+790547,2,"Yoshi, is this a basecamp blocker?",QUESTION,0,FULL_TEXT,2012-09-12T17:22:45Z,6629450.0
+779500,120,[builtinclass] can't be used on interfaces implemented in JS.,SOLUTION_REVIEW,1,FULL_TEXT,2012-09-13T05:37:05Z,6631377.0
+794507,19,"Hi guys, 
+Yes, I can verify that the nightly build has fixed that issue, thank you!!!",SOLUTION_VERIFICATION,0,FULL_TOKEN,2013-02-08T17:17:18Z,7085317.0
+758103,24,"Please provide rationale for landing this change in the v1.x timeframe, and mark with blocking-b2g:tef? if you believe it should block v1.0.",INFO_REQUEST,0,FULL_TEXT,2013-01-14T20:08:37Z,6999437.0
+852135,16,"https://hg.mozilla.org/mozilla-central/rev/0fa3623e2a71
+https://hg.mozilla.org/mozilla-central/rev/61e10c9a711f
+https://hg.mozilla.org/mozilla-central/rev/e0b3fa32b67a
+https://hg.mozilla.org/mozilla-central/rev/12e5adcc5511",AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TOKEN,2013-04-26T14:31:24Z,7359255.0
+833964,23,"Created attachment 739209
+Null out potentially dangling pointer (v2)
+Updated patch to remove comment. I also felt it was kind of unnecessary.",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-04-18T19:19:02Z,7331830.0
+866470,3,"ttaubert
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22345506&tree=Fx-Team
+WINNT 6.2 fx-team debug test reftest on 2013-04-28 10:52:37
+slave: t-w864-ix-049
+11:07:28     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-04-28T18:41:48Z,7363616.0
+817531,13,And it's a bit worrisome that I never got bugmail for comment 10.  :(,CLARIFICATION,0,FULL_TOKEN,2012-12-07T01:38:31Z,6890403.0
+790547,31,"Comment on attachment 664405
+Part 4: xpcshell test case for writing Location Info. v4
+Review of attachment 664405:
+-----------------------------------------------------------------
+I do like tests. <3",CODE_REVIEW,0,FULL_TEXT,2012-09-25T21:40:45Z,6666141.0
+794507,4,"Honza and Michal, do you have time to work on this? Basically we need to serialize/deserialize the securityInfo for each cached page in the offline cache just like we do for the normal cache.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2013-01-22T01:58:34Z,7024190.0
+779500,124,"It worries me that every time the signal strength changes, we broadcast to all child processes.
+Maybe if the signal strength were bucketed very coarsely (e.g. ""no signal"", ""moderate signal"", ""good signal""), this would be OK.  But if we're reporting a fine-grained value, I'm afraid this is going to result in a /lot/ of useless messages, every two seconds.
+Maybe we should hold off addressing this until we rewrite this whole thing in C++ -- in C++, this is easy to address, because it's just a matter of registering the only the observers you need with hal (I think?).",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2012-09-14T15:48:31Z,6635552.0
+866470,38,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22631758&tree=Mozilla-Central
+WINNT 6.2 mozilla-central debug test reftest on 2013-05-06 06:21:07
+slave: t-w864-ix-006
+06:31:21     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T14:02:40Z,7390573.0
+874258,3,"Created attachment 753896
+warn",UNCODED,0,UNMATCHED,2013-05-24T18:26:51Z,7461259.0
+874258,1,"What should happen, even with leaks, is that we run the CC twice at shutdown: once to free everything, then another time to confirm that there's nothing to free.
+This wasn't actually always true, due to some weirdness that I fixed.
+Anyways, warning for this will help figure out which shutdown CC we should log, in leaks like bug 858948.
+If I'm feeling a little more brave, I'll make this an assertion.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2013-05-20T23:22:53Z,7443215.0
+866470,23,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22524217&tree=Mozilla-Inbound
+Rev3 WINNT 6.1 mozilla-inbound debug test reftest on 2013-05-02 15:12:07
+slave: talos-r3-w7-099
+15:27:02     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T23:34:19Z,7382508.0
+790547,8,"Created attachment 662856
+Part 1: IDL for sendEventDownload v2
+renamed sendLocationStatus to sendEventDownload",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-20T08:47:44Z,6650359.0
+758103,20,https://hg.mozilla.org/integration/mozilla-inbound/rev/52557de563d7,UNCODED,0,UNMATCHED,2012-12-17T22:35:59Z,6922683.0
+851828,11,"Backout for Mochitest failures:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c9ac624cfc84",IMPLEMENTATION_REVERSION,0,FULL_TEXT,2013-03-26T20:12:30Z,7246412.0
+817531,15,Looks like Android uses a different hostname.  Fixed the test to deal with that and reenabled it on Android: https://hg.mozilla.org/integration/mozilla-inbound/rev/732f04efe8f5,CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-07T05:12:58Z,6890821.0
+790547,35,"Created attachment 664832
+Part 2: Add SendEventDownload in IccManager. v3
+Updated parameters in SendStkEventDownload accordingly.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-26T07:45:45Z,6667336.0
+866470,53,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22694712&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 11:08:51
+slave: t-w864-ix-048
+11:19:13     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T18:56:22Z,7397063.0
+797889,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/72d8054301d2,UNCODED,0,UNMATCHED,2012-10-05T19:12:04Z,6702196.0
+819493,34,"and fwiw, you don't need a teardown(), just do whatever you need at the end of run()?",CODE_REVIEW,0,FULL_TEXT,2013-04-03T18:48:37Z,7273154.0
+758103,12,"Comment on attachment 689201
+Set remaining time to 0 if battery level is 1 [v2]
+Review of attachment 689201:
+-----------------------------------------------------------------
+::: hal/gonk/GonkHal.cpp
+@@ +352,5 @@
+This function name seems to be a poor choice (the /sys file name seems to be poor as well).
+To me capacity implies how much the battery is capable of holding. This seems to be returning the current charge or level of the battery.
+So I'd be inclined to call it GetCurrentBatteryLevel (this matches the field names in the BateryInformation structure).
+@@ +374,5 @@
+Since the bulk of the above function actually also appears below, I would prefer to factor this into a helper function, Something like the two functions here:
+https://mxr.mozilla.org/mozilla-central/source/dom/system/gonk/AutoMounter.cpp#99
+but you'll want another version which parses a double.
+The versions in AutoMounter are missing the TEMP_FAILURE_RETRY.
+In fact, we should probably make these available somewhere in Gonk since they occur so frequently. we should factor these out into a common location. I created bug 819016 to do that, so I would probably just do the first level of factoring here and we can probably make your factored routines be the basis for the common routines in bug 819016
+@@ +440,5 @@
+The strings read will contain a trailing newline so these comparisons won't work properly.
+i.e. if you do: 
+adb shell
+cat /sys/class/power_supply/battery/status > /data/local/batt
+exit
+adb pull /data/local/batt
+hd batt
+then you'll see something like:
+00000000  46 75 6c 6c 0a                                    |Full.|
+00000005
+Note: If you try to combine the adb shell and cat then you'll get a CR inserted before the NL
+@@ +466,5 @@
+Since this is floating point, shouldn't the comparison have some small epsilon for the comparison? i.e. 0.99999 should probably be considered the same as 1.0
+Picking the right epsilon will probably be tricky (perhaps taking into consideration how many decimal places we show to the user).",CODE_REVIEW,0,FULL_TOKEN,2012-12-06T20:09:53Z,6889139.0
+874258,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/6d43a8c88ddc,UNCODED,0,UNMATCHED,2013-05-27T20:09:44Z,7466956.0
+866470,22,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22513023&tree=Mozilla-Inbound
+Rev3 WINNT 6.1 mozilla-inbound debug test reftest on 2013-05-02 10:36:51
+slave: talos-r3-w7-044
+10:55:09     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///c:/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T18:47:34Z,7381133.0
+783505,16,"The original code fails to compile with gcc 4.3.2 on Linux (Fedora release 10 (Cambridge))
+I got it to compile by changing the ""2"" in the patch to a ""3""",ANSWER_TO_QUESTION,0,FULL_TOKEN,2012-09-25T21:04:47Z,6665974.0
+819493,23,"People will generally tolerate this to a certain degree, but in general if roughly half of the hunks in the patch are style changes, people will call you on it :)
+""striving for a uniform codebase"" is relatively low on our list of priorities, particularly given the diversity and breadth of Mozilla's code and dev community. So ""make patches that are simple to review"" often trumps ""converge on a single bracing style"".",UNCODED,0,UNMATCHED,2013-03-27T21:14:58Z,7251509.0
+855335,3,"Created attachment 734456
+Format Warnings from Signaling code
+Output of the format-related warnings in the signaling code of Mozilla-Central as of today - rev 7c3cb087620b",ERROR_MESSAGE,0,80_PCT_MATCH,2013-04-08T03:34:36Z,7287336.0
+676248,8,"Understood.  For some context, Webkit browsers such as Chrome synchronizes with VSYNC pretty well at all refresh rates, from 50 Hz all the way to beyond 144 Hz; yielding flawless-looking 144fps@144Hz operation.   From what I know, FireFox has an artifical 60fps framelimit for all rendering (not just Canvas2D or WebGL) that affects fluidity on non-60Hz displays.",CLARIFICATION,0,FULL_TOKEN,2013-03-05T21:06:15Z,7171386.0
+797889,2,"Created attachment 668006
+Patch",UNCODED,0,UNMATCHED,2012-10-04T15:55:40Z,6697607.0
+819493,7,"Who, I wonder aloud, but mostly to Gavin and Dolske, can own such a thing? It doesn't trump other important work, but it is a nice little win and (I would hope, given comment 3 and comment 4) a well-scoped one.",ASSIGNEE_REQUEST,0,FULL_TEXT,2013-03-04T14:35:30Z,7164594.0
+833964,27,https://hg.mozilla.org/mozilla-central/rev/3231056b600d,UNCODED,0,UNMATCHED,2013-04-19T18:03:21Z,7335981.0
+866470,58,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22708228&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-05-07 16:40:35
+slave: talos-mtnlion-r5-042
+16:48:20     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-08T00:18:39Z,7398334.0
+866470,16,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22499869&tree=Mozilla-Inbound
+Rev4 MacOSX Lion 10.7 mozilla-inbound debug test reftest on 2013-05-02 05:05:35
+slave: talos-r4-lion-023
+05:17:44     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T13:00:27Z,7379559.0
+768901,14,https://hg.mozilla.org/mozilla-central/rev/b275f72aba11,UNCODED,0,UNMATCHED,2012-10-11T14:06:27Z,6719141.0
+819493,38,"Comment on attachment 732985
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+You seem to have forgotten to remove this, per comment 25 and comment 31.",CODE_REVIEW,0,FULL_TEXT,2013-04-05T20:35:29Z,7283446.0
+866470,60,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22716176&tree=Mozilla-Central
+Rev3 WINNT 6.1 mozilla-central debug test reftest on 2013-05-07 20:58:43
+slave: talos-r3-w7-049
+21:14:59     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///c:/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-08T05:15:05Z,7399045.0
+866470,66,"jwir3
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22821842&tree=Try
+WINNT 6.2 try debug test reftest on 2013-05-10 08:00:59
+slave: t-w864-ix-010
+08:11:06     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-10T15:52:59Z,7409833.0
+790547,39,"Ha, if I don't have to put them in ril_const then I understand now,
+will const them in ril_worker. 
+Thank you. :)",STATUS_UPDATE,0,FULL_TOKEN,2012-09-27T02:43:00Z,6670821.0
+833964,11,It still occurs: bp-8cf2155f-801d-4c88-9612-f13af2130319.,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2013-03-20T14:51:18Z,7224564.0
+857034,2,"Created attachment 732274
+patch",UNCODED,0,UNMATCHED,2013-04-02T11:34:45Z,7266363.0
+790547,42,"Comment on attachment 665243
+Part 1: IDL for sendEventDownload v4
+Hi, Jonas
+From Bug 790543, ICC will send a list of events to ME, when one of these events happened, ME need to notify ICC this event through Envelope Command. So this patch is to deal when location status is updated, ME needs to notify this event to ICC by this interface.
+For the specification you can refer to TS 11.14 , clause 11.4 ""Location Status Event"".
+Thank you",CLARIFICATION,0,FULL_TOKEN,2012-09-27T03:36:56Z,6670893.0
+817531,1,"User Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/17.0 Firefox/17.0
+Build ID: 20121120062532
+Steps to reproduce:
+Visited http://www.fotocommunity.com/contest
+Actual results:
+Background images for the tables (Different photo contests listed) are not beeing loaded. 
+Expected results:
+Requests for those images are beeing made and result in a 403 since a referer check is made for those requests and the referer beeing sent along with those requests is the request url (for the image asset) itself, not the url for the website including those images.
+This seems to be introduced in FF 17, we verified it on Mac, Linux and Windows.
+In FF 16 it still worked.",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2012-12-03T11:35:37Z,6873853.0
+819493,22,"Comment on attachment 726131
+Update as oer Gavin's review and comments
+Seems like you shouldn't add the related style yet, then (or the empty #rightsSnippet {} block).
+Please avoid making the bracing changes in this patch.
+This could check ""rightsData.start || rightsData.end"" to be localization-agnostic (we don't currently run browser-chrome tests in non-en-US builds, but we might want to someday).
+Wouldn't a more accurate description be ""after it has already been shown once (in the previous test)""?
+Hrm, don't think is kosher. IIRC formatStringFromName can do bad things if it's expecting a variable to substitute and doesn't find one in the string. Axel would probably know the details. But in any case it seems like this would be simpler if you added the relevant strings to aboutHome.dtd, similar to how abouthome.defaultSnippet1.v1 works:
+<!-- LOCALIZATION NOTE (rightsSnippet.message) text in <a> will be linked to about:rights -->
+<!ENTITY rightsSnippet.message ""&brandShortName; is free and open source software from the non-profit Mozilla Foundation. <a>Know your rights…</a>"">
+and then have the about:home code linkify the <a> appropriately.
+(I think both this link and the default snippet links should actually be branding-specific, i.e. in brand.dtd, but I can file a separate bug about that.)
+It's a bit risky that the setting of the ""shown"" pref is now decoupled from the actual showing. This currently relies on the AboutHomeUtils.knowYourRightsData getter only ever being called when about:home is going to be displayed, which seems a bit fragile. It would be nice to avoid that somehow - I suppose you could just move this block of code to the browser.js block where the AboutHomeUtils.knowYourRightsData is currently accessed.
+This #define will never be true, because you didn't also move over the block at:
+http://hg.mozilla.org/mozilla-central/annotate/5dbcbd03d7ba/browser/components/Makefile.in#l23
+to browser/modules/Makefile.in. Should test this manually to make sure official/non-official builds work properly.",CODE_REVIEW,0,FULL_TOKEN,2013-03-27T21:02:36Z,7251428.0
+851828,1,"Created attachment 725795
+Patch (v1)",UNCODED,0,UNMATCHED,2013-03-16T18:49:57Z,7211402.0
+833964,20,"Created attachment 739074
+Null out potentially dangling pointer
+Not sure who should review this exactly. See above comment for an explanation of what I think is happening.",CODE_REVIEW_REQUEST,0,FULL_TEXT,2013-04-18T15:06:49Z,7330593.0
+833964,30,"Glad we have better STR, but still only leo+. Don't want to take non-blocking change at this point.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2013-05-17T15:36:17Z,7435497.0
+812431,1,"Regression window (mozilla-inbound-win64-pgo)
+Good:
+https://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-inbound-win64-pgo/1353020623/
+Bad:
+https://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-inbound-win64-pgo/1353032056/
+Pushlog:
+https://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=045367d6644e&tochange=a0cd4bcb3217
+Regression window (mozilla-inbound-win64)
+Good:
+https://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-inbound-win64/1353024231/
+Bad:
+https://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-inbound-win64/1353026752/
+Pushlog:
+https://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=e8c599817e97&tochange=1a53df18c076
+Probably triggered by:
+Bug #779029 - Mask region ignored when rendering with Direct2D 
+More info:
+not happens with HW Acceleration disabled",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2012-11-16T07:22:06Z,6828130.0
+855335,5,"Excellent, thanks.
+I would propose that the first step is to run debugging all the way up to 9, run a text call, and then fix the first message that causes a segfault. Repeat as necessary.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2013-04-08T19:59:07Z,7290568.0
+790547,46,"Try run for c286b232f355 is complete.
+Detailed breakdown of the results available here:
+    https://tbpl.mozilla.org/?tree=Try&rev=c286b232f355
+Results (out of 290 total builds):
+    success: 271
+    warnings: 18
+    failure: 1
+Builds (or logs if builds failed) available at:
+http://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/yhuang@mozilla.com-c286b232f355",SOLUTION_VERIFICATION,0,FULL_TOKEN,2012-09-29T06:00:40Z,6678482.0
+794507,1,"Consequences:
+1. We do not necessarily always show the correct security indicator (especially for EV and maybe for mixed content).
+2. We cannot re-validate the certificate of entries from the offline cache since we do not have the cert.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2012-09-26T16:37:42Z,6668601.0
+866470,25,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22552367&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-03 07:40:04
+slave: t-w864-ix-092
+07:51:53     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-03T15:22:48Z,7384739.0
+790547,4,"Created attachment 661129
+WIP - Part 1: Add sendLocationStatus in IDL",UNCODED,0,UNMATCHED,2012-09-14T04:47:31Z,6634545.0
+835157,1,"Created attachment 706889
+v0
+These are totally unused and I don't think they are part of anyone's future plans either. If anyone does know why these are here, please speak up.",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-01-27T18:45:05Z,7042897.0
+852135,8,"Created attachment 737235
+Part a -w",UNCODED,0,UNMATCHED,2013-04-14T11:16:56Z,7312835.0
+779500,125,"Comment on attachment 660727
+part B - nsIDOMFMRadio IDL, v1.1
+The only change here is the comment over addEventListener?  r=me, in that case.
+(I'd s/, i.e.:/:/ -- ""i.e."" doesn't make much sense here -- but that's a small point.  Most native speakers regularly use ""i.e."" less sensibly than this.  :)",CODE_REVIEW,0,80_PCT_MATCH,2012-09-14T15:51:32Z,6635563.0
+857034,3,"Comment on attachment 732274
+patch
+The DisplayBorderBackgroundOutline() call should be inside the |if| block, obviously. I've moved that locally.",CODE_REVIEW,0,FULL_TEXT,2013-04-02T11:41:44Z,7266371.0
+861246,6,https://hg.mozilla.org/mozilla-central/rev/278d87108cb0,UNCODED,0,UNMATCHED,2013-04-14T01:29:08Z,7312505.0
+790547,23,"Created attachment 664395
+Part 4: xpcshell test case for writing Location Info. v4
+fixed typo in comments.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-25T08:27:58Z,6663533.0
+819493,15,"Thanks. Then two more questions:
+3. Can we verify the legal necessity and legal requirements of this messaging? (the answer may be in legal bug 819495 which I do not have access to)
+4. How many times will a new user (individual new profile, etc) see this snippet?",QUESTION,0,FULL_TOKEN,2013-03-05T21:47:24Z,7171558.0
+833964,28,https://hg.mozilla.org/releases/mozilla-b2g18/rev/07c23b20d870,UNCODED,0,UNMATCHED,2013-04-19T18:18:39Z,7336056.0
+819493,30,"I hate that document because it's usually a lie, but I fixed that example anyways.",UNCODED,0,UNMATCHED,2013-04-03T17:58:24Z,7272820.0
+817531,7,"Ah, the wrong referrer thing is definitely from bug 783162.  This part in nsGenericHTMLElement::ParseBackgroundAttribute:
++    mozilla::css::URLValue *url =
++      new mozilla::css::URLValue(buffer, baseURI, uri, NodePrincipal());
+should be:
+    mozilla::css::URLValue *url =
+      new mozilla::css::URLValue(uri, buffer, doc->GetDocumentURI(), NodePrincipal());
+I think.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2012-12-04T16:52:30Z,6879371.0
+866470,29,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22574720&tree=Mozilla-Inbound
+Rev4 MacOSX Snow Leopard 10.6 mozilla-inbound debug test reftest on 2013-05-03 17:24:10
+slave: talos-r4-snow-079
+17:35:13     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-04T01:19:28Z,7387047.0
+866470,12,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22484968&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-01 18:58:07
+slave: t-w864-ix-014
+19:08:26     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T02:36:48Z,7378214.0
+833964,32,It's #5 top crasher in B2G 18.0.,UNCODED,0,UNMATCHED,2013-06-14T06:09:44Z,7533863.0
+779500,132,"If we expose the raw value in dBm, i really doubt that the different FM chips won't have the same ranges, i check the spec of Si4709: 
+  http://www.silabs.com/Support%20Documents/TechnicalDocs/Not-Rec-for-New-Designs%20Si4708-09-B.pdf
+i search the keyword ""rssi"" in this spec, thought i don't know the exact range of the rssi, it seems that the rssi range won't be the same as the FM chip of the Otoro (i.e [-120, -20]).
+If i will create a FM app, i think [0-5] is enough, i don't want to spend anytime to figure out the min and max value it should be, and how to transform it to a meaningful value. I don't quite understand why the app author should care about the accurate number in dBm, we even don't have a signal strength indicator in the FM app of Gaia.
+So in my opinion, we should provide a relative signal strength at least, either an int value range from 0 to 5, or just keep it as a float value range from 0 to 1.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2012-09-15T03:58:41Z,6637265.0
+866470,51,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22691310&tree=Mozilla-Inbound
+Rev4 MacOSX Snow Leopard 10.6 mozilla-inbound debug test reftest on 2013-05-07 09:47:18
+slave: talos-r4-snow-079
+09:58:16     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T17:46:37Z,7396680.0
+817531,5,"Matthias,
+sorry, but it seems we already deployed a fix for this on our side using css.
+I put up some example html: http://www.fotocommunity.net/ff-bug-817531.html
+In Firebug you can validate the the Referer beeing sent with the request for http://cdn.fotocommunity.com/photos/27941525.jpg is ""http://cdn.fotocommunity.com/photos/27941525.jpg"", not the URL to the main request.
+Thanks,
+Moritz",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2012-12-04T08:29:16Z,6877769.0
+866470,45,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22673735&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 00:31:35
+slave: t-w864-ix-055
+00:41:52     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T08:09:24Z,7394565.0
+819493,47,"No idea, I can't really read logs these days. From glancing at it, it seems that the installer repacks OK, but the zip doesn't. Maybe glandium has an idea.",COLLATERAL_PROBLEM_ANALYSIS,0,FULL_TEXT,2013-04-10T09:50:05Z,7298279.0
+779500,145,https://hg.mozilla.org/integration/mozilla-inbound/rev/432033434b3a,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2012-09-21T20:45:35Z,6655920.0
+794507,14,"Comment on attachment 704743
+v1
+This can land to Aurora 20, and we'll approve in the 20+ b2g timeframe for v1.",UPLIFT_APPROVAL,0,FULL_TEXT,2013-01-25T23:32:06Z,7040709.0
+779500,148,"This is a nit, but cell phones contain many radios (e.g. fm, gsm, wifi, bluetooth, nfc).  The WebFM API provides access to a device's /FM radio/.  I might additionally say in the introduction what you can do using the WebFM interface: ""This interface lets you turn the FM radio on and off and tune it to different stations.""
+We're missing the channelWidth attribute.
+I think this unfairly singles out the |frequency| attribute here in a way which may cause confusion.
+Reading /any/ attribute in JS is a synchronous operation.  There is no such thing as an asynchronous attribute in JavaScript.
+In general we care about synchronicity when it can cause disk I/O, because that's very slow.  That's why we don't like localStorage, for example.
+It's true that reading the |frequency| attribute causes a synchronous call up to the parent process.  But as it turns out, we do a sync operation when reading all of the other attributes, as well.  The parent process does no I/O upon receiving one of these messages.
+So either all of the attributes deserve a warning, or none of them does.  The issue isn't that a synchronous operation occurs, because that's how attributes work, but rather that we wait on a synchronous IPC message.  This isn't free, but it's a lot cheaper than sync I/O, so I'm not sure we want devs to be particularly scared of this.
+Certainly you shouldn't expect getting the frequency (or any of the other attributes) to be fast, however.
+Perhaps ""down to which""?  Really, this isn't sufficiently clear.  For example, can I manually set the FM radio frequency outside this bound?
+What are the return values of these methods?  I think they return DOM requests, but we don't say so.
+It looks good to me aside from these issues.  Thanks for your hard work here.",UNCODED,0,UNMATCHED,2013-02-17T23:10:02Z,7112833.0
+819493,14,"Answers to your questions:
+1. You can optimize the copy string to whatever you like, as far as I'm concerned, but I don't know whether the legal dept needs to check that change too.
+2. A user will see this snippet at the exact same time when the notification bar appeared. This is the same as before:
+  1. `browser.rights.override` is set to `true` in about:config
+  2. the message was not seen by the user before (for example the first launch after a fresh install)",ANSWER_TO_QUESTION,0,FULL_TOKEN,2013-03-05T21:43:56Z,7171545.0
+840284,15,"I agree, using timeout for fuzzing won't work. Especially with LangFuzz, the ""replay"" timing is different to the timing while the fuzzer is actually running. Tests are unlikely to reproduce/reduce later on.",SOLUTION_REVIEW,1,FULL_TEXT,2013-02-21T02:08:49Z,7125389.0
+866470,59,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22715462&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 21:07:56
+slave: t-w864-ix-044
+21:18:00     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-08T05:13:03Z,7399026.0
+819493,53,"The recent l10n repack changes (for some value of recent) are what causes l10n-check to fail, because the new l10n repack code is stricter (which is good). We've been badly handling file removals for like ever, but there must have been no localized properties file removal since the l10n repack landing.",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-04-10T15:40:06Z,7299510.0
+866470,6,"mccr8
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22423448&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-04-30 12:16:21
+slave: t-w864-ix-092
+12:29:47     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-04-30T20:02:52Z,7372385.0
+840284,11,"Created attachment 716296
+fuzzing material
+Linux64 and OSX64 are done (except for the bugs, of course), so we are ready for fuzzing.  You should be able to pull http://hg.mozilla.org/users/lwagner_mozilla.com/odinmonkey/ and build.  A threadsafe shell would be useful since it allows more realistic operation-callback testing (just add a 'timeout(X)' call at the beginning and the watchdog thread will start firing interrupts every 1/10 of a second).
+Attached is the Emscripten benchmark suite; just run each file individually from the shell (no args).  You should see ""warning: Successfully compiled asm.js code"" printed to the console.
+A few notes/ideas for fuzzing:
+ - It would be good to direct mutations to *inside* function containing the ""use asm"" directive.
+ - Some of the benchmarks are tiny (corrections, memopsnjn, primes, copy) and short-running, so it would be fruitful to inject probably-valid asm.js into these scripts to see if you can get a crash or divergent behavior (compared to running either on a trunk shell or an odin shell with the ""use asm"" directive removed).  Note: different recursion limits are expected.
+ - Other benchmarks are quite large (bullet.js, fannkuch.js, zlib) and take longer to run (esp if the code doesn't asm.js-type-check; several of these benchmarks are 5-10x slower w/o odin).  However, they compile relatively quickly (<1s) so these would be good files to mutate randomly to test for errors in the typechecker/compiler.  If you set warnings-as-errors (options(""werror"") toggles this option), you'll get a clean exception when compilation succeeds/fails and not have to wait for the actual script to run.
+Let me know if you have any problems or ideas.  Alon said he started looking at Csmith and it's already caught an Emscripten bug; I think he'll turn the guns on Odin after he gets out from under the MWC work.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-02-21T00:40:49Z,7125129.0
+866470,36,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22623404&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-05 21:23:11
+slave: t-w864-ix-012
+21:33:41     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T05:10:17Z,7389548.0
+779500,129,"I think the choice is between doing a 0-5 (or whatever) conversion or reporting the signal strength in dB's and letting the website figure out how to show that to the user.
+If we did 0-5, it's not clear how to correctly convert dBm into that scale.  At best, I guess we'd listen to the radio under different conditions and qualitatively rate how good it sounds.  Then we could correlate these qualitative measurements with the signal strength in dBm.
+If otoh we spit out dBm, then the FM radio app author is going to have to do this experiment him or herself, if she wants to show a meaningful signal strength indicator to the user.
+OTOH, the app may be interested in the real signal strength, instead of our arbitrary number.  And it will be hard to spec our arbitrary scale in a meaningful way.
+My gut feeling is that we should just report raw dBm, since that's a meaningful number.  We can always add a 0-5 (or whatever) scale if necessary.  And then we should make it a priority after landing this bug to get rid of that broadcast I mentioned earlier, since as written, it looks like we're going to broadcast the FM radio signal strength to all processes every 2 seconds (since I imagine the dBm value will be different every time we read it, if only by a small amount).
+But I'm not wed to that idea.  What do you think?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2012-09-15T02:34:29Z,6637196.0
+819493,27,"Created attachment 732768
+Know Your Rights notification box has moved to be shown as default snippet on first startup",UNCODED,0,UNMATCHED,2013-04-03T11:30:59Z,7271162.0
+790547,13,"Created attachment 664321
+WIP - Part 3: Add send Location Event in RIL. v6
+Moved writing location info of TLV into a helper function.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-25T02:13:52Z,6662926.0
+779500,138,"Created attachment 662062
+part C - mozFMRadio v5.1
+- Rebased the lastest m-c
+- Removed signalStrength related codes
+- Fixed nits based on the comment 124 and comment 125",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-09-18T07:51:28Z,6642805.0
+768901,16,"Comment on attachment 669799
+Don't double-count shared nsCSSStyleSheetInners.
+Approving for aurora as it is low risk and help understanding memory consumption better",UPLIFT_APPROVAL,0,FULL_TEXT,2012-10-26T22:29:39Z,6768388.0
+861246,3,"Oh, feel free to land this when you review it if I'm not awake :)",UNCODED,0,UNMATCHED,2013-04-12T17:24:41Z,7309252.0
+851828,7,Not sure when bug 851748 will land...,CODE_UPDATE_REQUEST,0,FULL_TEXT,2013-03-22T19:49:47Z,7235194.0
+758103,23,"Comment on attachment 692974
+Set remaining time to 0 if battery level is 1 [v4]
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): 
+User impact if declined: 
+Testing completed: 
+Risk to taking this patch (and alternatives if risky): 
+String or UUID changes made by this patch:",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2013-01-11T10:12:08Z,6989608.0
+817531,2,"just wanted to add example html in question:
+<table width=""100%"" border=""0"" background=""http://cdn.fotocommunity.com/photos/27941525.jpg"" height=""120"" cellspacing=""5"" cellpadding=""0"">",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2012-12-03T11:38:07Z,6873860.0
+790547,24,"try result
+https://tbpl.mozilla.org/?tree=Try&rev=07c7b4a4f716",UNCODED,0,UNMATCHED,2012-09-25T09:03:54Z,6663602.0
+823917,2,"They've supported equivalent functionality through a contextual ""sealed"" keyword since MSVC 2005.  Is this only about making MOZ_FINAL expand to final rather than sealed in new-enough MSVC?  I'm not complaining if you do that, but it doesn't seem to matter to me much, and if it were me I'd leave it all alone until every compiler we support supports the final contextual keyword.",PROBLEM_REVIEW,0,FULL_TOKEN,2012-12-21T18:20:03Z,6938097.0
+779500,131,"Um, Jonas, can you unset the security bit?",CODE_UPDATE_REQUEST,0,FULL_TEXT,2012-09-15T03:18:44Z,6637243.0
+790547,6,"Created attachment 661131
+WIP - Part 3: Add sendLocationStatus in RIL",UNCODED,0,UNMATCHED,2012-09-14T04:48:47Z,6634548.0
+794507,3,"It seems like the result of this bug is that any HTTPS AppCache-based site is indistinguishable from a site that has broken SSL (e.g. mixed content).
+On the B2G phone we show a crossed-out lock icon in the address bar instead of just the globe like we do on desktop. This makes HTTPS sites that use AppCache look like they're doing something wrong--including, in particular, the Mozilla Marketplace. (I haven't actually verified that this is the reason that the broken lock is shown for the Mozilla Marketplace when AppCache is enabled for it, but it seems very likely.)",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,2012-12-21T06:52:56Z,6936323.0
+790547,30,"Comment on attachment 664409
+Part 3: Add send Location Event in RIL. v8
+Review of attachment 664409:
+-----------------------------------------------------------------
+::: dom/system/gonk/ril_worker.js
+@@ +2325,5 @@
+Nit: it would be good to have size consts for the individual building blocks so that these numbers are a bit clearer and not so magical, e.g.
+  (options.helpRequested ? SIZE_FOO : 0) +
+  (options.eventList ? SIZE_BAR + SIZE_FOO : 0) +",CODE_REVIEW,0,FULL_TOKEN,2012-09-25T21:39:58Z,6666130.0
+819493,6,"Yes, please. Pre-emptive ui-r+ from us. :)",UNCODED,0,UNMATCHED,2013-03-01T22:31:19Z,7159837.0
+822952,2,"Created attachment 693745
+patch v0
+Tests pass locally.  Try push: https://tbpl.mozilla.org/?tree=Try&rev=9c79c64b62d2",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-19T04:59:54Z,6928026.0
+797889,6,https://hg.mozilla.org/mozilla-central/rev/72d8054301d2,UNCODED,0,UNMATCHED,2012-10-06T19:48:03Z,6704652.0
+819493,25,"Created attachment 732300
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+Locale data is now in a DTD. I am trying to build an Official Build to test the build flags, I will report back here when I've succeeded.
+Gavin: I think I addressed the issues from your review. Could you check that for me?",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-04-02T13:28:41Z,7266677.0
+833964,14,"Partners are considering this a blocking issue (in triage right now). We'll start this off as leo+ assuming that QA is either able to repro, or engineering can easily figure out the issue from the stack. Otherwise we'll move this back to blocking-b2g:-.",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-04-17T15:51:26Z,7325832.0
+779500,130,If we are talking about signal strength then dBm sounds great to me. That seems much more standard than any 0-5 scale we can invent.,SOLUTION_REVIEW,1,FULL_TEXT,2012-09-15T03:07:46Z,6637236.0
+835157,2,"Comment on attachment 706889
+v0
+Review of attachment 706889:
+-----------------------------------------------------------------
+Hmm.  I remember why we had these, now.  I think they were used for boxing up primitive |this| values.  I guess whenever we clean up how we handle primitive |this|, we can deal with this sutff then.",CODE_REVIEW,0,FULL_TOKEN,2013-01-28T21:49:49Z,7046266.0
+819493,44,https://hg.mozilla.org/integration/mozilla-inbound/rev/b50153f9e011,UNCODED,0,UNMATCHED,2013-04-10T00:31:47Z,7297191.0
+855335,1,"Compiling the SIPCC code with log macros expanded directly to printf() yields approximately 300 formatting-related warnings. Most of these are benign, but some could be problematic. This bug represents an audit task to examine and fix (or suppress) these warnings.",PROBLEM_DESCRIPTION,0,FULL_TEXT,2013-03-27T16:53:17Z,7250012.0
+790547,3,"Yes, it's needed in Brazil.",ANSWER_TO_QUESTION,0,FULL_TEXT,2012-09-13T02:25:56Z,6631133.0
+811773,1,"Wrapper cached classes unroot themselves in Unlink if they are preserved. This is okay for the preserved-wrapper pointer, because the pointer is cleared, but any other JS pointers in the native are going to still be around, meaning the native will have a dangling pointer until it is destroyed.
+Usually, Unlinked objects are unreachable and will only have their destructors called, but this could be combined with other errors in the cycle collector to create sec-crit problems.
+There are various ways we may be able to de-footgun this, but as a backportable fix maybe it makes sense to just manually clear these JS fields in Unlink.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2012-11-14T17:53:23Z,6821714.0
+790547,12,"Created attachment 664004
+WIP - Part 3: Add send Location Event in RIL. v5
+supply locationInformation only when service state is normal.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-24T11:05:49Z,6659824.0
+790547,5,"Created attachment 661130
+WIP - Part 2: Add SendLocationStatus in IccManager",UNCODED,0,UNMATCHED,2012-09-14T04:48:06Z,6634547.0
+866470,43,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22664548&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-06 19:58:07
+slave: t-w864-ix-082
+20:08:08     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T03:32:22Z,7393991.0
+852135,13,"Comment on attachment 737236
+Part b: Get rid of some explicit namespace qualifications
+r=me",UNCODED,0,UNMATCHED,2013-04-25T19:37:17Z,7356243.0
+779500,114,"Thanks a lot for correcting my english written sentences. If you feel
+re-writting the whole sensence is a lot easier for you, please do it.
+Either way works for me. I am really appreciate.
+I think the interface is kind of a hal::FMRadioSettings ""copy"", i am trying to make them consistent.
+BTW, in the WebFM idl, we call this ""channelWidth"", should we change it too? or call this ""channelWidth"" in anywhere?
+Cool~
+I am trying to make it consistent with the hal part.
+Because there is hal::FMRadioSettings, it is easy to be confused, I prefer keep the ""ns"" prefix, and move it to the top-level namespace.",CLARIFICATION,0,FULL_TEXT,2012-09-13T02:00:39Z,6631081.0
+852135,6,"Comment on attachment 734285
+Patch v1.2
+Going to wait until Attr lands.",STATUS_UPDATE,0,FULL_TEXT,2013-04-09T13:33:00Z,7294084.0
+869069,4,"Does this also cover removing the dupe widgets (cut/copy/paste, Zoom) and the ""activity"" indicator ?",QUESTION,0,FULL_TEXT,2013-05-06T17:31:10Z,7391458.0
+790547,27,"Created attachment 664409
+Part 3: Add send Location Event in RIL. v8
+Addressed to kk11ff's feedback.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-25T09:34:58Z,6663649.0
+676248,3,"OpenGL V-Sync has already been enabled in bug 748816, so this shouldn't regress anything as soon as we have bug 676250.",STATUS_UPDATE,0,FULL_TEXT,2012-10-25T22:16:43Z,6765037.0
+866470,67,"As best I can tell, nothing ever landed here, but this seems to have disappeared. Any ideas, Matt?",QUESTION,0,FULL_TEXT,2013-05-14T17:07:05Z,7421838.0
+851828,8,Going to try and land this today.,STATUS_UPDATE,0,FULL_TEXT,2013-03-26T14:59:19Z,7244800.0
+779500,136,"Created attachment 662058
+part A - MOZ_B2G_FM option
+rebased the lastest m-c",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-18T07:47:01Z,6642798.0
+822952,1,"While in the debugger I noticed a large number of calls to nsHTMLMediaElement::ChangeReadyState via UpdateReadyStateForData hitting the early-exit path because the ready state was not changing.  MediaDecoderStateMachine::UpdateReadyState is called from multiple places and dispatches an event each time, even if the state is unchanged.  This can result in many events being created and dispatched during a single video frame.
+With a simple current == last status early-exit path added to MediaDecoderStateMachine::UpdateReadyState, the number of events created and dispatched for a simple play-through of a 5 minute video drops from ~140,000 (~468/s or ~15/frame) to 3.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2012-12-19T04:47:06Z,6928002.0
+758103,27,"Comment on attachment 692974
+Set remaining time to 0 if battery level is 1 [v4]
+Review of attachment 692974:
+-----------------------------------------------------------------
+Please go ahead with uplift to the tip of mozilla-b2g18 branch for v1.0.1",CODE_REVIEW,0,FULL_TEXT,2013-02-07T16:25:27Z,7080932.0
+779500,133,"Maybe we can just cut out the signal strength for now, if we don't need it for the FM app.  Then we wouldn't have to worry about scaling the logarithmic dBm units to more user-friendly units, and we wouldn't have to worry about that broadcast() call.",SOLUTION_REVIEW,1,FULL_TOKEN,2012-09-15T04:12:16Z,6637271.0
+779500,117,"Sounds good so far...
+The problem is that if we ever changed the enum, existing settings would be broken?  Sounds like the solution is a big fat warning on the enum definition...",UNCODED,0,UNMATCHED,2012-09-13T02:31:34Z,6631150.0
+869069,2,"Created attachment 745940
+Patch v1",UNCODED,0,UNMATCHED,2013-05-06T17:29:13Z,7391450.0
+801993,5,https://hg.mozilla.org/mozilla-central/rev/ecad7b037795,UNCODED,0,UNMATCHED,2012-10-17T18:52:03Z,6738828.0
+779500,143,"All patches were folded into one commit.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/75923725b2fc",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-09-19T18:01:39Z,6648227.0
+817531,17,"Comment on attachment 688325
+Fix the referrer header for background image loads.
+low risk regression fix, approving.",UPLIFT_APPROVAL,0,FULL_TOKEN,2012-12-07T19:25:50Z,6893117.0
+866470,47,"ttaubert
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22676760&tree=Fx-Team
+WINNT 6.2 fx-team debug test reftest on 2013-05-07 02:05:10
+slave: t-w864-ix-090
+02:15:45     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T09:41:20Z,7394818.0
+812431,2,"Created attachment 682350
+no issue.png",UNCODED,0,UNMATCHED,2012-11-16T07:22:47Z,6828133.0
+768901,17,https://hg.mozilla.org/releases/mozilla-aurora/rev/f37aaa95fee3,UNCODED,0,UNMATCHED,2012-10-28T00:01:55Z,6769847.0
+838565,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/526130001ba8,UNCODED,0,UNMATCHED,2013-02-08T11:02:23Z,7084204.0
+758103,19,"Created attachment 692974
+Set remaining time to 0 if battery level is 1 [v4]
+Thanks for the reviews.",UNCODED,0,UNMATCHED,2012-12-17T16:53:04Z,6921252.0
+817341,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/14893aa56835,UNCODED,0,UNMATCHED,2012-12-05T06:23:18Z,6882281.0
+819493,54,"Re-landed on top of bug 860371:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c950d2ea4c5b",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-04-11T16:02:04Z,7304130.0
+866470,65,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22788699&tree=UX
+WINNT 6.2 ux debug test reftest on 2013-05-09 12:53:47
+slave: t-w864-ix-048
+13:03:55     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-10T05:00:46Z,7408117.0
+823917,5,"Comment on attachment 695276
+Use C++11 final on MSVC11
+Review of attachment 695276:
+-----------------------------------------------------------------
+mfbt follows overall JS/Gecko compiler requirements (or at least there's been no reason not to follow them so far).  rs=me",CODE_REVIEW,0,FULL_TOKEN,2013-01-02T19:35:08Z,6957035.0
+794507,11,"Comment on attachment 704743
+v1
+Great. I think it makes sense to split bug 833834, because we can land the patch in this bug for B2G 1.0 (I hope), whereas the changes in bug 833834 shouldn't be needed for B2G because B2G 1.0 won't have any old data without security-info if this lands before 1.0 is frozen.
+I hope we can land the patch on central soon so that Lee can test it out to make sure it solves the problem he reported.
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): long-existing bug
+User impact if declined: Users will see a scary broken lock icon in the B2G browser (not just a harmless-looking globe like in desktop Firefox) for any site that uses AppCache.
+Testing completed: None yet. We should bake this on central for a few days.
+Risk to taking this patch (and alternatives if risky): From a correctness/stability standpoint, this patch is very low risk, as we already use the same logic in the regular (not offline) cache. However, there may be some negative performance impact, since we're writing and reading an extra metdata element from the cache, and we know that I/O in the offline cache is prone to performance issues.
+String or UUID changes made by this patch: none.",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2013-01-23T19:44:08Z,7031208.0
+866470,14,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22493573&tree=Mozilla-Inbound
+Rev4 MacOSX Snow Leopard 10.6 mozilla-inbound debug test reftest on 2013-05-02 01:14:21
+slave: talos-r4-snow-079
+01:25:35     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T10:19:59Z,7379138.0
+866470,32,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22599806&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-04 15:48:06
+slave: t-w864-ix-012
+15:58:10     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-04T23:46:54Z,7388269.0
+758103,8,"See ScopedClose: 
+#include <mozilla/FileUtils.h>
+https://mxr.mozilla.org/mozilla-central/source/xpcom/glue/FileUtils.h#54
+Sample Usage:
+https://mxr.mozilla.org/mozilla-central/source/widget/gonk/Framebuffer.cpp#141
+I would be inclined to use open/read/close though so that you can use ScopedClose.
+I think that ScopedClose probably also needs to be changed to deal with EINTR. I'll file a bugfor that.
+There is a macro in <unistd.h> called TEMP_FAILURE_RETRY which does the loop/errno check.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2012-12-04T17:10:56Z,6879478.0
+855335,8,"Created attachment 735936
+Signaling - fix Wformat warnings in logging",UNCODED,0,UNMATCHED,2013-04-10T20:13:01Z,7300814.0
+794101,3,https://hg.mozilla.org/integration/mozilla-inbound/rev/59a16157483a,UNCODED,0,UNMATCHED,2012-09-25T21:40:01Z,6666131.0
+794507,8,"How about we change the code for conditional requests so that we never add the conditional request headers if we're doing an offline cache update and the existing entry doesn't have a security-info entry?
+Also, when we fetch the cache manifest, if the cache manifest itself doesn't have security-info then we should consider the cache manifest as having been updated, to force a refresh of the app.
+I agree that it doesn't need to be removed right away and probably can't be, to avoid breaking things. But, the other things I suggest above are very important to do now.",CODE_REVIEW,0,FULL_TEXT,2013-01-22T19:56:59Z,7026921.0
+758103,16,"I was confused. I have since discovered that remainingTime changes meaning based charging (so when charging is true, remainingTime = time until full charge, and when charging is false, remainingTime = time until battery dead)
+So you can ignore that portion of my review comment and just fix the other 2 little issues.",CLARIFICATION,0,FULL_TOKEN,2012-12-15T17:17:27Z,6917955.0
+861246,1,"Patch incoming, just a line went missing somewhere.",STATUS_UPDATE,0,FULL_TEXT,2013-04-12T17:14:34Z,7309208.0
+852135,15,"Comment on attachment 737239
+Part d: Move to WebIDL bindings, remove CI and QS
+WrapObject takes a handle for the scope now.
+r=me with that",CODE_REVIEW,0,FULL_TOKEN,2013-04-25T19:52:45Z,7356306.0
+833964,7,"Just guessing:
+Guessing it had to do with browser, the parent tab, a frame and zooming?
+Since zooming doesn't change when following a link in the same tab, maybe it crashed during the opening a web page that had an iframe?
+Going to toy with that idea.",PROBLEM_REVIEW,0,FULL_TOKEN,2013-02-14T18:49:44Z,7104718.0
+676248,2,"Created attachment 675320
+make it transparent
+No idea who to ask for review but since I'm making Josh review the rest of the work for bug 675410, he gets this one too.",CODE_REVIEW_REQUEST,0,FULL_TEXT,2012-10-25T21:57:15Z,6764962.0
+866470,68,"That doesn't really make sense to me.
+I'll land the fix anyway, it should be a valid change regardless.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c4eae0d77d5e",ANSWER_TO_QUESTION,0,FULL_TOKEN,2013-05-15T08:39:08Z,7424766.0
+817341,5,https://hg.mozilla.org/mozilla-central/rev/14893aa56835,UNCODED,0,UNMATCHED,2012-12-05T15:30:46Z,6883622.0
+866470,46,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22675739&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 01:40:04
+slave: t-w864-ix-030
+01:51:01     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T09:18:53Z,7394739.0
+817531,12,"I'm going to reland with the test disabled on android, for now, and work on debugging why the test fails there.",STATUS_UPDATE,0,FULL_TEXT,2012-12-07T01:29:04Z,6890392.0
+833964,8,There have been no crashes since 18.0/20130131.,REPRODUCTION_ATTEMPT,0,FULL_TEXT,2013-02-25T14:25:36Z,7138335.0
+837955,2,"Created attachment 709973
+fix",UNCODED,0,UNMATCHED,2013-02-05T00:51:49Z,7069513.0
+790547,43,"Comment on attachment 665243
+Part 1: IDL for sendEventDownload v4
+Review of attachment 665243:
+-----------------------------------------------------------------
+I can't say that I understand a lot of the STK still :(. But this looks clean to me.",CODE_REVIEW,0,FULL_TEXT,2012-09-29T01:56:47Z,6678203.0
+819493,21,"Created attachment 726131
+Update as oer Gavin's review and comments
+Gavin, thanks for the thorough review!
+* The background images won't be added until bug 848118 is resolved (see comment 16)
+* You're right about the l10n issue here, so I changed the locale properties
+* put back the one-line PNG for OSX
+* implemented knowYourRights attribute handling on the pages' documentElement as per your suggestion and adjusted the tests accordingly
+Over the years I've adopted the practice to 'correct' coding style mis-alignments whenever I touch that code directly. My idea behind this is that doing it like this gives me the idea that we keep striving for a uniform codebase, while not acting like style-nazi and start correcting each and every flaw in random files.
+This is off-topic, but I wanted to mention it anyway: when I look at the codebase as a whole, I get the feeling that too many patches were landed in the past where reviewers eventually skipped over the nits. I actually respect reviewers that dare putting 'Nit: ...' style comments in a review, because it shows that he or she cares about keeping the tree clean and exemplary.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-03-18T12:02:40Z,7214634.0
+819493,5,"Fine by me. 
+Marketing requirement: Make sure this First Run snippet is shown only once, to new users only.  I'm happy to provide the copy, graphic, and link - let me know when you need this.",REQUIREMENT,0,FULL_TOKEN,2012-12-13T15:42:30Z,6910668.0
+840284,14,"I'll do that, but I'm worried the testcases will depend on timing, so they won't get reduced / bisected (and they might get lost altogether).  Please fix bug 831046 :)",REQUIREMENT,0,FULL_TOKEN,2013-02-21T02:05:58Z,7125382.0
+779500,147,"Here is the doc: https://developer.mozilla.org/en-US/docs/DOM/WebFM
+I would love if someone could review it and say if something is obviously missing or wrong.
+Thanks.",UNCODED,0,UNMATCHED,2013-02-08T16:29:00Z,7085084.0
+794101,4,https://hg.mozilla.org/mozilla-central/rev/59a16157483a,UNCODED,0,UNMATCHED,2012-09-26T11:07:33Z,6667734.0
+852135,12,"Comment on attachment 737234
+Part a: Reindent some code in nsDOMAttributeMap
+r=me",UNCODED,0,UNMATCHED,2013-04-25T19:35:58Z,7356239.0
+819493,9,"I will fix up the logic bits, then I'll ping Laura if I need any graphic work done.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2013-03-05T12:25:00Z,7169164.0
+840284,5,"I think so. Would be interesting to have a random code generator based on the type system itself, and/or to mutate asm.js from emscripten in ways that *do* keep it asm.js, not just break out of it. Both would test things just emscripten output does not.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2013-02-18T20:55:39Z,7115106.0
+812431,3,"Created attachment 682351
+issue.png",UNCODED,0,UNMATCHED,2012-11-16T07:23:03Z,6828134.0
+819493,16,Done - I now have access to this bug. Thanks Johnath.,STATUS_UPDATE,0,FULL_TEXT,2013-03-05T22:12:42Z,7171666.0
+851828,5,"That would be great, thanks.",UNCODED,0,UNMATCHED,2013-03-16T20:30:50Z,7211491.0
+866470,37,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22630452&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-06 05:31:08
+slave: t-w864-ix-071
+05:41:56     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T13:14:32Z,7390393.0
+819493,45,"Backed out in https://hg.mozilla.org/integration/mozilla-inbound/rev/278ea1d0e072 - I don't really know what that buildstep is doing, apparently some sort of test for whether we're breaking l10n repacks, but if you search for ""mozpack.errors.AccumulatedErrors"" in https://tbpl.mozilla.org/php/getParsedLog.php?id=21625292&tree=Mozilla-Inbound, you'll see the thing that failed in a couple of Windows opt builds.
+I look forward to hearing the explanation you find out, about what on earth it is, and whether the way it only failed in some builds means that it has broken dependencies, or that whenever you remove a dtd/properties file, you now have to clobber, or have to clobber Windows, or... dunno.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2013-04-10T04:23:13Z,7297650.0
+819493,49,"At least, until we have something better.",CLARIFICATION,0,FULL_TEXT,2013-04-10T10:43:26Z,7298452.0
+667586,39,*** Bug 267146 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2013-02-20T05:01:29Z,7120935.0
+837955,3,https://hg.mozilla.org/mozilla-central/rev/5490d8c52ff4,UNCODED,0,UNMATCHED,2013-02-06T00:33:23Z,7073728.0
+861246,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/278d87108cb0,UNCODED,0,UNMATCHED,2013-04-13T06:17:12Z,7311543.0
+866474,1,"The JSRuntime::setDefaultLocale function currently accepts any string as a locale; it doesn't check whether it's a valid BCP 47 language tag and supported by the implementation of the Internationalization API. It's up to the DefaultLocale function in Intl.js whether it actually uses the runtime's default locale.
+It might be better to have JSRuntime::setDefaultLocale check whether the string is acceptable, and reject it if not.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2013-04-28T01:32:20Z,7363041.0
+779500,142,"Created attachment 662584
+part A - MOZ_B2G_FM option v2
+review comments addressed. AC_DEFINE was left in since there is code looking for that define.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-19T16:10:45Z,6647796.0
+794507,5,"Created attachment 704743
+v1
+Damn, I'm fast!",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-01-22T02:32:51Z,7024243.0
+817531,6,"Firefox17: Referer: http://cdn.fotocommunity.com/photos/27941525.jpg
+Firefox10ESR: Referer: http://www.fotocommunity.net/ff-bug-817531.html
+We have 2 regressions here.
+The first regression is that we stop loading the image over the net
+Last good nightly: 2012-08-15
+First bad nightly: 2012-08-16
+Pushlog:
+http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=86ee4deea55b&tochan
+ge=50e4ff05741e
+I suspect bug 697230
+Some builds later we start to load the image again but with the wrong referer header
+Last good nightly: 2012-08-24
+First bad nightly: 2012-08-25
+Pushlog:
+http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=1c0ac073dc65&tochan
+ge=f077de66e52d
+I suspect bug 783162",PROBLEM_LOCALIZATION,0,FULL_TOKEN,2012-12-04T15:50:46Z,6878960.0
+855335,7,"Created attachment 735884
+Signaling - fix Wformat warnings in logging",UNCODED,0,UNMATCHED,2013-04-10T18:17:34Z,7300294.0
+866470,8,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22435380&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-04-30 16:04:03
+slave: t-w864-ix-049
+16:19:00     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-01T00:06:17Z,7373649.0
+676248,10,"Yes, our 'refresh driver' is not actually what it says it is, and it gives us jittery 60Hz timings, regardless of display refresh rate. If we enable vsync on non-60Hz displays, the effects could be especially nasty.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2013-03-05T23:07:59Z,7171865.0
+819493,19,"Created attachment 721710
+Added unit tests and now passing serialized JSON between documents",UNCODED,0,UNMATCHED,2013-03-06T14:54:13Z,7173562.0
+790547,26,"Comment on attachment 664329
+Part 3: Add send Location Event in RIL. v7
+Review of attachment 664329:
+-----------------------------------------------------------------
+::: dom/system/gonk/ril_worker.js
+@@ +2285,5 @@
+should be 
+command.eventList = command.eventType;
+Thanks for kk11ff to point this out.",CODE_REVIEW,0,FULL_TOKEN,2012-09-25T09:32:58Z,6663643.0
+676248,4,"Comment on attachment 675320
+make it transparent
+I'm ok with this patch if it doesn't regress performance. If it does regress performance we should quantify it first.
+Have you had a chance to compare some profiles before or after for operations like 60Hz compositing and resizing? I find them very informative when we're changing a significant code paths.",CODE_REVIEW,0,FULL_TOKEN,2012-10-26T18:04:34Z,6767445.0
+676248,14,Done. Landed on mozilla-inbound as https://hg.mozilla.org/integration/mozilla-inbound/rev/635e926d9e4f,STATUS_UPDATE,0,FULL_TEXT,2013-03-11T16:30:09Z,7189261.0
+866470,5,"jfkthame
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22420241&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-04-30 10:54:23
+slave: talos-mtnlion-r5-069
+11:02:39     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-04-30T18:36:45Z,7371974.0
+779500,116,"Then i will rename them all to ""channelWidth"".
+And what do you think about the comment #107 ?",CODE_REVIEW_REQUEST,0,FULL_TOKEN,2012-09-13T02:26:24Z,6631137.0
+819493,51,"m-cMerge, y u no see my backouts?",UNCODED,0,UNMATCHED,2013-04-10T14:14:05Z,7299124.0
+866470,19,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22510556&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-05-02 09:56:18
+slave: talos-mtnlion-r5-074
+10:05:08     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T17:33:27Z,7380694.0
+819493,37,"Created attachment 732985
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+updated commit message, carrying over r+",CODE_IMPLEMENTATION,1,95_PCT_MATCH_PROCESSED,2013-04-03T19:51:56Z,7273515.0
+819493,1,"I was talking with some folks today about how we have too many notification bars happening on first/second/third run (know your rights, telemetry, obsolete plugins, FHR). When we wrote the Know Your Rights notification box, we didn't have about:home and its dynamic snippet area, but now we do. I suggest that we remove the notification bar for that and instead make it the snippet displayed on first run, before we go and fetch the dynamic snippets we display on future page loads.
+I think the code here should be simple, but I'd like to from marketing and legal about whether there are any gotchas here. Gavin notes that we'll need to be a little careful about how we implement it, since the current default snippet isn't guaranteed to be shown, but presumably we'd want that, here.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2012-12-07T20:01:13Z,6893293.0
+817531,10,"Comment on attachment 688325
+Fix the referrer header for background image loads.
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): Bug 783162.
+User impact if declined: Referrer for background images via HTML ""background""
+   attributes is the image itself, not the document, possibly breaking some sites.
+Testing completed (on m-c, etc.): Passes automated test.
+Risk to taking this patch (and alternatives if risky): Risk should be very low.
+String or UUID changes made by this patch: None",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2012-12-06T21:45:12Z,6889523.0
+822952,3,"Comment on attachment 693745
+patch v0
+Review of attachment 693745:
+-----------------------------------------------------------------
+Good catch",CODE_REVIEW,0,FULL_TEXT,2012-12-19T05:03:47Z,6928033.0
+833964,16,"I have absolutely no clue about APZC; I understand that Anthony Jones does, but I think he's indisposed at the moment. Maybe roc has some idea who would.",ASSIGNEE_REQUEST,0,FULL_TEXT,2013-04-17T22:28:58Z,7327918.0
+823917,4,"Try result (along with other patches):
+https://tbpl.mozilla.org/?tree=Try&rev=ee97ff67d30b",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-23T04:11:03Z,6941221.0
+819493,17,"Removing the Creative bug as a dependency. Let's not have that block this goodness and implement this first basic step as is (no graphic, same copy). Will follow up with graphic/copy changes in a patch.",STATUS_UPDATE,0,FULL_TEXT,2013-03-05T22:38:30Z,7171762.0
+779500,119,"[infallible] attributes are only allowed on [builtinclass] interfaces, however, if i add [builtinclass] to nsIFMRadio, then the function FMRadio::enable(nsIFMRadioSettings settings) is not callable from JS, here is the error:
+  [JavaScript Error: ""NS_ERROR_FAILURE: Failure arg 0 [nsIFMRadio.enable]"" {file: ""resource://gre/modules/DOMFMRadioParent.jsm"" line: 423}]",SOLUTION_VERIFICATION,0,FULL_TOKEN,2012-09-13T05:19:30Z,6631361.0
+855335,17,"https://hg.mozilla.org/mozilla-central/rev/16b7c4a657df
+Sorry about that, don't know how I missed the [leave open].",UNCODED,0,UNMATCHED,2013-04-13T02:20:28Z,7311356.0
+768901,13,Filed bug 799816.,NEW_ISSUE_FILING,0,FULL_TEXT,2012-10-10T03:31:36Z,6714024.0
+790547,41,"Created attachment 665244
+Part 3: Add send Location Status Event in RIL. v10
+Addressed to philikon's comment in comment 37",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-27T03:29:36Z,6670885.0
+779500,144,"I backed out a range of patches including this one which caused a perma-leak in all of our test suites on debug builds:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/e60144694d56",IMPLEMENTATION_REVERSION,0,FULL_TOKEN,2012-09-19T19:43:37Z,6648645.0
+866470,4,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22366538&tree=Mozilla-Central
+Rev5 MacOSX Mountain Lion 10.8 mozilla-central debug test reftest on 2013-04-29 09:51:58
+slave: talos-mtnlion-r5-076
+10:00:19     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-04-29T17:27:00Z,7366281.0
+758103,15,"Comment on attachment 692284
+Set remaining time to 0 if battery level is 1 [v3]
+Review of attachment 692284:
+-----------------------------------------------------------------
+::: hal/gonk/GonkHal.cpp
+@@ +385,5 @@
+Shouldn't this be == 1 ?
+@@ +400,5 @@
+&& success
+@@ +470,5 @@
+The logic of the above doesn't seem right to me. 
+I thought the intent was:
+if charging && (battery-level >= 1.0)
+   return NoTimeRemaining
+The logic as coded will return NoTimeRemaining if it's not charging, which feels wrong.",CODE_REVIEW,0,FULL_TOKEN,2012-12-14T19:18:14Z,6916010.0
+866470,50,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22689422&tree=Fx-Team
+WINNT 6.2 fx-team debug test reftest on 2013-05-07 09:23:05
+slave: t-w864-ix-038
+09:33:46     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T17:25:19Z,7396571.0
+851828,2,"Comment on attachment 725795
+Patch (v1)
+Review of attachment 725795:
+-----------------------------------------------------------------
+::: tools/profiler/sps_sampler.h
+@@ +472,5 @@
+Why did you drop <uint32_t>? The return type is still that.",QUESTION,0,FULL_TEXT,2013-03-16T19:15:42Z,7211426.0
+855335,15,"Comment on attachment 736506
+Patch 2 - Signaling fix warnings format-extra-args and format-security
+Review of attachment 736506:
+-----------------------------------------------------------------
+This fixes all of the -Wformat-extra-args warnings and all of the -Wformat-security warnings except the ones in fsmcnf.c and fsmdef.c which are caused by the format parameter being the return of another function (get_debug_string).  I chose not to address those since that would entail getting replacing all of the get_debug_string calls with literals.
+I don't think this patch fixes anything that would cause a crash, those were fixed in the first patch.",CODE_REVIEW,0,FULL_TOKEN,2013-04-11T23:20:01Z,7306280.0
+794507,7,"May be a bit drastic, but we could delete manifests loaded via https those don't have the security-info metadata from cache to force update.  Since all items must have same scheme or same origin, we will reload only what we have to reload.
+On the other hand, this code (in comment 5) is harmless, so we can remove it in some very future version.  Then, we should log to some console that the cache is obsolete or do the previously suggested thing.",CODE_REVIEW,0,FULL_TOKEN,2013-01-22T03:32:06Z,7024352.0
+819493,52,Sounds reasonable. Do you know when this became a problem? Is it related to your relatively recent packaging changes? I have a hard time believing we haven't removed a properties file since then.,QUESTION,0,FULL_TEXT,2013-04-10T15:32:30Z,7299478.0
+840284,16,That's fine.  It's easy enough for me to test this feature by cranking up frequency and running these large Emscripten codes (which I've been doing).,CLARIFICATION,0,FULL_TOKEN,2013-02-21T02:11:32Z,7125397.0
+840284,13,"Sure.  In bug 842411, I changed the threadsafe shell so that, when you call ""timeout(X)"", the watchdog thread will JS_TriggerOperationCallback every 10th of a second.  Before X seconds have elapsed, the operation callback will return ""true"", allowing execution to continue.
+That'd work.  An improvement would be to add a parameter that lets you configure how often the interrupt occurs.  I was using 10,000 times a second earlier to really stress the Odin path.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2013-02-21T01:40:38Z,7125296.0
+758103,25,"Originally, I fixed this problem on a PandaBoard, where the incorrect battery status resulted in an incorrect battery icon and status string in the settings app and status bar. With the patch applied, Gonk returns the battery status according to Battery Status API standard.
+In bug 811006, the problem was triggered on a Unagi phone, so I thought this patch might be worth considering for v1. I don't think it should be a blocker, though.
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): -
+User impact if declined: Possibly wrong battery status in UI
+Testing completed: On my phones and PandaBoard
+Risk to taking this patch (and alternatives if risky): Low
+String or UUID changes made by this patch: -",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2013-01-15T09:54:41Z,7001948.0
+797889,1,"We need to avoid sending any IPC messages from IndexedDB after shutdown of the relevant parent protocol (PBrowser for in-Window, PContent for out-of-Window).
+This patch implements the (hacky) solution we agreed on; having those protocols tell their IndexedDB subprotocols not to send any more messages.  I also refactored the IPC setup for AsyncConnectionHelper slightly to make this cleaner.
+The upcoming patch passes all the tests without assertions on the parent or the child side.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2012-10-04T15:54:02Z,6697594.0
+758103,10,"Created attachment 689201
+Set remaining time to 0 if battery level is 1 [v2]
+This is an update to the previous patch. The major changes are the use of TEMP_FAILURE_RETRY and ScopedClose. Because of the latter, the file I/O has been rewritten to use file descriptors, and all gotos are gone.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-12-06T15:10:59Z,6887893.0
+819493,3,"This sounds good to me. Agree with the alert overload upon first run experience. 
+This may require a update to the Snippet Service. From the Engagement perspective, serving out custom communication based on user life-cycle is something we've wanted to have the ability to do for a while. Perhaps we look at it that way instead of focusing on having the ""default"" snippet do this job. Those default snippets contain evergreen content designed to show when the snippet service is down. They have generic messaging to fit any user experience. Ideally in this snippet we would want to say ""Welcome to Firefox! Did you know..."" 
+Perhaps file a bug for the Snippet Service, and focus this bug on simply removing the Alert bar?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2012-12-12T01:16:30Z,6904413.0
+840284,18,"Created attachment 718174
+fuzzing material v.2
+We just made a fix in the asm.js spec (http://hg.mozilla.org/users/lwagner_mozilla.com/odinmonkey/rev/f61b4dacc3d1) and type system that will reject one of the benchmarks in the previous zip (bullet).  Here is the new version of all the benchmark files.  Let the assault continue.  (Thanks!)",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-02-26T01:02:33Z,7141575.0
+758103,11,"Comment on attachment 689201
+Set remaining time to 0 if battery level is 1 [v2]
+Review of attachment 689201:
+-----------------------------------------------------------------
+r=me with the comments applied.
+::: hal/gonk/GonkHal.cpp
+@@ +383,5 @@
+Don't pass |aChargingTime| to this method if you don't actually use it. It might give the wrong impression to the caller.
+@@ +469,5 @@
+I think this entire block should be something like:
+int charging;
+if (GetCurrentBatteryCharging(&charging)) {
+  aBatteryInfo->charging() = charging;
+} else {
+  aBatteryInfo->charging() = true;
+}
+aBatteryInfo->remainingTime = dom::battery::kUnknownRemainingTime;
+if (aBatteryInfo->charging() && aBatteryInfo->level == 1.0) {
+  aBatteryInfo->remainingTime = dom::battery::kDefaultRemainingTime;
+}
+(feel free to use a ternary operator)",CODE_REVIEW,0,FULL_TOKEN,2012-12-06T16:46:25Z,6888181.0
+779500,113,"Comment on attachment 660361
+all-in-one patch, v4
+Nit: Put the && on the line above.  (As a rule, we don't start a line with a
+binary operator like && or +.)
+It's pretty confusing to flip the boolean around like this.
+I don't care which way the boolean goes, but can we make it consistent?
+Just |return FM_BANDS[...] + roundedPart;|
+Like I said in the earlier review, I think this would be better if you moved
+the large |case| bodies into their own functions, particularly because it would
+let you do early returns instead of these long |else| clauses.  The small
+|case| bodies are fine how they are.
+s/being enabled currently/currently being enabled/
+s/frequecy/frequency/
+When you split out this code into a method, perhaps you can combine seekUp and
+seekDown, if that makes sense.
+r=me on the JS bits.  I'd like to take another look at the C++ parts.  And we
+still need that review from a build peer.",CODE_REVIEW,0,FULL_TOKEN,2012-09-12T21:38:27Z,6630344.0
+797889,4,"Created attachment 668228
+Patch
+Comments addressed",CODE_IMPLEMENTATION,1,95_PCT_MATCH_PROCESSED,2012-10-04T23:17:03Z,6699369.0
+833964,22,"Comment on attachment 739074
+Null out potentially dangling pointer
+Review of attachment 739074:
+-----------------------------------------------------------------
+Makes perfect sense to me. I don't even really think this needs a comment explaining it.",CODE_REVIEW,0,FULL_TEXT,2013-04-18T16:34:23Z,7331077.0
+790547,32,Hah looks like smaug pre-empted me ;) Yay.,UNCODED,0,UNMATCHED,2012-09-25T23:09:21Z,6666450.0
+851828,12,"This ended up being a red-herring. Re-landed.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/0c5c83ed0385",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-03-26T21:48:18Z,7246880.0
+811773,4,It would probably be good to backport at least the bits of the final patch that fix things.,SOLUTION_REVIEW,1,FULL_TEXT,2012-11-28T14:58:08Z,6859641.0
+855335,11,Assuming from comment 8 that this is leave-open for now,STATUS_UPDATE,0,FULL_TEXT,2013-04-11T15:25:35Z,7303974.0
+768901,6,"So nsCSSStyleSheetInner::mSheets holds pointers to each of the nsCSSStyleSheets that share the inner?  I see.  There will be a bit of arbitrariness in terms of who gets blamed for the memory consumption of the inner, but that seems hard to avoid and double-counting is worse.",SOLUTION_REVIEW,1,FULL_TOKEN,2012-10-09T21:49:44Z,6713100.0
+817531,8,"Created attachment 688325
+Fix the referrer header for background image loads.",UNCODED,0,UNMATCHED,2012-12-04T18:00:45Z,6879719.0
+840284,6,"Additionally, it would be interesting to throw a C fuzzer in front of Emscripten :)",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2013-02-18T21:08:17Z,7115133.0
+819493,11,"Created attachment 721275
+this patch moves the 'Know Your Rights' notification box to a snippet",UNCODED,0,UNMATCHED,2013-03-05T16:49:20Z,7170194.0
+768901,7,"Created attachment 669799
+Don't double-count shared nsCSSStyleSheetInners.
+This simple patch follows dbaron's suggestion.  It removes all of DMD's
+double-counting warnings for both (a) the two-window desktop browser case,
+and (b) B2G.  Hurray.",CODE_IMPLEMENTATION,1,90_PCT_MATCH,2012-10-09T23:32:09Z,6713471.0
+855335,18,"BTW, you know you can get gcc to generate these warnings without such hackery, right? See the ""format"" attribute at http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html",CLARIFICATION,0,FULL_TEXT,2013-04-13T02:25:39Z,7311365.0
+811773,3,"The latter two patches in bug 811206 should have fixed this.
+We'll get fatal assertions if the code isn't right.
+Closing
+Andrew, if you disagree, please re-open.",SOLVED_BY_OTHER_ISSUE,0,FULL_TOKEN,2012-11-28T14:49:12Z,6859615.0
+823917,3,"Created attachment 695276
+Use C++11 final on MSVC11
+After all, I wrote the patch with another cleanup.
+|#if _MSC_VER >= 1400| is redundant because our minimum compiler requirement is MSVC 2005 (Or MFBT has a different requirement?).",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-23T04:08:35Z,6941217.0
+794507,10,"That seems effectively identical to my proposal.  I want to let the cache reload on access.  Deleting or artificial invalidating is the same actually.  However, for the manifest we also have to remove the ""hash"" metadata to prevent seeing the manifest identical even when revalidated.
+Reported bug 833834 on that.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2013-01-23T16:54:23Z,7030371.0
+840284,12,"Can you elaborate on how to use timeout() for fuzzing?  Should I just have the fuzzer call ""timeout(1800)"" sometimes?  Or do you want something like bug 831046?",QUESTION,0,FULL_TOKEN,2013-02-21T01:27:22Z,7125261.0
+833964,13,Can you provide the URL where this was reproducible?,INFO_REQUEST,0,FULL_TEXT,2013-04-17T15:23:29Z,7325646.0
+866470,55,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22697150&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 12:10:50
+slave: t-w864-ix-049
+12:21:17     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T19:47:56Z,7397301.0
+852135,7,"Created attachment 737234
+Part a: Reindent some code in nsDOMAttributeMap",CODE_REVIEW,0,FULL_TEXT,2013-04-14T11:15:34Z,7312834.0
+833964,24,"Adding checkin-needed flag since I'm not sure what the process for landing on b2g-18 is, and it looks like this patch needs to go there.",ISSUE_METADATA_CHANGE,0,FULL_TEXT,2013-04-18T19:19:54Z,7331836.0
+833964,18,"If I understand correctly, all accesses to mTouchListenerTimeoutTask happen on the controller/UI thread. So there shouldn't be a threading-related race condition here.
+I don't see how we'd crash here though. mTouchListenerTimeoutTask should always be null or a valid pointer...",PROBLEM_REVIEW,0,FULL_TOKEN,2013-04-18T13:24:53Z,7330058.0
+866470,10,*** Bug 867498 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2013-05-01T19:48:58Z,7376705.0
+811773,6,While writing the patch for  bug 811206 I didn't see any sg;crit problems.,SOLUTION_VERIFICATION,0,FULL_TOKEN,2012-11-30T02:51:30Z,6866985.0
+696748,16,https://hg.mozilla.org/mozilla-central/rev/053bb31882c4,UNCODED,0,UNMATCHED,2013-03-20T11:49:24Z,7223969.0
+838565,2,"Created attachment 710653
+cc taf and nsFind",UNCODED,0,UNMATCHED,2013-02-06T14:03:31Z,7075498.0
+866470,7,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22426553&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-04-30 13:11:43
+slave: t-w864-ix-077
+13:24:19     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-04-30T21:06:20Z,7372701.0
+833964,3,"Chris, are you on Otoro?",QUESTION,0,FULL_TEXT,2013-02-05T19:58:04Z,7072649.0
+758103,4,*** Bug 816620 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2012-12-03T10:24:10Z,6873650.0
+833964,29,"Hit this on 1.0.1 branch: https://crash-stats.mozilla.com/report/index/18fe8cd7-d78e-4e4c-b2d6-bd3ff2130516
+Nominating for consideration. The issue was hit while aggressively panning and zooming in testing scenarious related to Bug 847592.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2013-05-16T20:58:09Z,7432628.0
+840284,26,"Alright, I'll give it a try on Monday for Linux.
+Both. I have one more issue with Odin I think, but I currently have to take two days of PTO per week to get all my vacation from last year spent :) So I'm not working as intensively as I am normally.",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-03-10T00:22:12Z,7186258.0
+819493,28,"Comment on attachment 732768
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+Review of attachment 732768:
+-----------------------------------------------------------------
+Since I want to be annoying today, https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style#JavaScript_objects has braces on a new line for functions :)
+This is not to say it's important, it's not. Just wanted to point out how it's hard (and pointless) to have a common style that everyone likes.
+Fwiw, some of us also likes using a space to label anonymous functions, thus why you found ""function ()"" instead of ""function()"".
+Again, this doesn't matter, we usually just care a single code module is coherent with itself.
+::: browser/base/content/abouthome/aboutHome.js
+@@ +294,5 @@
+trailing space
+::: browser/base/content/browser.js
+@@ +2654,4 @@
+this will always set to true, no need to cache showRights into a temp var, you may just
+if (AboutHomeUtils.showKnowYourRights) {
+  docElt.setAttribute(""showKnowYourRights"", ""true"");
+::: browser/base/content/test/browser_aboutHome.js
+@@ +212,5 @@
+why the need for beforeRun instead of using setup?
+@@ +221,5 @@
+the test should cleanup after itself, this test is setting a pref and not clearing it before existing.
+@@ +230,5 @@
+ditto
+@@ +234,5 @@
+trailing spaces",CODE_REVIEW,0,FULL_TOKEN,2013-04-03T13:59:35Z,7271610.0
+861246,2,"Created attachment 736858
+Fix IPC for fixed layer margins",UNCODED,0,UNMATCHED,2013-04-12T17:18:58Z,7309225.0
+676248,13,Lets land this and I'll keep an eye for changes in profiles. In the long run this will fix the titlebar drawing which will help performance.,ANSWER_TO_QUESTION,0,FULL_TEXT,2013-03-11T14:59:52Z,7188845.0
+642412,9,We're still slower than V8 on these tests but the info in this bug is unlikely to help much.,SOLUTION_VERIFICATION,0,FULL_TEXT,2013-06-10T17:54:49Z,7516501.0
+819493,20,"Comment on attachment 721710
+Added unit tests and now passing serialized JSON between documents
+Hrm, this image (and the 2x version) doesn't seem to be in the patch. Did you forget to |hg add| it?
+I actually kind of prefer having it all on one line, much easier to copy/paste and replace.
+aw yeah proper bracing style
+This string concatenation may not be acceptable for localization and/or RTL. I think we might need to do something like http://hg.mozilla.org/mozilla-central/annotate/1b49fb552e18/browser/base/content/aboutDialog.xul#l71, where we allow localizers to add text before and after the link. But I'm not certain about this - ask Axel?
+Seems like it might be simpler to just have this code be something like:
+let knowYourRightsData = AboutHomeUtils.knowYourRightsData;
+if (knowYourRightsData)
+  docElt.setAttribute(...)
+and have AboutHomeUtils return null when nothing needs to be shown (and have the code in aboutHome.js just check for the presence of the attribute, rather than rightsData.show).
+Hrm, now it's starting to seem gratuitous :)
+clearUserPref before setBoolPref is redundant, FWIW.
+You should remove it from EXTRA_JS_MODULES if you're adding it here, otherwise we will copy it over twice unecessarily during build time.
+r- for the potential l10n issue and missing images, but with all of these comments addressed this should be ready to go.",CODE_REVIEW,0,FULL_TOKEN,2013-03-13T01:25:08Z,7196392.0
+866470,11,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22482209&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-01 17:11:23
+slave: t-w864-ix-055
+17:21:59     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T01:17:46Z,7378013.0
+852135,4,*** Bug 858606 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2013-04-05T15:58:49Z,7282219.0
+768901,15,"Comment on attachment 669799
+Don't double-count shared nsCSSStyleSheetInners.
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): memory reporting.
+User impact if declined: misleading memory reporting which will hurt understanding of B2G memory consumption.
+Testing completed (on m-c, etc.): has been on m-c for 16 days without problem.
+Risk to taking this patch (and alternatives if risky): minimal;  very simple patch and the code only runs when viewing about:memory or triggering a memory report dump.
+String or UUID changes made by this patch: none.",REQUEST_FOR_UPLIFT,0,FULL_TOKEN,2012-10-26T19:51:39Z,6767889.0
+822952,5,https://hg.mozilla.org/mozilla-central/rev/5f697a87ec46,UNCODED,0,UNMATCHED,2012-12-20T21:44:44Z,6935103.0
+851828,9,"Created attachment 729627
+rebased",UNCODED,0,UNMATCHED,2013-03-26T17:38:22Z,7245633.0
+857034,5,https://hg.mozilla.org/mozilla-central/rev/ea4b1c3829d3,UNCODED,0,UNMATCHED,2013-04-03T22:23:33Z,7274318.0
+819493,29,"Created attachment 732857
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+Adjust code as per Marco's comments.
+Marco: you are right about the style guide. I did not try to intentionally piss you off, please understand that. I didn't realize I used a different formatting in the test file, so I changed it to be consistent throughout.
+In the test I introduced `beforeRun`, because when I used `setup` instead, the tests I wrote would fail, due to a timing issue.
+I re-added `tearDown` to clean up the prefs after the test has run. I hope that is to your liking and/ or acceptable.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-04-03T15:13:49Z,7271973.0
+866470,62,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22717129&tree=Services-Central
+WINNT 6.2 services-central debug test reftest on 2013-05-07 21:45:12
+slave: t-w864-ix-033
+21:54:39     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-08T05:27:04Z,7399094.0
+819493,50,https://hg.mozilla.org/mozilla-central/rev/b50153f9e011,AUTO_LINK_CODE_IMPLEMENTATION,0,FULL_TEXT,2013-04-10T12:17:56Z,7298676.0
+840284,2,"Note: we'll have to wait for bug 840280 since, atm, out-of-bounds access isn't checking which means it's quite easy to crash odin.",REQUIREMENT,0,FULL_TEXT,2013-02-11T22:42:00Z,7092357.0
+866470,34,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22619936&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-05 18:24:05
+slave: t-w864-ix-063
+18:34:34     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T02:05:23Z,7389331.0
+819493,4,"I don't think we want to block this on snippet service improvements, since that complicates the dependency chain significantly. We don't need to use the existing default snippet mechanism for this; we could have a hard-coded ""first run"" snippet separate from the default snippets, that is used only first run.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2012-12-13T01:22:36Z,6909035.0
+758103,6,"Comment on attachment 687715
+Set remaining time to 0 if battery level is 1
+Review of attachment 687715:
+-----------------------------------------------------------------
+Coding style:
+Don't do:
+if (foo)
+  bar;
+But:
+if (foo) {
+  bar;
+}
+I haven't reviewed much GetCurrentBatteryCharging() because the C-style code of this function is a bit hard to read for me.
+In C++, you shouldn't need labels to close a file descriptor, you should use a guard object for that. I haven't try to find why ""out"" label is used.
+Also, note that you will need a review from a Gonk peer. Putting mwu as a reviewer to make sure that happens.
+::: hal/gonk/GonkHal.cpp
+@@ +352,5 @@
+Take a pointer. A common C++ convention is that pointers are out parameters and reference are in parameters, that way the caller can guess if this is going to be in or out.
+@@ +358,5 @@
+This pattern is un-familliar to me. Why do you put fopen (and later fclose) in loops?
+@@ +381,5 @@
+Pointers, too.
+@@ +486,5 @@
+aBatteryInfo->remainingTime() = dom::battery::kDefaultRemainingTime;",CODE_REVIEW,0,FULL_TOKEN,2012-12-03T18:59:58Z,6875421.0
+794507,6,"Comment on attachment 704743
+v1
+Review of attachment 704743:
+-----------------------------------------------------------------
+Honza *is* fast!
+Note there is also this code in nsHttpChannel.cpp:
+        // XXX: We should not be skilling this check in the offline cache
+        // case, but we have to do so now to work around bug 794507.
+        MOZ_ASSERT(mCachedSecurityInfo || mLoadedFromApplicationCache);
+        if (!mCachedSecurityInfo && !mLoadedFromApplicationCache) {
+            LOG((""mCacheEntry->GetSecurityInfo returned success but did not ""
+                 ""return the security info [channel=%p, entry=%p]"",
+                 this, mCacheEntry.get()));
+            return NS_ERROR_UNEXPECTED; // XXX error code
+        }
+Any suggestions about how to handle previously-offline-cached data (data that was cached before this fix).
+The proposed fix looks very simple so we should uplift it to aurora and beta after it's been on central for a week.",CODE_REVIEW,0,FULL_TOKEN,2013-01-22T03:10:56Z,7024312.0
+840284,21,Here it is: http://dl.dropbox.com/u/80664946/emscripten_test_suite2.zip,UNCODED,0,UNMATCHED,2013-02-26T15:44:15Z,7143992.0
+840284,1,"OdinMonkey is currently receiving a lot of testing for valid asm.js code from the Emscripten test suite and all these big beefy Emscripten apps.  What I'm hoping to get out of fuzzing is testing for the type-checker when code *doesn't* validate.  Here, Jesse pointed out that decoder's mutation fuzzer should work well since it'll randomly inject non-asm.js into the middle of valid asm.js.",PROBLEM_MOTIVATION,0,FULL_TOKEN,2013-02-11T22:38:57Z,7092344.0
+676248,5,"Don't neglect us 120Hz computer monitor owners please.  Asus VG236H, Asus VG278H, Samsung S23A700D, Benq XL2420T, Acer GD235Hz.
+Perhaps a window.mozMaxFrameRate = 120 setting, to allow us JavaScript programmers to let everything in the browser take advantage of the rate.  Ideally, I prefer the Chrome behaviour (automatically allow requestAnimFrame to run at 120Hz), but I'll settle for Internet Explorer behaviour (sync to VSYNC but only at 60Hz, skip every other VSYNC at 120Hz), as long as I can access a JavaScript properties to control the VSYNC and the internal framelimit (window.mozMaxFrameRate = 120 and window.mozSyncOnVsync = true)",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2012-11-08T09:10:34Z,6804026.0
+811773,2,"Taking, since my patch for bug 811206 will take care of this.",DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2012-11-17T02:03:08Z,6830772.0
+819493,40,This doesn't apply cleanly to inbound. Please rebase.,UNCODED,0,UNMATCHED,2013-04-09T20:35:48Z,7296143.0
+838565,3,"Comment on attachment 710653
+cc taf and nsFind
+2 extra spaces before NS_INTERFACE_MAP_END
+Two extra spaces before these macros
+Could you split this to two lines. Atm it is a bit too long
+2 extra spaces before NS_INTERFACE_MAP_END
+2 extra spaces before these macros
+This change is for some other bug.",CODE_REVIEW,0,FULL_TEXT,2013-02-07T09:48:34Z,7079783.0
+833964,25,https://hg.mozilla.org/integration/mozilla-inbound/rev/3231056b600d,UNCODED,0,UNMATCHED,2013-04-18T19:43:36Z,7331937.0
+819493,36,"Created attachment 732983
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+added proposed changes of Gavin and Marco.",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-04-03T19:50:31Z,7273504.0
+817341,1,"Created attachment 687456
+patch
+In order for the GC statistics to be useful, there has to be a strict hierarchy of phases. Right now, we have a problem where PHASE_MARK_DELAYED can happen both during marking and during sweeping. This patch fixes that.
+I also realized that we weren't timing finalization of Ion code, so it fixes that too.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-01T23:09:47Z,6871801.0
+676248,12,Is there any way I can get you full stacks?,QUESTION,0,FULL_TEXT,2013-03-11T14:56:09Z,7188832.0
+866470,1,"Matt, I see you added this assertion back in bug 798964. Can you take a look please?
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22304828&tree=Mozilla-Inbound
+Rev4 MacOSX Snow Leopard 10.6 mozilla-inbound debug test reftest on 2013-04-26 16:45:04 PDT for push 53a6f358005e
+slave: talos-r4-snow-079
+16:56:08     INFO -  ###!!! ASSERTION: Should not be trying to paint a background color if we don't have one: 'drawBackgroundColor', file ../../../layout/base/nsCSSRendering.cpp, line 2722
+16:56:08     INFO -  nsCSSRendering::PaintBackgroundColor(nsPresContext*, nsRenderingContext&, nsIFrame*, nsRect const&, nsRect const&, unsigned int) [layout/base/nsCSSRendering.cpp:1609]
+16:56:08     INFO -  nsDisplayBackgroundColor::Paint(nsDisplayListBuilder*, nsRenderingContext*) [obj-firefox/dist/include/nsRect.h:51]
+16:56:08     INFO -  mozilla::FrameLayerBuilder::DrawThebesLayer(mozilla::layers::ThebesLayer*, gfxContext*, nsIntRegion const&, nsIntRegion const&, void*) [layout/base/FrameLayerBuilder.cpp:3295]
+16:56:08     INFO -  mozilla::layers::ThebesLayerOGL::RenderLayer(int, nsIntPoint const&) [obj-firefox/dist/include/mozilla/gfx/BaseRect.h:44]
+16:56:08     INFO -  mozilla::layers::ContainerLayerOGL::RenderLayer(int, nsIntPoint const&) [obj-firefox/dist/include/GLContext.h:172]
+16:56:08     INFO -  mozilla::layers::ContainerLayerOGL::RenderLayer(int, nsIntPoint const&) [obj-firefox/dist/include/GLContext.h:172]
+16:56:08     INFO -  mozilla::layers::LayerManagerOGL::Render() [gfx/layers/opengl/LayerManagerOGL.cpp:837]
+16:56:08     INFO -  mozilla::layers::LayerManagerOGL::EndTransaction(void (*)(mozilla::layers::ThebesLayer*, gfxContext*, nsIntRegion const&, nsIntRegion const&, void*), void*, mozilla::layers::LayerManager::EndTransactionFlags) [gfx/layers/opengl/LayerManagerOGL.cpp:566]
+16:56:08     INFO -  nsDisplayList::PaintForFrame(nsDisplayListBuilder*, nsRenderingContext*, nsIFrame*, unsigned int) const [layout/base/nsDisplayList.h:306]
+16:56:08     INFO -  nsDisplayList::PaintRoot(nsDisplayListBuilder*, nsRenderingContext*, unsigned int) const [obj-firefox/dist/include/GeckoProfilerImpl.h:233]
+16:56:08     INFO -  nsLayoutUtils::PaintFrame(nsRenderingContext*, nsIFrame*, nsRegion const&, unsigned int, unsigned int) [layout/base/nsLayoutUtils.cpp:2095]
+16:56:08     INFO -  PresShell::Paint(nsView*, nsRegion const&, unsigned int) [layout/base/nsPresShell.cpp:5587]
+16:56:08     INFO -  nsViewManager::ProcessPendingUpdatesForView(nsView*, bool) [obj-firefox/dist/include/nsRegion.h:75]
+16:56:08     INFO -  nsRefreshDriver::Tick(long long, mozilla::TimeStamp) [obj-firefox/dist/include/nsAutoPtr.h:880]
+16:56:08     INFO -  mozilla::RefreshDriverTimer::Tick() [obj-firefox/dist/include/nsTArray.h:363]
+16:56:08     INFO -  nsTimerImpl::Fire() [xpcom/threads/nsTimerImpl.cpp:562]
+16:56:08     INFO -  nsTimerEvent::Run() [xpcom/threads/nsTimerImpl.cpp:634]
+16:56:08     INFO -  nsThread::ProcessNextEvent(bool, bool*) [xpcom/threads/nsThread.cpp:627]
+16:56:08     INFO -  NS_ProcessPendingEvents(nsIThread*, unsigned int) [obj-firefox/xpcom/build/nsThreadUtils.cpp:188]
+16:56:08     INFO -  nsBaseAppShell::NativeEventCallback() [widget/xpwidgets/nsBaseAppShell.cpp:98]
+16:56:08     INFO -  nsAppShell::ProcessGeckoEvents(void*) [widget/cocoa/nsAppShell.mm:388]
+16:56:08     INFO -  CoreFoundation + 0x4e401
+16:56:08     INFO -  CoreFoundation + 0x4c5f9
+16:56:08     INFO -  CoreFoundation + 0x4bdbf
+16:56:08     INFO -  HIToolbox + 0x2e7ee
+16:56:08     INFO -  HIToolbox + 0x2e551
+16:56:08     INFO -  HIToolbox + 0x2e4ac
+16:56:08     INFO -  AppKit + 0x43eb2
+16:56:08     INFO -  -AppKit + 0x43801
+16:56:08     INFO -  -[GeckoNSApplication nextEventMatchingMask:untilDate:inMode:dequeue:] [widget/cocoa/nsAppShell.mm:164]
+16:56:08     INFO -  -AppKit + 0x968f
+16:56:08     INFO -  nsAppShell::Run() [widget/cocoa/nsAppShell.mm:741]
+16:56:08     INFO -  nsAppStartup::Run() [toolkit/components/startup/nsAppStartup.cpp:289]
+16:56:08     INFO -  XREMain::XRE_mainRun() [toolkit/xre/nsAppRunner.cpp:3879]
+16:56:08     INFO -  XREMain::XRE_main(int, char**, nsXREAppData const*) [toolkit/xre/nsAppRunner.cpp:3946]
+16:56:08     INFO -  XRE_main [toolkit/xre/nsAppRunner.cpp:4147]
+16:56:08     INFO -  main [browser/app/nsBrowserApp.cpp:271]
+16:56:08     INFO -  --DOMWINDOW == 15 (0x12cd82620) [serial = 4989] [outer = 0x127502fc0] [url = data:text/html;charset=UTF-8,%3C%21%2D%2DCLEAR%2D%2D%3E]
+16:56:08     INFO -  REFTEST TEST-START | http://localhost:4444/1367020010424/152/289480-ref.html | 1904 / 9275 (20%)
+16:56:08     INFO -  ++DOMWINDOW == 16 (0x12cd82620) [serial = 4994] [outer = 0x127502fc0]
+16:56:09     INFO -  REFTEST TEST-PASS | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | image comparison (==)
+16:56:09     INFO -  REFTEST INFO | Loading a blank page
+16:56:09     INFO -  ++DOMWINDOW == 17 (0x12c1e2650) [serial = 4995] [outer = 0x127502fc0]
+16:56:09     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",PROBLEM_REVIEW_REQUEST,0,FULL_TEXT,2013-04-28T01:13:32Z,7363012.0
+801993,4,https://tbpl.mozilla.org/?tree=Mozilla-Inbound&rev=ecad7b037795,UNCODED,0,UNMATCHED,2012-10-17T04:13:21Z,6736380.0
+866470,52,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22693987&tree=Cedar
+WINNT 6.2 cedar debug test reftest on 2013-05-07 10:52:13
+slave: t-w864-ix-080
+11:02:59     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T18:38:09Z,7396971.0
+857034,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/ea4b1c3829d3,UNCODED,0,UNMATCHED,2013-04-03T10:08:14Z,7270968.0
+758103,5,"Created attachment 687715
+Set remaining time to 0 if battery level is 1
+This is a patch based on the comments in bug 816620.
+I observed this problem on the PandaBoard. In addition to fixing the actual bug, the patch cleans up the implementation of the getter function and adds handling for interrupted system calls.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-03T12:37:56Z,6873960.0
+855335,6,"Created attachment 735883
+Patch for testing only. Sends logging to printf",UNCODED,0,UNMATCHED,2013-04-10T18:16:29Z,7300291.0
+790547,11,"Created attachment 663988
+WIP - Part 3: Add send Location Event in RIL v4
+Fixed bugs in writing octets,
+and revised writing MCC/MNC according to TS 24.008",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-09-24T10:03:01Z,6659722.0
+866470,41,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22655474&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-06 16:04:57
+slave: t-w864-ix-050
+16:15:05     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T23:48:14Z,7393381.0
+790547,29,"Comment on attachment 662857
+Part 2: Add SendEventDownload in IccManager. v2
+Review of attachment 662857:
+-----------------------------------------------------------------
+I'm sure smaug won't mind if I just r+ this. It's a pretty trivial piece of code.",CODE_REVIEW,0,FULL_TEXT,2012-09-25T21:30:27Z,6666060.0
+840284,25,"Christian: Linux32 and OSX32 should work now, please feel free to fuzz them.  They use a different protection mechanism (segmentation) and the IonMonkey load/store codegen is different, so it'd be valuable to give one of these a go.
+Also: should I take the pause in fuzz bugs to indicate you've aimed your barrels elsewhere for the time being or that Odin is surviving?",SOLUTION_REVIEW_REQUEST,0,FULL_TOKEN,2013-03-09T08:04:52Z,7185386.0
+790547,45,"https://hg.mozilla.org/integration/mozilla-inbound/rev/d0194ff64049
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c2e9422b1be8
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c249961afd99
+https://hg.mozilla.org/integration/mozilla-inbound/rev/48d10ef28d52",UNCODED,0,UNMATCHED,2012-09-29T04:02:35Z,6678351.0
+840284,9,"Thanks, I'll take a look at Csmith in emscripten. We should still do fuzzing on the emscripten output though, because the space of outputs generated from clang+emscripten is still constrained, even with random input to it.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2013-02-18T22:05:43Z,7115257.0
+823917,6,https://hg.mozilla.org/integration/mozilla-inbound/rev/001b109e68c4,UNCODED,0,UNMATCHED,2013-01-02T19:48:29Z,6957072.0
+819493,2,Filed legal bug 819495 to ensure that we're covered there.,NEW_ISSUE_FILING,0,FULL_TEXT,2012-12-07T20:08:37Z,6893322.0
+779500,121,"Created attachment 660726
+part A - MOZ_B2G_FM option",UNCODED,0,UNMATCHED,2012-09-13T07:15:56Z,6631491.0
+779500,141,"Comment on attachment 662058
+part A - MOZ_B2G_FM option
+Review of attachment 662058:
+-----------------------------------------------------------------
+::: configure.in
+@@ +7346,5 @@
+Does this really need a configure option? It doesn't seem so. Please just AC_SUBST(MOZ_B2G_FM)
+::: dom/Makefile.in
+@@ +83,5 @@
+There's not much point putting this on 3 lines. Just PARALLEL_DIRS += fm on one.",CODE_REVIEW,0,FULL_TEXT,2012-09-19T14:51:28Z,6647474.0
+601912,28,(To be pedantic: <ol reversed=''> is valid in both HTML and XML.),UNCODED,0,UNMATCHED,2012-09-15T19:40:57Z,6637894.0
+758103,18,*** Bug 716211 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2012-12-17T10:23:13Z,6920178.0
+758103,9,"Thanks Dave, I'll have a look.
+I didn't know TEMP_FAILURE_RETRY was available in bionic. I always thought this is a GNU extension.",UNCODED,0,UNMATCHED,2012-12-04T17:16:13Z,6879496.0
+833964,21,Pulling qawanted - we're unblocked here to fix this bug.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,2013-04-18T15:10:15Z,7330640.0
+852135,5,"Created attachment 734285
+Patch v1.2",UNCODED,0,UNMATCHED,2013-04-06T19:38:11Z,7285743.0
+833964,5,to clarify : I am seeing those on socorro.  Not the actual device.,CLARIFICATION,0,FULL_TOKEN,2013-02-05T20:03:04Z,7072667.0
+768901,5,*** Bug 799336 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2012-10-09T12:15:17Z,6710742.0
+790547,18,"Created attachment 664335
+WIP - Part 4: xpcshell test case for writing Location Info. v3
+Fixed indent.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-25T03:12:29Z,6663031.0
+840284,7,Csmith (http://embed.cs.utah.edu/csmith/) is a high-quality C fuzzer.  They say that they've found bugs in every tool they've tested with it.  The same research group also produces a test case reducer: http://embed.cs.utah.edu/creduce/,POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2013-02-18T21:28:35Z,7115180.0
+855335,13,reopening since this is [leave-open],STATUS_UPDATE,0,FULL_TEXT,2013-04-11T19:56:02Z,7305322.0
+855335,16,https://hg.mozilla.org/integration/mozilla-inbound/rev/16b7c4a657df,UNCODED,0,UNMATCHED,2013-04-12T18:34:38Z,7309578.0
+822952,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/5f697a87ec46,UNCODED,0,UNMATCHED,2012-12-20T01:32:12Z,6931809.0
+790547,10,"Created attachment 662858
+WIP - Part 3: Add send Location Event in RIL. v3
+updated to latest IDL change.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-20T08:51:10Z,6650365.0
+852135,10,"Created attachment 737238
+Part c: Implement the remainder of the WebIDL API",CODE_REVIEW,0,FULL_TEXT,2013-04-14T11:21:22Z,7312840.0
+833964,2,Without an STR we can't block but let's track this.,CLARIFICATION,0,FULL_TEXT,2013-01-24T16:23:13Z,7034610.0
+676248,11,Sadly the profile are JS bound and don't have full stacks. I did notice that both builds are spending 6% getting timestamp under LayerManagerOGL::Render but I can't find the caller without full stacks. This patch doesn't appear to make these profiles worse but it's hard to tell for sure.,ANSWER_TO_QUESTION,0,FULL_TEXT,2013-03-07T18:35:25Z,7179256.0
+833964,9,Do we still need qawanted on this? Looks like the crash isn't reproducible at this point.,QUESTION,0,FULL_TEXT,2013-02-25T19:46:26Z,7139904.0
+866470,2,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22333021&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-04-27 17:31:07
+slave: t-w864-ix-092
+17:44:20     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-04-28T01:18:48Z,7363016.0
+779500,115,"Ah, I understand.  There are a lot of moving parts here!
+I'm happy to land this how it is and then change everything all at once.
+Oh, right.  :)  Either channelWidth or channelInterval is fine with me, but yeah, it would be good to be consistent.",UNCODED,0,UNMATCHED,2012-09-13T02:12:30Z,6631114.0
+840284,19,Is there a reason not to use the full testsuite that Alon suggested?,QUESTION,0,FULL_TEXT,2013-02-26T12:11:48Z,7143378.0
+866470,35,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22623310&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-05 21:09:06
+slave: t-w864-ix-059
+21:19:19     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T04:46:24Z,7389532.0
+768901,10,"And definitely a followup on memory-reporting those hashtables in the loader, please!",NEW_ISSUE_FILING,0,FULL_TEXT,2012-10-10T01:13:38Z,6713736.0
+758103,28,https://hg.mozilla.org/releases/mozilla-b2g18/rev/d02aa2e38f40,UNCODED,0,UNMATCHED,2013-02-07T22:27:08Z,7082505.0
+866470,15,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22499971&tree=Mozilla-Inbound
+Rev4 MacOSX Snow Leopard 10.6 mozilla-inbound debug test reftest on 2013-05-02 05:05:38
+slave: talos-r4-snow-079
+05:17:28     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T13:00:19Z,7379558.0
+794507,15,"Comment on attachment 704743
+v1
+https://hg.mozilla.org/integration/mozilla-inbound/rev/3c95ca16eb66",UNCODED,0,UNMATCHED,2013-01-29T21:14:08Z,7050686.0
+817341,6,"FYI, I accidentally checked in a patch for bug 817431 with 817341 in the summary",CLARIFICATION,0,FULL_TEXT,2012-12-17T15:53:09Z,6921018.0
+768901,8,"Comment on attachment 669799
+Don't double-count shared nsCSSStyleSheetInners.
+s->mInner in the if condition, as long as we're using ""s"" everywhere here, and r=me",CODE_REVIEW,0,FULL_TEXT,2012-10-10T01:09:42Z,6713727.0
+851828,3,Please rebase on top of bug 851748,CODE_UPDATE_REQUEST,0,FULL_TEXT,2013-03-16T19:16:16Z,7211429.0
+794507,17,https://hg.mozilla.org/mozilla-central/rev/3c95ca16eb66,UNCODED,0,UNMATCHED,2013-01-30T13:23:17Z,7053099.0
+794101,1,"Changes since the last update:
+#2089 Removes unnecessary ctx.mozCurrentTransformInverse transforms
+#2091 Refresh the zoom settings after rotating the pages
+#2102 Fix regression from #2087.
+#2107 Fix gh-pages bloat
+#2106 Adds text layer testing
+#2111 Move font translation to the worker
+#2100 Fix zoom out keyboard shortcut for mac.
+#2115 Refactor text extraction / font loading logic
+#2122 Update index template.
+#2123 Fixes RTL text extraction
+#2125 Add 'text' test coverage for simpletype3font + arabiccidtruetype-pdf test PDF
+#2130 Update Japanese l10n
+#2132 Update zh-TW translation
+#2136 Fix l10n labels ids for rotation menu items
+#2124 Provides right fallback fonts for text layer
+#2116 Mozilla central change for metro.
+#2118 Removing font loading hack from MOZCENTRAL
+#2110 Use document fragment in text layer
+#2143 Fix current.x for type3 font word break
+#2131 Metadata optimization
+#2058 Small fixes for normal and potential post-compilation bugs
+#2145 Renaming export to exportData
+#2155 Fix issue #2141
+#2144 Update the Arabic translation
+#2160 Handle Arabic Ligatures in issue #2141
+#2162 Fullscreen updates for latest (unprefixed) spec.
+#2146 Workaround for android gb browser bug
+#2153 Renames fullscreen to presentation mode
+#2127 Use the text extracted in the getTextContent function for the divs of the textLayer.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2012-09-25T15:21:59Z,6664655.0
+790547,14,"Created attachment 664326
+WIP - Part 4: xpcshell test case for writing Location Info",UNCODED,0,UNMATCHED,2012-09-25T02:52:14Z,6662992.0
+779500,139,- Used the interfaces of the latest patches of the bug 749053,CLARIFICATION,0,FULL_TEXT,2012-09-18T07:55:27Z,6642810.0
+819493,10,"Created attachment 721272
+This is how it looks like after the patch is applied
+All the snippet needs is an image that gives an extra ""oompf!"" to the message. Laura, could you take a look at that, or do you think it's a-ok like this?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2013-03-05T16:47:21Z,7170179.0
+819493,32,"Comment on attachment 732857
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+The more times you ask me to review this the more comments I'll find :P
+This shouldn't be needed, since ""hidden"" in HTML should just work?
+FWIW clearUserPref now never throws (since bug 487059), so the try/catches aren't necessary.
+The default value of this pref differs depending on whether DEBUG is defined, so I think this test may not work consistently.
+I also just realized that the test profile has browser.EULA.override set (http://hg.mozilla.org/mozilla-central/annotate/3a5929ebc886/build/automation.py.in#l485), which may be messing with these tests in unexpected ways. It's a bit frustrating that there's no easy way to test the thing we actually want to test, which is that the rights snippet shows up on first launch.
+While we're at it, can you rename OFFICIAL_BUILD to MOZILLA_OFFICIAL to match the thing it's actually depends on? Mapping MOZILLA_OFFICIAL to a slightly differently named define is just confusing.",CODE_REVIEW,0,FULL_TOKEN,2013-04-03T18:29:07Z,7273035.0
+758103,26,Right now if we don't need it for 1.0.0 we're marking as tracking-b2g18 19+ and leaving the approval nom so this will be on our radar for the next v1.0-train.,CLARIFICATION,0,FULL_TEXT,2013-01-22T20:05:12Z,7026957.0
+866470,33,"Ms2ger%gmail.com
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22605853&tree=Mozilla-Central
+WINNT 6.2 mozilla-central debug test reftest on 2013-05-05 01:33:33
+slave: t-w864-ix-049
+01:44:36     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-05T09:38:56Z,7388525.0
+779500,134,"Em, it's not a bad idea, Jonas, what do you think?",SOLUTION_REVIEW_REQUEST,0,FULL_TEXT,2012-09-15T05:51:30Z,6637310.0
+833964,12,"Build ID: 20130404070202
+This crash is occured to leo device.
+We got a same dump file to Comment 10.
+This issue reproduced when the complex web page is opening accroding to click link in bookmarked twiter on homescreen.(1 time)
+It concerned us that this issue could be reproduce many times to be used the FFOS by many people.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,2013-04-17T05:21:14Z,7323796.0
+838565,5,https://hg.mozilla.org/mozilla-central/rev/526130001ba8,UNCODED,0,UNMATCHED,2013-02-08T22:40:14Z,7086681.0
+833964,10,"I am not sure it's fixed. Indeed, crashes occurred in B2G 18.0/20130222.",REPRODUCTION_ATTEMPT,0,FULL_TEXT,2013-03-01T16:04:42Z,7158338.0
+676248,15,https://hg.mozilla.org/mozilla-central/rev/635e926d9e4f,UNCODED,0,UNMATCHED,2013-03-12T00:09:06Z,7191473.0
+758103,13,"Thanks for the reviews!
+The funny thing is that I first  named this function GetCurrentBatteryLevel, but then I thought that the use of 'capacity' on the original code might be for a reason. I'll change the naming to 'level'. :)
+I'll put some helpers into this file, and we can add generic variants later. I don't want to add even more changes to this patch.
+I didn't notice that during testing. Thank you.
+I had a look into the encoding of floating-point numbers. Representing 1.0 seems possible. If we use an epsilon here, I'd have to use it in the upper layers as well. I was more worried about the division of (capacity = 100) by 100 really results in 1.0.",CLARIFICATION,0,FULL_TOKEN,2012-12-11T17:56:51Z,6902658.0
+866470,13,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22490015&tree=Mozilla-Central
+WINNT 6.2 mozilla-central debug test reftest on 2013-05-01 22:09:41
+slave: t-w864-ix-070
+22:20:02     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T06:30:36Z,7378700.0
+758103,7,"Hi,
+And thanks so far. 
+What class should I use for the guard object? I've been searching the Mozilla source code, but couldn't find anything.
+I'm going to change this, but there is another convention that says to use references when the passed value cannot be NULL, and pointers when it can. That's what I had in mind here.
+ 
+In Unix, long-running system calls might get aborted when the process receives a signal. In that case, the call fails and errno is set to EINTR. You typically don't see this in Linux, because glibc automatically restarts the system call in this case. I looked through Android's bionic libc, but couldn't find code for restarting system calls; so I added those loops to try as long as EINTR is returned (it's fairly boilerplate code). While the stdio functions are not system calls themselves, they are still affected, because they rely on system calls internally.",CLARIFICATION,0,FULL_TEXT,2012-12-04T10:47:09Z,6878180.0
+794101,2,"Created attachment 664519
+Update pdf.js to version 0.5.184
+Dave, mind taking a look?",CODE_REVIEW_REQUEST,0,FULL_TEXT,2012-09-25T15:26:54Z,6664673.0
+817531,4,"Created attachment 687761
+Screenshot with Firefox17",UNCODED,0,UNMATCHED,2012-12-03T15:24:46Z,6874379.0
+817341,2,"Created attachment 687560
+patch v2
+I added some extra assertions that ensure that phases are always properly nested. This found one or two problems in the previous version. Here's the updated patch.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-12-02T21:59:45Z,6872728.0
+866470,57,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22703552&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 14:51:04
+slave: t-w864-ix-046
+15:01:08     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T22:45:25Z,7398033.0
+779500,135,Sounds good,UNCODED,0,UNMATCHED,2012-09-13T02:31:34Z,6631150.0
+819493,31,"setup runs after the snippets have been initialized, which is too late for this AIUI.",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-04-03T18:16:10Z,7272948.0
+866470,44,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22660128&tree=Fx-Team
+Rev3 WINNT 6.1 fx-team debug test reftest on 2013-05-06 17:53:15
+slave: talos-r3-w7-058
+18:08:28     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///c:/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T04:25:34Z,7394102.0
+790547,28,"Comment on attachment 662856
+Part 1: IDL for sendEventDownload v2
+Review of attachment 662856:
+-----------------------------------------------------------------
+::: dom/icc/interfaces/SimToolKit.idl
+@@ +293,5 @@
+You know me, I'm the devil's advocate for flatter structures. So I wonder why MozStkLocationEvent and MozStkLocationInfo can't be merged into one. Does MozStkLocationInfo exist outside of an MozStkLocationEvent context?
+::: dom/icc/interfaces/nsIDOMIccManager.idl
+@@ +202,5 @@
+Same stupid question again: Can't `eventType` not be part of `eventData`, e.g. `eventData.type`? Flat objects FTW! :)
+Also, I have a question: does the radio respond to this STK command and if so, how? Should be worth documenting in the comment here.
+r=me so far since this could go in, though I would prefer that the above questions were addressed first.",CODE_REVIEW,0,FULL_TOKEN,2012-09-25T21:22:27Z,6666035.0
+852135,2,"Created attachment 729437
+Patch v1",UNCODED,0,UNMATCHED,2013-03-26T08:11:19Z,7243737.0
+779500,123,"Created attachment 660728
+part C - mozFMRadio v5",UNCODED,0,UNMATCHED,2012-09-13T07:18:59Z,6631496.0
+817531,16,"https://hg.mozilla.org/mozilla-central/rev/a381a84d7af2
+https://hg.mozilla.org/mozilla-central/rev/732f04efe8f5",UNCODED,0,UNMATCHED,2012-12-07T14:28:09Z,6891889.0
+790547,9,"Created attachment 662857
+Part 2: Add SendEventDownload in IccManager. v2
+Renamed accordingly, also added impl in RadioInterfaceLayer.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-20T08:49:55Z,6650362.0
+852135,9,"Created attachment 737236
+Part b: Get rid of some explicit namespace qualifications",CODE_REVIEW,0,FULL_TEXT,2013-04-14T11:19:22Z,7312836.0
+866470,40,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22652176&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-05-06 14:55:30
+slave: talos-mtnlion-r5-048
+15:03:22     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T22:38:49Z,7393092.0
+833964,26,Thanks!,UNCODED,0,UNMATCHED,2013-04-19T10:03:38Z,7334222.0
+794507,18,"Lee, could you please check the latest Firefox Nightly build and make sure the issue is fixed: http://nightly.mozilla.org/
+Note that it may not be fixed for already-AppCached content. But, if you clear your appcache then newly-cached content should work.",VERIFICATION_REQUEST,0,FULL_TOKEN,2013-02-02T19:43:29Z,7064661.0
+819493,18,In which case I'd say this bug now blocks bug 848118 instead!,ISSUE_IMPACT,0,FULL_TEXT,2013-03-05T22:45:25Z,7171777.0
+866470,21,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22487406&tree=Try
+Rev4 MacOSX Snow Leopard 10.6 try debug test reftest on 2013-05-01 20:23:21
+slave: talos-r4-snow-079
+20:34:17     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T18:11:38Z,7380911.0
+866470,17,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22502395&tree=Mozilla-Central
+WINNT 6.2 mozilla-central debug test reftest on 2013-05-02 06:22:14
+slave: t-w864-ix-008
+06:32:42     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-02T14:04:32Z,7379727.0
+819493,39,"Gavin: I didn't forget it, because 'hidden' apparently doesn't work in this case; the CSS 'display' attribute may override this. It inherits the 'display:block' style from the other default snippets and I didn't want to touch that too much, so I opted for this solution - to explicitly set 'display' depending on the hidden attribute being set.",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-04-06T22:00:38Z,7285859.0
+840284,4,"Good question.  Roughly speaking, asm.js is the image of the Emscripten function.",ANSWER_TO_QUESTION,0,FULL_TOKEN,2013-02-16T06:47:43Z,7110860.0
+794507,13,"Comment on attachment 704743
+v1
+Not taking this change this late in the b2g game.",ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2013-01-25T18:11:21Z,7039348.0
+835157,4,https://hg.mozilla.org/mozilla-central/rev/77bfa657b930,UNCODED,0,UNMATCHED,2013-01-29T14:52:34Z,7048890.0
+851828,6,unsigned long and uint32_t are interchangeable...  But I can add it back if you want.,ANSWER_TO_QUESTION,0,FULL_TOKEN,2013-03-16T20:31:28Z,7211492.0
+869069,6,"Comment on attachment 745940
+Patch v1
+Review of attachment 745940:
+-----------------------------------------------------------------
+Siri, please call 1-800-SAF-DRVR.
+** Calling 1-800-SAF-DRVR **
+""Hello, welcome to the safe driver hotline. How can I help you?""
+I'd like to report that :mconley is a safe driver. That is all.
+""Thank you, have a nice day""
+r=me",CODE_REVIEW,0,FULL_TOKEN,2013-05-06T17:54:01Z,7391595.0
+779500,149,"Yeah, I usually write the intro first and I should write it last instead, because at first, I don't know much about what's possible.
+Taking your sentence as is. Thanks.
+Oops. Added. Thanks.
+ 
+Yes, I tend to use ""synchronous"" where I should talk about ""blocking"" and I really should stop doing that.
+Wow, that's super important! I removed the warning on the particular frequency attribute, but a general warning should be provided. I'll think about how to do that in a generic manner on the doc.
+Taking this discussion to dev-webapi to not further pollute the bug.
+I've added a note to the setFrequency method.
+fixed.
+Thanks for your review, Justin.",UNCODED,0,UNMATCHED,2013-02-21T13:38:05Z,7126770.0
+866470,69,https://hg.mozilla.org/mozilla-central/rev/c4eae0d77d5e,UNCODED,0,UNMATCHED,2013-05-16T01:29:42Z,7428566.0
+869069,7,"Woo! Thanks for the quick turnaround time!
+https://hg.mozilla.org/projects/jamun/rev/8791cdcd0758
+\o/",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-05-06T17:58:32Z,7391622.0
+851828,10,https://hg.mozilla.org/integration/mozilla-inbound/rev/f5a256c02fc6,UNCODED,0,UNMATCHED,2013-03-26T18:13:39Z,7245804.0
+819493,48,"I think this is what is happening:
+- on incremental builds, we re-use dist/bin, which contains aboutRights.properties from a previous build.
+- dist/bin is packaged in dist/firefox and then as a package, which thus contains aboutRights.properties
+- the package is unpacked for l10n-check
+- then a new directory is created for the x-test locale, and filled according to the jar manifests, thus not copying aboutRights.properties.
+- the l10n-repack code wants all chrome locale files from the original locale (en-US, coming from the unpacked package) to be found in the new locale (x-test, filled above), and fails because x-test doesn't have aboutRights.properties.
+Maybe we should remove dist/bin when starting an incremental build as we currently do for sdk, include, etc. That would avoid a clobber in such cases.",COLLATERAL_PROBLEM_ANALYSIS,0,FULL_TOKEN,2013-04-10T10:42:40Z,7298451.0
+819493,12,coming up: JSON data exchange and unit test.,STATUS_UPDATE,0,FULL_TEXT,2013-03-05T18:29:11Z,7170607.0
+794507,9,"Lee, this bug is the bug where we are working on the fix for the issue that you described in bug 826309. It seems like we're close to having a solution.
+In comment 6, Honza wrote:
+according to our investigation in bug 826309, there is no same-origin restriction, right?",QUESTION,0,FULL_TEXT,2013-01-23T00:04:02Z,7028048.0
+817531,19,Tracking for QA.,UNCODED,0,UNMATCHED,2012-12-07T23:49:52Z,6894148.0
+779500,146,https://hg.mozilla.org/mozilla-central/rev/432033434b3a,UNCODED,0,UNMATCHED,2012-09-22T02:53:04Z,6656597.0
+837955,1,"In opt builds, we spam these build warnings:
+{
+docshell/shistory/src/nsSHistory.cpp: In function ‘void {anonymous}::EvictContentViewerForTransaction(nsISHTransaction*)’:
+docshell/shistory/src/nsSHistory.cpp:224:5: warning: unused variable ‘_spec’ [-Wunused-variable]
+docshell/shistory/src/nsSHistory.cpp: At global scope:
+docshell/shistory/src/nsSHistory.cpp:66:1: warning: ‘PRLogModuleInfo* GetSHistoryLog()’ defined but not used [-Wunused-function]
+}
+This is because we have a bunch of PR_Log-related macros that end up being useless in builds with PR_LOGGING turned off (e.g. opt builds).
+Our usual fix for this is to just #define these macros to be empty when PR_LOGGING is off. That fixes this.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,2013-02-05T00:48:10Z,7069492.0
+852135,14,"Comment on attachment 737238
+Part c: Implement the remainder of the WebIDL API
+r=me",UNCODED,0,UNMATCHED,2013-04-25T19:48:03Z,7356291.0
+758103,22,*** Bug 811006 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,2013-01-10T12:54:08Z,6984532.0
+855335,2,"marking s-s since we expect there will be some log messages that invoke memory errors.  Note however that any security issue would only apply if logging is turned on, which means debug builds or private builds typically, unless the module is forcing PR_LOGGING on.
+Likely anything found would be sec-low or at most sec-moderate for that reason",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2013-03-27T17:45:17Z,7250355.0
+840284,22,Thanks Alon :),UNCODED,0,UNMATCHED,2013-02-28T00:10:55Z,7151569.0
+801993,2,"try push: https://tbpl.mozilla.org/?tree=Try&rev=01ef459d190a
+(I've fixed the orange)",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-10-16T20:55:35Z,6735098.0
+790547,20,"Comment on attachment 662857
+Part 2: Add SendEventDownload in IccManager. v2
+Hi, smaug
+I add another interface called 'sendStkEventDownload' in nsIDOMIccManager in part 1, the purpose is to send events to ICC.
+Would you help to review this patch for me?
+Thank you.",CODE_REVIEW_REQUEST,0,FULL_TOKEN,2012-09-25T03:23:18Z,6663051.0
+833964,19,"So AFAICT the actual CancelableTask object pointed to mTouchListenerTimeoutTask is created in NewRunnableMethod (either at line 235 or line 267) and is deleted by the message loop code, I think around [1]. This means that once the task finished executing (i.e. the TimeoutTouchListeners method finishes), the pointer mTouchListenerTimeoutTask is pointing to garbage if it hasn't been nulled out explicitly. This could happen if, for example, the early-exit condition at the top of ContentReceivedTouch gets hit when TimeoutTouchListeners gets called. I don't know if there that early-exit condition  is guaranteed to never hit when being called through TimeoutTouchListeners but I don't think it is.
+So, in a nutshell:
+- mTouchListenerTimeoutTask is assigned and TimeoutTouchListeners is queued as a delayed task
+- TimeoutTouchListeners runs
+- The call to ContentReceivedTouch from TimeoutTouchListeners does an early exit at the top
+- The message loop deletes the object pointed to by mTouchListenerTimeoutTask since it's done
+- Some time later (could be much later, since mTouchListenerTimeoutTask is never re-assigned when non-null, except in ContentReceivedTouch), content calls into ContentReceivedTouch
+- This time the early exit doesn't get hit
+- Since mTouchListenerTimeoutTask is non-null, calling ->Cancel() on it goes boom.
+In terms of fixing it, I see two options: one is to move the mTouchListenerTimeoutTask cancellation/nulling to the top of the method, before the early exit. I don't know if this will have other side-effects because I don't know what that check is doing exactly. The second option, much safer, is to just set mTouchListenerTimeoutTask to null in TimeoutTouchListeners(). We know the only place that function gets called is from the task, and once it's done, the task will be destroyed, so we might as well null out the pointer to it.
+[1] http://mxr.mozilla.org/mozilla-central/source/ipc/chromium/src/base/message_loop.cc#416",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,2013-04-18T15:01:52Z,7330568.0
+779500,112,"Comment on attachment 660466
+Interdiff v3 --> v4
+These are comments on the C++ bits.  I'm working on the JS bits.
+Please let me know in what form you'd prefer to get these English nits.  I'm
+happy to rewrite sentences, to provide explanations on points of grammar, or
+both, whatever you feel is most helpful.  My goal is to help you, not to be
+annoying or unhelpfully pedantic, so if I'm not accomplishing my goal, please
+let me know.
+I'm sorry to nit, but this still has a few problems.
+We need a preposition (""from"", in this case) between ""inheriting"" and
+""nsIJSDOMEventTarget"".
+It's not clear what ""these"" are.  It would be helpful if you'd explicitly list
+the relevant methods.
+You also need some kind of connector after the first comma (""hacks, /which/
+will be removed"", or ""hacks; these will be removed"").
+The second comma creates a comma splice; it should instead begin a new
+sentence.
+I'd also like a period at the end of the sentence.
+We decided to call this the channelInterval?
+If you want to be fancy, you could put ""[infallible]"" in front of ""attribute"".
+That would let you do
+  nsCOMPtr<nsIFMRadioSettings> settings;
+  int32_t lowerLimit = settings->GetLowerLimit();
+s/,/;/.  Otherwise this is great.
+* s/in JS component/as a JS component/
+* ""we need such an interface to be accessed in JS component and JS module""
+  I'm not sure what you mean, but maybe it should be ""it can't access our C++
+  hardware interface directly; instead it must go through this interface.""
+* "", do not confuse it with the WEbFM DOM interface(nsIDOMFMRadio).""
+  This is a comma splice, but it's corrected if you take the suggestion above.
+  It's not clear what ""it"" refers to here.  It would be better to say ""Do not
+  confuse /this interface/"".
+  Space before the open parenthesis.
+s/will be/is
+(I have no idea what rule explains why we use the present tense for the first
+part of this conditional and the future tense for the second part.)
+I still don't get why we expose the frequency in KHz here and in MHz in the DOM
+interface, but it's not a big deal.
+s/plugged/plugged in/
+(You can think of ""plugged in"" as a transitive verb.  Compare ""My tub is no
+longer leaking; the hole is plugged,"" and ""I plugged in my antenna."")
+s/by giving settings/with the given settings/
+Do you still need the jscontext?
+Seek to the next available channel (up or down).
+Get the current settings.
+Do you still need the jscontext?
+Set the frequency in KHz
+""state /is/ changed"", or ""state changes"".
+Clearer would be ""Fired when the antenna goes from plugged in to unplugged (or
+vice versa).""
+s/the/a
+The ""ns"" prefix is what we used before we had namespaces (and what we use now
+in places where we don't have namespaces, like interfaces).
+I'd be OK if this class lived in the top-level namespace.  Otherwise, if you
+rename it to FMRadioSettings and leave it in mozilla::dom::fm that works too.
+Please rename ""spaceType"" here and elsewhere.
+I think mHeadphoneState and mHeadphoneObserver (or mHeadphoneSwitchState and
+mHeadphoneSwitchObserver) would be better names here.  There are lots of
+switches and observers you might otherwise have.
+When you remove the nsAutoPtr below, you can remove this include, too.
+Looks like you missed my earlier comment about this hunk:
+Please indent ""/* default = */ false"" so it's the ""D"" in
+DOM_FM_ANTENNA_INTERNAL_PREF.
+You could change this to
+  info.upperLimit() = settings->GetUpperLimit();
+if you made this attribute [infallible].
+nsRefPtr, not nsAutoPtr.
+This is actually quite important, and I'm surprised it's not causing crashes.
+nsAutoPtr does not call AddRef() on its member.  So that means that *_retval
+has a refcount of 0, while the caller of this function expects it to have a
+refcount of 1.  Which means we're likely to run into a use-after-free crash
+here.",CODE_REVIEW,0,FULL_TOKEN,2012-09-12T21:01:33Z,6630235.0
+866470,28,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22569841&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-05-03 15:35:35
+slave: talos-mtnlion-r5-040
+15:43:40     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-03T23:14:16Z,7386706.0
+866470,63,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22717800&tree=Build-System
+WINNT 6.2 build-system debug test reftest on 2013-05-07 21:59:39
+slave: t-w864-ix-014
+22:09:57     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-08T05:40:04Z,7399141.0
+790547,16,"Created attachment 664330
+WIP - Part 4: xpcshell test case for writing Location Info. v2
+Renamed accordingly.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-25T03:04:28Z,6663020.0
+790547,40,"Created attachment 665243
+Part 1: IDL for sendEventDownload v4
+Addressed to philikon's comments in comment 36.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-27T03:27:33Z,6670875.0
+833964,1,"Created attachment 705532
+processed dump
+Seen while dogfooding over the weekend.  Was doing heavy browsing and opening/closing a lot of tabs.  No better STR atm.
+Crash reason:  SIGSEGV
+Crash address: 0x6c003a
+Thread 0 (crashed)
+ 0  libxul.so!mozilla::layers::AsyncPanZoomController::ContentReceivedTouch [AsyncPanZoomController.cpp : 1346 + 0x4]
+     r4 = 0x4aef1800    r5 = 0x00000000    r6 = 0xbe87e090    r7 = 0x00050024
+     r8 = 0xbe87e760    r9 = 0x4030990c   r10 = 0x00000000    fp = 0x00000000
+     sp = 0xbe87de60    lr = 0x40b0ef0f    pc = 0x411ef462
+    Found by: given as instruction pointer in context
+ 1  libxul.so!mozilla::layout::RenderFrameParent::ContentReceivedTouch [RenderFrameParent.cpp : 978 + 0x3]
+     r4 = 0xbe87e090    r5 = 0xbe87e6fc    r6 = 0xbe87e090    r7 = 0x00050024
+     r8 = 0xbe87e760    r9 = 0x4030990c   r10 = 0x00000000    fp = 0x00000000
+     sp = 0xbe87de70    pc = 0x40b0ef0f
+    Found by: call frame info
+ 2  libxul.so!mozilla::dom::TabParent::RecvContentReceivedTouch [TabParent.cpp : 1304 + 0x5]
+     r4 = 0xbe87e090    r5 = 0xbe87e6fc    r6 = 0xbe87e090    r7 = 0x00050024
+     r8 = 0xbe87e760    r9 = 0x4030990c   r10 = 0x00000000    fp = 0x00000000
+     sp = 0xbe87de78    pc = 0x4105d685
+    Found by: call frame info
+ 3  libxul.so!mozilla::dom::PBrowserParent::OnMessageReceived [PBrowserParent.cpp : 1477 + 0xb]
+     r4 = 0x47047ec0    r5 = 0xbe87e6fc    r6 = 0xbe87e090    r7 = 0x00050024
+     r8 = 0xbe87e760    r9 = 0x4030990c   r10 = 0x00000000    fp = 0x00000000
+     sp = 0xbe87de80    pc = 0x410978a7
+    Found by: call frame info",STACK_TRACE,0,FULL_TOKEN,2013-01-23T21:37:11Z,7031725.0
+779500,140,"Hi, Kyle, do you have a plan to review this?",CODE_REVIEW_REQUEST,0,FULL_TEXT,2012-09-19T07:28:35Z,6646602.0
+819493,8,Gavin and I already talked about it last week (ohai MWC). Progress soon.,DEVELOPER_SELECTION_DECISION,0,FULL_TEXT,2013-03-04T17:43:50Z,7165457.0
+855335,14,"Created attachment 736506
+Patch 2 - Signaling fix warnings format-extra-args and format-security",UNCODED,0,UNMATCHED,2013-04-11T21:45:46Z,7305873.0
+797889,3,"Comment on attachment 668006
+Patch
+Review of attachment 668006:
+-----------------------------------------------------------------
+::: dom/indexedDB/AsyncConnectionHelper.cpp
+@@ +521,5 @@
+Can this happen? I think we should be able to assert that it can't...
+@@ +525,5 @@
+Hm. I don't understand this part. We should chat.
+@@ +526,5 @@
+You should be able to use GetCurrentTransaction here without needing to ask the request.
+::: dom/indexedDB/AsyncConnectionHelper.h
+@@ +125,5 @@
+Nit: Space above here, and between the rest.
+@@ +133,5 @@
+Nit: Whitespace
+::: dom/indexedDB/IDBDatabase.cpp
+@@ +293,5 @@
+I think you should set this before calling Close(), otherwise we risk reentering.
+::: dom/indexedDB/IDBDatabase.h
+@@ +196,5 @@
+I really don't think we need a bitfield here. Two bools should be fine.
+::: dom/indexedDB/IDBRequest.h
+@@ +83,5 @@
+I'd rather we not add this since AsyncConnectionHelper already knows the current transaction.
+::: dom/indexedDB/ipc/IndexedDBParent.cpp
+@@ +67,5 @@
+Nit: Remove extra parens
+@@ +227,5 @@
+mDatabase could be null here, need to check.
+Also, if the open request is in progress, do we need to do anything to ensure that it disconnects when it completes?
+::: dom/indexedDB/ipc/IndexedDBParent.h
+@@ +147,5 @@
+Nit: void on its own line.",CODE_REVIEW,0,FULL_TOKEN,2012-10-04T17:35:22Z,6698055.0
+855335,4,"Looking at this list I see a bunch that could cause crashes in the future.  
+I'm going to take this bug and start with a patch that resolves the -Wformat warnings.  After that we can tackle the -Wformat-security and -Wformat-extra-args",STATUS_UPDATE,0,FULL_TOKEN,2013-04-08T19:56:37Z,7290548.0
+866470,54,"KWierso
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22694712&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-07 11:08:51
+slave: t-w864-ix-048
+11:19:13     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T18:56:49Z,7397066.0
+790547,19,"Comment on attachment 662856
+Part 1: IDL for sendEventDownload v2
+Hi, philikon:
+From Bug 790543, ICC will send a list of events to ME, when one of these events happened, ME need to notify ICC this event through Envelope Command. So this patch is to deal when location status is updated, ME needs to notify this event to ICC by this interface.
+For the specification you can refer to TS 11.14 , clause 11.4 ""Location Status Event"".",CLARIFICATION,0,FULL_TOKEN,2012-09-25T03:19:09Z,6663045.0
+819493,43,RyanVM: I'm sorry to have wasted your time with this outdated patch! updated and tested the current one.,UNCODED,0,UNMATCHED,2013-04-09T23:50:05Z,7297003.0
+840284,23,"I've been running the csmith fuzzer, which generates C code, then compiling that to asm.js. So far I've not found a single bug in OdinMonkey, but I've found several in emscripten and LLVM.
+decoder, if it would be useful, I can provide a bunch (let me know how many) of randomly-generated asm.js code from csmith for JS-level fuzzing.",SOLUTION_VERIFICATION,0,FULL_TOKEN,2013-03-04T20:27:50Z,7166277.0
+840284,8,"As Sam already said, Csmith is the tool of choice for C mutation. LangFuzz can also mutate C with an appropriate grammar, but is not aware of any type system logic in the language, therefore unsuitable for strongly typed languages.",SOLUTION_REVIEW,1,FULL_TEXT,2013-02-18T21:30:33Z,7115189.0
+779500,122,"Created attachment 660727
+part B - nsIDOMFMRadio IDL, v1.1",UNCODED,0,UNMATCHED,2012-09-13T07:17:27Z,6631494.0
+857034,1,We need native theming of <input type=range> on Windows.,UNCODED,0,UNMATCHED,2013-04-02T11:30:21Z,7266350.0
+783505,17,Oops. Sorry about that.  The ifdef was removed on bug 784029.,CLARIFICATION,0,FULL_TOKEN,2012-10-01T14:16:22Z,6682291.0
+833964,17,"If the crash report
+https://crash-stats.mozilla.com/report/index/8cf2155f-801d-4c88-9612-f13af2130319
+https://crash-stats.mozilla.com/report/index/1c7e05a0-dd5e-4934-af89-f27cf2130131
+corresponds to 
+https://hg.mozilla.org/releases/mozilla-b2g18/annotate/051fa7fa5ded/gfx/layers/ipc/AsyncPanZoomController.cpp
+https://hg.mozilla.org/releases/mozilla-b2g18/annotate/d5d6ef77f2d9/gfx/layers/ipc/AsyncPanZoomController.cpp
+respectively, they both crash at:
+    mTouchListenerTimeoutTask->Cancel();
+Are we hitting a race-condition problem? Since both Cancel() and ~RunnableMethod() in class RunnableMethod call ReleaseCallee(), which is obviously not thread safe:
+  void ReleaseCallee() {
+    if (obj_) {
+      RunnableMethodTraits<T>::ReleaseCallee(obj_);
+      obj_ = NULL;
+    }  
+  }",PROBLEM_REVIEW,0,FULL_TOKEN,2013-04-18T10:02:29Z,7329474.0
+819493,13,"I'm very happy to see this progress and can work with Creative to get a graphic. 
+Questions first:
+1. Can we optimize the copy string? That messaging is sorely out of date and could read a lot stronger. 
+2. When exactly will a user see this snippet?",QUESTION,0,FULL_TOKEN,2013-03-05T21:34:30Z,7171509.0
+758103,14,"Created attachment 692284
+Set remaining time to 0 if battery level is 1 [v3]
+V3 of the patch incorporates the reviews of previous versions.
+- The remaining time is now separate from the charge level.
+- I choose to rename 'GetCurrentBatteryCapacity' to 'GetCurrentBatteryCharge' instead of 'GetCurrentBatteryLevel'. This way the percentage value 'charge' is clearly distinguished from the dimension-less 'level'. Using type int for 'charge' makes the code a bit simpler.
+- I also adapted the ReadSysFile functions, which simplifies the code a lot. Dave, I think there is a bug in ReadSysFile for strings. When you read 0 bytes, you access the byte before the string array when testing for '\n'. It's fixed in my copy.
+- I left the floating-point comparison as it was. See my previous comments",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-14T13:52:11Z,6914649.0
+819493,33,"setup() should run after the snippets map has been initialized but before loadSnippets has been invoked. some of the tests are indeed setting ""snippets"" in setup(). If that's not the case, there must be something broken.",CLARIFICATION,0,FULL_TEXT,2013-04-03T18:47:30Z,7273147.0
+874258,2,"Created attachment 751891
+assert it
+Let's see if it fails as an assertion.
+https://tbpl.mozilla.org/?tree=Try&rev=847064a62b8f",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-05-20T23:31:31Z,7443240.0
+817531,3,"Either I'm missing something our your steps to reproduce are incomplete.
+The page http://www.fotocommunity.com/contest looks identical for me in IE9, FF17 and Seamonkey trunk.
+Please include steps to reproduce, step by step and attach a screenshot
+Is it possible that I have to be logged in ?",S2R_REQUEST,0,FULL_TOKEN,2012-12-03T15:22:41Z,6874372.0
+851828,13,Thank you :),UNCODED,0,UNMATCHED,2013-03-26T22:01:00Z,7246942.0
+866470,61,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22717490&tree=Fx-Team
+WINNT 6.2 fx-team debug test reftest on 2013-05-07 21:51:46
+slave: t-w864-ix-052
+22:02:02     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-08T05:26:09Z,7399083.0
+819493,26,"Comment on attachment 732300
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+Hrm, does this work? In HTML its the existence of the ""hidden"" attribute that matters, rather than its value, so I would think this would need to be removeAttribute(""hidden"")... Oh, I see that you added a #rightsSnippet[hidden=false] rule - just switch this and remove that, I think.
+Might be worth adding a comment that this stuff all needs to happen before setting searchEngineURL, since that's what triggers the display of the snippets.
+nit: these checks are redundant, and the term ""attribute value"" is kind of vague. Since you're checking that the snippet was actually shown anyways, I don't think it's useful to check the AboutHomeUtils getter directly.
+nit: similarly, this doesn't accurately describe what it's checking. The value of AboutHomeUtils.knowYourRightsData doesn't reflect whether a snippet was shown, so adjust the message accordingly.
+This is not actually used anymore so perhaps you shouldn't add it.
+You can get rid of the corresponding DEFINES line in browser/components/Makefile.in now, since this is its only use.
+""will be linked to about:rights""
+Seems like this should just return a boolean.
+nit: copy/paste means these lines are indented too much
+Worth filing a followup to remove this now (it hasn't been set since forever).
+r=me with those addressed, thanks for being patient with the multiple review cycles!",CODE_REVIEW,0,FULL_TEXT,2013-04-03T02:19:39Z,7269980.0
+840284,10,"Agreed.  Between Csmith+Emscripten and decoder's mutation-based fuzzer on Emscripten output, it seems like we'll have good coverage of validating and non-validating inputs.",SOLUTION_REVIEW,1,FULL_TOKEN,2013-02-18T22:08:50Z,7115263.0
+790547,21,"Comment on attachment 664329
+Part 3: Add send Location Event in RIL. v7
+Hi, philikon
+This is the implementations.
+Would you review this for me ?
+Thank you.",CODE_REVIEW_REQUEST,0,FULL_TOKEN,2012-09-25T03:24:41Z,6663057.0
+819493,55,https://hg.mozilla.org/mozilla-central/rev/c950d2ea4c5b,UNCODED,0,UNMATCHED,2013-04-11T19:37:04Z,7305149.0
+790547,17,"Comment on attachment 664330
+WIP - Part 4: xpcshell test case for writing Location Info. v2
+Review of attachment 664330:
+-----------------------------------------------------------------
+g
+::: dom/system/gonk/tests/test_ril_worker_icc.js
+@@ +226,5 @@
+indent!",CODE_REVIEW,0,FULL_TEXT,2012-09-25T03:11:37Z,6663029.0
+869069,5,"I only meant to remove the obviously dummy widgets in this patch (the demo widgets that don't really do anything), and make the default set in the panel more or less work as expected.
+For Cut/Copy/Paste, we still need to de-dupe those, and nobody has started on that yet. I think we should leave them for now. For the activity throbber... maybe we could remove that at the same time as the old cut/copy/paste buttons. A general clean-out. :)",ANSWER_TO_QUESTION,0,FULL_TOKEN,2013-05-06T17:34:05Z,7391474.0
+758103,21,https://hg.mozilla.org/mozilla-central/rev/52557de563d7,UNCODED,0,UNMATCHED,2012-12-18T09:42:02Z,6924312.0
+869069,3,"Comment on attachment 745940
+Patch v1
+How's my driving?",CODE_REVIEW,0,FULL_TEXT,2013-05-06T17:29:57Z,7391454.0
+627984,31,A testcase for this bug was automatically identified at js/src/tests/js1_8_5/extensions/regress-627984-6.js.,ADDITIONAL_CONSIDERATION,0,FULL_TEXT,2013-01-04T21:23:26Z,6964925.0
+874258,5,https://hg.mozilla.org/mozilla-central/rev/6d43a8c88ddc,UNCODED,0,UNMATCHED,2013-05-28T01:55:22Z,7467424.0
+823917,7,https://hg.mozilla.org/mozilla-central/rev/001b109e68c4,UNCODED,0,UNMATCHED,2013-01-03T02:07:49Z,6958435.0
+758103,17,"Created attachment 692886
+Set remaining time to 0 if battery level is 1 [v4]
+I made a similar assumption about the remaining time in my first attempt to fix the problem.
+For v4 of the patch I fixed the invalid test of the scanf return value and the test for successfully reading a value from the sysfs file.",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-12-17T10:12:01Z,6920096.0
+790547,25,"Created attachment 664405
+Part 4: xpcshell test case for writing Location Info. v4
+forgot qref. 
+sorry",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-09-25T09:29:47Z,6663640.0
+790547,15,"Created attachment 664329
+Part 3: Add send Location Event in RIL. v7
+Renamed writeLocationInfo to writeLocationInfoTlv.",CODE_IMPLEMENTATION,1,FULL_TEXT,2012-09-25T03:03:47Z,6663018.0
+819493,42,"Created attachment 735483
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+updated commit message. carrying over r+=gavin",CODE_IMPLEMENTATION,1,80_PCT_MATCH,2013-04-09T23:49:07Z,7297000.0
+840284,3,Isn't there going to be code that's valid but not Emscripten-y?,QUESTION,0,FULL_TEXT,2013-02-16T04:33:01Z,7110756.0
+840284,17,"Here's the whole emscripten test suite (asm.js part, so no C++ exceptions etc.), 252 tests, hope it's useful for fuzzing.
+http://dl.dropbox.com/u/80664946/emscripten_test_suite.tar.bz2",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,2013-02-21T18:57:02Z,7128290.0
+779500,128,"I copied them from dom/bluetooth/linux/BluetoothDBusService.cpp and dom/bluetooth/linux/BluetoothDBusUtils.cpp.
+Then we should change the type of signalStrength to ""long"", like this:
+    /**
+     * The signal strength.
+     * The value returned is between 0 (no signal) and 5 (full signal), inclusive.
+     */
+    readonly attribute long signalStrength;
+?",UNCODED,0,UNMATCHED,2012-09-15T02:05:59Z,6637172.0
+817531,20,"I confirm the fix is verified on MacOS 10.8, Windows 7 x64 and Ubuntu 12.04 on FF 20RC:
+Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0
+Mozilla/5.0 (X11; Linux i686; rv:20.0) Gecko/20100101 Firefox/20.0
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:20.0) Gecko/20100101 Firefox/20.0",SOLUTION_VERIFICATION,0,FULL_TOKEN,2013-03-28T10:04:14Z,7253292.0
+866470,49,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22690015&tree=Mozilla-Inbound
+Rev3 WINNT 6.1 mozilla-inbound debug test reftest on 2013-05-07 09:09:22
+slave: talos-r3-w7-012
+09:25:41     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///c:/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T17:12:23Z,7396493.0
+817531,18,"https://hg.mozilla.org/releases/mozilla-aurora/rev/09cd0914f357
+https://hg.mozilla.org/releases/mozilla-aurora/rev/9418dbcb8336
+https://hg.mozilla.org/releases/mozilla-beta/rev/a918092d9d51
+https://hg.mozilla.org/releases/mozilla-beta/rev/272e116f4ee7",UNCODED,0,UNMATCHED,2012-12-07T23:32:46Z,6894094.0
+676248,9,"Created attachment 721448
+Patch v1.1 (r+'d by bgirard)
+I've de-bitrotted this patch, and I ran some profiles with and without the patch.
+I ran this demo: https://developer.mozilla.org/en-US/demos/detail/kai-opua
+And rotated the camera around a bit, and then resized the window.
+Here's the profile without the patch:
+http://people.mozilla.com/~bgirard/cleopatra/#report=712ceb292adfe496b85233e2b88d1a1773083593
+and here's the profile with the patch:
+http://people.mozilla.com/~bgirard/cleopatra/#report=dc05af436747e583332d9dcb5cfa33245ab9e2da
+Does anything in there strike you as particularly worrying in terms of performance?",CODE_IMPLEMENTATION,1,FULL_TOKEN,2013-03-05T21:55:23Z,7171588.0
+866470,39,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22633647&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-06 07:08:06
+slave: t-w864-ix-078
+07:19:32     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-06T14:50:46Z,7390821.0
+587434,5,Testcases have been landed by virtue of being marked in-testsuite+ -> VERIFIED as well.,SOLUTION_VERIFICATION,0,FULL_TEXT,2013-01-11T00:37:03Z,6988247.0
+833964,15,Joe - Does the crash stack give any indication of what might not be working here? Any hints on what STR might cause this stack?,QUESTION,0,FULL_TEXT,2013-04-17T21:54:13Z,7327788.0
+851828,4,"Err I meant this should land on top of bug 851748, not that you have to do it. I can rebase+land this for you when I land bug 851748.",CLARIFICATION,0,FULL_TEXT,2013-03-16T19:16:58Z,7211432.0
+866470,9,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22468004&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-01 11:30:20
+slave: t-w864-ix-049
+11:43:55     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-01T19:48:15Z,7376695.0
+819493,41,"Created attachment 735481
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+unbitrotted, carrying over r+",CODE_IMPLEMENTATION,1,FULL_TEXT,2013-04-09T23:46:38Z,7296994.0
+840284,20,I'll prepare another version of that updated for the new spec.,ANSWER_TO_QUESTION,0,FULL_TEXT,2013-02-26T15:04:01Z,7143840.0
+851828,14,https://hg.mozilla.org/mozilla-central/rev/0c5c83ed0385,UNCODED,0,UNMATCHED,2013-03-27T16:57:42Z,7250073.0
+817531,9,https://hg.mozilla.org/integration/mozilla-inbound/rev/d26382bc6411,UNCODED,0,UNMATCHED,2012-12-06T21:44:07Z,6889513.0
+817341,3,"Comment on attachment 687560
+patch v2
+Review of attachment 687560:
+-----------------------------------------------------------------
+Yes, looks good.",CODE_REVIEW,0,FULL_TEXT,2012-12-03T10:40:48Z,6873715.0
+817531,11,"Backed out for:
+REFTEST TEST-UNEXPECTED-FAIL | http://10.250.48.232:30278/tests/layout/reftests/backgrounds/background-referrer.html | image comparison (==), max difference: 255, number of differing pixels: 800000
+https://tbpl.mozilla.org/php/getParsedLog.php?id=17684273&tree=Mozilla-Inbound
+https://hg.mozilla.org/integration/mozilla-inbound/rev/dee7d08baf04",IMPLEMENTATION_REVERSION,0,FULL_TOKEN,2012-12-06T22:44:23Z,6889779.0
+855335,9,"Comment on attachment 735936
+Signaling - fix Wformat warnings in logging
+This should fix all of the -Wformat warnings, but not the -Wformat-extra-args or -Wformat-security ones.
+You can now run with NSPR_LOG_MODULES=signaling:9 without crashing.
+There is a test patch above that redefines the logging to printf if you want to check the warnings on your build.",CODE_REVIEW,0,FULL_TOKEN,2013-04-10T20:18:30Z,7300841.0
+768901,9,"One note, though: How do we decide which nsCSSStyleSheets to measure right now?  If we're not doing the ones in the caches in the css::Loader for the document, this patch can cause us to miss sheets altogether in cases when we prefetched...
+I wonder whether we should avoid sticking the prefetch sheets into the table, since that can cause use to use more memory when CSSOM is used.   Maybe a followup bug on that?",CLARIFICATION,0,FULL_TOKEN,2012-10-10T01:13:15Z,6713734.0
+861246,4,"Comment on attachment 736858
+Fix IPC for fixed layer margins
+Review of attachment 736858:
+-----------------------------------------------------------------
+Looks good, thanks for catching this Chris!",CODE_REVIEW,0,FULL_TEXT,2013-04-12T21:37:46Z,7310525.0
+790547,47,"https://hg.mozilla.org/mozilla-central/rev/d0194ff64049
+https://hg.mozilla.org/mozilla-central/rev/c2e9422b1be8
+https://hg.mozilla.org/mozilla-central/rev/c249961afd99
+https://hg.mozilla.org/mozilla-central/rev/48d10ef28d52",UNCODED,0,UNMATCHED,2012-09-29T16:40:52Z,6679437.0
+866470,48,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22687190&tree=Mozilla-Inbound
+Rev5 MacOSX Mountain Lion 10.8 mozilla-inbound debug test reftest on 2013-05-07 08:35:15
+slave: talos-mtnlion-r5-081
+08:43:27     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///builds/slave/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T16:23:08Z,7396234.0
+819493,35,"ah, rather the problem is that the attribute is set on the document element before setup(), so changing the prefs in setup is not enough, they must be changed before the tab is loaded, though setup may probably directly change the attribute.",CODE_REVIEW,0,FULL_TEXT,2013-04-03T18:54:23Z,7273189.0
+794507,16,"Comment on attachment 704743
+v1
+https://hg.mozilla.org/releases/mozilla-aurora/rev/8c1ae6ca956a",UNCODED,0,UNMATCHED,2013-01-29T23:02:57Z,7051176.0
+866470,56,"khuey
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22704089&tree=Mozilla-Central
+WINNT 6.2 mozilla-central debug test reftest on 2013-05-07 14:54:23
+slave: t-w864-ix-037
+15:04:52     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-07T22:44:48Z,7398024.0
+812431,4,"Very minor regression (if at all), but we'd take a low risk fix on Aurora if found.",PROBLEM_REVIEW,0,FULL_TEXT,2012-11-21T22:03:04Z,6843504.0
+833964,33,Does that mean the patch didn't fix it? Or do the crashing builds not have the patch?,QUESTION,0,FULL_TEXT,2013-06-14T12:37:32Z,7534700.0
+779500,126,"Comment on attachment 660728
+part C - mozFMRadio v5
+I don't think you meant to add this newline.
+Part of the benefit of pulling these chunks into their own functions was that
+""it would let you do early returns instead of these long |else| clauses.""  That
+is, you could do here
+  if (...) { 
+    sendMessage(...);
+    return;
+  }
+  // The rest of the method.
+It's not particularly important, but this is a common point of style in Gecko,
+so you might as well familiarize yourself with it.  :)
+Um...I have no idea where this BTDEBUG thing came from, but it's no good.
+You're just defining LOG to printf for non-gonk systems.
+A simple fix that I would be OK with is
+#else
+//#define LOG(args...) printf(args);
+#define LOG(args...)
+#endif
+A better fix would be to use prlog.  See e.g. dom/ipc/ProcessPriorityManager.cpp.
+See bug 749053 comment 111 -- apparently we /are/ getting dB's from the radio,
+not a magic value between 1-100.  :)
+Maybe the solution will be for hal to give us a value in dB, and then we'll
+translate it into a value 0-5 here.  I'm not quite sure yet, but stay tuned, I
+guess.
+Oh no, I wasn't clear at all!  It should be ""If the WebFM API /is/ re-written
+in C++ some day, this interface /will be/ useless.""
+(More correctly, you'd probably use the subjunctive here: ""If the interface
+were to be rewritten, this would be useless.""  But most people ignore that...)
+Sorry.  :(",ASSIGNEE_REQUEST,0,90_PCT_MATCH,2012-09-14T16:36:49Z,6635717.0
+587434,4,A testcase for this bug was automatically identified at js/src/tests/e4x/Regress/regress-587434.js.,STATUS_UPDATE,0,FULL_TEXT,2013-01-04T21:20:36Z,6964899.0
+790547,34,"Created attachment 664831
+Part 1: IDL for sendEventDownload v3
+Addressed to philikon's comments:
+1. move eventType into eventData, and rename eventData to event in sendStkEventDownload.
+2. Add documentations to indicate ICC won't respond any data with this command.
+I didn't merge MozStkLocationInfo into MozStkLocationEvent, as I explained in my previous comment.
+philikon, does my comment make sense to you? 
+Thanks",CODE_IMPLEMENTATION,1,FULL_TOKEN,2012-09-26T07:42:07Z,6667331.0
+801993,3,"Created attachment 672004
+patch",UNCODED,0,UNMATCHED,2012-10-16T20:56:04Z,6735100.0
+676248,6,"Yes, and I haven't found any regressions.",ANSWER_TO_QUESTION,0,FULL_TEXT,2013-03-05T20:28:27Z,7171265.0
+819493,46,"e:\builds\moz2_slave\m-in-w32-000000000000000000000\build\browser\build.mk:55:0: command 'C:/mozilla-build/python27/python.exe e:/builds/moz2_slave/m-in-w32-000000000000000000000/build/build/pymake/pymake/../make.py -C browser/locales l10n-check' failed, return code 2
+Error: Missing file: ../../dist/xpi-stage/locale-x-test\chrome/x-test/locale/x-test/global/aboutRights.properties
+The patch removes aboutRights.properties. philor suggests a clobber might solve it, but I'd like to understand why that would be needed. Is the ""$(RM) -rf x-test"" in ""make l10n-check"" somehow failing (without showing an error in the log...)? Note also this seems to only happen on some slaves/builds, which suggests some build config/harness issue.",COLLATERAL_PROBLEM_ANALYSIS,0,FULL_TOKEN,2013-04-10T04:50:33Z,7297714.0
+866470,31,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22598640&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-04 15:13:07
+slave: t-w864-ix-028
+15:23:20     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,UNMATCHED,2013-05-04T23:07:52Z,7388235.0
+768901,12,"Bug 799796.
+We just measure sheets in documents and the style-sheet-cache, IIRC.
+Can you file that bug?  I don't understand the idea enough to write something sensible.",CODE_REVIEW,0,FULL_TOKEN,2012-10-10T03:29:06Z,6714020.0

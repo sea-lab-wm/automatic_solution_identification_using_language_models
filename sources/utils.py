@@ -329,11 +329,21 @@ mismatched_annotations_path = 'dataset_construction/sentence_data/mismatched_ann
 mapped_comment_data = 'dataset/solution_identification_data/labeled_comment_data.csv'
 data_split_comment_data = "dataset_construction/comment_data/example_actual_comment_data.csv"
 embedding_comment_data = 'dataset/embedding_data/actual_comment_data_with_embeddings.csv'
+embedding_comment_data_temporal = 'dataset/embedding_data/actual_comment_data_with_embeddings_temporal.csv'
 promt_comment_data = 'dataset_construction/comment_data/comment_data.csv'
 preprocess_comment_data = 'dataset/solution_identification_data/preprocess_comment_data.csv'
 preprocess_sentence_data = 'dataset_construction/sentence_data/preprocess_sentence_data.csv'
 manual_comment_mapping_path = "dataset_construction/comment_data/manual_comment_mapping.csv"
 mismatched_annotations_comments = 'dataset_construction/comment_data/mismatched_annotations_comments.csv'
+
+# Temporal experiment paths
+temporal_folds_path = "dataset/solution_identification_data/temporal_folds"
+dev_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_dev_data.csv'
+test_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_test_data.csv'
+train_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_train_data.csv'
+val_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_val_data.csv'
+train_os_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_oversampled_train_data.csv'
+dev_os_df_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_oversampled_dev_data.csv'
 
 dataset_path = 'dataset'
 dataset_fold_path = "dataset/solution_identification_data/folds"
