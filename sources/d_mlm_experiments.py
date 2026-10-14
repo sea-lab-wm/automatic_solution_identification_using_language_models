@@ -286,7 +286,7 @@ def ml_run(exp_config, run_best_config=False):
     append_row_to_csv(result_path, result_header)
     print(f"{result_header} is saved to {result_path}")
 
-    for run in range(6,9):
+    for run in range(9):
         path = f"{temporal_folds_path}/{run}/comment_test_data.csv"
         test_df = pd.read_csv(path)
         test_predictions = test_df[['issue_id', 'text_id', 'text', 'code', 'label']]

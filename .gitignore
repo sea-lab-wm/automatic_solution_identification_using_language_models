@@ -15,3 +15,4 @@ wandb/latest-run
 /.idea/*
 EMSE_Revision_Tasks.pdf
 AGENTS.md
+dataset/solution_identification_data/temporal_folds/*

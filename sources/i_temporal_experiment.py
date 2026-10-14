@@ -51,32 +51,31 @@ def add_embedding_info(embedding_comment_data, mapped_comment_data, embedding_co
 
 def train_test_split_data(input_path, output_path):
     for i in range(TEMPORAL_FOLD-1):
-        train_data = pd.read_csv(f"{input_path}/fold_{i}.csv")
+        dev_data = pd.read_csv(f"{input_path}/fold_{i}.csv")
 
         for j in range(i):
             prev_fold_data = pd.read_csv(f"{input_path}/fold_{j}.csv")
-            train_data = pd.concat([train_data, prev_fold_data], ignore_index=True)
+            dev_data = pd.concat([dev_data, prev_fold_data], ignore_index=True)
 
-            # check if any of issue_id-text_id pair are duplicated in train_data
-            if train_data.duplicated(subset=['issue_id', 'text_id']).any():
-                raise ValueError(f"Duplicate issue_id-text_id pairs found in train_data for fold {i} after adding fold {j}")
+        X_dev, y_dev = dev_data.drop('label', axis=1), dev_data['label']
+        X_train, X_val, y_train, y_val = train_test_split(X_dev, y_dev, test_size=0.1, stratify=y_dev, shuffle=True, random_state=42)
 
+        train_data = pd.concat([X_train, y_train], axis=1)
+        val_data = pd.concat([X_val, y_val], axis=1)
 
         test_data = pd.read_csv(f"{input_path}/fold_{i+1}.csv")
 
-        # check if any of issue_id-text_id pair are duplicated in test_data
-        if test_data.duplicated(subset=['issue_id', 'text_id']).any():
-            raise ValueError(f"Duplicate issue_id-text_id pairs found in test_data for fold {i}")
-
+        dev_data_os = balance_classes(dev_data, 'label', output_type='df')
         train_data_os = balance_classes(train_data, 'label', output_type='df')
-
-        print(f" length of train data for fold {i}: {len(train_data)}; length of test data for fold {i}: {len(test_data)}")
 
         # Save the split data
         os.makedirs(f"{output_path}/{i}", exist_ok=True)
 
+        dev_data.to_csv(f"{output_path}/{i}/comment_dev_data.csv", index=False)
         train_data.to_csv(f"{output_path}/{i}/comment_train_data.csv", index=False)
+        val_data.to_csv(f"{output_path}/{i}/comment_val_data.csv", index=False)
         test_data.to_csv(f"{output_path}/{i}/comment_test_data.csv", index=False)
+        dev_data_os.to_csv(f"{output_path}/{i}/comment_oversampled_dev_data.csv", index=False)
         train_data_os.to_csv(f"{output_path}/{i}/comment_oversampled_train_data.csv", index=False)
 
 if __name__ == "__main__":
