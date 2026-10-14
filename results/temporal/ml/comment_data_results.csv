@@ -1,0 +1,22 @@
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,False,SVC,0,84.317719,65.060241,52.941176,58.378378,54,29,360,48,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,False,SVC,0,84.317719,65.060241,52.941176,58.378378,54,29,360,48,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,1,83.299389,49.350649,46.91358,48.101266,38,39,371,43,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,2,86.354379,57.843137,71.084337,63.783784,59,43,365,24,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,3,88.594705,59.036145,69.014085,63.636364,49,34,386,22,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,4,87.983707,66.666667,50.632911,57.553957,40,20,392,39,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'poly'}"
+none,gpt,False,SVC,5,82.077393,43.809524,61.333333,51.111111,46,59,357,29,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,6,85.132383,48.192771,57.142857,52.287582,40,43,378,30,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,False,SVC,7,84.317719,49.0,65.333333,56.0,49,51,365,26,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,6,85.132383,48.192771,57.142857,52.287582,40,43,378,30,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,7,84.317719,49.0,65.333333,56.0,49,51,365,26,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,8,88.955823,36.666667,56.410256,44.444444,22,38,421,17,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"

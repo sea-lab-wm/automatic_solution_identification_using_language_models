@@ -1,0 +1,1995 @@
+issue_id,text_id,text,code,label,none_gpt_nos_SVC_6,none_gpt_nos_SVC_6_confidence
+1529006,5,"Comment on attachment 9045942
+Patch.
+Review of attachment 9045942:
+-----------------------------------------------------------------
+I like this approach, it's simple and it's obvious what's happening.  Steve's approach is more general though.
+I guess we'll see how often we need this - if it turns out to be a lot we can shift to the other approach, but for now I'd say let's go with this.
+::: js/src/vm/Realm.h
+@@ +330,5 @@
+We generally trace roots such as these manually rather than using PersistentRooted everywhere.  Can you keep this as is and call GCPolicy<NewObjectMetadataState>::trace in Realm::traceRoots()?",CODE_REVIEW,0,0,0.1447356746370388
+1435456,1,"Filed by: apavel [at] mozilla.com
+https://treeherder.mozilla.org/logviewer.html#?job_id=160139385&repo=mozilla-central
+https://queue.taskcluster.net/v1/task/Zkxi9RvxS5u84kr60XIRPA/runs/0/artifacts/public/logs/live_backing.log
+https://hg.mozilla.org/mozilla-central/raw-file/tip/layout/tools/reftest/reftest-analyzer.xhtml#logurl=https://queue.taskcluster.net/v1/task/Zkxi9RvxS5u84kr60XIRPA/runs/0/artifacts/public/logs/live_backing.log&only_show_unexpected=1
+[task 2018-02-02T20:35:07.544Z] 20:35:07     INFO -  REFTEST TEST-START | http://10.0.2.2:8888/tests/layout/reftests/w3c-css/submitted/test-template-001.xht == http://10.0.2.2:8888/tests/layout/reftests/w3c-css/submitted/references/test-template-001.xht
+[task 2018-02-02T20:35:07.544Z] 20:35:07     INFO -  REFTEST INFO | RESTORE PREFERENCE pref(image.downscale-during-decode.enabled,false)
+[task 2018-02-02T20:35:07.545Z] 20:35:07     INFO -  REFTEST TEST-LOAD | http://10.0.2.2:8888/tests/layout/reftests/w3c-css/submitted/test-template-001.xht | 141 / 311 (45%)
+[task 2018-02-02T20:35:39.566Z] 20:35:39     INFO -  INFO | automation.py | Application ran for: 0:29:11.407899
+[task 2018-02-02T20:35:39.567Z] 20:35:39     INFO -  INFO | zombiecheck | Reading PID log: /tmp/tmpgglIf5pidlog
+[task 2018-02-02T20:35:40.664Z] 20:35:40     INFO -  REFTEST INFO | Copy/paste: /usr/local/bin/linux64-minidump_stackwalk /tmp/tmpoz21zD/36959e31-3443-5df1-1351-2e516ea6264d.dmp /builds/worker/workspace/build/symbols
+[task 2018-02-02T20:35:50.085Z] 20:35:50     INFO -  REFTEST INFO | Saved minidump as /builds/worker/workspace/build/blobber_upload_dir/36959e31-3443-5df1-1351-2e516ea6264d.dmp
+[task 2018-02-02T20:35:50.085Z] 20:35:50     INFO -  REFTEST INFO | Saved app info as /builds/worker/workspace/build/blobber_upload_dir/36959e31-3443-5df1-1351-2e516ea6264d.extra
+[task 2018-02-02T20:35:50.089Z] 20:35:50     INFO -  REFTEST PROCESS-CRASH | http://10.0.2.2:8888/tests/layout/reftests/w3c-css/submitted/test-template-001.xht == http://10.0.2.2:8888/tests/layout/reftests/w3c-css/submitted/references/test-template-001.xht | application crashed [@ mozilla::image::Downscaler::Downscaler]
+[task 2018-02-02T20:35:50.089Z] 20:35:50     INFO -  Crash dump filename: /tmp/tmpoz21zD/36959e31-3443-5df1-1351-2e516ea6264d.dmp
+[task 2018-02-02T20:35:50.089Z] 20:35:50     INFO -  Operating system: Android
+[task 2018-02-02T20:35:50.090Z] 20:35:50     INFO -                    0.0.0 Linux 2.6.29-gea477bb #1 Wed Sep 26 11:04:45 PDT 2012 armv7l
+[task 2018-02-02T20:35:50.090Z] 20:35:50     INFO -  CPU: arm
+[task 2018-02-02T20:35:50.090Z] 20:35:50     INFO -       ARMv7 ARM Cortex-A8 features: swp,half,thumb,fastmult,vfpv2,edsp,neon,vfpv3
+[task 2018-02-02T20:35:50.090Z] 20:35:50     INFO -       1 CPU
+[task 2018-02-02T20:35:50.090Z] 20:35:50     INFO -  GPU: UNKNOWN
+[task 2018-02-02T20:35:50.091Z] 20:35:50     INFO -  Crash reason:  SIGSEGV
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -  Crash address: 0x0
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -  Process uptime: not available
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -  Thread 45 (crashed)
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -   0  libxul.so!mozilla::image::Downscaler::Downscaler [Downscaler.cpp:5d6d869ec7becc99b8c3dc639fc52e49b1af3ef1 : 30 + 0x0]
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -       r0 = 0x000000cc    r1 = 0xd4f7cd15    r2 = 0x600cdb1e    r3 = 0x0000001f
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -       r4 = 0x0000001f    r5 = 0x00000000    r6 = 0x00000020    r7 = 0x560ff6d8
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -       r8 = 0x6a8ad90c    r9 = 0x6a8ad800   r10 = 0x00000020   r12 = 0x00000003
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -       fp = 0x0000000c    sp = 0x560ff6d0    lr = 0x5c8dd0f1    pc = 0x5d2e34e6
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -      Found by: given as instruction pointer in context
+[task 2018-02-02T20:35:50.094Z] 20:35:50     INFO -   1  libxul.so!mozilla::Maybe<mozilla::image::Downscaler>::emplace<mozilla::gfx::IntSizeTyped<mozilla::gfx::UnknownUnits> &> [Maybe.h:5d6d869ec7becc99b8c3dc639fc52e49b1af3ef1 : 459 + 0x5]
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r4 = 0x6a8ad808    r5 = 0x6a8ad90c    r6 = 0x00000020    r7 = 0x560ff6e8
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r8 = 0x6a8ad90c    r9 = 0x6a8ad800   r10 = 0x00000020    fp = 0x0000000c
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       sp = 0x560ff6e0    lr = 0x5d2e2753    pc = 0x5d2e2753
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -      Found by: call frame info
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -   2  libxul.so!mozilla::image::Decoder::PostSize [Decoder.cpp:5d6d869ec7becc99b8c3dc639fc52e49b1af3ef1 : 431 + 0x3]
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r4 = 0x6a8ad800    r5 = 0x00000020    r6 = 0x00000020    r7 = 0x560ff720
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r8 = 0x6a8ad90c    r9 = 0x6a8ad800   r10 = 0x00000020    fp = 0x0000000c
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       sp = 0x560ff6f0    lr = 0x5d2e2609    pc = 0x5d2e2609
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -      Found by: call frame info
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -   3  libxul.so!mozilla::image::nsICODecoder::FinishDirEntry [nsICODecoder.cpp:5d6d869ec7becc99b8c3dc639fc52e49b1af3ef1 : 309 + 0x7]
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r2 = 0x00000020    r3 = 0x00000000    r4 = 0x54962828    r5 = 0x54962828
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r6 = 0x00000001    r7 = 0x560ff770    r8 = 0x6a8ada00    r9 = 0x6a8ad800
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -      r10 = 0x00000020    fp = 0x0000000c    sp = 0x560ff728    lr = 0x5d31463f
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       pc = 0x5d31463f
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -      Found by: call frame info
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -   4  libxul.so!<name omitted> [nsICODecoder.cpp:5d6d869ec7becc99b8c3dc639fc52e49b1af3ef1 : 690 + 0x3]
+[task 2018-02-02T20:35:50.095Z] 20:35:50     INFO -       r4 = 0x55cea770    r5 = 0x6a8ad800    r6 = 0x6a8ad94c    r7 = 0x560ff790
+[task 2018-02-02T20:35:50.096Z] 20:35:50     INFO -       r8 = 0x6a8ad94c    r9 = 0x560ff7e8   r10 = 0x560ff830    fp = 0x6a8ad884
+[task 2018-02-02T20:35:50.096Z] 20:35:50     INFO -       sp = 0x560ff778    lr = 0x5d322979    pc = 0x5d322979
+[task 2018-02-02T20:35:50.096Z] 20:35:50     INFO -      Found by: call frame info
+[task 2018-02-02T20:35:50.096Z] 20:35:50     INFO -   5  libxul.so!mozilla::image::nsICODecoder::DoDecode [StreamingLexer.h:5d6d869ec7becc99b8c3dc639fc52e49b1af3ef1 : 649 + 0x3]
+[task 2018-02-02T20:35:50.097Z] 20:35:50     INFO -       r0 = 0x560ff7e8    r1 = 0x560ff7b0    r2 = 0x00000002    r3 = 0x57d23016
+[task 2018-02-02T20:35:50.097Z] 20:35:50     INFO -       r4 = 0x55cea770    r5 = 0x6a8ad800    r6 = 0x6a8ad94c    r7 = 0x560ff820
+[task 2018-02-02T20:35:50.097Z] 20:35:50     INFO -       r8 = 0x6a8ad94c    r9 = 0x560ff7e8   r10 = 0x560ff830    fp = 0x6a8ad884
+[task 2018-02-02T20:35:50.097Z] 20:35:50     INFO -       sp = 0x560ff798    lr = 0x5d31587d    pc = 0x5d31587d
+[task 2018-02-02T20:35:50.098Z] 20:35:50     INFO -      Found by: call frame info",STACK_TRACE,0,0,0.003958691512162084
+1515665,32,Docs updated https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Privacy/Storage_access_policy$compare?from=1438241&to=1454297,ADDITIONAL_CONSIDERATION,0,0,0.007249358698790822
+1537936,3,"Created attachment 9052675
+Bug 1537936 part 2 - Move pn_op for calls to CallNode::callOp.
+Depends on D24409",AUTO_ATTACH_CODE_IMPLEMENTATION,0,1,0.5194091192782931
+1521066,11,"Comment on attachment 9037565
+Bug 1521066 - Fix double border rendering of border-collapsed tables. r=jrmuizel
+[Triage Comment]
+Extremely simple fix with tests for a table border rendering regression. Approved for 65.0rc1.",UPLIFT_APPROVAL,0,0,0.018334189889315566
+1439571,12,"Pushed by kgupta@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/cda12b20e872
+Remove fuzzy-if annotation that is no longer necessary. r=Gankro",UNCODED,0,0,0.11142542294204848
+1407955,2,"Created attachment 8917828
+Don't skip rendering text-shadow when we're painting SVG text without selection
+The example here is fixed by simply removing the \!aParams.callbacks guard that prevents us rendering the shadow in the (no-selection) PaintText path. It looks like this dates back to bug 655877, originally as the separate aCallbacks param, later moved to the PaintTextParams struct. So :heycam, do you know if removing this will break anything? (Existing reftests seem to be fine with it, according to https://treeherder.mozilla.org/#/jobs?repo=try&revision=2b5eb4766f666c114f0bf5ea348aef7f920edebc, so if it does result in problems that implies we're lacking suitable test coverage...)",CODE_IMPLEMENTATION,1,1,0.8236656440945267
+1456911,7,"Comment on attachment 8983992
+Bug 1456911 - Rewrite the fd shuffling to be simpler & handle identity mappings correctly.
+https://reviewboard.mozilla.org/r/249866/#review256270
+This is nice.
+::: ipc/chromium/src/base/process_util.h:92
+(Diff revision 1)
+Maybe rewrite this as ""Close all file descriptors, except for std{in,out,err} and those for which the given function returns true.""?  I took the current wording to mean the function could return std{in,out,err}, which is admittedly bizarre, and that might have just been me.
+::: ipc/glue/FileDescriptorShuffle.h:47
+(Diff revision 1)
+Should this return value be `const`?",CODE_REVIEW,0,0,0.016262989486475345
+1526439,6,*** Bug 1507855 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0025589984940301157
+1469362,2,"Pushed by ryanvm@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/280327567bdf
+Update pdf.js to version 2.0.602. r=bdahl",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0.04365323914443738
+1403319,1,Intl.NumberFormat.prototype.formatToParts reached Stage 4 at today's TC39 meeting. We can expose it now to the public! :),PROBLEM_DESCRIPTION,0,0,0.07256488863839299
+1442559,11,Working on a patch.,STATUS_UPDATE,0,0,0.00942277324256841
+1515665,26,"Created attachment 9037676
+part 3 - no window in SessionStorage.jsm
+No window when restoring a window.",CODE_IMPLEMENTATION,1,0,0.20656428214124098
+1462624,5,"In addition, https://github.com/mozilla/activity-stream/commit/49d13ab4dfd6c549bf9672c61e92ff69cac88512 for bug 1432676 added about ~67KB for illustrations for the new onboarding tour, which should also be expected",PROBLEM_LOCALIZATION,0,0,0.25874201903064664
+1514062,3,"Can confirm that it works when reverting the CDM to 4.9.1088 or 4.10.1146.0.
+I only have two monitors, but do experience the problem. (2* 1920x1080 @ 60Hz)
+See attached about:support files.
+(they show the netflix-1808p extension, but the problem still exists when disabling it, this has of course been my first test; also the fact that swapping CDM versions as per :bryce's post worked seemed to point to the latter as the culprit)",REPRODUCTION_ATTEMPT,0,0,0.18604026863388556
+1424993,1,"I'm working on enabling ESLint for dom/presentation. As part of this, I found some undefined variables in PresentationDataChannelSessionTransport.js, along the lines of:
+throw NS_ERROR_NOT_AVAILABLE;
+This is meant to be:
+throw Cr.NS_ERROR_NOT_AVAILABLE;
+I'm not sure if there's any actual bugs caused by this, a brief look makes me think it would just be broken developer debug information.",PROBLEM_REVIEW,0,0,0.24598246532167067
+1515665,28,"Comment on attachment 9037674
+part 1 - exposed PartitionedOrDeny differently
+Review of attachment 9037674:
+-----------------------------------------------------------------
+::: dom/base/nsContentUtils.cpp
+@@ +8102,5 @@
+No, you shouldn't make up non-existing errors out of thin air.  When you aren't sure why you're rejecting, you're supposed to set rejected reason to 0.
+@@ +8330,5 @@
+Why not make aRejectedReason a reference here so that you can remove this assertion and the weird dereferences below?
+@@ +8363,2 @@
+Ditto.
+@@ +8367,5 @@
+Again, minting synthetic rejection reasons isn't allowed.
+@@ +8375,5 @@
+Here too.
+@@ +8449,5 @@
+This change will break the privacy.restrict3rdpartystorage.partitionedHosts pref for non-trackers...  I suppose that is fine, but at the very least you need to document this change in semantics here: https://searchfox.org/mozilla-central/rev/dac799c9f4e9f5f05c1071cba94f2522aa31f7eb/modules/libpref/init/all.js#1403",CODE_REVIEW,0,0,0.06782192420318874
+1515665,29,"Created attachment 9038177
+part 1 - exposed PartitionedOrDeny differently",UNCODED,0,0,0.05665108036204704
+1514062,6,"Seems like this needs a Widevine fix and I'm not sure we'd update 64 for that. RyanVM told me we're also not serving this version so I'll mark it 'disabled' for 64,",ISSUE_METADATA_CHANGE,0,0,0.10872338738378245
+1465254,2,"Created attachment 8981676
+Bug 1465254 - Fix copy error in periodic updates task
+Review commit: https://reviewboard.mozilla.org/r/247816/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/247816/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.4873816078049681
+1430012,3,"FYI, if you restore the tab from ""History"" > ""Recently Closed Tabs"", then the issue won't happen.",ADDITIONAL_CONSIDERATION,0,0,0.01935219930710484
+1455735,6,"My reduced test case in 2 bypassed the actual problem. I was able to reproduce the problem today, and the attached patch fixes the problem for me. The problem I fixed here was a regression caused by the changes in bug 1436113.",SOLUTION_VERIFICATION,0,1,0.6739841305772765
+1521066,7,https://hg.mozilla.org/mozilla-central/rev/6c6fecd53382,UNCODED,0,0,0.00535943167968305
+1421905,1,"Created attachment 8933193
+synced-tabs-sidebar-is-blank.png
+Steps to reproduce:
+1. Launch the latest Nightly
+2. Open synced tabs sidebar with tabs disable state
+   => Shows sync-illustration-issue.svg, message and button
+3. Restart Nightly
+Actual Results:
+Synced tabs sidebar is blank. It will be shown after reopening sidebar (or switching menu).
+Expected Results:
+Same with before restarting Nightly.
+Regression range:
+https://hg.mozilla.org/integration/autoland/pushloghtml?fromchange=5043401c5447ab8cfb6edef4b806e1ad52e53ddc&tochange=8696159a170c286813795dba1fe1cebb623e3410",PROBLEM_LOCALIZATION,0,0,0.03923699827368152
+1430012,1,"STR.
+1. set pref ""media.autoplay.enabled=false"" and ""media.autoplay.enabled.user-gestures-needed=true"".
+2. goto https://alastor0325.github.io/htmltests/autoplay_tests/autoplay_test2.html
+3. click the video, then video starts playing
+4. close the tab
+5. restore tab by keyboard shortcut ""command + shift + T""
+Expect.
+6. video from restored tab should not start playing
+Actual.
+6. video from restored tab starts playing
+---
+We listen ""key-up"" event to activate the document then it could gain the autoplay permission. If the event is sent to the wrong target, then the thing would go wrong.
+After some investigation, the root cause should be that the ""key-up"" event is sent to the restored tab, then causes its document activation.",PROBLEM_DESCRIPTION,0,0,0.0390312288864056
+1430012,2,"Hi, Stone,
+Could you help with this issue or NI someone who is familiar with this part?
+Thanks!",ASSIGNEE_REQUEST,0,0,0.006083923596455222
+1454126,5,"Okay, got it. insertHorizontalRule command inserted <hr> element into the <input> element such DOM tree isn't expected by some places.",PROBLEM_CAUSE_IDENTIFICATION,0,0,0.15444952408623966
+1486074,4,"Pushed by aethanyc@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/d8b05de1fa30
+Move logic for copying aliased properties' fields to the bottom of property_database.js. r=emilio",UNCODED,0,0,0.24332786020714198
+1485422,2,"Created attachment 9005038
+stars design capture
+Stars seem to be available here (and I've attached a capture of it)
+https://mozilla.invisionapp.com/share/YWLSGDZGUSF#/screens/316896230",SCREENSHOT,0,0,0.29448828071027966
+1516605,5,https://hg.mozilla.org/mozilla-central/rev/129f8c60783c,UNCODED,0,0,0.00820018519226477
+1396319,14,"I can verify that my friend is no longer crashing, although he apparently can't use any website which requests both camera and microphone (such as appear.in, or appr.tc, or https://janus.conf.meetecho.com/echotest.html). They don't crash anymore, but his camera and microphone never actually work (both me and him can't see/hear him).
+He can use demos which only request the camera though (such as https://webrtc.github.io/samples/src/content/getusermedia/gum/).",SOLUTION_VERIFICATION,0,0,0.05658615897451228
+1442559,13,"Created attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+Review commit: https://reviewboard.mozilla.org/r/224806/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/224806/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.5420334348653446
+1493860,12,":jib, I could use some help with the WebRTC parts - please see what changed in the IDL in 1368949.",ADDITIONAL_CONSIDERATION,0,0,0.03423602867441866
+1479989,5,"Created attachment 9024894
+bug 1479989 - Update test262 exclusions for BigInt. r=anba
+Disable BigInt variants of tests disabled due to bug 1079853, bug 1129202, or bug 1317416.",CODE_IMPLEMENTATION,1,1,0.4132774530200355
+1390087,14,"1 failures in 947 pushes (0.001 failures/push) were associated with this bug in the last 7 days.    
+Repository breakdown:
+* autoland: 1
+Platform breakdown:
+* windows7-32: 1
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1390087&startday=2017-10-09&endday=2017-10-15&tree=all",UNCODED,0,0,0.013905926010420172
+1424993,4,"Pushed by mbanner@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/d095359814e9
+Fix PresentationTransport to correctly throw NS_ERROR_NOT_AVAILABLE. r=smaug",UNCODED,0,0,0.1272709716878474
+1401249,6,"Comment on attachment 8909869
+Bug 1401249 - Fix getStringPref usage in clicktoplay-rollout.
+Fix for click to play system addon, so that new users will get this option. 
+This should be in the 56 RC2 later on this week.",UPLIFT_APPROVAL,0,0,0.01099078791120114
+1403319,3,"Andre, can you take a look? The proposal reached Stage 4 so I'd like to expose it soon.
+Also, it would help a lot with our tooling if you could pick a `[:abargull]` or similar nick for bugzilla and MR when requesting reviews from you ;)",CODE_REVIEW_REQUEST,0,0,0.011656888480673743
+1456911,12,"https://hg.mozilla.org/mozilla-central/rev/808a2fe2aaab
+https://hg.mozilla.org/mozilla-central/rev/69ffa8eab9d9",UNCODED,0,0,0.04234711299305262
+1458856,3,"Comment on attachment 8973029
+Bug 1458856 - Handle prefs with only a user value in preference rollout
+https://reviewboard.mozilla.org/r/241560/#review247390
+Code analysis found 1 defect in this patch:
+ - 1 defect found by mozlint
+You can run this analysis locally with:
+ - `./mach lint path/to/file` (JS/Python)
+If you see a problem in this automated review, please report it here: http://bit.ly/2y9N9Vx
+::: toolkit/components/normandy/lib/PrefUtils.jsm:46
+(Diff revision 1)
+Error: Unnecessary 'else' after 'return'. [eslint: no-else-return]",CODE_REVIEW,0,0,0.005638264540224066
+1515665,17,"Created attachment 9036319
+part 4 - tests",UNCODED,0,0,0.12626830577714446
+1519164,6,"Pushed by jhofmann@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/939479cc5903
+Update content blocking UI tour url. r=nhnt11",UNCODED,0,0,0.048718512658276654
+1515665,19,"Comment on attachment 9036318
+part 3 - reject_cookie policy
+Review of attachment 9036318:
+-----------------------------------------------------------------
+::: dom/storage/LocalStorage.cpp
+@@ +63,5 @@
+Better wrap the entire block in #ifdef DEBUG.
+::: dom/storage/SessionStorage.cpp
+@@ +43,5 @@
+Ditto.",CODE_REVIEW,0,0,0.0006703656193041639
+1454126,4,"I investigated this yesterday but I still don't understand what happens. I cannot access the bugs mentioned in comment 3. If they could be good hint, could you cc me them too?",PROBLEM_REVIEW,0,0,0.00938517397561725
+1396319,10,"Jib, I can, though reproing on Windows[1] will take some spin up time.
+[1]https://crash-stats.mozilla.com/signature/?signature=mozilla%3A%3AMediaPipeline%3A%3ARtcpPacketReceived#aggregations",ANSWER_TO_QUESTION,0,0,0.00494157235144811
+1458856,5,"Comment on attachment 8973029
+Bug 1458856 - Handle prefs with only a user value in preference rollout
+https://reviewboard.mozilla.org/r/241560/#review247516",AUTO_LINK_CODE_REVIEW,0,0,0.002345361456262988
+1405027,2,"Created attachment 8914397
+Avoid using nsINode::GetChildAt() in HTMLEditor::GetElementOrParentByTagName()",PROBLEM_DESCRIPTION,0,1,0.386215389973189
+1528712,2,"Created attachment 9044610
+Bug 1528712 - Remove a couple trivial dependencies on nsPresContext. r=#style,jfkthame",UNCODED,0,0,0.23794460823648006
+1526439,7,*** Bug 1507577 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.002256996805388605
+1540794,2,"Created attachment 9054927
+Bug 1540794 - Remove nsIID.h.
+This file only includes nsID.h, and is unused.",CODE_IMPLEMENTATION,1,1,0.817329842634224
+1521066,10,Created web-platform-tests PR https://github.com/web-platform-tests/wpt/pull/14963 for changes under testing/web-platform/tests,UNCODED,0,0,0.03842616303476298
+1410565,4,"Created attachment 8921364
+Bug 1410565 - add gtest for mTimescale checking.
+Review commit: https://reviewboard.mozilla.org/r/192398/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/192398/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.3549417054499307
+1454126,21,"Hi Masayuki, can you please nominate the patch for beta60 uplift? Thanks!",UPLIFT_NOMINATION_REQUEST,0,0,0.033935253947459304
+1493860,9,"My understanding of the WebAuth issue is that null is a valid Buffer value. So even requiring it, a developer can legally pass null (and the spec doesn’t seem to deal with that). 
+If null becomes an empty dictionary, then it works just fine because it means one less check. But yes, checking “is present” works, then walk the members that are present (if any). 
+Sorry, I saw the RTC folks so involved in the other bugs that I figured they had a solution. I’ll deep dive into that too.",SOLUTION_REVIEW,1,1,0.537545155088273
+1454126,6,"Created attachment 8968456
+Patch for m-c
+See the commit message for the detail. This is caused by creating unexpected anonymous subtree in <input> element.",CODE_IMPLEMENTATION,1,1,0.7988623364933867
+1424993,3,"Comment on attachment 8936562
+Bug 1424993 - Fix PresentationTransport to correctly throw NS_ERROR_NOT_AVAILABLE.
+https://reviewboard.mozilla.org/r/207308/#review213110",AUTO_LINK_CODE_REVIEW,0,0,0.00878979041152166
+1209952,11,"Sure.  CC me on the bug.
+I can't really review any changes unless I think I have a clear understanding what the problem is first.  I can debug it myself of course but that may take some time.",CLARIFICATION,0,0,0.007449625322488451
+1435456,9,"Pushed by aosmond@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/4afd35f217c1
+Remove asserts checking that downscale-on-decode is enabled. r=tnikkel",UNCODED,0,0,0.16573824270617216
+1486218,4,"Should be fixed now, reopen if it comes back",ISSUE_METADATA_CHANGE,0,0,0.02678109831925162
+1396319,16,"Likewise, bug 1389793 should probably be closed as well.",ISSUE_METADATA_CHANGE,0,0,0.061293885701347486
+1540794,4,https://hg.mozilla.org/mozilla-central/rev/c4ddf15818ae,UNCODED,0,0,0.005995698801270547
+1521066,9,*** Bug 1515101 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0023514895127038993
+1421905,6,"Pushed by eoger@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/5dfa3982d405
+Listen to service start notification in Synced Tabs sidebar. r=markh",UNCODED,0,0,0.029902273763988418
+1439571,11,"Created attachment 9012899
+Remove fuzzy-if",UNCODED,0,1,0.4510657755047432
+1509994,7,"Pushed by dminor@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/0fd399c6caab
+Move video_engine from webrtc to systemservices; r=pehrsons
+https://hg.mozilla.org/integration/autoland/rev/6cea864da2b6
+Update gn generated json files; r=pehrsons
+https://hg.mozilla.org/integration/autoland/rev/cab408925a76
+Update gn generated json files (part 2); r=pehrsons
+https://hg.mozilla.org/integration/autoland/rev/352048c07693
+Regenerate moz.build files; r=pehrsons",UNCODED,0,0,0.13953739088534595
+1485422,3,"Created attachment 9005050
+wip screenshot",UNCODED,0,0,0.041187750346104675
+1435456,6,"I was thinking the same thing, then I thought about it more. All image decodes should be finished when the reftest finishes. and we haven't seen this failure for years, so why are we seeing it now?",QUESTION,0,0,0.03841783407314696
+1486074,1,"In my try run [1] to enable ""layout.css.column-span.enabled"", I notice the following error.
+TEST-UNEXPECTED-FAIL | layout/style/test/test_ch_ex_no_infloops.html | uncaught exception - TypeError: value_list is undefined at test_replaced_values@http://mochi.test:8888/tests/layout/style/test/test_ch_ex_no_infloops.html:40:21
+It turns out -moz-column-span are defined _after_ the logic that processes the alias properties. 
+[1] https://treeherder.mozilla.org/#/jobs?repo=try&revision=077243bccedb472c81457a7710724e52065dc5d5&selectedJob=195621048
+[2] https://searchfox.org/mozilla-central/rev/c45b9755593ce6cc91f558b21e544f5165752de7/layout/style/test/property_database.js#7952-7996",PROBLEM_DESCRIPTION,0,0,0.056757821628714365
+1519164,9,"Comment on attachment 9035876
+Bug 1519164 - Update content blocking UI tour url. r=nhnt11
+[Beta/Release Uplift Approval Request]
+Feature/Bug causing the regression: None
+User impact if declined: Content blocking UI tour URL isn't up to date (we might do changes on the new version only)
+Is this code covered by automated tests?: No
+Has the fix been verified in Nightly?: No
+Needs manual test from QE?: Yes
+If yes, steps to reproduce: Try to open the content blocking tour through different means, e.g. on first use or on about:privatebrowsing. It should still work, but the url should contain ""content-blocking"" instead of ""tracking-protection""
+List of other uplifts needed: None
+Risk to taking this patch: Low
+Why is the change risky/not risky? (and alternatives if risky): Simple pref update
+String changes made/needed: None",REQUEST_FOR_UPLIFT,0,0,0.008273970435296709
+1209952,16,"Hi Mats,
+It's just a kind reminder that this patch I submitted half a month a ago is waiting for your review. I've already explained the timeline of this bug with logging message in a previous comment.
+Could you review this patch now? Or if you don't have time, could point me to someone who is also eligible to review this patch? I'm afraid I would probably forget some of the detail in the bug if it takes too long.",CODE_REVIEW_REQUEST,0,0,0.005539653492871361
+1515665,24,"Created attachment 9037674
+part 1 - exposed PartitionedOrDeny differently
+Finally, a green result. This patch exposed rejectedReason in StorageAllowedForNewWindow. This will be mainly used in the next patches.
+It also moves the privacy.restrict3rdpartystorage.partitionedHosts check in the localStorage code.",CODE_IMPLEMENTATION,1,1,0.5422953286737329
+1435264,3,"Upgrading this to P1. I am totally confident now that there's no firefox bug here, just a website issue for this test site, so this should not block WebAuthn's release IMO.",ISSUE_METADATA_CHANGE,0,0,0.05849635257142915
+1509994,6,Phabricator choked on the size of the json update patch and I had to manually split it into two.,CODE_IMPLEMENTATION,1,0,0.02100171059928743
+1513854,3,"Created attachment 9052036
+Bug 1513854 - Read Normandy recipes from Remote Settings on Nightly
+Read Normandy recipes from Remote Settings by default",CODE_IMPLEMENTATION,1,0,0.1371038160617103
+1537936,5,"Backed out for bustages in ParseNode.h
+Push with failure: https://treeherder.mozilla.org/#/jobs?repo=autoland&resultStatus=testfailed%2Cbusted%2Cexception%2Crunnable&revision=8c405aa4467dfeb34b9df7e875c1584ed6f6a938
+Failure log: https://treeherder.mozilla.org/logviewer.html#/jobs?job_id=235272394&repo=autoland&lineNumber=5157
+Backout: https://hg.mozilla.org/integration/autoland/rev/c99b0f4470527c183d90c1e7191a08e4933ad1ac",IMPLEMENTATION_REVERSION,0,0,0.030955182667458964
+1430012,4,"When investigating bug 1427984, I found that most browsers (Chrome, Firefox, Safari) fire keyup at the switched tab when the key sequence changes the current tab. I don't think this is a problem. For this use case, maybe we could handle the autoplay permission when keydown like other functionalities (e.g. ALT+N to switch tabs, ALT+F4, CTRL+SHIFT+K to open inspector). Or we could ask UX for some suggestions.",POTENTIAL_SOLUTION_DESIGN,1,0,0.20764942075870574
+1493860,4,"## Audit of Web Authentication / Credential Management
+1) Should the ""= null"" stay?
+This is bug: https://github.com/w3c/webauthn/issues/750
+And yes, it should stay. Also with the fixes in #750. 
+The spec needs to be updated to deal with ""challenge"" being null, as well as some other values being nulled. 
+Git blame says ask @qdot :) What happens if `mChallenge` is passed as null in `dom/webauthn/WebAuthnManager.cpp`? I'm guessing it's all good, as you reviewed bug 1368949?",PROBLEM_REVIEW,0,0,0.04480148194185867
+1493860,14,"Hi Marcos, I'm so sorry for the delay in getting back to you! I filed bug 1497427 to capture the work to update the Push API; bug 1497429, bug 1497430, and bug 1497431 are for the IDL bits. Unfortunately, I don't have cycles to work on them. :-(",NEW_ISSUE_FILING,0,0,0.03944931815502967
+1430012,6,"I can take it, thank for your help!",DEVELOPER_SELECTION_DECISION,0,0,0.0062762056084570365
+1442559,18,"Comment on attachment 8955728
+Bug 1442559 part 1 - Make it clearer what whitelist item filters the error.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224804/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.048231011976030636
+1439571,10,"Another one with a couple more tests that I missed the first time: https://treeherder.mozilla.org/#/jobs?repo=try&bugfiler=&group_state=expanded&revision=21fbae0ac9d621d0ab287a645bce28195267d6a3
+Anyway, looking green.",SOLUTION_VERIFICATION,0,0,0.11988088096478926
+1494092,1,"The IsInObserverList related code in SVGObserverUtils.h/.cpp is unfortunate since it seems like we shouldn't need to check this. The code is only used in one place, in nsSVGIntegrationUtils::AdjustInvalidAreaForSVGEffects. This mechanism was introduced in bug 587336:
+https://hg.mozilla.org/mozilla-central/rev/c7726ff56cbf
+This code is from eight years ago when we were still recursing up the frame invalidating each frame whenever we needed to invalidate something. The code was introduced to prevent an invalidation loop. What was happening is that the frame with a filter(#parent) would invalidate, the recursive invalidation would recurse up the frame tree, invalidating the parent which would post a (change hint) restyle event at the original frame referencing the ""filter"" parent. Hence, invalidation loop forever.
+Now that we are in a DLBI world the original reason to have this hack has gone.",PROBLEM_MOTIVATION,0,1,0.44432630511616533
+1519164,3,Great! Thank you.,UNCODED,0,0,0.007212515276098131
+1540794,1,"This file does nothing except #include ""nsID.h"", and is not used anywhere in m-c or comm-central.",PROBLEM_MOTIVATION,0,0,0.06608089366657664
+1442559,4,"This new central-as-beta simulation has the check below the list removed and passes: https://treeherder.mozilla.org/#/jobs?repo=try&revision=4d8d55b5b0c758813921149b9594519e1b3a1e22&filter-resultStatus=testfailed&filter-resultStatus=busted&filter-resultStatus=exception&filter-resultStatus=retry&filter-resultStatus=usercancel&filter-resultStatus=runnable
+So is this code still of use? https://dxr.mozilla.org/mozilla-central/rev/df0e967f8e8fa30a69338008b6ee296bf5e9c545/browser/base/content/test/static/browser_parsable_css.js#140-146
+The pref associated with it - full-screen-api.unprefix.enabled - is false on release and beta but true on nightly: https://dxr.mozilla.org/mozilla-central/rev/df0e967f8e8fa30a69338008b6ee296bf5e9c545/modules/libpref/init/all.js#5160-5164",ADDITIONAL_CONSIDERATION,0,0,0.08519046111228532
+1510786,2,"dav1d supports all platforms via C interface.  asm is x86 and arm only.
+awilcox on gwyn [pts/5 Wed 28 17:59] build: meson 
+The Meson build system
+Version: 0.47.2
+Source dir: /home/awilcox/Code/contrib/dav1d
+Build dir: /home/awilcox/Code/contrib/dav1d/build
+Build type: native build
+Project name: dav1d
+Project version: 0.0.1
+Native C compiler: cc (gcc 6.4.0 ""cc (Adelie 6.4.0) 6.4.0"")
+Build machine cpu family: ppc64
+Build machine cpu: ppc64
+Dependency threads found: YES
+Check usable header ""stdatomic.h"": YES
+Check usable header ""unistd.h"": YES
+Checking for function ""getopt_long"" : YES
+Checking for function ""posix_memalign"" : YES
+Compiler for C supports arguments -fvisibility=hidden: YES
+Compiler for C supports arguments -Wundef: YES
+Compiler for C supports arguments -Werror=vla: YES
+Compiler for C supports arguments -Wno-maybe-uninitialized -Wmaybe-uninitialized: YES
+Compiler for C supports arguments -Wno-unused-parameter -Wunused-parameter: YES
+Compiler for C supports arguments -Werror=missing-prototypes: YES
+Compiler for C supports arguments -fomit-frame-pointer: YES
+Compiler for C supports arguments -ffast-math: YES
+Configuring config.h using configuration
+Program doxygen found: NO
+Build targets in project: 8
+Found ninja-1.8.2 at /usr/bin/ninja
+awilcox on gwyn [pts/5 Wed 28 17:59] build: ninja  
+[63/63] Linking target tools/dav1d.
+awilcox on gwyn [pts/5 Wed 28 17:59] build: ninja test
+zsh: correct 'test' to 'tests' [nyae]? n
+[1/2] Running all tests.
+No tests defined.
+awilcox on gwyn [pts/5 Wed 28 17:59] build:",REPRODUCTION_ATTEMPT,0,0,0.1260515365507277
+1435264,2,This is probably a bug in https://webauthn.bin.coffee/ ; I'll take a look.,DEVELOPER_SELECTION_DECISION,0,0,0.01603147401073558
+1421905,8,This bug fix has verified in Nightly build (20180104220114). Thanks!,SOLUTION_VERIFICATION,0,0,0.02208663835335759
+1521066,12,https://hg.mozilla.org/releases/mozilla-beta/rev/a95de9874038,UNCODED,0,0,0.002437526024968028
+1403319,7,"Comment on attachment 8912816
+Bug 1403319 - Expose Intl.NumberFormat.prototype.formatToParts.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/184124/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.0036800452739727155
+840284,27,"Per policy at https://wiki.mozilla.org/Bug_Triage/Projects/Bug_Handling/Bug_Husbandry#Inactive_Bugs. If this bug is not an enhancement request or a bug not present in a supported release of Firefox, then it may be reopened.",SOLUTION_VERIFICATION,0,0,0.006168148218761199
+1515665,11,"mIsSessionOnly is set to true when 'cookie' permission is set to session-only. test_cookieSession.html check exactly this. right? LocalStorage and SessionStorage can both have mIsSessionOnly set to true.
+ 
+If you want to check the 'nature' of the storage, you should use |StorageType Storage::Type() const|:
+https://searchfox.org/mozilla-central/rev/0ee0b63732d35d16ba22d5a1120622e2e8d58c29/dom/storage/Storage.h#39",ANSWER_TO_QUESTION,0,0,0.025990111015370788
+1405027,3,"Pushed by eakhgari@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/dd7266c2e716
+Avoid using nsINode::GetChildAt() in HTMLEditor::GetElementOrParentByTagName(); r=masayuki",UNCODED,0,0,0.10376559201636248
+1486218,2,"Marking fix-optional for 64. We could still take a patch for 65, and if it's verified and doesn't seem risky, could still take fixes for 64 as well.",ISSUE_METADATA_CHANGE,0,0,0.15748148543222673
+1515665,9,"We're already past early beta, so I'm perfectly fine with letting this ride with 66 if the patch is riskier than you're comfortable with.",ADDITIONAL_CONSIDERATION,0,0,0.017562539856529412
+1421905,2,"Thank you for the report and for the regression range.
+What I'm seeing here is a good ol' race: in the sidebar initialization code, in some rare cases we might update the UI before we are done initializing Weave.Service [0][1][2]. That means we show a blank screen.
+From there it all goes downhill: since the tab engine is disabled, SyncedTabs.jsm never triggers a UI update since it only listens to ""tab engine sync finished"" events [3]. So we stay on that blank screen forever.
+A simple fix is to listen to ""weave:service:ready"", so we can update the UI one last time.
+Ultimately, I don't think isConfiguredToSyncTabs is the right abstraction because it assumes that the tab engine is enabled if Service is not ready. We should refactor that to explicitly make the distinction between these states, but it is a bit more work.
+Patch to come.
+[0] https://searchfox.org/mozilla-central/rev/be78e6ea9b10b1f5b2b3b013f01d86e1062abb2b/browser/components/syncedtabs/SyncedTabsDeckComponent.js#78,92
+[1] https://searchfox.org/mozilla-central/rev/be78e6ea9b10b1f5b2b3b013f01d86e1062abb2b/services/sync/modules/SyncedTabs.jsm#208
+[2] https://searchfox.org/mozilla-central/rev/be78e6ea9b10b1f5b2b3b013f01d86e1062abb2b/browser/components/syncedtabs/SyncedTabsDeckComponent.js#128,132
+[3] https://searchfox.org/mozilla-central/rev/be78e6ea9b10b1f5b2b3b013f01d86e1062abb2b/services/sync/modules/SyncedTabs.jsm#176",POTENTIAL_SOLUTION_DESIGN,1,0,0.26776129373942087
+1487135,4,"Pushed by emilio@crisal.io:
+https://hg.mozilla.org/integration/autoland/rev/94b793d95409
+Make the allocation of AuthorStyles for ShadowRoot lazy. r=xidorn,firefox-style-system-reviewers",UNCODED,0,0,0.10889886461708051
+1519164,10,"Comment on attachment 9035876
+Bug 1519164 - Update content blocking UI tour url. r=nhnt11
+[Triage Comment]
+Ensures that the Content Blocking UI tour URL is up to date. Approved for 65.0b11.",UPLIFT_APPROVAL,0,0,0.011517818092642832
+1506200,4,"r?baku for the bits in dom/fetch, r?jwalden for the rest.",CODE_REVIEW_REQUEST,0,0,0.02676605831513637
+1442559,27,"6 failures in 831 pushes (0.007 failures/push) were associated with this bug in the last 7 days.    
+Repository breakdown:
+* mozilla-beta: 6
+Platform breakdown:
+* windows7-32-nightly: 1
+* windows7-32-devedition: 1
+* windows10-64-nightly: 1
+* windows10-64-devedition: 1
+* macosx64-nightly: 1
+* macosx64-devedition: 1
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1442559&startday=2018-02-26&endday=2018-03-04&tree=all",SOLUTION_VERIFICATION,0,0,0.007955980444232487
+1515665,31,"Pushed by amarchesini@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/700bc7185e64
+StorageAccess::ePartitionedOrDeny must be used only for trackers, rehsan
+https://hg.mozilla.org/integration/mozilla-inbound/rev/188f4b17a553
+SessionStorage should be allowed when StorageAccess is ePartitionedOrDeny, r=ehsan
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c6b3ea360251
+no window passwed when creating SessionStorage in SessionStorage.jsm, r=ehsan
+https://hg.mozilla.org/integration/mozilla-inbound/rev/6a1c4140f479
+Tests for SessionStorage and cookie-behavior REJECTED, r=ehsan",UNCODED,0,0,0.019542584908419758
+1521066,3,"https://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=a7f1d2b04291a97a44fc08160b33cf3b0488127c&tochange=178218e7b57ca24ceb7f6aca3674611012fa6b2c
+Looks like I broke this, sorry! Thanks a lot for the report, feels weird that nobody noticed until now... Will take a look.",STATUS_UPDATE,0,0,0.030945408142516933
+1209952,19,"Created attachment 9055835
+frame dumps
+So here's my initial analysis of what happens in the frame tree
+that leads up to the crash.  I've colorized the interesting float
+continuation chain, and numbered the interesting frames dumps
+in a grey background color and numbered them.  Referring to
+each of the numbered trees in this log:
+1. initially we have a float in the first column
+2. we reflow and find that it overflows (but its parent is complete),
+   so we put a NIF for it on the OverflowContainersList
+3. when reflowing the next column, we find that it still doesn't
+   fit so we create another NIF and put it on the PushedFloatsList
+   and create a continuation for the parent on ExcessOverflowContainersList
+**CRASH**
+Now backtracking a bit in rr to see what happens between 3 and the crash...
+4. This is the frame tree we start with when reflowing our float (red).
+   Note that the inner ColumnSet has a NIF at this point.
+5. Backtracking to where we create that ColumnSet NIF.
+   I think this is the point where things start to go wrong.
+   We've decided that the float's parent doesn't fit in in this
+   column at all and we push the lines containing it (creating
+   the Overflow-lines list) and create the NIF.
+6. At this point the NIF has picked up the Overflow-lines so
+   the float first-in-flow is in the ColumnSet NIF and its continuations
+   in the previous ColumnSet.  Likewise for the float's parent block
+   which is also in the wrong order.  This seems _questionable_ to me.
+   Technically, we would either be COMPLETE, in which case we'd delete
+   the NIFs, or INCOMPLETE, in which case we'd push them, but still...
+From 6, this is essentially what happens, we decide it's COMPLETE
+and delete the NIFs.  The reason we crash is that one of the float
+NIFs are registered in the float manager, and we try to use it
+after it's been deleted (frame-poisoning makes it non-exploitable
+though).
+(my apologies for the verbosity of this log)",UNCODED,0,1,0.4448041989543911
+1407435,4,"Created attachment 8917513
+Bug 1407435 - After animating out from the toolbar, the widget no longer remains invisible.
+Review commit: https://reviewboard.mozilla.org/r/188470/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/188470/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.4492278491788293
+1209952,9,"Violet, maybe you should apply for Level 1 Commit Access so you can push to Try yourself?
+https://wiki.mozilla.org/ReleaseEngineering/TryServer",QUESTION,0,0,0.021659190079540983
+1442559,24,"Comment on attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224806/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.027979681744087423
+1529006,8,"Created attachment 9047376
+Patch v3
+removed inherit from CustomAutoRooter",CODE_IMPLEMENTATION,1,0,0.18337005402119053
+1510786,9,"Created attachment 9028604
+dav1d-build-bug-ppc64-s390x
+Could you please check if this patch fixes you builds?",VERIFICATION_REQUEST,0,1,0.3388240050784741
+1410565,8,"Comment on attachment 8921364
+Bug 1410565 - add gtest for mTimescale checking.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/192398/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.01080889532153916
+1458856,8,"Verified as fixed on the following builds:
+Beta 61.0b6(20180517141400) and Nightly 62.0a1(20180520220103).
+No error is displayed in browser console when a rollout is performed on a new non-existent preference.",SOLUTION_VERIFICATION,0,0,0.019801751368307457
+948882,38,https://hg.mozilla.org/mozilla-central/rev/75df8c6facf7,UNCODED,0,0,0.006877322698909533
+1487135,3,"Comment on attachment 9005065
+Make the allocation of AuthorStyles for ShadowRoot lazy.
+Xidorn Quan [:xidorn] UTC+10 has approved the revision.",CODE_REVIEW,0,0,0.01696382677630275
+1479309,9,"Backed out for causing a big performance regression on OS X and as request by igoldan. 
+https://hg.mozilla.org/mozilla-central/rev/fe6020e5c9d901a40fa2e7ea2f1ab2a36bf6d856",IMPLEMENTATION_REVERSION,0,0,0.044735822617247754
+1513854,2,"The Data Science ticket for the progressive rollout using Feature Gate for Fx 67 is Bug 1533030
+I suggest that we use this ticket to enable it by default in Fx 68",POTENTIAL_SOLUTION_DESIGN,1,0,0.05674210533093298
+1510786,15,"Pushed by achronopoulos@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/e6e6e269d09d
+Add configuration header for ppc64 and s390x. r=TD-Linux",UNCODED,0,0,0.019644369639741855
+1515665,20,"Created attachment 9037251
+part 1 - ePartitionedOrDeny for trackers
+This is what we want:
+1. when storage access is denied by permissions or cookie-policy, SessionStorage must throw security errors.
+2. for normal pages and trackers, sessionStorage must work as usual.
+In order to achieve this configuration, I need to return ePartitionedOrDeny only when rejectedReason is 'TRACKERS'.",CODE_IMPLEMENTATION,1,1,0.3746846804519518
+1479989,3,"Comment on attachment 8996593
+Update test262 exclusions for BigInt.
+Review of attachment 8996593:
+-----------------------------------------------------------------
+Thanks!",CODE_REVIEW,0,0,0.003893280009742946
+1526439,5,https://hg.mozilla.org/mozilla-central/rev/2eec2334d48f,UNCODED,0,0,0.010460702519480747
+1407435,1,"STR:
+- Right click on any toolbar button
+- Click ""Remove from Toolbar""
+- Go inside customization mode
+AR:
+- The button that was just removed has an invisible icon
+ER:
+- The button icon should be visible
+It seems like the animate-out class is not properly removed.",PROBLEM_DESCRIPTION,0,0,0.11303806546678985
+1479989,4,":terpri this looks still valid, can you set checkin-needed please?",QUESTION,0,0,0.006822705054084527
+1410565,11,"https://hg.mozilla.org/mozilla-central/rev/a0282427c61c
+https://hg.mozilla.org/mozilla-central/rev/a8df0a966ce6",UNCODED,0,0,0.009723398648594323
+1407955,3,bug 889235 contains a reftest why does the reftest from that bug pass and the testcase not?,QUESTION,0,0,0.011034601344031081
+1442559,1,"central-as-beta simulation: https://treeherder.mozilla.org/#/jobs?repo=try&revision=d41944694361da6a2742694bf2c6cd0ca79d1b4e&filter-resultStatus=testfailed&filter-resultStatus=busted&filter-resultStatus=exception&filter-resultStatus=retry&filter-resultStatus=usercancel&filter-resultStatus=runnable&selectedJob=165416922
+Log: https://treeherder.mozilla.org/logviewer.html#?job_id=165416922&repo=try
+Unused whitelist item. sourceName: /(?:res|gre-resources)\/(ua|html)\.css$/i errorMessage: /Unknown pseudo-class .*\bfullscreen\b/i",UNCODED,0,0,0.04190287120317767
+1515665,5,"Backout by ebalazs@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/540b4829fd57
+Backed out changeset 338f4fbbfddf for bc failures browser/components/sessionstore/test/browser_339445.js CLOSED TREE",UNCODED,0,0,0.004853831584442932
+1493860,5,"## Audit of Push API
+The IDL is out of date!
+The proposed change was: 
+```
+dictionary PushSubscriptionJSON {
+  PushSubscriptionKeys keys = null;
+}
+```
+In the latest spec, it is now:
+```
+dictionary PushSubscriptionJSON {
+  record<DOMString, USVString> keys;
+}
+```
+This one doesn't matter. It's the result of a PushSubscription.toJSON(). 
+@lina, I couldn't find a bug to update the IDL to match latest spec. Do you have any status on Push API implementation?",POTENTIAL_SOLUTION_DESIGN,1,0,0.059777607891996175
+1458856,2,"Created attachment 8973029
+Bug 1458856 - Handle prefs with only a user value in preference rollout
+Review commit: https://reviewboard.mozilla.org/r/241560/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/241560/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0.24312156216227418
+1442559,19,"Comment on attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224806/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.024568778279706938
+1421905,3,"Created attachment 8933378
+Bug 1421905 - Listen to service start notification in Synced Tabs sidebar.
+Review commit: https://reviewboard.mozilla.org/r/204290/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/204290/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0.17371017984648904
+1455735,7,"Comment on attachment 8970677
+Bug 1455735 - Await running recipes
+https://reviewboard.mozilla.org/r/239412/#review245280
+Gah, sorry for not catching this in review. :-(",UNCODED,0,0,0.00166067401266449
+1407435,3,"Erica, could you take this?",ASSIGNEE_REQUEST,0,0,0.0069497703800305306
+1403319,9,https://hg.mozilla.org/mozilla-central/rev/353baf72f789,UNCODED,0,0,0.007005108210312195
+1455735,5,"Created attachment 8970677
+Bug 1455735 - Await running recipes
+Review commit: https://reviewboard.mozilla.org/r/239412/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/239412/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0.2471674306481334
+1209952,5,Our fuzzers are still seeing this issue.,REPRODUCTION_ATTEMPT,0,0,0.012726046783797686
+1485422,1,"We'd like to add rating stars for CFR according to the UX spec:
+https://mozilla.invisionapp.com/share/V9LVKJUACMD#/screens",PROBLEM_DESCRIPTION,0,0,0.06908537401532978
+1454126,24,https://hg.mozilla.org/mozilla-central/rev/4ac461885d8c,UNCODED,0,0,0.015377753063353688
+1435456,10,*** Bug 1427073 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0023159678210122516
+1493860,15,*** Bug 1505842 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0021995611620149067
+1514429,4,"I had assumed that a meta viewport tag would change the layout viewport size without affecting the visual viewport, and without setting nsIPresShell::IsVisualViewportSizeSet(), leading to a mismatch. If that is not the case, and IsVisualViewportSizeSet() is equivalent to ""visual viewport may differ from layout viewport"", then I agree there is no problem here.
+In Bug 1504659 I need the actual viewport width. The actual visible amount of the document. I see now that GetVisualViewportSize() returns both the viewable area and the area covered by any visible scrollbars. By subtracting away the area of the scrollbars, I should be able to get what I need. I'll needinfo you (on that bug) if I have trouble.",POTENTIAL_SOLUTION_DESIGN,1,1,0.39973836993728507
+1407435,2,Regression of bug 1390313,PROBLEM_LOCALIZATION,0,0,0.0042808664979205446
+1462624,9,https://hg.mozilla.org/mozilla-central/rev/238c2caac25d,AUTO_LINK_CODE_IMPLEMENTATION,0,0,0.005105512739467807
+1510786,6,It feels like we could reasonably merge all those config.h files and use appropriate ifdefs.,POTENTIAL_SOLUTION_DESIGN,1,0,0.16641537858150748
+1439571,7,Hi Kats -- Can I ask you to re-test this (since you were the reporter) and report back if it's fixed?  Thanks!,VERIFICATION_REQUEST,0,0,0.004888878559535766
+1401299,3,"Comment on attachment 8909928
+Bug 1401299 - Removing leftover putc(stderr, ...) from ParseNode;
+https://reviewboard.mozilla.org/r/181408/#review187030",AUTO_LINK_CODE_REVIEW,0,0,0.0024773772799053452
+1442559,3,"Oh, are we shipping this now in 60 so we can remove it from the whitelist? I'm not sure why this isn't failing on Nightly builds though.",QUESTION,0,0,0.0033656335178860325
+1410565,10,"Pushed by ayang@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/a0282427c61c
+check mTimescale to avoid dividing by zero. r=kinetik
+https://hg.mozilla.org/integration/autoland/rev/a8df0a966ce6
+add gtest for mTimescale checking. r=kinetik",UNCODED,0,0,0.06390024165921555
+1403319,8,"Pushed by zbraniecki@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/353baf72f789
+Expose Intl.NumberFormat.prototype.formatToParts. r=anba",UNCODED,0,0,0.03855241961342637
+1529006,6,"Created attachment 9047168
+Patch v2
+addressed Jonco's comments",CODE_IMPLEMENTATION,1,1,0.3432699611173773
+1515665,14,"Created attachment 9036316
+part 1 - partitioned storage renamed",UNCODED,0,0,0.07649659246954096
+1401249,8,https://hg.mozilla.org/mozilla-central/rev/d94508124715,UNCODED,0,0,0.009809344208815638
+1510786,3,"What's missing is config files for non x86/x86-64/arm/arm64 systems.
+https://hg.mozilla.org/mozilla-central/file/f2915d3ee5f8/media/libdav1d/moz.build#l15",QUESTION,0,0,0.020620075342758427
+1528712,6,"Pushed by emilio@crisal.io:
+https://hg.mozilla.org/integration/autoland/rev/533f35feb9eb
+Remove a couple trivial dependencies on nsPresContext. r=heycam
+https://hg.mozilla.org/integration/autoland/rev/d15621c6f424
+Remove nsFont::featureValueLookup. r=jfkthame",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0.15175113071682314
+1421905,4,"Comment on attachment 8933378
+Bug 1421905 - Listen to service start notification in Synced Tabs sidebar.
+https://reviewboard.mozilla.org/r/204290/#review209940
+Thanks!
+::: browser/components/syncedtabs/SyncedTabsDeckComponent.js:116
+(Diff revision 1)
+please comment that this is an intended fallthrough.",CODE_REVIEW,0,0,0.004628492800601309
+1441779,4,"Created attachment 8955122
+Bug 1441779 - Part 1: Change nsTArray<SourceBufferTask> to nsTArray<RefPtr<SourceBufferTask>>
+Review commit: https://reviewboard.mozilla.org/r/224280/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/224280/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.32283904857942886
+1537936,6,"Pushed by ahauck@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/647eb65d3451
+part 1 - Remove miscellaneous uses of pn_op. r=jorendorff
+https://hg.mozilla.org/integration/autoland/rev/37d0dcbdffd5
+part 2 - Move pn_op for calls to CallNode::callOp. r=jorendorff",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0.19660226539914052
+1494092,9,https://hg.mozilla.org/mozilla-central/rev/d2218beee052,UNCODED,0,0,0.00560246519748571
+1407435,7,https://hg.mozilla.org/mozilla-central/rev/462c85ecfe5b,UNCODED,0,0,0.006171530652545718
+1454126,23,"Comment on attachment 8969164
+Patch for Beta
+Approval Request Comment
+[Feature/Bug causing the regression]:
+Not sure. This root cause must be a long standing bug. However, the crash must be caused by Quantum Flow since a lot places started to assume native anonymous subtree in <input>/<textarea> are always expected structure. Therefore, the crash is not reproducible with ESR 52.
+[User impact if declined]
+Might get odd HTML tree (i.e., |foo.innerHTML = bar.innerHTML;| doesn't create same DOM tree since <input> cannot have any children at parsing HTML document). And of course, may meet the crash.
+[Is this code covered by automated tests?]:
+Not yet. We should land it after release.
+[Has the fix been verified in Nightly?]:
+Not yet, but I confirmed it with local build.
+[Needs manual test from QE? If yes, steps to reproduce]:
+Yes, load attachment 8967914 and check if it won't cause crash.
+[List of other uplifts needed for the feature/fix]:
+Nothing.
+[Is the change risky?]:
+No.
+[Why is the change risky/not risky?]:
+This adds an additional check to HTMLEditor::GetBetterInsertionPointFor(). The additional new check is, if it's not in native anonymous subtree.  If it's in, it returns host element of the native anonymous subtree.
+[String changes made/needed]:
+Nothing.",REQUEST_FOR_UPLIFT,0,0,0.08941577456491136
+1467403,4,"Comment on attachment 8984332
+Remove the source notes handling for prologue bytecode.
+Review of attachment 8984332:
+-----------------------------------------------------------------
+Nice!
+::: js/src/frontend/BytecodeEmitter.cpp
+@@ +11458,5 @@
+Nit: we usually have a blank line before comments like this, if not at the start of a block?",CODE_REVIEW,0,0,0.011653265680572657
+1407435,5,"Comment on attachment 8917513
+Bug 1407435 - After animating out from the toolbar, the widget no longer remains invisible.
+https://reviewboard.mozilla.org/r/188470/#review193730
+Thanks, I was able to reproduce the bug (aNode.parentNode is null) as well as confirm that the patch fixed it.",SOLUTION_VERIFICATION,0,0,0.03360759943344672
+1401299,5,https://hg.mozilla.org/mozilla-central/rev/f3b8f72c3d89,UNCODED,0,0,0.004870067193562339
+1528712,4,"Pushed by ealvarez@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/d981515b874b
+Remove a couple trivial dependencies on nsPresContext. r=heycam
+https://hg.mozilla.org/integration/autoland/rev/2d5c4e71e258
+Remove nsFont::featureValueLookup. r=jfkthame",UNCODED,0,0,0.13387517455220832
+1441779,3,"Comment on attachment 8954680
+Bug 1441779 - Part 2: Add nsTArray::RemoveLastElement() and nsTArray::PopLastElement()
+https://reviewboard.mozilla.org/r/223782/#review229882
+With tests, too!  Yay!
+Please file a followup to replace the appropriate `RemoveElementAt` calls with this new API.  Thanks!
+::: xpcom/ds/nsTArray.h:1738
+(Diff revision 1)
+I think that we want to `mozilla::Move(LastElement())` here, so we're not copying unnecessarily, and so we can support move-only types.",NEW_ISSUE_FILING,0,0,0.11063909340051344
+1410565,2,"INFO: Last good revision: aecaa85bb1d9d8b7d2cbd9ab84eb6dbc0ed9eee8
+INFO: First bad revision: 4e892b27c2f112e61a74d1bd75cc1d73ff91e2b2
+INFO: Pushlog:
+https://hg.mozilla.org/integration/autoland/pushloghtml?fromchange=aecaa85bb1d9d8b7d2cbd9ab84eb6dbc0ed9eee8&tochange=4e892b27c2f112e61a74d1bd75cc1d73ff91e2b2",PROBLEM_LOCALIZATION,0,0,0.012483992719823084
+1454126,8,I've CC'ed you on those bugs in case they would be useful.,ADDITIONAL_CONSIDERATION,0,0,0.05719070720864233
+1529006,10,https://hg.mozilla.org/mozilla-central/rev/584d1d57db0b,UNCODED,0,0,0.008013080188737033
+1442559,5,"Created attachment 8955699
+Bug 1442559 - Remove unused CSS whitelist entry for fullscreen.
+Review commit: https://reviewboard.mozilla.org/r/224784/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/224784/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.6302917804433299
+1441779,8,"https://hg.mozilla.org/mozilla-central/rev/757abead90e1
+https://hg.mozilla.org/mozilla-central/rev/1245c42d81aa",UNCODED,0,0,0.015056035317449527
+1467403,6,https://hg.mozilla.org/mozilla-central/rev/09d892dcaca7,UNCODED,0,0,0.0030007115663536234
+1454126,20,"Comment on attachment 8969163
+Patch for m-c (r=m_kato)
+sec-approval+ for trunk. Given we have a week of betas left, I'll let release management make the decision about taking it on Beta.",CODE_REVIEW,0,0,0.002656145218017213
+1442559,31,Verified fixed with the latest central-as-beta simulation: https://treeherder.mozilla.org/#/jobs?repo=try&revision=dc0e79a9e1e17888ac8cebe43ae3bdaf1c7b4a57&filter-resultStatus=testfailed&filter-resultStatus=busted&filter-resultStatus=exception&filter-resultStatus=retry&filter-resultStatus=usercancel&filter-resultStatus=runnable,SOLUTION_VERIFICATION,0,0,0.14486379761096746
+1514062,5,"Created attachment 9031290
+about:support from affected system (raw/json)",UNCODED,0,0,0.07059960022017991
+1537936,4,"Created attachment 9052676
+Bug 1537936 part 3 - Remove ParseNode::pn_op.
+Depends on D24410",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0.17318165453263243
+1455735,8,"Pushed by mcooper@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/801fa27ae7b8
+Await running recipes r=Gijs",UNCODED,0,0,0.028080479999420614
+1462624,4,"About 80KB-82KB of that can be accounted for by images added in https://github.com/mozilla/activity-stream/commit/c132f298c64b3e357d8a492e77299fcf2c3c25fa, and likely the rest by the code changes.",PROBLEM_LOCALIZATION,0,1,0.3467205259246718
+1521066,5,"Comment on attachment 9037565
+Bug 1521066 - Fix double border rendering of border-collapsed tables. r=jrmuizel
+[Beta/Release Uplift Approval Request]
+Feature/Bug causing the regression: Bug 1487407
+User impact if declined: Some tables may render solid borders instead of double.
+Is this code covered by automated tests?: Yes
+Has the fix been verified in Nightly?: No
+Needs manual test from QE?: No
+If yes, steps to reproduce: 
+List of other uplifts needed: None
+Risk to taking this patch: Low
+Why is the change risky/not risky? (and alternatives if risky): Just adds back a `break;` statement which prevents us to fall back to the solid border path we use when the border is too small.
+String changes made/needed:",REQUEST_FOR_UPLIFT,0,0,0.00971748362168253
+1526439,1,"Required by DOD Stig
+extensions.update.enabled
+false",PROBLEM_MOTIVATION,0,0,0.0026126926132409327
+1442559,28,"https://hg.mozilla.org/mozilla-central/rev/4d6a3eb93a00
+https://hg.mozilla.org/mozilla-central/rev/756d5b77b540
+https://hg.mozilla.org/mozilla-central/rev/39e3ac3b1194",UNCODED,0,0,0.02088373000243443
+1514062,1,"There are multiple reports on reddit[0][1] of performance issues with CDM version 4.10.1196.0. This appears to be linked to multiple displays -- with current reports indicating 3 or more being problematic.
+I will reach out to Widevine and provide more details here as I become aware of them.
+[0]: https://www.reddit.com/r/firefox/comments/a5qsjw/netflix_on_version_64_was_making_my_machine_lag/
+[1]: https://www.reddit.com/r/firefox/comments/a5xdyo/widevine_drm_causing_whole_pc_mouse_stutter/",STATUS_UPDATE,0,0,0.054578048624105625
+1396319,9,"Nico, can you take a look?
+Marco, do happen to have the repro steps your friend is using?",S2R_REQUEST,0,0,0.008118497375739551
+1454126,28,*** Bug 1452704 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.004173785326243905
+1454126,19,"Created attachment 8969164
+Patch for Beta",UNCODED,0,0,0.08751445952258707
+1515665,3,"Pushed by eakhgari@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/338f4fbbfddf
+Ensure that DOM Storage checks the content blocking allow list when performing storage access checks; r=baku",UNCODED,0,0,0.012656984458826251
+1515665,16,"Created attachment 9036318
+part 3 - reject_cookie policy",UNCODED,0,0,0.02349309258546704
+1469362,3,https://hg.mozilla.org/mozilla-central/rev/280327567bdf,UNCODED,0,0,0.011074727570167538
+1441779,5,"Comment on attachment 8954680
+Bug 1441779 - Part 2: Add nsTArray::RemoveLastElement() and nsTArray::PopLastElement()
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/223782/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.02151061605903958
+1537936,7,"Pushed by ahauck@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/2bf248bc4f3b
+part 1 - Remove miscellaneous uses of pn_op. r=jorendorff
+https://hg.mozilla.org/integration/autoland/rev/4011496a13a9
+part 2 - Move pn_op for calls to CallNode::callOp. r=jorendorff
+https://hg.mozilla.org/integration/autoland/rev/d9660cff2091
+part 3 - Remove ParseNode::pn_op. r=jorendorff",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0.12511622253380256
+1439571,3,clearing ni; the referenced issue seems to have all the relevant details.,ISSUE_METADATA_CHANGE,0,0,0.01837677278307986
+1529006,9,"Pushed by allstars.chh@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/584d1d57db0b
+Use Rooted for NewObjectMetadataState. r=jonco",PROBLEM_DESCRIPTION,0,0,0.11116026922400923
+1454126,3,"Masayuki, this looks editor related. Could you take a look? Thanks.",PROBLEM_REVIEW_REQUEST,0,0,0.025549602587125988
+1482681,2,"Just writing up a test for this, I have a fix already.",STATUS_UPDATE,0,0,0.04921155601669605
+1467403,2,"it's always empty.
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=f73c011efe69f74cf15169e8d3966587a911a5bf",PROBLEM_MOTIVATION,0,0,0.014662764470107248
+1435264,1,"[Affected versions]:
+- Latest Nightly 60.0a1 (2018-02-01) (64-bit)
+[Affected platforms]:
+- Windows 10x64
+- Mac OS Sierra 10.12
+Preconditions
+Fx build with WebAuth enabled
+USB hardware key
+[Steps to reproduce]:
+1.Go to this site: https://webauthn.bin.coffee/
+2.Insert USB hardware key
+3.Click on button labeled ""Create Credentials"" and perform USB verification steps
+4.Click on button labeled ""Get Assertion"" and perform USB verification steps
+5.Remove USB token
+6.Click on button labeled ""Create Credentials""
+   Click on button labeled ""Get Assertion""
+7.Insert USB hardware key again
+  Click on button labeled ""Create Credentials"" and perform USB verification steps
+[Expected result]
+7. Debug output on page should indicate successful credential creation.
+[Actual result]
+7. After clicking on ""Create Credentials"" the output indicates failure 
+   https://i.imgur.com/dK7u2lQ.png",PROBLEM_DESCRIPTION,0,0,0.004646147678241297
+1494092,7,"Comment on attachment 9011962
+Bug 1494092. Remove SVGFilterObserverList::IsInObserverLists. r?mattwoodrow
+Matt Woodrow (:mattwoodrow) has approved the revision.",SOLUTION_VERIFICATION,0,0,0.011010144503827172
+1454126,16,"Making this a sec-high. 
+This needs a patch which DOES NOT include a test. We're not allowed to zero day ourselves with a checkin (that's part of why sec-approval) exits.
+The test can land 3-4 weeks after we ship a release with the fix and not before then. 
+Masayuki, please update with a new patch and set sec-approval? on it.",REQUIREMENT,0,0,0.030250699941162557
+1479309,8,"Backout by csabou@mozilla.com:
+https://hg.mozilla.org/mozilla-central/rev/fe6020e5c9d9
+Backed out 12 changesets (bug 1479309, bug 1479312, bug 1479313, bug 1479310, bug 1479235, bug 1479945, bug 1479241, bug 1479318) for causing a big performance regression on OS X. a=backout",IMPLEMENTATION_REVERSION,0,0,0.014842982149075187
+1456911,11,"Pushed by jedavis@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/808a2fe2aaab
+Prelude: Fix unified build breakage exposed by the next patch. r=froydnj
+https://hg.mozilla.org/integration/autoland/rev/69ffa8eab9d9
+Rewrite the fd shuffling to be simpler & handle identity mappings correctly. r=froydnj",UNCODED,0,0,0.20758036376288674
+1424993,5,https://hg.mozilla.org/mozilla-central/rev/d095359814e9,UNCODED,0,0,0.004120318437016444
+1519164,11,https://hg.mozilla.org/releases/mozilla-beta/rev/7448d41d4fdc,UNCODED,0,0,0.0034581952028331616
+1486074,5,https://hg.mozilla.org/mozilla-central/rev/d8b05de1fa30,UNCODED,0,0,0.006485947554294794
+1479309,1,"shield-content-frame.js is only needed in content processes when an event received from a shield page. It's only ever really needed when about:studies has been loaded in a process, but the quickest path to getting rid of it it is just loading it when we get a ""ShieldPageEvent"" event in a frame script.",POTENTIAL_SOLUTION_DESIGN,1,1,0.3357352310301459
+1442559,6,"We are not shipping unprefixed fullscreen in 60, so I don't expect it to become useless. There must be some other reason...",PROBLEM_REVIEW,0,0,0.1138954992633712
+1487135,6,"https://hg.mozilla.org/mozilla-central/rev/94b793d95409
+https://hg.mozilla.org/mozilla-central/rev/752786e0dd01",UNCODED,0,0,0.02833660121496654
+1494092,5,I've spun off bug 1494110 for the preexisting invalidation issue.,STATUS_UPDATE,0,0,0.049922084707758135
+1528712,1,Just a few more left.,UNCODED,0,0,0.006949402458817461
+1510786,7,"I mean, including the ones already in the tree.",POTENTIAL_SOLUTION_DESIGN,1,0,0.033530441185576895
+1510786,11,Thank you Dan!,UNCODED,0,0,0.012148137645939583
+1479989,2,"Created attachment 8996593
+Update test262 exclusions for BigInt.
+Disable BigInt variants of tests disabled due to bug 1317416.",PROBLEM_DESCRIPTION,0,1,0.5845229111369707
+1456911,10,"Comment on attachment 8983992
+Bug 1456911 - Rewrite the fd shuffling to be simpler & handle identity mappings correctly.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/249866/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.0405436285047322
+1515665,8,"[Tracking Requested - why for this release]:
+Actually given how drastic the fix has turned out to be, I no longer think this is something that we want to land on 65, the risk of backporting the fix would be way too high and we don't really have any user reported bugs that we need to backport this for.  I was hoping to get this landed on 65 for completeness but I don't think it's the end of the world if it misses that train...",ADDITIONAL_CONSIDERATION,0,0,0.03429576138843621
+1515665,18,Part 2 here needs our documentation to be updated.,REQUIREMENT,0,0,0.0064465784224537305
+1410565,1,"Created attachment 8920749
+test_case.mp4
+#0 mozalloc_abort(char const*) /src/memory/mozalloc/mozalloc_abort.cpp:33:5
+#1 Abort(char const*) /src/xpcom/base/nsDebugImpl.cpp:461:3
+#2 NS_DebugBreak /src/xpcom/base/nsDebugImpl.cpp:417:7
+#3 fpehandler(int, siginfo*, void*) /src/toolkit/xre/nsSigHandlers.cpp:155:5
+#4 0x7f70641e538f  (/lib/x86_64-linux-gnu/libpthread.so.0+0x1138f)
+#5 ToMicroseconds /src/media/libstagefright/binding/include/mp4_demuxer/MoofParser.h:39:41
+#6 mp4_demuxer::Moof::ParseTrun(mp4_demuxer::Box&, mp4_demuxer::Tfhd&, mp4_demuxer::Mvhd&, mp4_demuxer::Mdhd&, mp4_demuxer::Edts&, unsigned long*, bool) /src/media/libstagefright/binding/MoofParser.cpp:684
+#7 mp4_demuxer::Moof::ParseTraf(mp4_demuxer::Box&, mp4_demuxer::Trex&, mp4_demuxer::Mvhd&, mp4_demuxer::Mdhd&, mp4_demuxer::Edts&, mp4_demuxer::Sinf&, unsigned long*, bool) /src/media/libstagefright/binding/MoofParser.cpp:593:11
+#8 mp4_demuxer::Moof::Moof(mp4_demuxer::Box&, mp4_demuxer::Trex&, mp4_demuxer::Mvhd&, mp4_demuxer::Mdhd&, mp4_demuxer::Edts&, mp4_demuxer::Sinf&, unsigned long*, bool) /src/media/libstagefright/binding/MoofParser.cpp:404:7
+#9 mp4_demuxer::MoofParser::RebuildFragmentedIndex(mp4_demuxer::BoxContext&) /src/media/libstagefright/binding/MoofParser.cpp:65:12
+#10 RebuildFragmentedIndex /src/media/libstagefright/binding/MoofParser.cpp:35:10
+#11 mp4_demuxer::MoofParser::RebuildFragmentedIndex(mozilla::media::IntervalSet<long> const&, bool*) /src/media/libstagefright/binding/MoofParser.cpp:51
+#12 mp4_demuxer::Index::UpdateMoofIndex(mozilla::media::IntervalSet<long> const&, bool) /src/media/libstagefright/binding/Index.cpp:433:16
+#13 mozilla::MP4TrackDemuxer::EnsureUpToDateIndex() /src/dom/media/fmp4/MP4Demuxer.cpp:400:11
+#14 mozilla::MP4TrackDemuxer::MP4TrackDemuxer(mozilla::MP4Demuxer*, mozilla::UniquePtr<mozilla::TrackInfo, mozilla::DefaultDelete<mozilla::TrackInfo> >&&, mp4_demuxer::IndiceWrapper const&) /src/dom/media/fmp4/MP4Demuxer.cpp:358:3
+#15 mozilla::MP4Demuxer::Init() /src/dom/media/fmp4/MP4Demuxer.cpp:221:13
+#16 operator() /src/dom/media/MediaFormatReader.cpp:1115:47
+#17 mozilla::detail::ProxyFunctionRunnable<mozilla::MediaFormatReader::DemuxerProxy::Init()::$_10, mozilla::MozPromise<mozilla::MediaResult, mozilla::MediaResult, true> >::Run() /src/obj-firefox/dist/include/mozilla/MozPromise.h:1511
+#18 mozilla::TaskQueue::Runner::Run() /src/xpcom/threads/TaskQueue.cpp:246:12
+#19 nsThreadPool::Run() /src/xpcom/threads/nsThreadPool.cpp:228:14
+#20 non-virtual thunk to nsThreadPool::Run() /src/xpcom/threads/nsThreadPool.cpp:156:15
+#21 nsThread::ProcessNextEvent(bool, bool*) /src/xpcom/threads/nsThread.cpp:1037:14
+#22 NS_ProcessNextEvent(nsIThread*, bool) /src/xpcom/threads/nsThreadUtils.cpp:513:10
+#23 mozilla::ipc::MessagePumpForNonMainThreads::Run(base::MessagePump::Delegate*) /src/ipc/glue/MessagePump.cpp:334:20
+#24 RunInternal /src/ipc/chromium/src/base/message_loop.cc:326:10
+#25 RunHandler /src/ipc/chromium/src/base/message_loop.cc:319
+#26 MessageLoop::Run() /src/ipc/chromium/src/base/message_loop.cc:299
+#27 nsThread::ThreadFunc(void*) /src/xpcom/threads/nsThread.cpp:425:11
+#28 _pt_root /src/nsprpub/pr/src/pthreads/ptthread.c:216:5
+#29 start_thread (/lib/x86_64-linux-gnu/libpthread.so.0+0x76b9)
+#30 clone /build/glibc-bfm8X4/glibc-2.23/misc/../sysdeps/unix/sysv/linux/x86_64/clone.S:109",STACK_TRACE,0,0,0.02968158102415812
+1458856,6,"Pushed by mcooper@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/b28e041ff83c
+Handle prefs with only a user value in preference rollout r=Gijs",UNCODED,0,0,0.06788961726655866
+1442559,26,"Pushed by xquan@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/4d6a3eb93a00
+part 1 - Make it clearer what whitelist item filters the error. r=Gijs
+https://hg.mozilla.org/integration/autoland/rev/756d5b77b540
+part 2 - Use a separate whitelist for prop names. r=Gijs
+https://hg.mozilla.org/integration/autoland/rev/39e3ac3b1194
+part 3 - Detect whitelist item which doesn't have any condition. r=Gijs",UNCODED,0,0,0.1773040758451754
+1513854,1,"In Bug 1506175, we introduced the ability to fetch recipes from Remote Settings. 
+The pref ""app.normandy.remotesettings.enabled"" is false by default.
+We could gradually enable this feature once the server parts are in place.",PROBLEM_MOTIVATION,0,0,0.029600248310177917
+1515665,22,"Created attachment 9037255
+part 3 - tests",UNCODED,0,0,0.08848912810424303
+1485422,6,"Comment on attachment 9005445
+Bug 1485422 - Add rating stars to CFR
+Adam Hillier :ahillier has approved the revision.",CODE_REVIEW,0,0,0.0034183887774960112
+1485422,7,"Pushed by elee@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/0cdebe3c53f8
+Add rating stars to CFR r=ahillier",UNCODED,0,0,0.012566802760502462
+1421170,5,"Pushed by echen@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/c7633e5266c0
+Move the declarations of CustomElementUpgradeReaction and CustomElementCallbackReaction to CustomElementRegistry.cpp; r=smaug",UNCODED,0,0,0.12105945297048704
+1441779,6,"Comment on attachment 8955122
+Bug 1441779 - Part 1: Change nsTArray<SourceBufferTask> to nsTArray<RefPtr<SourceBufferTask>>
+https://reviewboard.mozilla.org/r/224280/#review230410
+Good catch!",CODE_REVIEW,0,0,0.009767981460010254
+1493860,1,"In bug 1368949 I am going to change the behavior of our webidl codegen for optional dictionary-typed members of dictionaries to allow them to be ""not present"" instead of always defaulting to null.
+I am adding explicit ""= null"" to all of the current uses to preserve behavior; the change is being made now so some new APIs can rely on it.
+This bug is for going through those ""= null"" and deciding which of them should stay (and get upstreamed to the relevant specs) and which should go away.  In the latter case, the relevant specs should be audited to see whether they define the ""not present"" case.
+We may want multiple bugs under this one tracking the various spec bits.",PROBLEM_MOTIVATION,0,0,0.1825935469255071
+1519164,12,"I have verified that the Content Blocking UI tour is correctly displayed in normal/private browsing and the URL contains the ""content-blocking"" string. Tested on latest Nightly 66.0a1 and Beta 65.0b11 across OSes: Win 10 x64, macOS 10.13 and Ubuntu 16.04 x86.",SOLUTION_VERIFICATION,0,0,0.015475244381054165
+1401299,4,"Pushed by dteller@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/f3b8f72c3d89
+Removing leftover putc(stderr, ...) from ParseNode;r=nbp",UNCODED,0,0,0.0429891892832766
+1510786,13,https://treeherder.mozilla.org/#/jobs?repo=try&revision=dd127becb6b048d78f9e5c3927fd690998fcbf5f,UNCODED,0,0,0.019489086800827175
+1515665,27,"Created attachment 9037677
+part 4 - tests",UNCODED,0,0,0.11378913748417546
+1509994,3,"Created attachment 9027949
+Bug 1509994 - Update gn generated json files; r=pehrsons!
+Depends on D13092",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0.24077240573559813
+1454126,9,"Comment on attachment 8968456
+Patch for m-c
+Review of attachment 8968456:
+-----------------------------------------------------------------
+Since this bug is marked as core-security, I think you shouldn't land test case with fix according to https://wiki.mozilla.org/Security/Bug_Approval_Process.
+::: editor/libeditor/EditorDOMPoint.h
+@@ +556,5 @@
+nsIContent* parent?",QUESTION,0,0,0.011259704943728646
+1454126,1,"Created attachment 8967914
+testcase.html
+==83696==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x7f2bf39babcf bp 0x7fff3b755170 sp 0x7fff3b755170 T0)
+==83696==The signal is caused by a READ memory access.
+==83696==Hint: address points to the zero page.
+    #0 0x7f2bf39babce in nsMappedAttributes::GetAttr(nsAtom*) const src/dom/base/nsMappedAttributes.cpp:183:28
+    #1 0x7f2bf835819b in AttrValueIs src/obj-firefox/dist/include/mozilla/dom/Element.h:2008:46
+    #2 0x7f2bf835819b in IsMozEditorBogusNode src/obj-firefox/dist/include/mozilla/EditorBase.h:1073
+    #3 0x7f2bf835819b in mozilla::TextEditRules::CreateBogusNodeIfNeeded(mozilla::dom::Selection*) src/editor/libeditor/TextEditRules.cpp:1435
+    #4 0x7f2bf8357ab1 in mozilla::TextEditRules::Init(mozilla::TextEditor*) src/editor/libeditor/TextEditRules.cpp:143:17
+    #5 0x7f2bf836686a in mozilla::TextEditor::EndEditorInit() src/editor/libeditor/TextEditor.cpp:208:17
+    #6 0x7f2bf8367958 in ~AutoEditInitRulesTrigger src/editor/libeditor/TextEditUtils.cpp:93:28
+    #7 0x7f2bf8367958 in mozilla::TextEditor::Init(nsIDocument&, mozilla::dom::Element*, nsISelectionController*, unsigned int, nsTSubstring<char16_t> const&) src/editor/libeditor/TextEditor.cpp:142
+    #8 0x7f2bf6849ab0 in nsTextEditorState::PrepareEditor(nsTSubstring<char16_t> const*) src/dom/html/nsTextEditorState.cpp:1414:25
+    #9 0x7f2bf8b81cef in nsTextControlFrame::EnsureEditorInitialized() src/layout/forms/nsTextControlFrame.cpp:317:28
+    #10 0x7f2bf66ba683 in mozilla::dom::HTMLInputElement::GetEventTargetParent(mozilla::EventChainPreVisitor&) src/dom/html/HTMLInputElement.cpp:3429:25
+    #11 0x7f2bf6436cd8 in mozilla::EventTargetChainItem::GetEventTargetParent(mozilla::EventChainPreVisitor&) src/dom/events/EventDispatcher.cpp:425:12
+    #12 0x7f2bf643a9af in mozilla::EventDispatcher::Dispatch(nsISupports*, nsPresContext*, mozilla::WidgetEvent*, nsIDOMEvent*, nsEventStatus*, mozilla::EventDispatchingCallback*, nsTArray<mozilla::dom::EventTarget*>*) src/dom/events/EventDispatcher.cpp:894:19
+    #13 0x7f2bf89b9645 in mozilla::ScrollFrameHelper::FireScrollEvent() src/layout/generic/nsGfxScrollFrame.cpp:4972:5
+    #14 0x7f2bf89b9034 in mozilla::ScrollFrameHelper::ScrollEvent::Run() src/layout/generic/nsGfxScrollFrame.cpp:4925:14
+    #15 0x7f2bf85ae73b in nsRefreshDriver::DispatchScrollEvents() src/layout/base/nsRefreshDriver.cpp:1289:12
+    #16 0x7f2bf85b1242 in nsRefreshDriver::Tick(long, mozilla::TimeStamp) src/layout/base/nsRefreshDriver.cpp:1893:7
+    #17 0x7f2bf85c1310 in TickDriver src/layout/base/nsRefreshDriver.cpp:337:13
+    #18 0x7f2bf85c1310 in mozilla::RefreshDriverTimer::TickRefreshDrivers(long, mozilla::TimeStamp, nsTArray<RefPtr<nsRefreshDriver> >&) src/layout/base/nsRefreshDriver.cpp:307
+    #19 0x7f2bf85c0ec4 in mozilla::RefreshDriverTimer::Tick(long, mozilla::TimeStamp) src/layout/base/nsRefreshDriver.cpp:328:5
+    #20 0x7f2bf85c3c4e in RunRefreshDrivers src/layout/base/nsRefreshDriver.cpp:770:5
+    #21 0x7f2bf85c3c4e in mozilla::VsyncRefreshDriverTimer::RefreshDriverVsyncObserver::TickRefreshDriver(mozilla::TimeStamp) src/layout/base/nsRefreshDriver.cpp:683
+    #22 0x7f2bf85becf9 in mozilla::VsyncRefreshDriverTimer::RefreshDriverVsyncObserver::ParentProcessVsyncNotifier::Run() src/layout/base/nsRefreshDriver.cpp:529:20
+    #23 0x7f2bf0777c89 in nsThread::ProcessNextEvent(bool, bool*) src/xpcom/threads/nsThread.cpp:1096:14
+    #24 0x7f2bf07936c0 in NS_ProcessNextEvent(nsIThread*, bool) src/xpcom/threads/nsThreadUtils.cpp:519:10
+    #25 0x7f2bf165c74a in mozilla::ipc::MessagePump::Run(base::MessagePump::Delegate*) src/ipc/glue/MessagePump.cpp:97:21
+    #26 0x7f2bf15b1289 in RunInternal src/ipc/chromium/src/base/message_loop.cc:326:10
+    #27 0x7f2bf15b1289 in RunHandler src/ipc/chromium/src/base/message_loop.cc:319
+    #28 0x7f2bf15b1289 in MessageLoop::Run() src/ipc/chromium/src/base/message_loop.cc:299
+    #29 0x7f2bf805fd3a in nsBaseAppShell::Run() src/widget/nsBaseAppShell.cpp:157:27
+    #30 0x7f2bfc0ef06b in nsAppStartup::Run() src/toolkit/components/startup/nsAppStartup.cpp:290:30
+    #31 0x7f2bfc2f7c1c in XREMain::XRE_mainRun() src/toolkit/xre/nsAppRunner.cpp:4834:22
+    #32 0x7f2bfc2fad5c in XREMain::XRE_main(int, char**, mozilla::BootstrapConfig const&) src/toolkit/xre/nsAppRunner.cpp:4979:8
+    #33 0x7f2bfc2fc224 in XRE_main(int, char**, mozilla::BootstrapConfig const&) src/toolkit/xre/nsAppRunner.cpp:5071:21
+    #34 0x4f168b in do_main src/browser/app/nsBrowserApp.cpp:231:22
+    #35 0x4f168b in main src/browser/app/nsBrowserApp.cpp:304
+    #36 0x7f2c0fe9482f in __libc_start_main /build/glibc-Cl5G7W/glibc-2.23/csu/../csu/libc-start.c:291
+    #37 0x420f48 in _start (firefox+0x420f48)",STACK_TRACE,0,0,0.01772907187797384
+1454126,25,"Comment on attachment 8969164
+Patch for Beta
+Approved for today's 60.0b15 build.",UPLIFT_APPROVAL,0,0,0.006648266182611489
+1514429,6,"Yes, you're right. I was working from memory of what I believed to be the root cause when I started working on the bug. I just pared back my patches to the minimal fix (which you've already reviewed, thank you) plus test and things look good locally. I'm doing a try server run to see if it's landable. I honestly don't know what changed between my initial landing attempt and now, but it looks like it might go through.",CLARIFICATION,0,0,0.1359072046654706
+1456911,2,"Another possibility is to just rip out most of this code, and instead dup() as needed to keep the source and destination fd ranges disjoint, at which point everything gets dup2()ed and this isn't a special case.
+That could also help for the posix_spawn implementation on Mac, which isn't using this and should be (that's another bug I'm in the middle of filing), because I've heard that OS X doesn't like identity mappings with posix_spawn_file_actions_adddup2 (which, if true, is an OS bug, and also I have no idea how it interacts with POSIX_SPAWN_CLOEXEC_DEFAULT).",POTENTIAL_SOLUTION_DESIGN,1,1,0.7925319532713023
+1485422,4,"Created attachment 9005416
+Link to GitHub pull-request: https://github.com/mozilla/activity-stream/pull/4393",UNCODED,0,1,0.6394062759633521
+1403319,2,"Created attachment 8912816
+Bug 1403319 - Expose Intl.NumberFormat.prototype.formatToParts.
+Review commit: https://reviewboard.mozilla.org/r/184124/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/184124/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0.09930574370121145
+1516605,1,"LibPNG has NEON support using intrinsics, not assembler, so we should use it.
+(MSVC support is already in upstream, but it isn't in stable version)",PROBLEM_MOTIVATION,0,0,0.2528789992406977
+1439571,2,Glenn said this might be caused by https://github.com/servo/webrender/issues/1943,PROBLEM_CAUSE_IDENTIFICATION,0,0,0.06034432079483942
+1430012,5,I learned from Alastor that keydown as suggested in comment 3 works well for him. Anything else we need to do in this bug to support block-autoplay feature?,SOLUTION_REVIEW,1,1,0.392200145569443
+1410565,3,"Created attachment 8921363
+Bug 1410565 - check mTimescale to avoid dividing by zero.
+Review commit: https://reviewboard.mozilla.org/r/192396/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/192396/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.35997646059277555
+1494092,10,That's wrong. In fact it's the other way around - we should not be adding in aToReferenceFrame.,CLARIFICATION,0,1,0.4361443540379314
+1454126,18,"Created attachment 8969163
+Patch for m-c (r=m_kato)
+[Security approval request comment]
+See comment 10. But this does NOT include the test.",CODE_IMPLEMENTATION,1,0,0.12143004565693512
+1209952,8,"Hi Mats,
+I'm not sure whether you're the correct person to review this patch, I set the reviewer to you because I found multiple comments from you in `layout/generic` code.
+Could you assign this bug to me and review my patch? In case I got the reviewer wrong, could you forward the patch to a correct reviewer?
+Thanks!",CODE_REVIEW_REQUEST,0,0,0.015181361643111626
+1494092,2,"Unfortunately, removing this code causes the following two reftests to fail:
+  layout/reftests/invalidation/scroll-inactive-layers.html
+  layout/reftests/invalidation/scroll-inactive-layers-2.html
+These tests check that scrolling doesn't cause repainting of inactive (opacity/transform/filter/mask) layers.
+Despite the IsInObserverList code being purely for filters, it is the masked element that is repainting on scroll, causing the test failure.
+The relevant change to the code is the removal of the first highlighted block here:
+https://searchfox.org/mozilla-central/source/layout/svg/nsSVGIntegrationUtils.cpp#328-330,334-341
+What seems to happen is that, with the removal of the first `if` block we no longer early return aInvalidRegion. Instead we enter the second `if` block because 'observers' is nullptr (since the nsSVGMaskFrame does not have a SVGFilterObserverListForCSSProp of course) and return the value computed there.
+Specifically in my testing, before removing the hack we return aInvalidRegion with the values:
+  left     748
+  top     2104
+  right    952
+  bottom  4458
+After removing the first `if` block we return:
+  left     748
+  top      254
+  right    952
+  bottom  4459
+The much smaller value for 'top' is what makes the difference and cause us to fail.",COLLATERAL_PROBLEM_ANALYSIS,0,1,0.6896227482689109
+1515665,2,"Created attachment 9032718
+Bug 1515665 - Ensure that DOM Storage checks the content blocking allow list when performing storage access checks;",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0.12277789114892607
+1455735,11,Marking this as verified per https://bugzilla.mozilla.org/show_bug.cgi?id=1450690#c54.,SOLUTION_VERIFICATION,0,0,0.09083842778727014
+1510786,14,For the record - I can build FF on ppc64/ppc64le/s390x with the last fix.,SOLUTION_VERIFICATION,0,0,0.02385392845756439
+1479309,10,"https://hg.mozilla.org/integration/mozilla-inbound/rev/a396e7027858121f002ff1544fd28fabe5996685
+Bug 1479309: Don't load shield-content-frame.js until needed. r=mythmon",CODE_IMPLEMENTATION,1,0,0.13114206021616642
+1479309,7,https://hg.mozilla.org/mozilla-central/rev/2d46e1fe3121,UNCODED,0,0,0.003999693948179096
+1458856,4,"Comment on attachment 8973029
+Bug 1458856 - Handle prefs with only a user value in preference rollout
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/241560/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.021249028233741633
+1435456,5,"Created attachment 8949519
+0001-Bug-1435456-Remove-asserts-checking-that-downscale-o.patch, v1
+Fix all the broken windows! :)",CODE_IMPLEMENTATION,1,1,0.8913203374819688
+1435264,4,I'm pretty sure this is fixed by https://github.com/jcjones/webauthn.bin.coffee/commit/c21d5be2a739b2b061d3ce580eb4aeb069fb7765.,CODE_IMPLEMENTATION,1,1,0.41333769664611814
+1454126,14,"Actually, Dan looked at this and said it looks like a null deref and not a serious security bug. This isn't a sec-high.
+I'll clear sec-approval but we REALLY shouldn't check in tests with any kind of security issue. If this was a sec-high or sec-critical, I'd deny the sec-approval and ask for a patch with no test.",ISSUE_METADATA_CHANGE,0,0,0.04700317100718013
+1482681,4,You should add your support file under the specific test rather than [DEFAULT].,CODE_REVIEW,0,0,0.028079740049001732
+1396319,15,I'm wondering if we should go ahead and close this out now? Comment 13 is probably better suited for a follow-up bug.,ISSUE_METADATA_CHANGE,0,0,0.01755228093056125
+1401249,7,https://hg.mozilla.org/releases/mozilla-release/rev/2f265cbbebc6e5797cb5ab39eaa1be2c70f2fb29,UNCODED,0,0,0.005343284054311105
+1435456,8,"Why would we be decoding a previous test though? Even if it is that seems like a bug, we don't need a decode of that. I suppose it could be an image in the ui like you mentioned in the commit message, that would make some sense.",QUESTION,0,0,0.1012151892116552
+1519164,5,"Created attachment 9035876
+Bug 1519164 - Update content blocking UI tour url. r=nhnt11",UNCODED,0,0,0.21854117617715818
+1396319,11,He was simply joining a call on appear.in or appr.tc. The content process would crash as soon as he accepted the prompt to share the camera/microphone.,S2R,0,0,0.04359495470814802
+1493860,10,"It's definitely required, may not be null [0], and if we reach one of the places we copy Challenge [1][2] then badness could ensuse. Best case scenario is an untrustworthy webauthn session.
+Doing this on current nightly, presumably with bug 1368949, still yields 
+but I would guess we need to check each parameter on the way into the function now rather than rely on the webidl checks? Regarding the challenge field in particular, I filed Bug 1494738 to do something for the last sentence of [0].
+[0] https://w3c.github.io/webauthn/#cryptographic-challenges
+[1] https://searchfox.org/mozilla-central/source/dom/webauthn/WebAuthnManager.cpp#331
+[2] https://searchfox.org/mozilla-central/source/dom/webauthn/WebAuthnManager.cpp#480",SOLUTION_REVIEW,1,0,0.12199262173549283
+1442559,10,"Comment on attachment 8955699
+Bug 1442559 - Remove unused CSS whitelist entry for fullscreen.
+https://reviewboard.mozilla.org/r/224784/#review230814
+r- per bug comments that this isn't the right fix.",CODE_REVIEW,0,0,0.031001782194556363
+1514062,4,"Created attachment 9031288
+About:support from affected system (text)",UNCODED,0,0,0.067684185010733
+1435456,12,*** Bug 1434935 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0028704574429993007
+1442559,30,"Comment on attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+https://reviewboard.mozilla.org/r/224808/#review230920
+Code analysis found 1 defect in this patch:
+ - 1 defect found by mozlint
+You can run this analysis locally with:
+ - `./mach lint path/to/file` (JS/Python)
+If you see a problem in this automated review, please report it here: http://bit.ly/2y9N9Vx
+::: browser/base/content/test/static/browser_parsable_css.js:480
+(Diff revision 2)
+Error: 'whitelist' is already declared in the upper scope. [eslint: no-shadow]",UNCODED,0,0,0.010235417301366869
+1479309,2,"Created attachment 8995828
+Bug 1479309: Don't load shield-content-frame.js until needed.
+Review commit: https://reviewboard.mozilla.org/r/260166/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/260166/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.3403238728140695
+1439571,4,"I removed the fuzzy marker and re-ran these tests, and they're still failing:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=aa564e82e9fb651cee824a4f2549a288b08cb5c5",POTENTIAL_SOLUTION_DESIGN,1,0,0.2312570502921492
+1435456,13,*** Bug 1433726 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0024666470571621216
+1516605,2,"Created attachment 9033510
+Bug 1516605 - Turn on NEON on aarch64 when using gcc or clang. r?aosmond
+libpng has NEON support using intrinsics, not assembler, so we should use it
+even if aarch64.
+MSVC build still turns off NEON since libpng doesn't support it on stable
+version although upstream has it.",CODE_IMPLEMENTATION,1,1,0.5099398768615713
+1442559,9,"To avoid this kind of issue happens again, we probably should really add a catch all whitelist item and ensure that it never touched.",POTENTIAL_SOLUTION_DESIGN,1,1,0.35435929862400595
+1456911,1,"I haven't tested this yet, but it seems to be the case from code inspection: if a file descriptor in LaunchOptions::fds_to_remap has the same numeric value in the parent as the child, it won't have its close-on-exec bit cleared.  (In contrast, the general case dup2()s the descriptor, which does clear close-on-exec.)  So if the fd was close-on-exec, which is the general best practice, it will be closed on exec instead of inherited.
+Note that dup2(x, x) is defined as a no-op and POSIX specifically says it won't change the close-on-exec bit, so that will need to be done explicitly.
+This *probably* isn't a problem in practice, because the low-valued fds we map things to will *probably* wind up occupied by long-lived fds in the parent process… but maybe not.  In any case I'd like to rule this out as a possible cause of bug 1455828.
+Interestingly, Chromium's current version of this code doesn't seem to handle that either, so maybe I'm missing something... or maybe they have a 10-year-old bug.",PROBLEM_REVIEW,0,1,0.30799648078201525
+1462624,3,I'm going to make an assumption here that this is caused by https://github.com/mozilla/activity-stream/commit/c132f298c64b3e357d8a492e77299fcf2c3c25fa bug 1448918 and it should be expected.,PROBLEM_LOCALIZATION,0,0,0.04430725245290051
+1479309,6,"https://hg.mozilla.org/integration/mozilla-inbound/rev/2d46e1fe31214d36d1e11218deb44423baee2c26
+Bug 1479309: Don't load shield-content-frame.js until needed. r=mythmon",CODE_IMPLEMENTATION,1,0,0.10291420732623142
+1514429,3,"If nsIPresShell::IsVisualViewportSizeSet() returns false, the visual and layout viewports have the same size. So, it is the case that currently inner{Width,Height} always evaluates to the visual viewport size. The only reason we have a condition here [1] is that when nsIPresShell::IsVisualViewportSizeSet() returns false, no one has set nsIPresShell::mVisualViewportSize, so we'd be trying to use an empty size if we called nsIPresShell::GetVisualViewportSize() in that case.
+If we make this change before shipping the Visual Viewport API, we would be depriving page authors of a way to obtain the visual viewport size.
+If you give some more details about how this is causing a problem for RDM, I may be able to suggest an alternate solution.
+[1] https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/dom/base/nsGlobalWindowOuter.cpp#3049",SOLUTION_REVIEW,1,1,0.55469951616993
+1209952,13,"Well, it passed tests on Linux at least:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=6ffdbe718e26c854bd4ad98b2d15e602453359a8
+As I said earlier, I'm not going to review this until I understand
+what goes wrong in the frame tree with our current code.  It would
+help if you can try to explain it to me, otherwise I'll have to
+debug it myself.",SOLUTION_VERIFICATION,0,0,0.027756024340952153
+1515665,10,"Andrea, what is the meaning of mIsSessionOnly exactly?  This test (which fails with my patch, as you would expect) makes me believe that mIsSessionOnly means we have a session-only permission, not that the Storage object is a session storage object: https://searchfox.org/mozilla-central/source/dom/tests/mochitest/sessionstorage/test_cookieSession.html
+I'm super confused by all of this code now...",CODE_REVIEW,0,0,0.020223950980731473
+1515665,13,"I think you should be able to use parts of my patch still, but all of the argument passing through the constructors etc should be changed to ultimately set mIsSessionOnly instead of what it currently does.",POTENTIAL_SOLUTION_DESIGN,1,0,0.24452789401905145
+1519164,1,"The UI tours live behind a pref. A new pref needs to be uplifted so that 65 Release users are served the correct tour. To do this, Johann needs the exact URLs.",POTENTIAL_SOLUTION_DESIGN,1,0,0.03206042802646893
+1521066,1,"See http://elektronotdienst-nuernberg.de/Stoerung/Fuerth-Zdf-Stein-Wdst-Feucht-SC-RH/
+There is a table with a solid black border around. 
+That should be a double border and was for ages until recently.
+I think this bug is new in Fx 64, also in Nightly 66
+Markup is like this:
+     <style> table { border:double } </style>
+     <table rules=rows>
+Works in Fx 63 (I think), Chrome, IE, etc.",POTENTIAL_SOLUTION_DESIGN,1,0,0.02703097087640321
+1442559,14,"Created attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+Review commit: https://reviewboard.mozilla.org/r/224808/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/224808/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.36174404656761733
+1494092,8,"Pushed by jwatt@jwatt.org:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d2218beee052
+Remove SVGFilterObserverList::IsInObserverLists and related code. r=mattwoodrow",UNCODED,0,0,0.06598127471097658
+1456911,9,"Comment on attachment 8983991
+Bug 1456911 - Prelude: Fix unified build breakage exposed by the next patch.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/249864/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.020551493552757212
+1515665,21,"Created attachment 9037254
+part 2 - SessionStorage and ePartitionedOrDeny",UNCODED,0,0,0.06138923159962849
+1456911,6,"Comment on attachment 8983991
+Bug 1456911 - Prelude: Fix unified build breakage exposed by the next patch.
+https://reviewboard.mozilla.org/r/249864/#review256226",UNCODED,0,0,0.004522826199049675
+1442559,16,"Comment on attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+https://reviewboard.mozilla.org/r/224806/#review230842
+::: browser/base/content/test/static/browser_parsable_css.js:488
+(Diff revision 1)
+Looks like this could also use `dumpWhitelistItem`?
+::: browser/base/content/test/static/browser_parsable_css.js:499
+(Diff revision 1)
+Ditto.
+More generally, can you factor these 3 loops out into a function that just takes the whitelist in question as an argument, with perhaps an argument to use in the error message string to clarify which whitelist this came from - though if we use `dumpWhitelistItem` everywhere I don't think it'll be much of an issue figuring out what it is anyway.",CODE_REVIEW,0,0,0.04894860028958408
+1209952,18,"Hi Mats,
+Do you have further update of your reviewing? If you have any questions about this bug and my patch, feel free to ask me.",CODE_REVIEW_REQUEST,0,0,0.0067742294387384
+1485422,10,https://hg.mozilla.org/mozilla-central/rev/8937a84b0811,UNCODED,0,0,0.0041479354240881415
+1479989,6,"still valid, but incomplete; I added some TypedArray-related exclusions",ANSWER_TO_QUESTION,0,0,0.018558125473183865
+1515665,4,"Backed out changeset 338f4fbbfddf (Bug 1515665) for bc failures browser/components/sessionstore/test/browser_339445.js CLOSED TREE
+Push with multiple failures, storage issue: https://treeherder.mozilla.org/#/jobs?repo=autoland&resultStatus=superseded%2Ctestfailed%2Cbusted%2Cexception%2Cusercancel%2Crunnable&revision=3a328e80b02cf3c11a36e060380277396e211cd9&selectedJob=218353178
+Failure log:
+https://treeherder.mozilla.org/logviewer.html#/jobs?job_id=218353178&repo=autoland&lineNumber=3240
+https://treeherder.mozilla.org/logviewer.html#/jobs?job_id=218355469&repo=autoland&lineNumber=10989
+https://treeherder.mozilla.org/logviewer.html#/jobs?job_id=218355472&repo=autoland&lineNumber=2054
+https://treeherder.mozilla.org/logviewer.html#/jobs?job_id=218351107&repo=autoland&lineNumber=26378
+Backout push: https://treeherder.mozilla.org/logviewer.html#/jobs?job_id=218351107&repo=autoland&lineNumber=26378",IMPLEMENTATION_REVERSION,0,0,0.020325998082993683
+1485422,11,"I have verified that the issue is no longer reproducible on Nightly 63.0a1 (20180902220539) and the latest Nightly 64.0a1 (20180923220427) on Windows 10 x64, Mac 10.13.3, and Arch Linux x64.",SOLUTION_VERIFICATION,0,0,0.014407074994389365
+1513854,5,"I thought about this a bit, and realized we have a small bug in how feature gates manage prefs. I filed (and added a patch for) bug 1541469 for that issue. Once that is done, we should be able to turn this on for Nightly users only by updating the feature definition to have:
+```toml
+default-value:
+  default: false
+  nightly: true
+```
+Then later when we want to turn this on for all channels and let it ride the train, we can update it again to be
+```toml
+default-value: true
+```
+Additionally, QA will be able to test this by setting the pref to true. After bug 1541469 they'll need to add the pref, as it won't exist by default.",POTENTIAL_SOLUTION_DESIGN,1,0,0.15365036809993987
+1493860,3,"Consequences of ""null becomes empty dictionary."" Will do these incrementally... starting with the easy one. 
+## Payment Request
+With: 
+```
+PaymentDetailsModifier{
+  PaymentItem total = null;
+}
+```
+Would break, `PaymentItem` has `required` members `currency` and `item`. Those members can't be defaulted, unfortunately.
+## dictionary PaymentDetailsUpdate
+With the following change: 
+```
+dictionary PaymentDetailsUpdate : PaymentDetailsBase {
+  AddressErrors shippingAddressErrors = null;
+  PaymentItem   total = null;
+}
+```
+Setting `shippingAddressErrors` to null is fine, however. 
+However, setting `total` to null would break for the reasons give above about `PaymentItem`.",PROBLEM_REVIEW,0,0,0.10152792972917006
+1521066,2,"Created attachment 9037537
+testcase",UNCODED,0,0,0.0055357327453948255
+1509994,5,"Created attachment 9027951
+Bug 1509994 - Regenerate moz.build files; r=pehrsons!
+Depends on D13095",AUTO_ATTACH_CODE_IMPLEMENTATION,0,1,0.31491608050716563
+1441779,7,"Pushed by mikokm@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/757abead90e1
+Part 1: Change nsTArray<SourceBufferTask> to nsTArray<RefPtr<SourceBufferTask>> r=gerald
+https://hg.mozilla.org/integration/autoland/rev/1245c42d81aa
+Part 2: Add nsTArray::RemoveLastElement() and nsTArray::PopLastElement() r=froydnj",UNCODED,0,0,0.11063227554186954
+1455735,4,"Using the default settings in a prefs.js as follows with a new profile:
+user_pref(""security.content.signature.root_hash"", ""DB:74:CE:58:E4:F9:D0:9E:E0:42:36:BE:6C:C5:C4:F6:6A:E7:74:7D:C0:21:42:7A:03:BC:2F:57:0C:8B:9B:90"");
+user_pref(""extensions.shield-recipe-client.api_url"", ""https://normandy.stage.mozaws.net/api/v1"");
+user_pref(""app.normandy.dev_mode"", true);
+user_pref(""app.normandy.logging.level"", 0);
+I'm getting 8 addons installed currently from staging, nothing in about:studies, no enrollment in about:telemetry.
+Also browser console logs:
+1524573762197	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 329
+1524573762200	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 309
+1524573762201	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 308
+1524573762202	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 304
+1524573762203	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 302
+1524573762204	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 298
+1524573762205	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 269
+1524573762205	app.normandy.normandy-driver.actions	DEBUG	Starting study for recipe 268",REPRODUCTION_ATTEMPT,0,0,0.019591238120432723
+1493860,7,"So one complication: it's not clear to me that the ""= null"" thing is valid IDL given the current state of the IDL spec.  It works in Gecko, and I think having it work in the IDL spec would make some sense, but it's not clear that it does right now.
+For WebAuthn, I'm not sure whether they decided to allow a missing challenge or to stick with the challenge being required.  Needs to get sorted out...
+For payment request, if the spec algorithms handle the ""not present"" case, why would we want to add ""= null""?
+What's the state of the MediaStreamTrack bit?",SOLUTION_REVIEW,1,0,0.2759831733188446
+1509994,4,"Created attachment 9027950
+Bug 1509994 - Update gn generated json files (part 2); r=pehrsons!
+Depends on D13094",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0.28300882142182365
+1506200,3,"Created attachment 9025074
+Bug 1506200 - Remove ReadableStream EmbeddingFlags. r?baku,jwalden",PROBLEM_DESCRIPTION,0,1,0.7347085336516361
+1537936,1,"We're surprisingly close to getting this to happen.
+I'll split the patch into three parts:
+1) Misc. cleanup (some NameNode changes, tiny change to True/False/Undefined/NullExpr, etc.)
+2) Function call cleanup.
+3) Deleting pn_op and refactoring all the ParseNode constructors/FullParseHandler/etc. to not provide opcodes.
+Point 2 is a little weird, because I'll be adding a CallNode that contains a JSOp field. This is because there are a *lot* of different types of calls, and those are currently encoded into JSOp (for example, CALL, SPREADCALL, NEW, SPREADNEW, SUPERCALL, SPREADSUPERCALL, the list goes on and on). I *could* make a new enum that corresponds basically 1-to-1 with the JSOp items, and make a mapping function, but... really, what's the point at that point.",POTENTIAL_SOLUTION_DESIGN,1,1,0.7806625894824668
+1510786,12,"Created attachment 9028626
+Bug 1510786 - Add configuration header for ppc64 and s390x. r?glandium",UNCODED,0,0,0.26217707033150967
+948882,35,"I happened to come across this bug, so rs=me on the patch from Santiago, and I landed it:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/1034f8be097fd6d2f8eda8f7f7d277b92d91ff41",CODE_IMPLEMENTATION,1,0,0.06992247777833253
+1526439,3,Forgot the ftl,UNCODED,0,0,0.004522031951030099
+1454126,15,Hold on this is a dup of bug 1454139 which is not a null deref.,ADDITIONAL_CONSIDERATION,0,0,0.020955929386591923
+1442559,25,"Comment on attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224808/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.02291807408743178
+1458856,7,https://hg.mozilla.org/mozilla-central/rev/b28e041ff83c,UNCODED,0,0,0.00694439896824664
+1482681,7,https://hg.mozilla.org/mozilla-central/rev/e8a70b46acab,UNCODED,0,0,0.006762393238078788
+948882,34,"Pushed by gijskruitbosch@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/1034f8be097f
+Move inline scripts and styles into separate file for toolkit/crashreporter/content/crashes.xhtml (about:crashes). r=freddyb,gijs",UNCODED,0,0,0.09922960821049007
+1442559,2,"Xidorn, you fixed this in bug 1333175. Any reason why this is failing again?",PROBLEM_REVIEW_REQUEST,0,0,0.006059864036048728
+1442559,7,"So the reason here is that the propName items added in bug 1441882 whitelists all warnings, and thus any whitelist item appended after them would be reported unused.
+Sounds like bug 1441882 is basically making the whole whitelist meaningless. You can remove everything before the first {propName} item and the test would still pass.",PROBLEM_CAUSE_IDENTIFICATION,0,0,0.25571674082096135
+1506200,7,https://hg.mozilla.org/mozilla-central/rev/b14418449896,UNCODED,0,0,0.0046279348543920296
+1467403,3,"Created attachment 8984332
+Remove the source notes handling for prologue bytecode.
+mostly just removed the code that handles when prologue have source notes.
+BytecodeEmitter::finishTakingSrcNotes's else-clause is necessary since the delta of the source note in the main section has to be updated to reflect the prologue bytecode length.",CODE_IMPLEMENTATION,1,1,0.6502184484816466
+1519164,7,https://hg.mozilla.org/mozilla-central/rev/939479cc5903,UNCODED,0,0,0.008259669796692915
+1509994,2,"Created attachment 9027945
+Bug 1509994 - Move video_engine from webrtc to systemservices; r=pehrsons!
+Historically this code was part of webrtc.org but has since been removed
+from upstream. Rather than maintaining it as a local diff against upstream,
+we should just move it to where it is used.",CODE_IMPLEMENTATION,1,1,0.8650463523724778
+1442559,12,"Created attachment 8955728
+Bug 1442559 part 1 - Make it clearer what whitelist item filters the error.
+Review commit: https://reviewboard.mozilla.org/r/224804/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/224804/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.5348518606948333
+1439571,6,"pcwalton suggested he may have incidentally fixed this, tagging to confirm",SOLVED_BY_OTHER_ISSUE,0,0,0.048598508478573825
+1514429,7,"You might not need them but I thought these links could be useful.
+https://github.com/andreasbovens/understanding-viewport
+http://andreasbovens.github.com/understanding-viewport/",ADDITIONAL_CONSIDERATION,0,0,0.07243049548993546
+1441779,2,"Created attachment 8954680
+Bug 1441779 - Part 2: Add nsTArray::RemoveLastElement() and nsTArray::PopLastElement()
+Review commit: https://reviewboard.mozilla.org/r/223782/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/223782/",PROBLEM_DESCRIPTION,0,1,0.4781212411067606
+1209952,10,"Ok, I will file a request for level 1 access and run the test before submitting. I've just read the instruction page, it says I need a voucher to apply, would you vouch for me?
+Regarding the bug, I'm not sure whether I have explained the root cause clearly on that page. A step-by-step explanation might be very lengthy, but the timeline can be quickly figured out by running `$ MOZ_LOG=ColumnSet:4 ./mach run` with some `printf` to track `nsBlockFrame::Reflow`, `nsBlockFrame::SplitFloat`, etc.
+The oddity emerges when the bsize constraint goes from 40 to 19, just a few log messages before crash happens.",CLARIFICATION,0,0,0.01867159560118508
+1506200,2,Yes I agree with you. We can get rid of it.,PROBLEM_REVIEW,0,1,0.427215720273456
+1442559,20,"Comment on attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224808/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.022771270728251525
+1510786,16,https://hg.mozilla.org/mozilla-central/rev/e6e6e269d09d,UNCODED,0,0,0.005372719429384537
+1410565,9,https://treeherder.mozilla.org/#/jobs?repo=try&revision=053865aaf0f17504a6232e9023956cf6e2e2cf57,UNCODED,0,0,0.016683151918657706
+1529006,4,"Created attachment 9046029
+allowing untraceable variant types",UNCODED,0,0,0.274195922681648
+1396319,8,"Still happening, and happening in 57/8/9.  All crashes in the last week are nullptr still, so this may in fact be a clean nullptr crash and not a sec issue.
+If marco can repro this, we should look more closely.",REPRODUCTION_ATTEMPT,0,0,0.016324939111046217
+1485422,9,https://hg.mozilla.org/mozilla-central/rev/0cdebe3c53f8,UNCODED,0,0,0.007113581631903747
+1435456,2,"2 failures in 735 pushes (0.003 failures/push) were associated with this bug in the last 7 days.    
+Repository breakdown:
+* mozilla-central: 2
+Platform breakdown:
+* android-4-3-armv7-api16: 2
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1435456&startday=2018-01-29&endday=2018-02-04&tree=all",UNCODED,0,0,0.014218245844573858
+1479309,5,"See whiteboard. According to dominator tree analysis, this frame script uses about 7K in a process with a single tab (more for processes with multiple tabs). In practice, actual savings tend to be slightly more than that tool reports, though.",ANSWER_TO_QUESTION,0,0,0.09017037193602738
+1455735,9,I mispoke in comment 5. The regressing bug is *not* bug 1436113. The regressing bug is bug 1440777.,CLARIFICATION,0,0,0.031117630830177413
+1454126,10,"Ah, no, parent can be a document node which is not derived from nsIContent. Therefore, mParent is nsINode. However, I used nsINode::GetParent() instead of nsINode::GetParentNode().  I'll change the method. (Although mParent shouldn't become document node in most cases.)",ANSWER_TO_QUESTION,0,1,0.3153023962723804
+1403319,4,"Comment on attachment 8912816
+Bug 1403319 - Expose Intl.NumberFormat.prototype.formatToParts.
+https://reviewboard.mozilla.org/r/184124/#review189698
+We should now be able to run all NumberFormat.formatToParts tests from test262, so these exclusions should be removed <http://searchfox.org/mozilla-central/rev/f54c1723befe6bcc7229f005217d5c681128fcad/js/src/tests/jstests.list#363-368>, too.
+::: js/src/builtin/Intl.cpp
+(Diff revision 1)
+Looks like `NumberFormatFormatToParts` and `formatToParts` can both now also be removed from vm/CommonPropertyNames.h.
+::: js/src/tests/Intl/NumberFormat/formatToParts.js:1
+(Diff revision 1)
+`typeof(newGlobal)!==""function""` can also be removed now.",CODE_REVIEW,0,0,0.02647484989561865
+1407955,5,"Created attachment 8919360
+improved testcase with shadows on various SVG text styles
+Here is a more extensive testcase that renders SVG text with a variety of attributes, and (in all cases) with a text-shadow style in effect.
+Currently, the most obvious bug we have is that the text-shadow only appears for text that is rendered with fill (but no stroke).
+Doing a ""Select All"" on the testcase makes shadows appear on all the examples. However, looking at exactly how the shadows are rendered raises further questions:
+- When the text has a stroke but no fill, should the shadow be a ""solid"" shadow as if the text were filled, or should it be a shadow of only the stroke? In both Safari and Chrome, it's the stroke that casts the shadow here.
+- What about partially-opaque text: should the shadow adopt the same opacity as the element? Chrome and Safari do that for SVG text, though this does not apply to partially-opaque HTML text, which still casts a fully-opaque shadow (in all browsers). The difference between their SVG and HTML behavior seems odd.
+- Is is appropriate for text-shadow to apply to text used as a clipPath (i.e. to contribute to the clip region)? It kinda does so when selected, but it looks like we get the position a bit wrong. Both Safari and Chrome do this, though in Safari the positioning also looks wrong (in a different way from ours).
+(FWIW, this testcase exhibits painting bugs in both Safari and Chrome, too, so we're not alone in having issues here -- though ours seem the most glaring!)",QUESTION,0,1,0.672919600689833
+1407955,1,"Created attachment 8917762
+testcase, SVG text with text-shadow
+See testcase: the SVG text renders with colored stroke and fill, as specified in the attributes of the <svg> element, and inherits its font family/weight/size from the body. But it fails to render the text-shadow that was also specified on the body element.
+(The fact that these properties are inherited from the body in this example is irrelevant; behavior is the same if they're specified in an inline style attribute on the <text> element itself.)
+Safari and Chrome both render the expected shadow on the SVG text.
+The fun surprise here is that if you select any part of the text, suddenly the shadow appears (for the whole of the text element).",PROBLEM_DESCRIPTION,0,0,0.1380403409024715
+1455735,2,"In my testing,. Fx60 is not affected by this.",REPRODUCTION_ATTEMPT,0,0,0.02820353506667487
+1442559,29,"Comment on attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+https://reviewboard.mozilla.org/r/224806/#review230918
+Code analysis found 1 defect in this patch:
+ - 1 defect found by mozlint
+You can run this analysis locally with:
+ - `./mach lint path/to/file` (JS/Python)
+If you see a problem in this automated review, please report it here: http://bit.ly/2y9N9Vx
+::: browser/base/content/test/static/browser_parsable_css.js:472
+(Diff revision 2)
+Error: 'whitelist' is already declared in the upper scope. [eslint: no-shadow]",CODE_REVIEW,0,0,0.02148262043706712
+1519164,4,"[Tracking Requested - why for this release]:
+New URLs for content blocking tour (just a pref update)",UNCODED,0,0,0.0047519100934033
+1506200,5,https://treeherder.mozilla.org/#/jobs?repo=try&revision=35676e239e8f0056159208053ebce8cc41de7f78,UNCODED,0,0,0.025022197014840087
+1456911,8,"Thanks for the review.
+Yeah, that looks a little odd; I'll reword.
+Making the Span itself const won't change anything, I don't think?  And the pointer target type is already const.",ANSWER_TO_QUESTION,0,0,0.04099120346291783
+1435456,11,*** Bug 1352665 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0021060256288670427
+1421170,1,"The CustomElementUpgradeReaction and CustomElementCallbackReaction are only used inside CustomElementRegistry.cpp, so we don't need to expose them in header file.",PROBLEM_MOTIVATION,0,0,0.2197854066111906
+1479309,3,"Comment on attachment 8995828
+Bug 1479309: Don't load shield-content-frame.js until needed.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/260166/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.011815380537981274
+1514062,7,"We've moved to serve the old version of the CDM on Windows (bug 1514206) while we wait to hear back from Widevine regarding this. The fallback downloader has not yet been adjusted, in hopes that the roll back is a temporary solution.",POTENTIAL_SOLUTION_DESIGN,1,1,0.3857039614714502
+1515665,6,"I'm still working on this...
+SessionStorage has been badly busted, possibly for years.  :-(
+Did people realize that mIsSessionOnly <https://searchfox.org/mozilla-central/rev/64ef7bc9fb478ba7c292f9fa57813d3fe864201e/dom/storage/Storage.cpp#53> is *never* set to true?",ADDITIONAL_CONSIDERATION,0,0,0.0119615849305616
+1454126,26,https://hg.mozilla.org/releases/mozilla-beta/rev/e41d8e56d3e6,UNCODED,0,0,0.0020489663769802154
+1410565,6,"Comment on attachment 8921364
+Bug 1410565 - add gtest for mTimescale checking.
+https://reviewboard.mozilla.org/r/192398/#review197804",AUTO_LINK_CODE_REVIEW,0,0,0.002475948401796886
+1516605,4,"Oh, I actually already did this in the libpng 1.6.36 update bug (bug 1513236)...",SOLVED_BY_OTHER_ISSUE,0,0,0.03877345042995305
+1462624,7,"Created attachment 8977047
+Link to GitHub pull-request: https://github.com/mozilla/activity-stream/pull/4157",UNCODED,0,1,0.5918563232496818
+1485422,8,"Commit pushed to master at https://github.com/mozilla/activity-stream
+https://github.com/mozilla/activity-stream/commit/9ab80ad72851e430ea55bdd4f2dba7033fb508b9
+Bug 1485422 - Add rating stars to CFR (#4393)",UNCODED,0,0,0.1359208130349723
+1482681,3,"Created attachment 8999555
+Bug 1482681 - Fix load iframe in tab context menu.",UNCODED,0,0,0.2545950232685266
+1514429,8,"That is a neat set of test pages, thanks!",CLARIFICATION,0,0,0.009652183452264243
+1401249,9,"I managed to verify this issue on Firefox 57.0a1 (2017-09-19) (64-bit), under Windows 10x64.
+Click-to-Play staged rollout is set to 1.4 by default and Shockwave Flash is set to 'Ask to Activate' by default. 
+I'm not marking this issue Verified Fix until I can confirm the fix also on Firefox 56.",SOLUTION_VERIFICATION,0,0,0.00863552785174468
+1482681,5,"Comment on attachment 8999555
+Bug 1482681 - Fix load iframe in tab context menu.
+Johann Hofmann [:johannh] has approved the revision.",CODE_REVIEW,0,0,0.0020231557551972576
+1526439,4,"Pushed by mozilla@kaply.com:
+https://hg.mozilla.org/integration/autoland/rev/2eec2334d48f
+Add an enteprise policy for extension updates. r=Felipe,flod",UNCODED,0,0,0.01247673030640951
+1396319,13,"Same as over in bug 1382932 this has last been seen crashing on 58.0b12.
+Possibly fixed though bug 1425780 getting uplifted into 58 Beta on 2018-01-11.",SOLVED_BY_OTHER_ISSUE,0,0,0.0030171530915640747
+1467403,5,"https://hg.mozilla.org/integration/mozilla-inbound/rev/09d892dcaca7f8700a08f14b3b075b769bd82c5d
+Bug 1467403 - Remove the source notes handling for prologue bytecode. r=jandem",UNCODED,0,0,0.1925476155331018
+1521066,6,"Pushed by ealvarez@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/6c6fecd53382
+Fix double border rendering of border-collapsed tables. r=jrmuizel",UNCODED,0,0,0.051896371655407295
+1465254,4,"Pushed by sfraser@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/c094fc31b95f
+Fix copy error in periodic updates task r=sfraser",UNCODED,0,0,0.07368481075157934
+1455735,3,"Chutten: I'm having trouble reproducing this on a fresh profile with a build from mozilla-central (cset 5d73549d363f, if it matters). I'm using the STR from bug 1450690, and everything seems to be working fine.
+An easier way to exercise the code path in question is something like this in the console:
+ChromeUtils.import(""resource://normandy/lib/AddonStudies"");
+AddonStudies.start({recipeId: 1, name: ""test"", description: ""test test"", addonUrl: ""https://net-mozaws-prod-us-west-2-normandy.s3.amazonaws.com/extensions/taarexpv2@shield.mozilla.org-1.0.13-signed.xpi""})
+Can you get some situation where you can reproduce the error? Either with the stage server, or with the snippet above? I'm starting to wonder if this is an intermittent bug, or if there is something else going on that we haven't noticed.",REPRODUCTION_ATTEMPT,0,0,0.0166393736031129
+1435456,14,https://hg.mozilla.org/mozilla-central/rev/4afd35f217c1,UNCODED,0,0,0.013953606254233497
+1494092,3,"The call stack here is:
+  nsSVGIntegrationUtils::AdjustInvalidAreaForSVGEffects
+  mozilla::FrameLayerBuilder::AddPaintedDisplayItem
+  mozilla::PaintedLayerDataNode::PopAllPaintedLayerData
+  mozilla::PaintedLayerDataNode::Finish
+  mozilla::PaintedLayerDataNode::FinishChildrenIntersecting
+  mozilla::PaintedLayerDataTree::FinishPotentiallyIntersectingNodes
+  mozilla::PaintedLayerDataTree::AddingOwnLayer
+  mozilla::ContainerState::ProcessDisplayItems
+  mozilla::FrameLayerBuilder::BuildContainerLayerFor
+  nsDisplayList::BuildLayers
+  nsDisplayList::PaintRoot
+  nsLayoutUtils::PaintFrame
+  mozilla::PresShell::Paint
+  nsViewManager::ProcessPendingUpdatesPaint
+  nsViewManager::ProcessPendingUpdatesForView
+  nsViewManager::ProcessPendingUpdates
+  nsRefreshDriver::Tick
+Looking at AddPaintedDisplayItem, it seems that what it passes into AdjustInvalidAreaForSVGEffects as the value for aInvalidRegion is:
+  frame->GetVisualOverflowRect()
+    .ToOutsidePixels(appUnitsPerDevPixel);
+whereas what we return when we fail is:
+  (frame->GetVisualOverflowRect() + aToReferenceFrame)
+    .ToOutsidePixels(appUnitsPerDevPixel)
+There's clearly a bug in the removed `if` block where it fails to take account of aToReferenceFrame, and that that bug is hiding the fact that even without my change we are *already* invalidating the masked element in the two failing reftests. The only reason that the tests don't actually fail is because the preexisting bug results in the invalid area being offscreen.
+The fact that these tests should already currently be failing makes me think that they shouldn't block removing this old hack. We should remove it and be honest about the state of the tests by marking them as failing (filing a follow-up bug to fix that of course).",COLLATERAL_PROBLEM_ANALYSIS,0,1,0.6069424336356847
+1456911,5,"Created attachment 8983992
+Bug 1456911 - Rewrite the fd shuffling to be simpler & handle identity mappings correctly.
+This replaces some old Chromium code that tries to minimally disentangle
+an arbitrary file descriptor mapping with simpler algorithm, for several
+reasons:
+1. Do something appropriate when a file descriptor is mapped to the same
+fd number in the child; currently they're ignored, which means they'll
+be closed if they were close-on-exec.  This implementation duplicates
+the fd twice in that case, which seems to be uncommon in practice; this
+isn't maximally efficient but avoids special-case code.
+2. Make this more generally applicable; the previous design is
+specialized for arbitrary code running between fork and exec, but we
+also want to use this on OS X with posix_spawn, which exposes a very
+limited set of operations.
+3. Avoid the use of C++ standard library iterators in async signal safe
+code; the Chromium developers mention that this is a potential problem in
+some debugging implementations that take locks.
+4. In general the algorithm is simpler and should be more ""obviously
+correct""; more concretely, it should get complete coverage just by being
+run normally in a debug build.
+As a convenient side benefit, CloseSuperfluousFds now takes an arbitrary
+predicate for which fds to leave open, which means it can be used in
+other code that needs it without creating a fake fd mapping.
+Review commit: https://reviewboard.mozilla.org/r/249866/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/249866/",CODE_IMPLEMENTATION,1,1,0.8216012681056034
+1421170,6,https://hg.mozilla.org/mozilla-central/rev/c7633e5266c0,UNCODED,0,0,0.01065769558693035
+1396319,7,I have a friend that can consistently reproduce this crash when starting a call: https://crash-stats.mozilla.com/report/index/a6117985-e56a-4696-8186-d94c20171031.,REPRODUCTION_ATTEMPT,0,0,0.013056356581152844
+1407955,4,"The callbacks are used for two different cases.  One is when we have a <text> inside a <clipPath>, and we need to generate paths for the clip path.  The second case is when we have SVG patterns, strokes, etc.  In this case, where we're still painting the text normally, it does make sense to just go ahead and paint the shadow, and not bother about going through a callback function to do it either.
+One thing to check would be that when we're in here due to <clipPath>, that aParams.IsPaintText() is indeed false.  It might be we only set that for background-clip:text.  Can you check that Jonathan?
+I guess the bug 889235 testcase works because ShouldRenderAsPath() returns false, since the text has no stroke and uses a solid fill colour, so we don't have a callbacks object.",POTENTIAL_SOLUTION_DESIGN,1,0,0.29108550966583085
+1486218,1,"This bug was filed from the Socorro interface and is
+report bp-d6e71090-ea55-42e0-bb39-6e0530180825.
+=============================================================
+Top 10 frames of crashing thread:
+0 xul.dll static void std::panicking::rust_panic_with_hook src/libstd/panicking.rs:521
+1 xul.dll static void std::panicking::continue_panic_fmt src/libstd/panicking.rs:426
+2 xul.dll static void std::panicking::rust_begin_panic src/libstd/panicking.rs:337
+3 xul.dll static void core::panicking::panic_fmt src/libcore/panicking.rs:92
+4 xul.dll static void core::option::expect_failed src/libcore/option.rs:960
+5 xul.dll static union core::option::Option<euclid::transform3d::TypedTransform3D<f32, webrender_api::units::LayoutPixel, webrender_api::units::LayoutPixel>> webrender::clip_scroll_tree::ClipScrollTree::get_relative_transform gfx/webrender/src/clip_scroll_tree.rs:164
+6 xul.dll static void webrender::prim_store::PrimitiveStore::prepare_prim_runs gfx/webrender/src/prim_store.rs:1814
+7 xul.dll static union core::option::Option<euclid::rect::TypedRect<f32, webrender_api::units::LayoutPixel>> webrender::prim_store::PrimitiveStore::prepare_prim_for_render gfx/webrender/src/prim_store.rs:1562
+8 xul.dll static void webrender::prim_store::PrimitiveStore::prepare_prim_runs gfx/webrender/src/prim_store.rs:1819
+9 xul.dll static union core::option::Option<euclid::rect::TypedRect<f32, webrender_api::units::LayoutPixel>> webrender::prim_store::PrimitiveStore::prepare_prim_for_render gfx/webrender/src/prim_store.rs:1562
+=============================================================
+There are 2 crashes (from 1 installation) in nightly 63 with buildid 20180824222409. In analyzing the backtrace, the regression may have been introduced by patch [1] to fix bug 1485691.
+[1] https://hg.mozilla.org/mozilla-central/rev?node=4a57ba156ecf",PROBLEM_LOCALIZATION,0,0,0.013380671589197885
+1479989,8,https://hg.mozilla.org/mozilla-central/rev/2a0b1c169e24,UNCODED,0,0,0.0053759644364097066
+1462624,1,"We have detected a build metrics regression from push:
+https://hg.mozilla.org/integration/autoland/pushloghtml?changeset=79ab9d3259944b808a88f0c6783504e269bcff2c
+As author of one of the patches included in that push, we need your help to address this regression.
+Regressions:
+  >100KBytes  installer size windows2012-64 pgo      60,131,949.00 -> 60,304,238.58
+  >100KBytes  installer size osx-cross opt           66,436,988.83 -> 66,610,752.67
+  >100KBytes  installer size windows2012-32 pgo      55,905,641.67 -> 56,047,577.67
+You can find links to graphs and comparison views for each of the above tests at: https://treeherder.mozilla.org/perf.html#/alerts?id=13279
+On the page above you can see an alert for each affected platform as well as a link to a graph showing the history of scores for this test. There is also a link to a treeherder page showing the jobs in a pushlog format.
+To learn more about the regressing test(s), please see: https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Automated_Performance_Testing_and_Sheriffing/Build_Metrics",ADDITIONAL_CONSIDERATION,0,0,0.009597037564288194
+1526439,2,"Created attachment 9042597
+Bug 1526439 - Add an enteprise policy for extension updates.",UNCODED,0,0,0.13808233294762606
+1407435,6,"Pushed by ntim.bugs@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/462c85ecfe5b
+After animating out from the toolbar, the widget no longer remains invisible. r=jaws",UNCODED,0,0,0.11342887022289543
+1514429,2,"I've been looking at this. The getters return visual viewport (nsIPresShell::GetVisualViewportSize) only when the visual viewport is overridden, and return the layout viewport (nsPresContext::GetVisibleArea) otherwise. Setters behave similarly. That means that most of the time we're using the layout viewport. Visual viewport override occurs when Responsive Design Mode is enabled.
+I'd like to fix this right away because it is a blocker for Responsive Design Mode bugs like Bug 1504659. Given that RDM already has bugs regarding the visual viewport, is there a problem with making the change now to make innerWidth and innerHeight ALWAYS use the layout viewport?",POTENTIAL_SOLUTION_DESIGN,1,1,0.7234021759310281
+1469362,1,"+++ This bug was initially created as a clone of Bug #1468991 +++
+Changes since last update:
+#9595 Disable ftp support in Chrome 59+, add file chooser at file
+#9819 Fix regression affecting the horizontal `viewerContainer` offset for small window widths (PR 9816 follow-up)
+#9809 Allow `FontFaceObject.getPathGenerator` to ignore non-embedded fonts during rendering
+#9802 Update `ColorSpace` and `PDFImage` to use `Uint8ClampedArray`s and remove manual clamping/rounding
+#9821 Set the correct document title when opening a new file in the `GENERIC` default viewer",POTENTIAL_SOLUTION_DESIGN,1,0,0.2164599104746519
+1482681,9,Bug filed: https://bugzilla.mozilla.org/show_bug.cgi?id=1484735,NEW_ISSUE_FILING,0,0,0.0030591985351330828
+1493860,2,"For DeviceMotionEventInit, there is some ongoing discussion at https://github.com/w3c/deviceorientation/issues/54",ADDITIONAL_CONSIDERATION,0,0,0.16321796177797512
+1454126,13,*** Bug 1454139 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.00324605146878867
+1521066,4,"Created attachment 9037565
+Bug 1521066 - Fix double border rendering of border-collapsed tables. r=jrmuizel
+Gotta love C++... I missed the `break;` for that branch so we were always
+falling back to the solid border rendering path (which we use if the border is
+too small).",CODE_IMPLEMENTATION,1,1,0.5461238890538594
+1442559,23,"Comment on attachment 8955728
+Bug 1442559 part 1 - Make it clearer what whitelist item filters the error.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224804/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.049290766114067124
+1421905,5,"Comment on attachment 8933378
+Bug 1421905 - Listen to service start notification in Synced Tabs sidebar.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/204290/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.010223858688728799
+1442559,22,"Backed out for eslint failure at /builds/worker/checkouts/gecko/browser/base/content/test/static/browser_parsable_css.js:474
+Push that caused the failure: https://treeherder.mozilla.org/#/jobs?repo=autoland&revision=d540c55c96c5e4fdab1434032628fa876152b8e1
+Failure log: https://treeherder.mozilla.org/logviewer.html#?job_id=165884240&repo=autoland&lineNumber=240
+Backout: https://hg.mozilla.org/integration/autoland/rev/53f082b32ba9eb0b9febdc97373c89b9ac500bd3",IMPLEMENTATION_REVERSION,0,0,0.022346145114282102
+1442559,15,"Comment on attachment 8955728
+Bug 1442559 part 1 - Make it clearer what whitelist item filters the error.
+https://reviewboard.mozilla.org/r/224804/#review230840
+::: browser/base/content/test/static/browser_parsable_css.js:164
+(Diff revision 1)
+Nit:
+```js
+return JSON.stringify(item, (key, value) => {
+  return (value instanceof RegExp) ? value.toString() : value;
+});
+```
+::: browser/base/content/test/static/browser_parsable_css.js:192
+(Diff revision 1)
+Nit: add `because of whitelist item` to the string before dumping the whitelist item, please.",CODE_REVIEW,0,0,0.030341868456479463
+1209952,15,"My updated patch is to address this problem. As a note, the original code will theoretically produce a wrong layout. Suppose we have `118` content to lay out in 3 columns, with an `availableContentBSize` 39 after a previously successful reflow (in order to have `mLastBalanceBSize=40` so that the first try will start at 40). Then with original code it will be `118 = 40 + 40 + 38` with a feasible state. But the correct layout should respect the constraint and produce `118 = 39 + 39 + 39`, with 1 overflow. This is quite theoretical, since a couple of logical unit can hardly have visible effect.",POTENTIAL_SOLUTION_DESIGN,1,1,0.5655847675649062
+1401249,10,"I managed to verify this issue also on Firefox 56.0-build3, under Windows 10x64, macOS 10.12 and under Ubuntu 16.04x64. Shockwave Flash is set by default to 'Ask to Activate' and Click-to-Play staged rollout is set to 1.4.",SOLUTION_VERIFICATION,0,0,0.008784247692840598
+1479989,7,"Pushed by nbeleuzu@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/2a0b1c169e24
+Update test262 exclusions for BigInt. r=wingo",UNCODED,0,0,0.025832584767620223
+1529006,7,"Comment on attachment 9047168
+Patch v2
+Review of attachment 9047168:
+-----------------------------------------------------------------
+Great!  r=me with the changes below.
+::: js/src/vm/Realm.h
+@@ +183,5 @@
+We should be able to remove the inheritance from CustomAutoRooter now, and the empty trace() method below.",CODE_REVIEW,0,0,0.026423339739652354
+1421905,7,https://hg.mozilla.org/mozilla-central/rev/5dfa3982d405,UNCODED,0,0,0.014139557329376991
+1493860,6,"I've sent a pull request to Payment Request to default the *Error members ones to `null`.
+https://github.com/w3c/payment-request/pull/781
+I've checked the algorithms in the spec, and they are all fine (basically ""For each member, show error..."" - but no requirement that any member be there). 
+We now need to deal explicitly with `total`s PaymentCurrencyAmount... I don't think suggesting defaults to the Working Group for `currency` and `value` wouldn't got down well.",POTENTIAL_SOLUTION_DESIGN,1,1,0.38279732789788834
+1403319,6,"Thanks Andre! Submitted a PR to test262 for the length issue https://github.com/tc39/test262/pull/1249
+I'll keep it skipped for now and once we merge updated test262 we can reenable it.",STATUS_UPDATE,0,0,0.16824254400851762
+1454126,7,"Created attachment 8968457
+Patch for Beta",UNCODED,0,0,0.07353204421531269
+1410565,5,"Comment on attachment 8921363
+Bug 1410565 - check mTimescale to avoid dividing by zero.
+https://reviewboard.mozilla.org/r/192396/#review197802",AUTO_LINK_CODE_REVIEW,0,0,0.003856216385144866
+1516605,3,"Pushed by m_kato@ga2.so-net.ne.jp:
+https://hg.mozilla.org/integration/autoland/rev/129f8c60783c
+Turn on NEON on aarch64 when using gcc or clang. r=aosmond",UNCODED,0,0,0.0701107997190588
+1529006,3,"Comment on attachment 9045942
+Patch.
+Review of attachment 9045942:
+-----------------------------------------------------------------
+Oh, I hadn't thought of that approach. I was thinking of allowing Rooted<Variant<...>> to contain untraceable types. But come to think of it, your approach seems good -- it keeps the exception localized to types involved.
+So I'm going to mark this feedback+ from me because I think it's a good approach, but I want to check with jonco for which one he thinks is better. I'll attach a sample patch with the approach I was originally thinking of.",CODE_REVIEW,0,0,0.26532872542876584
+1519164,8,Please nominate this for Beta approval when you get a chance.,UPLIFT_NOMINATION_REQUEST,0,0,0.0017897097151695742
+1456911,4,"Created attachment 8983991
+Bug 1456911 - Prelude: Fix unified build breakage exposed by the next patch.
+This directory has a number of places where files unintentionally depend
+on `#include`s and `using` directives and forward declarations in other
+files in the same unified build group.  Adding a file shifts the group
+boundaries and exposes some of those bugs; this patch fixes them (but
+there are others).
+Review commit: https://reviewboard.mozilla.org/r/249864/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/249864/",CODE_IMPLEMENTATION,1,1,0.47483339454076817
+1485422,5,"Created attachment 9005445
+Bug 1485422 - Add rating stars to CFR
+Depends on D4532",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0.11164117570703709
+1521066,8,"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0
+Confirming that testcase and URL are fixed with today's Nightly.
+Thanks!",SOLUTION_VERIFICATION,0,0,0.039142591365876785
+1515665,25,"Created attachment 9037675
+part 2 - SessionStorage
+sessionstorage works when rejectedReason is STATE_COOKIES_BLOCKED_FOREIGN and when StorageAccess is ePartitionedOrDeny",CODE_IMPLEMENTATION,1,0,0.09085760209158529
+1510786,1,"build of current trunk with default config fails with
+...
+ 1:34.46 media/libdav1d
+ 1:34.46 /usr/bin/gcc -std=gnu99 -o cdf.o -c  -I/mnt/dan/firefox.git/obj-powerpc64le-unknown-linux-gnu/dist/system_wrappers -include /mnt/dan/firefox.git/config/gcc_hidden.h -DDEBUG=1 -DSTATIC_EXPORTABLE_JS_API -DMOZ_HAS_MOZGLUE -DMOZILLA_INTERNAL_API -DIMPL_LIBXUL -I/mnt/dan/firefox.git/media/libdav1d -I/mnt/dan/firefox.git/obj-powerpc64le-unknown-linux-gnu/media/libdav1d -I/mnt/dan/firefox.git/third_party/dav1d -I/mnt/dan/firefox.git/third_party/dav1d/include -I/mnt/dan/firefox.git/third_party/dav1d/include/dav1d -I/mnt/dan/firefox.git/third_party/dav1d/include/compat/gcc -I/mnt/dan/firefox.git/obj-powerpc64le-unknown-linux-gnu/dist/include -I/mnt/dan/firefox.git/obj-powerpc64le-unknown-linux-gnu/dist/include/nspr -I/mnt/dan/firefox.git/obj-powerpc64le-unknown-linux-gnu/dist/include/nss -fPIC -include /mnt/dan/firefox.git/obj-powerpc64le-unknown-linux-gnu/mozilla-config.h -DMOZILLA_CLIENT -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -fno-strict-aliasing -fno-math-errno -pthread -pipe -g -Og -fno-omit-frame-pointer -funwind-tables -Wall -Wempty-body -Wignored-qualifiers -Wpointer-arith -Wsign-compare -Wtype-limits -Wunreachable-code -Wduplicated-cond -Wno-error=maybe-uninitialized -Wno-error=deprecated-declarations -Wno-error=array-bounds -Wno-error=free-nonheap-object -Wno-error=multistatement-macros -Wno-error=class-memaccess -Wformat -Wformat-overflow=2  -MD -MP -MF .deps/cdf.o.pp  -fdiagnostics-color  /mnt/dan/firefox.git/third_party/dav1d/src/cdf.c
+ 1:34.48 /mnt/dan/firefox.git/third_party/dav1d/src/cdf.c:28:10: fatal error: config.h: No such file or directory
+ 1:34.48  #include ""config.h""
+ 1:34.48           ^~~~~~~~~~
+ 1:34.48 compilation terminated.
+I haven't looked yet if it's a build system issue or if dav1d upstream doesn't support non-x86/non-arm arches at all.",STACK_TRACE,0,0,0.009822658246688137
+948882,37,"Pushed by gijskruitbosch@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/75df8c6facf7
+Move inline scripts and styles into separate file for toolkit/crashreporter/content/crashes.xhtml (about:crashes). r=freddyb,gijs",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0.09110110230513863
+1462624,8,"Commit pushed to master at https://github.com/mozilla/activity-stream
+https://github.com/mozilla/activity-stream/commit/365c10e75037ed6d3d8141b52f530efddb6db590
+chore(images): Compress recently added pngs (#4157)
+Fix Bug 1462624 - 0.25 - 0.29% installer size (osx-cross, windows2012-32, windows2012-64) regression on push 79ab9d3259944b808a88f0c6783504e269bcff2c (Fri May 18 2018)",PROBLEM_DESCRIPTION,0,1,0.42611894913216763
+1465254,3,"Comment on attachment 8981676
+Bug 1465254 - Fix copy error in periodic updates task
+https://reviewboard.mozilla.org/r/247816/#review253912",AUTO_LINK_CODE_REVIEW,0,0,0.003872133702248019
+1494092,6,"Created attachment 9011962
+Bug 1494092. Remove SVGFilterObserverList::IsInObserverLists. r?mattwoodrow
+This code is no longer necessary since we now invalidate using Display List
+Based Invalidation instead of using recursive calls up the frame tree.
+The tests that are marked as failing have only been passing due to a bug in the
+code that's being removed from nsSVGIntegrationUtils.cpp which coincidentally
+hides the fact that we are actually invalidating in those tests given their
+particular structure (which the tests are supposed to be checking we're not
+doing).",CODE_IMPLEMENTATION,1,1,0.5751168796328099
+1528712,7,"https://hg.mozilla.org/mozilla-central/rev/533f35feb9eb
+https://hg.mozilla.org/mozilla-central/rev/d15621c6f424",UNCODED,0,0,0.009032731510216713
+1479309,11,https://hg.mozilla.org/mozilla-central/rev/a396e7027858,UNCODED,0,0,0.00906635629583741
+1537936,8,"https://hg.mozilla.org/mozilla-central/rev/2bf248bc4f3b
+https://hg.mozilla.org/mozilla-central/rev/4011496a13a9
+https://hg.mozilla.org/mozilla-central/rev/d9660cff2091",UNCODED,0,0,0.011082435131352566
+1529006,2,"Created attachment 9045942
+Patch.
+Hi Steve
+Base on your suggestion I work out this patch, I use IgnoreGCPolicy to prevent calling 'trace' on the objects(ImmediateMetadata and DelayMetadata), can you help to check is this correct?
+Thanks",CODE_IMPLEMENTATION,1,1,0.6614748379387075
+1493860,8,"Bringing in :jcj since he's dealing with the WebAuthn spec, which has changed a lot since I did my work there.",STATUS_UPDATE,0,0,0.07399275173303427
+1510786,10,"there is a missing colon at the end of the ""elif"" line, but with that added it builds again and runs",SOLUTION_VERIFICATION,0,0,0.026671647270647
+1439571,5,"I looked at 5 examples of failures of input-radio-required.html and the test image is fairly consistently darker than the reference image, e.g:
+(TEST): data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAPoCAYAAAAmy5qxAAAU/ElEQVR4nO3csWnDQACGUY+eLTKLZkjjATyAVR64UCF02SBxiPMF7Pfa44drPw7pNAEAACKn/74AAADwOgQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAAJkfBch+7HNsY663dY5tzP3Y/2QDAAA8p7sD5JjHHNuY5+t5Lpdlnq/nObbx8A0AAPC87g6Q/djnelvnclnm+8f7XC7LXG/rwzcAAMDz8gICAABkfAMCAABkfvUXrNPb1/PvzgEAgNeiEAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgIwAAQAAMgIEAADICBAAACAjQAAAgMwntM3xVNZSX2cAAAAASUVORK5CYII=
+(REFERENCE): data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAPoCAYAAAAmy5qxAAAU/ElEQVR4nO3csW3DMBBAUQ/qvbxFes2QRgN4AKsU4EKFIGYFB3Z+APu9ljiA7QfBOw0AAIDI6b8vAAAAfA4BAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEBGgAAAABkBAgAAZAQIAACQESAAAEDmVwGyH/tYt3Us92Ws2zr2Y/+TGQAA4D09HCDHOMa6rWO+zWO6TmO+zWPd1pfPAAAA7+vhANmPfSz3ZUzXaVy+L2O6TmO5Ly+fAQAA3pcXEAAAIOMPCAAAkHlqC9b56/zUOQAA8Fms4QUAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADICBAAAyAgQAAAgI0AAAICMAAEAADI/9U3zIC3kelkAAAAASUVORK5CYII=",SOLUTION_VERIFICATION,0,0,0.03436802298378255
+1462624,2,":Mardak Please look for reducing installer size increases, caused by bug 1462427.",PROBLEM_REVIEW_REQUEST,0,0,0.034898305236584846
+1454126,12,"Created attachment 8968771
+Patch for Beta",UNCODED,0,0,0.07727872767051998
+1410565,7,"Comment on attachment 8921363
+Bug 1410565 - check mTimescale to avoid dividing by zero.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/192396/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0.01493896028162133
+1467403,1,"I cannot find any case that prologue contains source notes.
+we could remove code which handles it.",PROBLEM_MOTIVATION,0,0,0.12148815194854248
+1515665,15,"Created attachment 9036317
+part 2 - partitioned sessionStorage
+Here is the scenario I want to fix (I can move this in a separate bug if you think it's better):
+1. top-level page is example.com with 2 iframes: tracker.com/inDisconnectedList and tracker.com/notInDisconnectedList
+2. the 2 iframes share the same sessionStorage, but they should not.
+I want to use the same storage class used for localStorage, also for sessionStorage.",CODE_IMPLEMENTATION,1,1,0.3340904422189145
+1454126,27,*** Bug 1454133 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.003279351032458108
+1439571,9,https://treeherder.mozilla.org/#/jobs?repo=try&revision=18c72ba5c43bf91b0f1374f040e4a40ced4331d4,UNCODED,0,0,0.017402506206661398
+1482681,8,"Is there a followup for correcting the triggering principal here (ie use that of the enclosing document, not necessarily that of the toplevel doc) ?",QUESTION,0,0,0.1951068841921644
+1435456,16,"1 failures in 675 pushes (0.001 failures/push) were associated with this bug in the last 7 days.    
+Repository breakdown:
+* mozilla-inbound: 1
+Platform breakdown:
+* linux64-stylo-disabled: 1
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1435456&startday=2018-02-19&endday=2018-02-25&tree=all",UNCODED,0,0,0.011705997039628463
+1421170,3,https://treeherder.mozilla.org/#/jobs?repo=try&revision=c5dab36c940118744045ede91cb6a6e7261be1bc&group_state=expanded,UNCODED,0,0,0.019361361012432046
+1519164,2,"This just made it to production:
+Normal window:
+- https://www.mozilla.org/en-US/firefox/65.0/content-blocking/start/?newtab=true
+- https://www.mozilla.org/en-US/firefox/65.0/content-blocking/start/?newtab=true&variation=2
+Private Window:
+- https://www.mozilla.org/en-US/firefox/65.0/content-blocking/start/
+- https://www.mozilla.org/en-US/firefox/65.0/content-blocking/start/?variation=2",REPRODUCTION_ATTEMPT,0,0,0.0196275879211622
+1401299,2,"Created attachment 8909928
+Bug 1401299 - Removing leftover putc(stderr, ...) from ParseNode;
+Review commit: https://reviewboard.mozilla.org/r/181408/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/181408/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0.3000630969790769
+1515665,30,*** Bug 1519111 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0.0019807055495859346
+1537936,2,"Created attachment 9052674
+Bug 1537936 part 1 - Remove miscellaneous uses of pn_op.",UNCODED,0,1,0.43931131267451173
+1354406,3,Resolving WONTFIX because we will be retiring styloVsGecko reftests in Nightly 59 when we remove Gecko's old style system (stylo-everywhere bug 1395112).,ISSUE_METADATA_CHANGE,0,0,0.018978996508763297
+1396319,12,I think this is a dupe of bug 1389793. Keeping the NI to remind me to check back again.,ISSUE_METADATA_CHANGE,0,0,0.010548466938614998
+1462624,6,"Created attachment 8977045
+png compression
+Looks like there's some savings to be made in the newly added pngs.",ADDITIONAL_CONSIDERATION,0,1,0.8794067623928771
+1407435,8,"I was able to reproduce the issue on Nightly build (2017-10-10) using Windows 7 x64. 
+Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0
+Verified fixed on latest Nightly 58.0a1 (2017-10-16) across platforms: Windows 10 x64, Windows 7 x64, Mac OS X 10.13 and Ubuntu 16.04 x64.",SOLUTION_VERIFICATION,0,0,0.011322400512506395
+1486074,2,"Created attachment 9003861
+Bug 1486074 - Move logic for copying aliased properties' fields to the bottom of property_database.js.",AUTO_ATTACH_CODE_IMPLEMENTATION,0,1,0.789763515302662
+1515665,1,"This is similar to bug 1510860 in nature.  When we grant a content blocking exception to a page, the localStorage API doesn't start to work on that page...
+The reason is that this check <https://searchfox.org/mozilla-central/rev/2e5e28f518524f8af5b158ddb605022b6a2d68cf/dom/storage/Storage.cpp#46> is done using the principal object.  Internally this maps to <https://searchfox.org/mozilla-central/rev/232ced2697b8938073fa79b8e6aa3718876c0b69/toolkit/components/antitracking/AntiTrackingCommon.cpp#1225> in the antitracking back-end which is oblivious to the content blocking allow list because it can't walk up the window hierarchy.",PROBLEM_CAUSE_IDENTIFICATION,0,0,0.03321426896704476
+1435456,7,"Hmm, all image decodes that are part of the current view will be finished. The images could be coming from a previous test, and if the ordering of the tests recently changed, that could be enough.",ANSWER_TO_QUESTION,0,0,0.017494961673572066
+1506200,6,"Pushed by jorendorff@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/b14418449896
+Remove ReadableStream EmbeddingFlags. r=baku,jwalden",UNCODED,0,0,0.2432261631683728
+1209952,12,"The machine I use to debug firefox has some problems, so I need time to fix them before applying for try server access.
+So I think it would be better to submit the update that I already tested a few days ago. Would you test it on the try server and review the change? Thanks!",STATUS_UPDATE,0,0,0.01968273381284753
+1421170,2,"Created attachment 8932342
+Bug 1421170 - Move the declarations of CustomElementUpgradeReaction and CustomElementCallbackReaction to CustomElementRegistry.cpp;
+The CustomElementUpgradeReaction and CustomElementCallbackReaction are only used inside CustomElementRegistry.cpp,
+so we don't need to expose them in header file.
+Review commit: https://reviewboard.mozilla.org/r/203378/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/203378/",CODE_IMPLEMENTATION,1,1,0.49248490970610215
+1510786,5,"Created attachment 9028574
+config.h
+config.h - identical for ppc64, ppc64le and s390x arches, produced on Fedora",REQUIREMENT,0,0,0.044352007641369255
+1486074,3,"Comment on attachment 9003861
+Bug 1486074 - Move logic for copying aliased properties' fields to the bottom of property_database.js.
+Emilio Cobos Álvarez (:emilio) has approved the revision.",CODE_REVIEW,0,0,0.023741893758365277
+1479309,4,"Comment on attachment 8995828
+Bug 1479309: Don't load shield-content-frame.js until needed.
+https://reviewboard.mozilla.org/r/260166/#review267386
+Thanks!
+Also, since this is blocking the memshrink bug, I'm curious if you've profiled how much memory these changes save? If you haven't already profiled it, don't worry about. I'm sure the the changes are worth it, I'm just curious.",CODE_REVIEW,0,0,0.01203691457523887
+1403319,5,"Well, except for this one test which still expects Intl.NumberFormat.prototype.formatToParts.length is 0 instead of 1 <http://searchfox.org/mozilla-central/rev/f54c1723befe6bcc7229f005217d5c681128fcad/js/src/tests/test262/intl402/NumberFormat/prototype/formatToParts/length.js#9>. :-)",CLARIFICATION,0,0,0.031676621640631134
+1493860,13,"Thanks, I've opened bug 1497351 to fix the WebRTC parts.",NEW_ISSUE_FILING,0,0,0.02175830769736945
+1435456,4,"Agreed. Given it is a live pref and can nominally change at any time, I think we can just take out the assert.",POTENTIAL_SOLUTION_DESIGN,1,1,0.3336931593078079
+1515665,12,I'll work on this.,STATUS_UPDATE,0,0,0.011936103175468402
+1487135,2,"Created attachment 9005065
+Make the allocation of AuthorStyles for ShadowRoot lazy.
+So that we don't waste a bunch of memory with stuff like <svg:use>. I
+plan to shrink AuthorStyles further, but this should help regardless, and isn't
+very complex.",CODE_IMPLEMENTATION,1,1,0.8402138743052191
+1454126,17,"Set the in-testsuite flag to '?' when you land the patch without tests, then later when the test lands set it to in-testsuite+",ISSUE_METADATA_CHANGE,0,0,0.046530617772103634
+1486218,3,This will most likely be fixed by https://github.com/servo/webrender/pull/3331 when it lands in Gecko.,SOLVED_BY_OTHER_ISSUE,0,0,0.15100994777649487
+1540794,3,"Pushed by amccreight@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/c4ddf15818ae
+Remove nsIID.h. r=froydnj",UNCODED,0,0,0.12533550980561628
+1442559,21,"Pushed by xquan@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/b2bf42743feb
+part 1 - Make it clearer what whitelist item filters the error. r=Gijs
+https://hg.mozilla.org/integration/autoland/rev/6371120b7c1c
+part 2 - Use a separate whitelist for prop names. r=Gijs
+https://hg.mozilla.org/integration/autoland/rev/d540c55c96c5
+part 3 - Detect whitelist item which doesn't have any condition. r=Gijs",UNCODED,0,0,0.1590068673564087
+1493860,11,"Right, because I explicitly kept the old behavior pending someone who knows webauthn looking at it.
+What you can do is remove the ""= null"" bits from WebAuthentication.webidl and then fix the resulting compile errors in whatever way the spec says that stuff should work.   Assuming it says.",SOLUTION_REVIEW,1,1,0.38520504917334586
+1209952,17,"Sorry for the delay, some other bugs required my attention.
+I'm debugging this now so I'll get back to you soon...",STATUS_UPDATE,0,0,0.005989526035546361
+1506200,1,"The idea was to provide some distinguishing bits in case an embedding has many types of external stream. But really this is a waste of memory. It's currently unused, and in practice the underlyingSource pointer will be a pointer to some object that has a C++ vptr and can simply be asked for its type. Right?",PROBLEM_REVIEW_REQUEST,0,1,0.5338969177381833
+1479989,1,Disable BigInt variants of tests disabled due to bug 1317416.,CODE_IMPLEMENTATION,1,0,0.012352093010067728
+1403319,10,"Developer release notes
+https://developer.mozilla.org/en-US/Firefox/Releases/58#JavaScript
+Reference page
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat/formatToParts
+Compat data 
+https://github.com/mdn/browser-compat-data/pull/612 (still WIP at this point)",UNCODED,0,0,0.030215763456932637
+1514429,1,"window.inner{Width,Height} currently return the dimensions of the visual viewport. (Background of layout vs. visual viewport terminology: [1].)
+This has been changed a couple of times aready (bug 602580, bug 919437), but I believe we'll need to change it again to align with Blink, which has settled on reporting the layout viewport dimensions [2].
+Their justification for that choice is that we have the VisualViewport API [3] to report the visual viewport dimensions; I think that's reasonable.
+We probably want to wait until shipping the Visual Viewport API (bug 1512813) before making this change.
+[1] https://github.com/bokand/bokand.github.io/blob/master/web_viewports_explainer.md
+[2] https://docs.google.com/spreadsheets/d/11DfDDa-s1hePVwBn3PZidlPJZ9ahhkJ44dyuMiOQtrc/edit#gid=0
+[3] https://github.com/WICG/visual-viewport",POTENTIAL_SOLUTION_DESIGN,1,1,0.6591287827462117
+1354406,4,This was fixed by bug 1417251 FWIW.,SOLVED_BY_OTHER_ISSUE,0,0,0.03385704089230489
+1529006,1,"I split this from bug 1319468, see 
+https://bugzilla.mozilla.org/show_bug.cgi?id=1319468#c5
+https://mozilla.logbot.info/jsapi/20190205#c15925279
+But I have some questions
+1. Do we need the if clause check below?
+`if (!mozilla::IsPointer<T>::value || thing)`
+https://searchfox.org/mozilla-central/rev/05d4b6962a571585bd679d2bbb0df0a5fb4e4eff/js/public/GCVariant.h#50
+https://searchfox.org/mozilla-central/rev/05d4b6962a571585bd679d2bbb0df0a5fb4e4eff/js/public/GCVariant.h#79
+the `if (thing)` check is initially for pointer types
+and the pointer check is done again in https://searchfox.org/mozilla-central/rev/05d4b6962a571585bd679d2bbb0df0a5fb4e4eff/js/src/gc/Policy.h#47
+and `!mozilla::IsPointer<T>::value` is also confusing to me. 
+Do we really need this?
+2. Do we still need to call TraceRoot 
+https://searchfox.org/mozilla-central/rev/05d4b6962a571585bd679d2bbb0df0a5fb4e4eff/js/src/vm/Realm.h#196
+I think Rooted<> will call the trace function through DispatchWrapper, however the name argument is different, I am not sure if this matters.",QUESTION,0,0,0.29135646751443717
+1454126,22,"https://hg.mozilla.org/integration/mozilla-inbound/rev/4ac461885d8c424010d4e442e649d06acb9d2d60
+Bug 1454126 - HTMLEditor should adjust selection outside native anonymous subtree when it inserts something at selection r=m_kato",UNCODED,0,1,0.3575739679546541
+1528712,5,"Backed out 2 changesets (bug 1528712) for Linux spcshell and reftest failures (test_ext_browserSettings.js, 1022481-1.html)
+push that caused the backout: https://treeherder.mozilla.org/#/jobs?repo=autoland&resultStatus=testfailed%2Cbusted%2Cexception&classifiedState=unclassified&selectedJob=229192047&revision=2d5c4e71e258e24f1a70ed850c619f97e56f2c60
+failures: https://treeherder.mozilla.org/#/jobs?repo=autoland&resultStatus=testfailed%2Cbusted%2Cexception&classifiedState=unclassified&selectedJob=229193147&searchStr=linux%2Copt%2Cxpcshell%2Ctests%2Ctest-linux32%2Fopt-xpcshell-6%2Cx%28x6%29
+https://treeherder.mozilla.org/#/jobs?repo=autoland&resultStatus=testfailed%2Cbusted%2Cexception&classifiedState=unclassified&selectedJob=229194233&searchStr=linux%2Cdebug%2Creftests%2Ctest-linux32%2Fdebug-reftest-8%2Cr%28r8%29
+backout: https://hg.mozilla.org/integration/autoland/rev/8a4ad06c05759fe087625f9fd8d047d848bee4c2",IMPLEMENTATION_REVERSION,0,0,0.021766390583921588
+1455735,10,https://hg.mozilla.org/mozilla-central/rev/801fa27ae7b8,UNCODED,0,0,0.0070801437292802695
+1513854,4,"Mike, how should we proceed now that Bug 1538248 landed?
+Can we use Feature Gates to enable it for Nightly users? (Leaving the default setting to false) 
+Or shall we set default to false in Nightly only using `#ifdef RELEASE_OR_BETA` in the prefs file?
+In terms of QA, I'd imagine that we can take an existing test plan and just add the pref flip parts...",POTENTIAL_SOLUTION_DESIGN,1,0,0.05979510151374745
+1456911,3,"I've tested this, and an identity-mapped close-on-exec file does in fact fail to be inherited.
+As for comment #1:
+From looking at the kernel code, OS X's implementation of posix_spawn_file_actions_adddup2 seems to correct for the old==new case, and it ought to exempt the fd from POSIX_SPAWN_CLOEXEC_DEFAULT, but I haven't tested that yet.
+But, the current file_descriptor_shuffle assumes it can dup() in the child process, which will be a problem for bug 1456919, so that's another reason to rewrite.",PROBLEM_REVIEW,0,1,0.44293267468340397
+1455735,1,"Chutten found this while working on bug 1450690. Here's a traceback of the error preventing enrollment:
+InvalidStateError: A mutation operation was attempted on a database that did not allow mutations. JS Stack trace: transaction@IndexedDB.jsm:289:39
+objectStore@IndexedDB.jsm:317:23
+getStore@AddonStudies.jsm:87:10
+start@AddonStudies.jsm:273:13
+Async*wrapAsync/</<@SandboxManager.jsm:108:9
+wrapAsync/<@SandboxManager.jsm:103:14
+execute@SandboxManager.jsm:57:2272
+async*registerAction/<@SandboxManager.jsm:61:18
+@SandboxManager.jsm:58:53
+evalInSandbox@SandboxManager.jsm:57:12
+runAsyncCallback@ActionSandboxManager.jsm:74:26
+async*runRecipe@ActionsManager.jsm:97:17
+async*run@RecipeRunner.jsm:240:9
+async*init@RecipeRunner.jsm:80:13
+async*finishInit@Normandy.jsm:97:11
+async*observe@Normandy.jsm:53:7
+ssi_sendRestoreCompletedNotifications@SessionStore.jsm:4584:7
+ssi_restoreWindow@SessionStore.jsm:3523:5
+ssi_restoreWindows@SessionStore.jsm:3629:5
+initializeWindow@SessionStore.jsm:1177:11
+onBeforeBrowserWindowShown/<@SessionStore.jsm:1328:9
+promise callback*onBeforeBrowserWindowShown@SessionStore.jsm:1313:5
+ssi_observe@SessionStore.jsm:764:9
+onLoad@browser.js:1337:5
+onload@browser.xul:1:1",STACK_TRACE,0,0,0.023521834303688056
+1421170,4,"Comment on attachment 8932342
+Bug 1421170 - Move the declarations of CustomElementUpgradeReaction and CustomElementCallbackReaction to CustomElementRegistry.cpp;
+https://reviewboard.mozilla.org/r/203378/#review210552",AUTO_LINK_CODE_REVIEW,0,0,0.004225286911867316
+1354406,2,status-firefox57=wontfix unless someone thinks this bug should block 57,ISSUE_METADATA_CHANGE,0,0,0.0036411110915317573
+1510786,4,"Can you please build dav1d alone, in those platforms, and provide the config.h file found in the build directory. Dav1d can be found in [1].
+[1] https://code.videolan.org/videolan/dav1d",REPRODUCTION_REQUEST,0,0,0.03583361664258923
+948882,36,"Backed out for ESlint failures on /toolkit/crashreporter/content/crashes.js
+backout: https://hg.mozilla.org/integration/mozilla-inbound/rev/dfff9e92ca9710b2e56e0a38f86362b7a8903049
+push with failures: https://treeherder.mozilla.org/#/jobs?repo=mozilla-inbound&revision=1034f8be097fd6d2f8eda8f7f7d277b92d91ff41&selectedJob=183762018
+failure log: https://treeherder.mozilla.org/logviewer.html#?job_id=183762018&repo=mozilla-inbound&lineNumber=245
+[task 2018-06-19T10:03:36.725Z] copying build/lib.linux-x86_64-2.7/psutil/_psutil_linux.so -> psutil
+[task 2018-06-19T10:03:36.725Z] copying build/lib.linux-x86_64-2.7/psutil/_psutil_posix.so -> psutil
+[task 2018-06-19T10:03:36.725Z] 
+[task 2018-06-19T10:03:36.725Z] Error processing command. Ignoring because optional. (optional:packages.txt:comm/build/virtualenv_packages.txt)
+[task 2018-06-19T10:08:46.466Z] TEST-UNEXPECTED-ERROR | /builds/worker/checkouts/gecko/toolkit/crashreporter/content/crashes.js:15:55 | Unexpected space before function parentheses. (space-before-function-paren)
+[task 2018-06-19T10:08:46.466Z] TEST-UNEXPECTED-ERROR | /builds/worker/checkouts/gecko/toolkit/crashreporter/content/crashes.js:17:27 | Strings must use doublequote. (quotes)
+[task 2018-06-19T10:08:46.466Z] TEST-UNEXPECTED-ERROR | /builds/worker/checkouts/gecko/toolkit/crashreporter/content/crashes.js:17:78 | Unexpected space before function parentheses. (space-before-function-paren)
+[taskcluster 2018-06-19 10:08:46.842Z] === Task Finished ===
+[taskcluster 2018-06-19 10:08:46.842Z] Unsuccessful task run with exit code: 1 completed in 551.489 seconds",IMPLEMENTATION_REVERSION,0,0,0.014039374094720754
+1482681,1,"Reproducible : always:
+Steps To Reproduce:
+1. Open a page with iframe
+   e.g, https://www.scollabo.com/banban/ref/sample/sample_61.html
+2. Right click on a iframe
+3. Choose ""This Frame"" > ""Open Frame in New Tab"" stops working
+Actual Results:
+Nothing happens.
+The following error is shown in Browser Console:
+Error: Required argument triggeringPrincipal missing within loadOneTab tabbrowser.js:1378:13
+Expected Results:
+Frame contents should open in new tab
+Regression window:
+https://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=e17409c5199c0ade0de9899782d6a9f5f4970871&tochange=6f3907a1da34a62133832dc981e9005ee30e9388
+Regressed by: Bug 1362034",PROBLEM_DESCRIPTION,0,0,0.0027936689170570362
+1390087,13,"4 failures in 824 pushes (0.005 failures/push) were associated with this bug in the last 7 days.    
+Repository breakdown:
+* autoland: 4
+Platform breakdown:
+* windows7-32: 2
+* windows7-32-stylo-disabled: 1
+* linux32-stylo-disabled: 1
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1390087&startday=2017-10-02&endday=2017-10-08&tree=all",UNCODED,0,0,0.013885351727784793
+1439571,13,https://hg.mozilla.org/mozilla-central/rev/cda12b20e872,UNCODED,0,0,0.0033350174758689523
+1209952,7,"Created attachment 9047943
+Bug 1209952 - Ensure a smaller BSize won't be tried when previous one is already infeasible
+If a BSize is already infeasible, we should not try a smaller size. Because if
+the previous failure leaves some pushed floats, a smaller try might make
+the prev-in-flow of the pushed float overflow, which violates the invariant of
+pushed float and may cause use-after-free and crash.",CODE_IMPLEMENTATION,1,1,0.7678525731578487
+1454126,11,"Created attachment 8968770
+The patch for m-c (r=m_kato)
+[Security approval request comment]
+How easily could an exploit be constructed based on the patch?
+It's easy since the patch includes the testcase to reproduce this crash.
+Do comments in the patch, the check-in comment, or tests included in the patch paint a bulls-eye on the security problem?
+I don't think so. This looks like just a crash bug fix if there is no link to this closed bug report.
+Which older supported branches are affected by this flaw?
+Not sure but ESR 52 doesn't support <detail> and the testcase won't work as expected.
+If not all supported branches, which bug introduced the flaw?
+Not sure. Possible to change native anonymous subtree in <input>/<textarea> with execCommand() must be long standing bug. However, the crash itself must be newer bug since a lot of safer code have been replaced with faster code with Quantum Flow.
+Do you have backports for the affected branches? If not, how different, hard to create, and risky will they be?
+I created same patch for Beta branch too.
+How likely is this patch to cause regressions; how much testing does it need?
+This patch just avoids to insert unexpected DOM nodes into <input>/<textarea>'s anonymous subtree.  And such behavior has never been expected.  Therefore, this patch must be safe.  And also this patch includes the testcase of comment 0.",SOLUTION_VERIFICATION,0,0,0.04170011535508133
+1487135,5,"Pushed by emilio@crisal.io:
+https://hg.mozilla.org/integration/autoland/rev/752786e0dd01
+followup: Add a missing check. r=me",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0.06990589654548605
+1528712,3,"Created attachment 9044611
+Bug 1528712 - Remove nsFont::featureValueLookup. r=#style,jfkthame
+It's a global object, it doesn't have to be stored in nsFont. Pass it from the
+caller like the user font set and co.
+Depends on D20141",CODE_IMPLEMENTATION,1,1,0.6093808692419367
+1458856,1,"[Description:]
+The following reproduces only on a FF client when using a new non-existent preference added manually from about:config.
+[Prerequisites:]
+You need access to New Admin interface (https://normandy-admin.stage.mozaws.net/control-new)
+1. Set the app.normandy.dev_mode preference to true to run recipes immediately on startup.
+2. Set the app.normandy.logging.level preference to 0 to enable more logging.
+3. Set the security.content.signature.root_hash preference to DB:74:CE:58:E4:F9:D0:9E:E0:42:36:BE:6C:C5:C4:F6:6A:E7:74:7D:C0:21:42:7A:03:BC:2F:57:0C:8B:9B:90.
+4. Set the preference value for app.normandy.api_url set to https://normandy.stage.mozaws.net/api/v1
+[Steps:]
+1. Open Firefox client with a new profile.
+2. Open about:config in a new tab and right click and add a new preferences: e.g. non_existent_preference, int, with value 10.
+3. Open Admin center and create a new rollout type recipe, targeting the step2 preference, changing the value to something else, e.g. 12.
+4. Publish step 3 recipe.
+5. On the profile from step 1, set prerequisites and restart.
+6. Open browser console and check the results.
+[Actual Result:]
+1525337683826	app.normandy.recipe-runner	INFO	Executing recipe ""pref-r-2"" (action=preference-rollout)
+[Exception... ""Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIPrefBranch.getIntPref]"" nsresult: ""0x8000ffff (NS_ERROR_UNEXPECTED)"" location: ""JS frame :: resource://normandy/lib/PrefUtils.jsm :: getPref :: line 34"" data: no]
+getPref resource://normandy/lib/PrefUtils.jsm:34:16 	_run/newRollout.preferences< resource://normandy/actions/PreferenceRolloutAction.jsm:41:24 	map self-hosted:292:17 	_run resource://normandy/actions/PreferenceRolloutAction.jsm:38:20 	InterpretGeneratorResume self-hosted:1264:8
+[Expected Result:]
+The preference rollout should be executed successfully with no browser console error.",ERROR_MESSAGE,0,0,0.012469552364678739
+1514429,5,"Yep.
+I believe the only scenario where we process a meta viewport tag but don't set a visual viewport size, is fixed by [this patch](https://phabricator.services.mozilla.com/D13173). So, with that patch in place, there should be no problem.
+That surprises me. The visual viewport size is set [here](https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/layout/base/MobileViewportManager.cpp#369) based on `MobileViewportManager::GetCompositionSize()`, which subtracts the scrollbar dimensions [here](https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/layout/base/MobileViewportManager.cpp#357).",SOLUTION_REVIEW,1,0,0.19726072972991354
+1494092,4,"Permalink:
+https://searchfox.org/mozilla-central/rev/881a3c5664ede5e08ee986d76433bc5c4b5680e6/layout/svg/nsSVGIntegrationUtils.cpp#328-330,334-341",UNCODED,0,0,0.042804270578297436
+1515665,23,"Comment on attachment 9037255
+part 3 - tests
+Not green enough on try.",SOLUTION_VERIFICATION,0,0,0.008829720478754391
+1509994,8,"https://hg.mozilla.org/mozilla-central/rev/0fd399c6caab
+https://hg.mozilla.org/mozilla-central/rev/6cea864da2b6
+https://hg.mozilla.org/mozilla-central/rev/cab408925a76
+https://hg.mozilla.org/mozilla-central/rev/352048c07693",UNCODED,0,0,0.019323256017629256
+1482681,6,"Pushed by jkingston@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/e8a70b46acab
+Fix load iframe in tab context menu. r=johannh",UNCODED,0,0,0.04175960516649333
+1439571,8,"Pixel differences on reftests are now reported for all reftests in the log, so we can just look at a recent m-c log to see what the current differences are on these tests. [1] is such a log for linux-qr opt, and it shows 0,0 difference. I looked at a couple of other logs too (linux debug, mac opt) and they are all reporting 0 differences, so it's likely fixed. (Could be just an intermittent 0,0 though). I'll do a try push with the fuzzy annotations removed and retrigger a bunch to confirm.
+[1] https://treeherder.mozilla.org/logviewer.html#?job_id=202171044&repo=mozilla-central&lineNumber=11124",SOLUTION_VERIFICATION,0,1,0.6494421238975459
+1396319,17,Looks like we managed to fix this through another bug (possibly bug 1425780).,SOLVED_BY_OTHER_ISSUE,0,0,0.21069296198309656
+1442559,17,"Comment on attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+https://reviewboard.mozilla.org/r/224808/#review230844",AUTO_LINK_CODE_REVIEW,0,0,0.004306626361563366
+1454126,2,This may be related to bug 1454139 or bug 1454133 so marking as s-s.,ISSUE_METADATA_CHANGE,0,0,0.01181430013215885
+1514062,2,"Failed to mention in comment #0: users are reporting that reverting to 1.4.9.1088 fixes this. If you're encountering the issue it would be also be useful to know if reverting to 4.10.1146.0 fixes it (this CDM has a Mac specific crash that shouldn't impact Windows users). To revert your CDM:
+- Locate your profile directory (you can find this in about:support in the Profile Folder entry).
+- In that directory there should be a `gmp-widevinecdm` dir, inside that there should be a `4.10.1196.0` directory, inside that dir there should be 5 files, a license, a manifest, and 3 widevine files. These files are the CDM.
+- Download the old CDM from https://redirector.gvt1.com/edgedl/widevine-cdm/1.4.9.1088-win-x64.zip or https://redirector.gvt1.com/edgedl/widevine-cdm/4.10.1146.0-win-x64.zip
+- Close Firefox.
+- Backup the files in the `4.10.1196.0` directory by copying them somewhere else, we're going to want to restore them later.
+- Extract the files from the `1.4.9.1088-win-x64.zip` or `4.10.1146.0-win-x64.zip` downloaded above over those in the `4.10.1196.0` directory.
+- Start Firefox (with the profile we've changed the CDM for).
+- Check if this fixes the issue.
+- Close Firefox.
+- (Optional since this appears to cause issues) Restore the old files to `4.10.1196.0` that we backed up earlier. If something goes wrong with the backup, the files can also be downloaded from https://redirector.gvt1.com/edgedl/widevine-cdm/4.10.1196.0-win-x64.zip",POTENTIAL_SOLUTION_DESIGN,1,0,0.17849088648795433
+1435456,15,"2 failures in 702 pushes (0.003 failures/push) were associated with this bug in the last 7 days.    
+Repository breakdown:
+* try: 1
+* mozilla-beta: 1
+Platform breakdown:
+* android-4-3-armv7-api16: 2
+For more details, see:
+https://brasstacks.mozilla.com/orangefactor/?display=Bug&bugid=1435456&startday=2018-02-05&endday=2018-02-11&tree=all",UNCODED,0,0,0.02163874768160893
+1515665,7,"Created attachment 9033210
+Bug 1515665 - Ensure that we perform localStorage access checks with a window always, and the sessionStorage access checks with a principal always;",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0.23760009351043795
+1435456,3,"Looks like the same reason as bug 1434935, so not introduced by what Andrew landed today.",PROBLEM_CAUSE_IDENTIFICATION,0,0,0.030114047001957626
+1209952,6,"Created attachment 9047923
+multicol-float.html
+I've attached a simplified testcase. Actually the cause is the violation of pushed-float invariant in `nsColumnSetFrame`. 
+Under certain cases, it will reflow the content with a smaller height constraint when a bigger one has already overflowed. If the previous failure has pushed some float, then a smaller height constraint could make the prev-in-flow of those pushed floats overflow, thus violates the invariant of pushed-float.
+I will submit a patch.",TEST_CASES,0,1,0.3486269401543149
+1509994,1,"This code does not exist in upstream webrtc.org, but based upon the headers in the files, it once did. Rather than restoring it each time we pull from upstream webrtc.org, we should move it elsewhere in tree.
+It appears to be used by dom/media/systemservices/VideoEngine.cpp, so that seems like the logical place to put it.
+We should also take the opportunity to see if we can switch to supported interfaces for accessing video / desktop capture rather than relying on code that has been undeleted from upstream.",PROBLEM_MOTIVATION,0,1,0.6777239026205442
+1465254,5,https://hg.mozilla.org/mozilla-central/rev/c094fc31b95f,UNCODED,0,0,0.007064440591670703
+1209952,14,"Ok, I will explain the oddity in the `nsColumnSetFrame` with a further reduced testcase by dropping the surrounding `div` around `dev.float-L` which causes an assertion failure (see my explanation in a comment on phabricator). So the testcase would be:
+    <div class=""multicol-b"">
+      <div class=""step""></div>
+      <div class=""float-L""></div>
+    </div>
+* 1px=60 logical unit. Both `.step` and `.float-L` have 1px height, thus it's totally 2px=120. And we need at least 40 BSize to place it in 3 columns (120 = 40 * 3).
+* At the beginning of the log, it's the outer multicol `.multicol-a` relowing the child #0 with `availBSize=1699`, `float-R` consumes 26px=1560, while the inner multicol has 1px border, which consumes 2*1px=120. So the `availableContentBSize` for the inner one only remains `1699 - 1560 - 120 = 19`. But because of the lack of a `std::min` in initialization, it tries to reflow `40`.
+* see the inline comments in the log
+    // outer reflows child #0
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #0 0x7fe0ef551be8: availBSize=1699
+    [00000003] nsBlockFrame:0x7fe0ef551be8 Reflow
+    // .float-R reflows
+    [00000004] nsBlockFrame:0x7fe0ef551d38 Reflow
+    [00000004] nsBlockFrame:0x7fe0ef551d38 Reflow done
+    // inner reflows
+    [Child 8618: Main Thread]: D/ColumnSet ChooseColumnStrategy: numColumns=3, colISize=4000, expectedISizeLeftOver=0, colBSize=40, colGap=0
+    // at this point, we only have 19 available, why try `mColMaxBSize=40`? To exceed 19 is pointless
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Doing column reflow pass: mLastBalanceBSize=40, mColMaxBSize=40, RTL=0, mBalanceColCount=3, mColISize=4000, mColGap=0
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #0 0x7fe0ef551df0: availBSize=40
+    [00000004] nsBlockFrame:0x7fe0ef551df0 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef551f40 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef551f40 Reflow done
+    [00000004] nsBlockFrame:0x7fe0ef551df0 Reflow done
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowed child #0 0x7fe0ef551df0: status=[Complete=N,NIF=Y,Truncated=N,Break=N,FirstLetter=N], desiredSize=(4000,40), CarriedOutBEndMargin=0 (ignored)
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Next childOrigin.iCoord=4060
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #1 0x7fe0ef552398: availBSize=40
+    [00000004] nsBlockFrame:0x7fe0ef552398 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef552450 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef552450 Reflow done
+    [00000005] nsBlockFrame:0x7fe0ef551ff8 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef551ff8 Reflow done
+    [00000004] nsBlockFrame 0x7fe0ef552398 SplitFloat 0x7fe0ef551ff8 -> 0x7fe0ef5522d0
+    [00000004] nsBlockFrame:0x7fe0ef552398 Reflow done
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowed child #1 0x7fe0ef552398: status=[Complete=O,NIF=Y,Truncated=N,Break=N,FirstLetter=N], desiredSize=(4000,40), CarriedOutBEndMargin=0 (ignored)
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Next childOrigin.iCoord=8060
+    // Why inconsistent height? Both child #0 and #1 have 40, #2 only has 19?
+    // That's because https://github.com/mozilla/gecko-dev/blob/master/layout/generic/nsColumnSetFrame.cpp#L712
+    // the last column is unbounded, thus it takes all avail size, which is 19, which is **smaller** than the previous columns.
+    // Now we take a look at float splitting state. 60+60 should be split into 3 column, thus (40)+(20+20)+(40),
+    // So there is already a split for 60 -> 20 + 40.
+    // An unfortunate consequence of the oddity here is that the 40 is further split into 40 -> 19 + 21, then
+    // 21 is pushed to child#2 as a pushed-float, see splitting `->` below.
+    // After this reflow, we end up with split float `1ff8`, `22d0`, `2790`
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #2 0x7fe0ef552558: availBSize=19
+    [00000004] nsBlockFrame:0x7fe0ef552558 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef5522d0 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef5522d0 Reflow done
+->  [00000004] nsBlockFrame 0x7fe0ef552558 SplitFloat 0x7fe0ef5522d0 -> 0x7fe0ef552790
+    [00000004] nsBlockFrame:0x7fe0ef552558 Reflow done
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowed child #2 0x7fe0ef552558: status=[Complete=O,NIF=Y,Truncated=N,Break=N,FirstLetter=N], desiredSize=(4000,19), CarriedOutBEndMargin=0 (ignored)
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Done column reflow pass: Infeasible :(
+    // Now it ends with an infeasible state, we arrive at https://github.com/mozilla/gecko-dev/blob/master/layout/generic/nsColumnSetFrame.cpp#L1111
+    // Then we reflow at 19 since it's the available size. But we shouldn't have tried 40 in the first place
+    [Child 8618: Main Thread]: D/ColumnSet FindBestBalanceBSize: KnownInfeasibleBSize=40, KnownFeasibleBSize=40
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Doing column reflow pass: mLastBalanceBSize=40, mColMaxBSize=19, RTL=0, mBalanceColCount=3, mColISize=4000, mColGap=0
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #0 0x7fe0ef551df0: availBSize=19
+    [00000004] nsBlockFrame:0x7fe0ef551df0 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef551f40 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef551f40 Reflow done
+    [00000004] nsBlockFrame:0x7fe0ef551df0 Reflow done
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowed child #0 0x7fe0ef551df0: status=[Complete=N,NIF=Y,Truncated=N,Break=N,FirstLetter=N], desiredSize=(4000,19), CarriedOutBEndMargin=0 (ignored)
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Next childOrigin.iCoord=4060
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #1 0x7fe0ef552398: availBSize=19
+    [00000004] nsBlockFrame:0x7fe0ef552398 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef552450 Reflow
+    [00000005] nsBlockFrame:0x7fe0ef552450 Reflow done
+    [00000004] nsBlockFrame:0x7fe0ef552398 Reflow done
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowed child #1 0x7fe0ef552398: status=[Complete=N,NIF=Y,Truncated=N,Break=N,FirstLetter=N], desiredSize=(4000,19), CarriedOutBEndMargin=0 (ignored)
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Next childOrigin.iCoord=8060
+    // first 2 children only consume 19+19=38 height, thus the first split float `1ff8` is entirely overflow in child#1,
+    // child#2 drains it, but one of the split float (`2790`) in its next-in-flow chain is still in child#2's pushed-float list.
+    [Child 8618: Main Thread]: D/ColumnSet ReflowChildren: Reflowing child #2 0x7fe0ef552558: availBSize=19
+    [00000004] nsBlockFrame:0x7fe0ef552558 Reflow
+    [00000004] nsBlockFrame:0x7fe0ef552558 DrainOverflowLines 0x7fe0ef551ff8  <- this one, overflow from child #1
+    [00000004] nsBlockFrame:0x7fe0ef552558 DrainOverflowLines: nif=0x7fe0ef5522d0
+    [00000004] nsBlockFrame:0x7fe0ef552558 DrainOverflowLines: nif=0x7fe0ef552790  <- this one, the third split float still in pushed float list of child#2, which violates assertion.
+    Assertion failure: mFloats.ContainsFrame(nif), at layout/generic/nsBlockFrame.cpp:4756
+* Conclusion: we should not try a size that is greater than `availableContentBSize` in the first place, it's a wasted computation at best. It will also make some previously overflow-but-not-drained frames hanging around to do bad things.",POTENTIAL_SOLUTION_DESIGN,1,0,0.09728822188474152
+1442559,8,The reason is that function ignoredError would always return true if there is a whitelist item contains neither sourceName nor errorMessage.,PROBLEM_CAUSE_IDENTIFICATION,0,0,0.13592686670020143
+1209952,20,"I wrote a WIP to fix the underlying cause of the crash here:
+https://hg.mozilla.org/try/rev/36932abd37ac11308bfee0068ef5eaf74e9f7846
+If a continuation pulls in children from its prev-in-flow
+then it should also move any overflow containers for those
+from its OverflowContainers list, to avoid the child
+continuations from becoming in the wrong order.
+The WIP currently moves them to the principal child list
+(mFrames), but ExcessOverflowContainers might be better.
+I'll investigate this some more...",POTENTIAL_SOLUTION_DESIGN,1,1,0.7361973137187451
+1405027,4,https://hg.mozilla.org/mozilla-central/rev/dd7266c2e716,UNCODED,0,0,0.0054046629020692
+1430012,7,We switched to acitvating in keydown in Bug 1456037.,SOLVED_BY_OTHER_ISSUE,0,1,0.36630168654083445
+1424993,2,"Created attachment 8936562
+Bug 1424993 - Fix PresentationTransport to correctly throw NS_ERROR_NOT_AVAILABLE.
+Review commit: https://reviewboard.mozilla.org/r/207308/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/207308/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,1,0.717311793663134
+1441779,1,"There are at least 48 calls[1] similar to array.RemoveElementAt(array.Length() - 1). This patch adds nsTArray::RemoveLastElement() and nsTArray::PopLastElement(). 
+[1]: https://searchfox.org/mozilla-central/search?q=RemoveElementAt%5C(.*Length.*-.%3F1%5C)&case=false&regexp=true&path=",CODE_IMPLEMENTATION,1,1,0.4837794560297878
+1487135,1,"It looks like we always allocate an AuthorStyles in the ShadowRoot constructor.  In the case of <svg:use>, we don't do anything with stylesheets in the shadow tree, so the AuthorStyles there is unused.
+In fact, maybe we should consider allocating AuthorStyles lazily in general, for all the cases when shadow trees don't have styles inside them.",POTENTIAL_SOLUTION_DESIGN,1,1,0.3901967491559682
+1510786,8,"I would be happy to make something more elegant with those files. Can you please elaborate more with your idea.
+My idea is to create the content of the file in a string variable, and then create the config file using the GENERATED_FILES[] (plus generation attributes).",POTENTIAL_SOLUTION_DESIGN,1,0,0.07593663818652883
+1515665,33,"https://hg.mozilla.org/mozilla-central/rev/700bc7185e64
+https://hg.mozilla.org/mozilla-central/rev/188f4b17a553
+https://hg.mozilla.org/mozilla-central/rev/c6b3ea360251
+https://hg.mozilla.org/mozilla-central/rev/6a1c4140f479",UNCODED,0,0,0.01771433792291895
+1439571,1,"From https://bugzilla.mozilla.org/show_bug.cgi?id=1438892#c1:
+WR @ 1a7bda5a12236f1ea727ae748d604e2e2a56b0bf
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=210015507bc6ffb914673697748b975fff5439f5
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=6acc361bd7ccae3eafed17ae6a5a57d77033e014
+R4 reftest failures, but they're nondeterministic. I retriggered a few times and get slightly difference results. In all cases a subset of the following tests are failing with fuzz(14,8):
+layout/reftests/css-invalid/input/input-radio-required.html
+layout/reftests/css-invalid/input/input-radio-customerror.html
+layout/reftests/css-invalid/input/input-radio-dyn-valid-1.html
+layout/reftests/css-invalid/input/input-radio-dyn-valid-2.html
+layout/reftests/css-invalid/input/input-radio-nogroup-required-valid.html
+layout/reftests/css-invalid/input/input-radio-nogroup-required-invalid.html
+layout/reftests/css-invalid/input/input-radio-focus-click.html
+While I could just mark them fuzzy-if(webrender,0-14,0-8) it might be worth investigating why we get correct rendering sometimes and fuzzy at other times. ni? Gankro since this is likely coming from servo/webrender#2405.",PROBLEM_DESCRIPTION,0,0,0.09529430387439079

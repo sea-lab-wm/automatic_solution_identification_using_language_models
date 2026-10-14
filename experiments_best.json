@@ -1,6 +1,6 @@
 {
   "eval_run": [
-    0
+    10
   ],
   "folds": {
     "start": 1,
@@ -16,15 +16,15 @@
     "base"
   ],
   "oversampling": [
-    true
+    false
   ],
   "models": [
     {
       "model_name": "SVC",
       "params": {
-        "C": [10],
-        "kernel": ["rbf"],
-        "class_weight": [null]
+        "C": [10, 1.0, 0.01],
+        "kernel": ["poly", "rbf", "sigmoid"],
+        "class_weight": [null, "balanced"]
       }
     }
   ],
@@ -59,6 +59,36 @@
   },
   "best_model_config": {
     "0": {
+      "Decision_Tree":	{
+        "preprocess": "none",
+        "embedding": "tfidf",
+        "oversampling": false,
+        "config": {"class_weight": "balanced", "criterion": "entropy", "max_depth": null, "min_samples_split": 2}
+      },
+      "K_Nearest_Neighbors":	{
+        "preprocess": "none",
+        "embedding": "llama",
+        "oversampling": false,
+        "config": {"metric": "manhattan", "n_neighbors": 5, "weights": "uniform"}
+      },
+      "Logistic_Regression":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 10, "class_weight": "balanced", "penalty": "l2", "solver": "lbfgs"}
+      },
+      "Naive_Bayes":	{
+        "preprocess": "none",
+        "embedding": "bert",
+        "oversampling": false,
+        "config": {"var_smoothing": 1e-11}
+      },
+      "Random_Forest":	{
+        "preprocess": "all",
+        "embedding": "tfidf",
+        "oversampling": false,
+        "config": {"class_weight": "balanced", "criterion": "gini", "min_samples_leaf": 2, "n_estimators": 1000}
+      },
       "SVC":	{
         "preprocess": "none",
         "embedding": "gpt",

@@ -68,6 +68,8 @@ def train_test_split_data(input_path, output_path):
         if test_data.duplicated(subset=['issue_id', 'text_id']).any():
             raise ValueError(f"Duplicate issue_id-text_id pairs found in test_data for fold {i}")
 
+        train_data_os = balance_classes(train_data, 'label', output_type='df')
+
         print(f" length of train data for fold {i}: {len(train_data)}; length of test data for fold {i}: {len(test_data)}")
 
         # Save the split data
@@ -75,8 +77,9 @@ def train_test_split_data(input_path, output_path):
 
         train_data.to_csv(f"{output_path}/{i}/comment_train_data.csv", index=False)
         test_data.to_csv(f"{output_path}/{i}/comment_test_data.csv", index=False)
+        train_data_os.to_csv(f"{output_path}/{i}/comment_oversampled_train_data.csv", index=False)
 
 if __name__ == "__main__":
-    add_embedding_info(embedding_comment_data, mapped_comment_data, embedding_comment_data_temporal)
-    group_data(embedding_comment_data_temporal, temporal_folds_path)
+    # add_embedding_info(embedding_comment_data, mapped_comment_data, embedding_comment_data_temporal)
+    # group_data(embedding_comment_data_temporal, temporal_folds_path)
     train_test_split_data(temporal_folds_path, temporal_folds_path)

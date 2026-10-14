@@ -344,6 +344,7 @@ train_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/
 val_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_val_data.csv'
 train_os_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_oversampled_train_data.csv'
 dev_os_df_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_oversampled_dev_data.csv'
+ml_prediction_comment_dir_temporal = "results/temporal/predictions/ml"
 
 dataset_path = 'dataset'
 dataset_fold_path = "dataset/solution_identification_data/folds"
@@ -367,7 +368,7 @@ comment_data_dl_result = "results/plm/comment_data_results.csv"
 comment_data_llama_result = "dataset_construction/comment_data/llama/folds/<run>/mac_th/results.csv"
 comment_data_llama_prediction = "results/predictions/llm/folds/<run>/"
 ml_prediction_comment_dir = "results/predictions/ml"
-ml_model_base_path = "models/ml"
+ml_model_base_path = "models/temporal/ml"
 ml_prediction_sentence_dir = "dataset_construction/sentence_data/predictions/"
 lm_prediction_dir = "dataset_construction/comment_data/predictions/lm/"
 lm_saved_model = "dataset_construction/comment_data/models/"
