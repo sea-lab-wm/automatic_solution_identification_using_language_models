@@ -77,14 +77,15 @@ def prepare_data_for_ml():
     exp_config = get_experiment_config()
     runs = exp_config.get('eval_run', [])
 
-    for run in runs:
-        dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
-        test_df = pd.read_csv(test_data_path.replace('<run>', f'{run}'))
-        train_df = pd.read_csv(train_data_path.replace('<run>', f'{run}'))
-        val_df = pd.read_csv(val_data_path.replace('<run>', f'{run}'))
+    for run in range(9):
+        # dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
+        test_df = pd.read_csv(test_data_path_temporal.replace('<run>', f'{run}'))
+        train_df = pd.read_csv(train_data_path_temporal.replace('<run>', f'{run}'))
+        # val_df = pd.read_csv(val_data_path.replace('<run>', f'{run}'))
 
-        print(f"Dev DF Path: {dev_data_path.replace('<run>', f'{run}')}\nDev columns: {dev_df.columns}")
-        print(f"Train DF Path: {train_data_path.replace('<run>', f'{run}')}\nTrain columns: {train_df.columns}")
+        # print(f"Dev DF Path: {dev_data_path.replace('<run>', f'{run}')}\nDev columns: {dev_df.columns}")
+        print(f"Test DF Path: {test_data_path_temporal.replace('<run>', f'{run}')}\nTest columns: {test_df.columns}")
+        print(f"Train DF Path: {train_data_path_temporal.replace('<run>', f'{run}')}\nTrain columns: {train_df.columns}")
 
         for mode in exp_config['preprocess']:
             for embedding in exp_config['embedding']:
@@ -95,28 +96,32 @@ def prepare_data_for_ml():
                     print(f"Mode: {mode}, Embedding: {embedding}, Oversampling: {oversampling}")
 
                     print("\nAdding preprocessing ... ...")
-                    dev_df[f'text_{mode}'] = dev_df['text'].apply(text_preprocess, mode=mode)
+                    # dev_df[f'text_{mode}'] = dev_df['text'].apply(text_preprocess, mode=mode)
                     test_df[f'text_{mode}'] = test_df['text'].apply(text_preprocess, mode=mode)
                     train_df[f'text_{mode}'] = train_df['text'].apply(text_preprocess, mode=mode)
-                    val_df[f'text_{mode}'] = val_df['text'].apply(text_preprocess, mode=mode)
+                    # val_df[f'text_{mode}'] = val_df['text'].apply(text_preprocess, mode=mode)
 
-                    X_dev_embedding, X_test_embedding, y_dev, y_test = get_splitted_data(dev_df, test_df, mode, embedding, oversampling)
-                    X_train_embedding, X_val_embedding, y_train, y_val = get_splitted_data(train_df, val_df, mode, embedding, oversampling)
+                    X_train_embedding, X_test_embedding, y_train, y_test = get_splitted_data(train_df, test_df, mode, embedding, oversampling)
+                    # X_train_embedding, X_val_embedding, y_train, y_val = get_splitted_data(train_df, val_df, mode, embedding, oversampling)
 
                     data_dict = {
-                        'X_dev_embedding': X_dev_embedding,
+                        # 'X_dev_embedding': X_dev_embedding,
                         'X_test_embedding': X_test_embedding,
-                        'y_dev': y_dev,
+                        # 'y_dev': y_dev,
                         'y_test': y_test,
                         'X_train_embedding': X_train_embedding,
-                        'X_val_embedding': X_val_embedding,
+                        # 'X_val_embedding': X_val_embedding,
                         'y_train': y_train,
-                        'y_val': y_val
+                        # 'y_val': y_val
                     }
 
                     path = f"{dataset_fold_path}/{run}"
                     filename = f'data__preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'
                     full_path = os.path.join(path, filename)
+
+                    # check if the folder already exists
+                    os.makedirs(path, exist_ok=True)
+
                     joblib.dump(data_dict, full_path)
 
                     print(f"Data saved to {full_path} for run {run}, mode {mode}, embedding {embedding}, oversampling {oversampling}")
@@ -189,9 +194,9 @@ def get_tuned_model_prediction(X_test, X_train, clf, model, config, y_train, mod
     return config, y_pred, y_confidence
 
 def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, config):
-    X_dev_embedding = data_dict['X_dev_embedding']
+    X_train_embedding = data_dict['X_train_embedding']
     X_test_embedding = data_dict['X_test_embedding']
-    y_dev = data_dict['y_dev']
+    y_train = data_dict['y_train']
     y_test = data_dict['y_test']
 
     set_ml_seed(42)
@@ -200,11 +205,11 @@ def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, 
     model_save_path = f'model_{model["model_name"]}_preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'
     param, y_pred, y_confidence = get_tuned_model_prediction(
         X_test_embedding,
-        X_dev_embedding,
+        X_train_embedding,
         clf,
         model,
         config,
-        y_dev,
+        y_train,
         model_save_path,
     )
 
@@ -269,10 +274,10 @@ def load_model(filename):
 
 def ml_run(exp_config, run_best_config=False):
     runs = exp_config.get('eval_run', [])
-    result_path = "results/ml/comment_data_results.csv"
-    prediction_path_template = os.path.join(ml_prediction_comment_dir, "run_{run}.csv")
+    result_path = "results/temporal/ml/comment_data_results.csv"
+    prediction_path_template = os.path.join(ml_prediction_comment_dir_temporal, "run_{run}.csv")
     confidence_prediction_path_template = os.path.join(
-        ml_prediction_comment_dir,
+        ml_prediction_comment_dir_temporal,
         "run_{run}_with_confidence.csv",
     )
     print(f"Result Path: {result_path}")
@@ -281,8 +286,8 @@ def ml_run(exp_config, run_best_config=False):
     append_row_to_csv(result_path, result_header)
     print(f"{result_header} is saved to {result_path}")
 
-    for run in runs:
-        path = f"dataset/solution_identification_data/folds/{run}/comment_test_data.csv"
+    for run in range(6,9):
+        path = f"{temporal_folds_path}/{run}/comment_test_data.csv"
         test_df = pd.read_csv(path)
         test_predictions = test_df[['issue_id', 'text_id', 'text', 'code', 'label']]
 
@@ -310,7 +315,7 @@ def ml_run(exp_config, run_best_config=False):
             if result is not None:
                 test_predictions = test_predictions.merge(result, how='left')
 
-                os.makedirs(ml_prediction_comment_dir, exist_ok=True)
+                os.makedirs(ml_prediction_comment_dir_temporal, exist_ok=True)
                 standard_prediction_path = prediction_path_template.format(run=run)
                 confidence_prediction_path = confidence_prediction_path_template.format(run=run)
                 test_predictions.to_csv(standard_prediction_path, index=False)
@@ -323,4 +328,4 @@ if __name__ == "__main__":
     exp_config = get_experiment_config()
     # prepare_data(embedding_comment_data, train_test_comment_data)
     # prepare_data_for_ml()
-    ml_run(exp_config, True)
+    ml_run(exp_config, False)
