@@ -53,12 +53,12 @@ def train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, BS, LR, 
     return y_pred, y_confidence
 
 def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
-    dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
-    test_df = pd.read_csv(test_data_path.replace('<run>', f'{run}'))
-    train_df = pd.read_csv(train_data_path.replace('<run>', f'{run}'))
-    val_df = pd.read_csv(val_data_path.replace('<run>', f'{run}'))
-    train_df_os = pd.read_csv(train_os_data_path.replace('<run>', f'{run}'))
-    dev_df_os = pd.read_csv(dev_os_df_path.replace('<run>', f'{run}'))
+    dev_df = pd.read_csv(dev_data_path_temporal.replace('<run>', f'{run}'))
+    test_df = pd.read_csv(test_data_path_temporal.replace('<run>', f'{run}'))
+    train_df = pd.read_csv(train_data_path_temporal.replace('<run>', f'{run}'))
+    val_df = pd.read_csv(val_data_path_temporal.replace('<run>', f'{run}'))
+    train_df_os = pd.read_csv(train_os_data_path_temporal.replace('<run>', f'{run}'))
+    dev_df_os = pd.read_csv(dev_os_df_path_temporal.replace('<run>', f'{run}'))
 
     model_name = mod['model_name']
     print(f"\n\n\nEvaluating Model: {model_name}\n\n\n")
@@ -152,7 +152,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Learning Rate:{LR}")
     print("-" * 50)
 
-    model_path_folder = f"models/plm/{run}"
+    model_path_folder = f"models/temporal/plm/{run}"
     model_file_name = f"{model_name}__BS_{BS}__LR_{LR}__E_{E}__Oversample_{'os' if oversample else 'nos'}.joblib"
     model_path = os.path.join(model_path_folder, model_file_name)
 
@@ -199,7 +199,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
 
     test_df[model_name + f"_{'os' if oversample else 'nos'}_prediction"] = y_pred
     test_df[model_name + f"_{'os' if oversample else 'nos'}_confidence"] = y_confidence
-    prediction_dir = os.path.join("results/predictions/plm", model_name, f"folds/{run}")
+    prediction_dir = os.path.join("results/predictions/temporal/plm", model_name, f"folds/{run}")
     base_filename = f"prediction_{'os' if oversample else 'nos'}"
     standard_prediction_path = os.path.join(prediction_dir, f"{base_filename}.csv")
     confidence_prediction_path = os.path.join(
@@ -219,12 +219,12 @@ def dl_experiment(exp_config, res_path, run_best_model):
     append_row_to_csv(res_path, result)
 
     if not run_best_model:
-        for run in runs:
-            model = exp_config['lm_model'][0]  # Assuming only one model is used for evaluation
-            oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
+        for run in range(9):
+            model = exp_config['lm_model'][0]
+            oversampling = exp_config['oversampling'][0]
             evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
     else:
-        for run in runs:
+        for run in range(9):
             for model in exp_config['lm_model']:
                 oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
                 model_config = exp_config['best_model_config'][str(run)][model['model_name']]
@@ -232,5 +232,5 @@ def dl_experiment(exp_config, res_path, run_best_model):
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()
-    prepare_data(mapped_comment_data, train_test_comment_data)
-    dl_experiment(exp_config, comment_data_dl_result, run_best_model=True)
+    # prepare_data(mapped_comment_data, train_test_comment_data)
+    dl_experiment(exp_config, comment_data_plm_result_temporal, run_best_model=False)

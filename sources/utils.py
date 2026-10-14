@@ -345,6 +345,7 @@ val_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<r
 train_os_data_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_oversampled_train_data.csv'
 dev_os_df_path_temporal = 'dataset/solution_identification_data/temporal_folds/<run>/comment_oversampled_dev_data.csv'
 ml_prediction_comment_dir_temporal = "results/temporal/predictions/ml"
+comment_data_plm_result_temporal = "results/temporal/plm/comment_data_results.csv"
 
 dataset_path = 'dataset'
 dataset_fold_path = "dataset/solution_identification_data/folds"

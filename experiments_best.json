@@ -16,7 +16,7 @@
     "base"
   ],
   "oversampling": [
-    false
+    true
   ],
   "models": [
     {
