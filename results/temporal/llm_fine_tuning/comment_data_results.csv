@@ -1,0 +1,3 @@
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+0,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,45.824847,16.935484,41.176471,24.0,42,206,183,60
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
