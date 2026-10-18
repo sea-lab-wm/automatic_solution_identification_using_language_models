@@ -1,3 +1,4 @@
+import sys
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import ktrain
@@ -213,18 +214,19 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Confidence predictions saved to: {confidence_prediction_path}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
-    runs = exp_config.get("eval_run", [])
+    runs = [int(sys.argv[1])] if len(sys.argv) > 1 else range(9)
 
     result = ["run", "oversample", "batch_size", "epoch", "learning_Rate", "model_name", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
-    append_row_to_csv(res_path, result)
+    if not os.path.exists(res_path):
+        append_row_to_csv(res_path, result)
 
     if not run_best_model:
-        for run in range(9):
+        for run in runs:
             model = exp_config['lm_model'][0]
             oversampling = exp_config['oversampling'][0]
             evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
     else:
-        for run in range(9):
+        for run in runs:
             for model in exp_config['lm_model']:
                 oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
                 model_config = exp_config['best_model_config'][str(run)][model['model_name']]
