@@ -1,0 +1,193 @@
+2026-10-18 22:51:54.600256: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-10-18 22:51:54.616650: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-10-18 22:51:54.621691: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-10-18 22:51:54.634439: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-10-18 22:51:55.394674: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Current Date & Time: 2026-10-18 22:51:59
+
+
+
+Evaluating Model: meta-llama/Meta-Llama-3-8B
+
+
+
+Dev Data Length:       issue_id  text_id  ...         creation_time  comment_id
+0       714547       14  ...  2012-01-03T17:47:25Z   5951299.0
+1       779500       65  ...  2012-08-28T00:44:22Z   6588177.0
+2       779500       97  ...  2012-09-11T11:04:41Z   6624995.0
+3       779500       60  ...  2012-08-21T17:05:48Z   6571254.0
+4       667586       34  ...  2012-05-26T09:04:41Z   6340471.0
+...        ...      ...  ...                   ...         ...
+1489    779500       23  ...  2012-08-08T03:35:57Z   6539106.0
+1490    779500       53  ...  2012-08-17T06:36:45Z   6561991.0
+1491    730907        5  ...  2012-02-27T19:48:04Z   6096289.0
+1492    735312        4  ...  2012-03-14T02:22:03Z   6138030.0
+1493    667586       20  ...  2012-05-18T22:35:01Z   6320439.0
+
+[1494 rows x 6 columns]
+Dev data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Dev data distribution: label
+0    747
+1    747
+Name: count, dtype: int64
+Test Data Length:      issue_id  text_id  ...         creation_time  comment_id
+0      866470       42  ...  2013-05-07T02:47:05Z   7393887.0
+1      790547       44  ...  2012-09-29T04:00:03Z   6678350.0
+2      866470       30  ...  2013-05-04T14:21:30Z   7387753.0
+3      866470       64  ...  2013-05-09T00:04:36Z   7402997.0
+4      866470       24  ...  2013-05-03T10:55:52Z   7384093.0
+..        ...      ...  ...                   ...         ...
+486    801993        3  ...  2012-10-16T20:56:04Z   6735100.0
+487    676248        6  ...  2013-03-05T20:28:27Z   7171265.0
+488    819493       46  ...  2013-04-10T04:50:33Z   7297714.0
+489    866470       31  ...  2013-05-04T23:07:52Z   7388235.0
+490    768901       12  ...  2012-10-10T03:29:06Z   6714020.0
+
+[491 rows x 6 columns]
+Test data distribution: label
+0    0.835031
+1    0.164969
+Name: proportion, dtype: float64
+Test data distribution: label
+0    410
+1     81
+Name: count, dtype: int64
+Train Data Length:       issue_id  text_id  ...         creation_time  comment_id
+0       554061        2  ...  2010-03-22T17:03:05Z   4596842.0
+1       698552       16  ...  2011-12-02T21:26:21Z   5889357.0
+2       576837       12  ...  2010-10-29T21:59:37Z   5046320.0
+3       738440        5  ...  2012-03-23T08:47:02Z   6165065.0
+4       576837        8  ...  2010-10-25T19:36:43Z   5035026.0
+...        ...      ...  ...                   ...         ...
+1339    687754        3  ...  2011-09-21T12:51:40Z   5727947.0
+1340    687754        7  ...  2011-09-25T19:03:01Z   5736075.0
+1341    731836        1  ...  2012-02-29T23:41:41Z   6104321.0
+1342    698552        4  ...  2011-12-01T02:15:10Z   5884216.0
+1343    561168       29  ...  2010-05-18T17:08:58Z   4700501.0
+
+[1344 rows x 6 columns]
+Train data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Train data distribution: label
+0    672
+1    672
+Name: count, dtype: int64
+Val Data Length:     issue_id  text_id  ...         creation_time  comment_id
+0     558970        4  ...  2010-04-16T04:54:37Z   4642144.0
+1     687929       10  ...  2011-12-08T16:27:02Z   5900709.0
+2     677173        3  ...  2011-08-08T16:43:47Z   5639750.0
+3     779500       65  ...  2012-08-28T00:44:22Z   6588177.0
+4     724586        1  ...  2012-02-06T18:07:18Z   6037685.0
+..       ...      ...  ...                   ...         ...
+94    687754       23  ...  2011-10-06T00:31:41Z   5762202.0
+95    687754       28  ...  2011-10-06T21:57:54Z   5764830.0
+96    674446        6  ...  2011-08-09T03:16:34Z   5641374.0
+97    714547        9  ...  2012-01-03T16:37:17Z   5951084.0
+98    696748        9  ...  2011-12-01T18:41:28Z   5885688.0
+
+[99 rows x 6 columns]
+Val data distribution: label
+0    0.757576
+1    0.242424
+Name: proportion, dtype: float64
+Val data distribution: label
+0    75
+1    24
+Name: count, dtype: int64
+--------------------------------------------------
+
+Run: 1, Oversample: True, Batch Size: 8, Epoch: 5, Learning Rate: 1e-05
+
+--------------------------------------------------
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 1494
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 491
+    })
+})
+
+
+Class Weight: tensor([0.5000, 0.5000])
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:07,  2.38s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:04<00:04,  2.41s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:07<00:02,  2.55s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:07<00:00,  1.66s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:07<00:00,  1.95s/it]
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Map:   0%|          | 0/1494 [00:00<?, ? examples/s]Map:  67%|██████▋   | 1000/1494 [00:00<00:00, 3048.97 examples/s]Map: 100%|██████████| 1494/1494 [00:00<00:00, 2866.97 examples/s]Map: 100%|██████████| 1494/1494 [00:00<00:00, 2863.21 examples/s]
+Map:   0%|          | 0/491 [00:00<?, ? examples/s]Map: 100%|██████████| 491/491 [00:00<00:00, 3483.13 examples/s]Map: 100%|██████████| 491/491 [00:00<00:00, 3347.28 examples/s]
+--------------------------------------------------
+
+Tokenized Data
+
+--------------------------------------------------
+DatasetDict({
+    train: Dataset({
+        features: ['label', 'input_ids', 'attention_mask'],
+        num_rows: 1494
+    })
+    test: Dataset({
+        features: ['label', 'input_ids', 'attention_mask'],
+        num_rows: 491
+    })
+})
+/home/msun12/project/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments.py:366: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.class_weights = torch.tensor(class_weights,
+--------------------------------------------------
+
+TRAIN DATASET
+
+--------------------------------------------------
+Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 1494
+})
+wandb: WARNING The `run_name` is currently set to the same value as `TrainingArguments.output_dir`. If this was not intended, please specify a different run name by setting the `TrainingArguments.run_name` parameter.
+  0%|          | 0/935 [00:00<?, ?it/s]/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/utils/checkpoint.py:464: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.4 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments.py", line 405, in <module>
+    llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments.py", line 283, in llama_experiments
+    y_pred, y_confidence, y_probability = train_evaluate_llm(run, model_name, dev_df, test_df, BS, LR, E, save_loc=model_save_path)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments.py", line 161, in train_evaluate_llm
+    train_result = trainer.train()
+                   ^^^^^^^^^^^^^^^
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/transformers/trainer.py", line 1938, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/transformers/trainer.py", line 2279, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/transformers/trainer.py", line 3349, in training_step
+    self.accelerator.backward(loss, **kwargs)
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/accelerate/accelerator.py", line 2159, in backward
+    loss.backward(**kwargs)
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/autograd/function.py", line 301, in apply
+    return user_fn(self, *args)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 320, in backward
+    torch.autograd.backward(outputs_with_grad, args_with_grad)
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/.venv-run/lib/python3.12/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 448.00 MiB. GPU  has a total capacity of 14.56 GiB of which 377.75 MiB is free. Process 2458432 has 7.46 GiB memory in use. Including non-PyTorch memory, this process has 6.73 GiB memory in use. Of the allocated memory 6.21 GiB is allocated by PyTorch, and 356.64 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
