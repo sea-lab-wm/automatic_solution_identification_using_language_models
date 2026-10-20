@@ -42,7 +42,8 @@ def compute_metrics(evaluations):
     }
 
 
-def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
+
+def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, lr, e, save_loc=None):
     set_llm_seed(42)
 
     ### Innitial Params ###
@@ -58,12 +59,16 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
 
     ### Convert to dataset ###
     dataset_train = Dataset.from_pandas(train_df[['text', target_column]])
+    dataset_val = Dataset.from_pandas(val_df[['text', target_column]])
     dataset_test = Dataset.from_pandas(test_df[['text', target_column]])
+    dataset_dev = Dataset.from_pandas(dev_df[['text', target_column]])
 
     # Combine them into a single DatasetDict
     dataset = DatasetDict({
         'train': dataset_train,
-        'test': dataset_test
+        'validation': dataset_val,
+        'test': dataset_test,
+        'dev': dataset_dev
     })
 
     print("\nDataset Format: ", dataset)
@@ -130,7 +135,7 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
     # )   
 
     training_args = TrainingArguments(
-        output_dir='output',
+        output_dir=f'output/{run}',
         learning_rate=lr,
         per_device_train_batch_size=bs,
         per_device_eval_batch_size=bs,
@@ -141,13 +146,16 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
         save_strategy='epoch',
         load_best_model_at_end=True,
         # report_to="wandb",
+        metric_for_best_model='f1_score',
+        greater_is_better=True,
+        report_to='none',
     )
 
     trainer = CustomTrainer(
         model=model,
         args=training_args,
         train_dataset=tokenized_data['train'],
-        eval_dataset=tokenized_data['test'],
+        eval_dataset=tokenized_data['test'], # TODO Check if this should be val or test
         tokenizer=tokenizer,
         data_collator=collate_fn,
         compute_metrics=compute_metrics,
@@ -156,6 +164,7 @@ def train_evaluate_llm(model_name, train_df, test_df, bs, lr, e, save_loc=None):
 
     separator_print("TRAIN DATASET")
     print(tokenized_data['train'])
+    print(tokenized_data['test']) # TODO Check if this should be val or test
 
     train_result = trainer.train()
 
@@ -279,7 +288,7 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
     separator_print(f"Run: {run}, Oversample: {oversample}, Batch Size: {BS}, Epoch: {E}, Learning Rate: {LR}")
 
     model_save_path = f"models/temporal/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
-    y_pred, y_confidence, y_probability = train_evaluate_llm(model_name, dev_df, test_df, BS, LR, E, save_loc=model_save_path)
+    y_pred, y_confidence, y_probability = train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, BS, LR, E, save_loc=model_save_path)
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, test_df[target_column])
 
     result_ft = [
@@ -324,7 +333,7 @@ def hyperparameter_tuning(mod, model_name, oversample, run, train_df, val_df):
     for bs in mod['params']['batch_size']:
         for lr in mod['params']['learning_rate']:
             for e in mod['params']['epoch']:
-                y_pred, _, _ = train_evaluate_llm(model_name, train_df, val_df, bs, lr, e)
+                y_pred, _, _ = train_evaluate_llm(run, model_name, train_df, val_df, bs, lr, e)
                 FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, val_df[target_column])
 
                 print("=" * 50, "Inside Validation", "=" * 50)
@@ -394,7 +403,7 @@ if __name__ == "__main__":
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
 
-    runs = [0]
+    runs = [8]
 
     append_row_to_csv(res_path, result)
 
