@@ -67,8 +67,6 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
     dataset = DatasetDict({
         'train': dataset_train,
         'validation': dataset_val,
-        'test': dataset_test,
-        'dev': dataset_dev
     })
 
     print("\nDataset Format: ", dataset)
@@ -155,7 +153,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         model=model,
         args=training_args,
         train_dataset=tokenized_data['train'],
-        eval_dataset=tokenized_data['test'], # TODO Check if this should be val or test
+        eval_dataset=tokenized_data['validation'], 
         tokenizer=tokenizer,
         data_collator=collate_fn,
         compute_metrics=compute_metrics,
@@ -164,7 +162,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
 
     separator_print("TRAIN DATASET")
     print(tokenized_data['train'])
-    print(tokenized_data['test']) # TODO Check if this should be val or test
+    print(tokenized_data['validation'])
 
     train_result = trainer.train()
 
@@ -225,7 +223,6 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
             np.array(all_probabilities)
         )
 
-    
     model.eval()
 
     y_pred, y_confidence, y_probability = generate_predictions(model, test_df, bs, max_length)
@@ -403,7 +400,7 @@ if __name__ == "__main__":
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
 
-    runs = [8]
+    runs = [5]
 
     append_row_to_csv(res_path, result)
 
