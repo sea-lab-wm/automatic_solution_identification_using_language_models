@@ -1,0 +1,1084 @@
+,issue_id,text_id,text,code,label,matching_category,prompt,gpt4_prediction,llama_prediction
+0,552914,2,"Comment on attachment 433027
+Patch v1.0
+smaug, can you review this? I requested to perterv, but there are no replies...",CODE_REVIEW_REQUEST,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 433027
+Patch v1.0
+smaug, can you review this? I requested to perterv, but there are no replies...”",1,1
+1,552914,4,"Created attachment 435856
+Patch v2.0
+yeah, but I removed the change from the patch. I'll post the patch in separated bug.
+I agree.
+And I found a bug:
+The condition is always false, but the comment doesn't expect so, of course. I replaced all flag checking to the new accessor methods for suppressing the mistake.",CODE_IMPLEMENTATION,1,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 435856
+Patch v2.0
+yeah, but I removed the change from the patch. I'll post the patch in separated bug.
+I agree.
+And I found a bug:
+The condition is always false, but the comment doesn't expect so, of course. I replaced all flag checking to the new accessor methods for suppressing the mistake.”",1,1
+2,552914,7,"http://hg.mozilla.org/mozilla-central/rev/97aec61ae55f
+I'll file a bug for the previous comment.",NEW_ISSUE_FILING,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“http://hg.mozilla.org/mozilla-central/rev/97aec61ae55f
+I'll file a bug for the previous comment.”",0,0
+3,554061,10,*** Bug 554574 has been marked as a duplicate of this bug. ***,UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“*** Bug 554574 has been marked as a duplicate of this bug. ***”",0,0
+4,554061,14,"Created attachment 434724
+v1",UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 434724
+v1”",0,0
+5,554061,21,"Verified fixed in Shredder 3.2a1pre and SeaMonkey 2.1a1pre nightly builds.
+[Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.3a4pre) Gecko/20100326 SeaMonkey/2.1a1pre]",SOLUTION_VERIFICATION,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Verified fixed in Shredder 3.2a1pre and SeaMonkey 2.1a1pre nightly builds.
+[Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.3a4pre) Gecko/20100326 SeaMonkey/2.1a1pre]”",1,Respond 1
+6,558970,6,"Comment on attachment 439468
+Patch v2.0
+Just return early if !sysGroup  || !elmP.
+NS_ENSURE_STATE(sysGroup && elmP);
+Same here. Just return some error code if !target
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+Could you file a followup for this.
+I think HTMLEditor should be listening for contextmenu event.
+I don't understand this.
+why you need ConnectToHTMLEditor? 
+r+ if you fix all the comments and either explain or fix ConnectToHTMLEditor handling.",CODE_REVIEW,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 439468
+Patch v2.0
+Just return early if !sysGroup  || !elmP.
+NS_ENSURE_STATE(sysGroup && elmP);
+Same here. Just return some error code if !target
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+No need for NS_ENSURE_TRUE check here.
+Could you file a followup for this.
+I think HTMLEditor should be listening for contextmenu event.
+I don't understand this.
+why you need ConnectToHTMLEditor? 
+r+ if you fix all the comments and either explain or fix ConnectToHTMLEditor handling.”",1,1
+7,558970,10,"Perhaps you could just add an ifdef DEBUG block to somewhere to check that
+nsHTMLEditorEventListener is connected to HTMLEditor?
+That should be enough to capture possible problems in the future.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Perhaps you could just add an ifdef DEBUG block to somewhere to check that
+nsHTMLEditorEventListener is connected to HTMLEditor?
+That should be enough to capture possible problems in the future.”",1,1
+8,561168,2,"Created attachment 440844
+first pass
+Here's the first pass at this; posting up here to get feedback, because for some reason invalidation doesn't work.  The canvas is drawn at the correct spot, but only get invalidates if I scroll around and reveal the new areas.
+However, with layers, scrolling is broken in general, so is this just more of the same problem?",CODE_IMPLEMENTATION,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 440844
+first pass
+Here's the first pass at this; posting up here to get feedback, because for some reason invalidation doesn't work.  The canvas is drawn at the correct spot, but only get invalidates if I scroll around and reveal the new areas.
+However, with layers, scrolling is broken in general, so is this just more of the same problem?”",1,1
+9,561168,17,"Comment on attachment 443133
+patch 1: basic CanvasLayer + 2D code
+Presumably debug code :-)
+We probably want to either return here, in case we want this check in release builds (I suspect we do), or assert, because right now this would be a pointless if in a release build.
+If we require it to be empty, wouldn't assigning be cheaper than Union? It would save us a little bit of if-ing in UnionRect.",CODE_REVIEW,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 443133
+patch 1: basic CanvasLayer + 2D code
+Presumably debug code :-)
+We probably want to either return here, in case we want this check in release builds (I suspect we do), or assert, because right now this would be a pointless if in a release build.
+If we require it to be empty, wouldn't assigning be cheaper than Union? It would save us a little bit of if-ing in UnionRect.”",1,1
+10,561168,19,"Generally a single big patch is harder to review, but if it's a lot of work to produce cleanly separated patches, I'm willing to review a big patch.",ANSWER_TO_QUESTION,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Generally a single big patch is harder to review, but if it's a lot of work to produce cleanly separated patches, I'm willing to review a big patch.”",0,1
+11,561168,30,"http://hg.mozilla.org/mozilla-central/rev/d29a248fb5a9
+http://hg.mozilla.org/mozilla-central/rev/e11ef37d8108
+http://hg.mozilla.org/mozilla-central/rev/f3d0956d3413
+http://hg.mozilla.org/mozilla-central/rev/56f033dd888a
+http://hg.mozilla.org/mozilla-central/rev/652733ce0792
+http://hg.mozilla.org/mozilla-central/rev/89b1ef9ebec3",UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“http://hg.mozilla.org/mozilla-central/rev/d29a248fb5a9
+http://hg.mozilla.org/mozilla-central/rev/e11ef37d8108
+http://hg.mozilla.org/mozilla-central/rev/f3d0956d3413
+http://hg.mozilla.org/mozilla-central/rev/56f033dd888a
+http://hg.mozilla.org/mozilla-central/rev/652733ce0792
+http://hg.mozilla.org/mozilla-central/rev/89b1ef9ebec3”",1,Respond 1
+12,576837,19,"I made us conform to our old, 1.9.2 behavior, so the m_sawCharacterClass was unnecessary after all.
+http://hg.mozilla.org/tracemonkey/rev/08f2504e5f44",CODE_IMPLEMENTATION,1,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“I made us conform to our old, 1.9.2 behavior, so the m_sawCharacterClass was unnecessary after all.
+http://hg.mozilla.org/tracemonkey/rev/08f2504e5f44”",1,1
+13,590389,1,We cannot use nsIUnicodeEncoder / nsIUnicodeDecoder interface from script.  so getUnicode* methods should not scriptable.,PROBLEM_MOTIVATION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“We cannot use nsIUnicodeEncoder / nsIUnicodeDecoder interface from script.  so getUnicode* methods should not scriptable.”",0,1
+14,597389,1,"Created attachment 476234
+Patch v1.0
+1. Load above page with Fx3.6 and Flash Player 10.1.x.x
+2. Click a link in the Flash Player which is center of the page (the radio program list)
+Then, you cannot use non-Roman keyboard layout on Fx.
+Flash Player disables non-Roman keyboard layout and if you click the link, Flash Player doesn't recover the keyboard layout state when it's destroying. Gecko stores latest keyboard layout state when Gecko changes it because 10.4 doesn't provide any APIs for getting the state. And Gecko reduces unnecessary API call at nsTSMManager::SetRomanKeyboardsOnly(). Therefore, Gecko doesn't restore the keyboard state until Gecko's password field gets focus.
+# NOTE #1: This bug isn't reproduced on Minefield, probably, the reason is that Minefield uses new APIs which are usable 10.5 and later.
+# NOTE #2: This bug isn't reproduced with Flash Player 10.0.x.x. So, this is a regression of Flash Player.",REPRODUCTION_ATTEMPT,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 476234
+Patch v1.0
+1. Load above page with Fx3.6 and Flash Player 10.1.x.x
+2. Click a link in the Flash Player which is center of the page (the radio program list)
+Then, you cannot use non-Roman keyboard layout on Fx.
+Flash Player disables non-Roman keyboard layout and if you click the link, Flash Player doesn't recover the keyboard layout state when it's destroying. Gecko stores latest keyboard layout state when Gecko changes it because 10.4 doesn't provide any APIs for getting the state. And Gecko reduces unnecessary API call at nsTSMManager::SetRomanKeyboardsOnly(). Therefore, Gecko doesn't restore the keyboard state until Gecko's password field gets focus.
+# NOTE #1: This bug isn't reproduced on Minefield, probably, the reason is that Minefield uses new APIs which are usable 10.5 and later.
+# NOTE #2: This bug isn't reproduced with Flash Player 10.0.x.x. So, this is a regression of Flash Player.”",0,1
+15,597389,8,"Comment on attachment 476234
+Patch v1.0
+This looks fine to me.",CODE_REVIEW,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 476234
+Patch v1.0
+This looks fine to me.”",1,1
+16,601999,7,"OK -- the first affected changeset is 4a50f3c34d5a, and the crash goes away if I comment out this line that was added in that changeset:
+http://hg.mozilla.org/mozilla-central/diff/4a50f3c34d5a/layout/generic/nsFrame.cpp",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“OK -- the first affected changeset is 4a50f3c34d5a, and the crash goes away if I comment out this line that was added in that changeset:
+http://hg.mozilla.org/mozilla-central/diff/4a50f3c34d5a/layout/generic/nsFrame.cpp”",1,1
+17,601999,9,"So I see a few possible strategies here:
+ A. Remove the line mentioned in Comment 6.
+ B. Check for cycles in nsSVGRenderingObserver::InvalidateViaReferencedElement
+ C. Check for cycles in nsSVGEffects::AddRenderingObserver
+I just tried (A) -- removing the regressing line -- on TryServer, and it doesn't actually break any unit tests, which is encouraging.  I'm guessing it'd be possible to construct a -moz-element testcase that would end up painting stale data as a result of that change, but I'm not immediately sure what that testcase would look like.
+(B) and (C) might be better for correctness, but I'm not entirely sure how to best check for cycles there. Maybe we'd disallow rendering-observer-notifications being sent to an element from any of its ancestors?  And even if that's the right thing to do, it could still be undesirable perf-wise (it'd make us walk the DOM tree on every InvalidateViaReferencedElement or AddRenderingObserver call).
+Also: I'm not sure that (C) would work after tree-surgery -- i.e. when we re-parent an element, do we un-register and then re-register it as a rendering observer?  If not, then you could still construct testcases that fail here, if they just do some node-reparenting at the last minute.
+I tend to lean towards strategy (A), but I'm open to suggestions/advice.  (Maybe there's another obvious solution I'm missing?)",SOLUTION_REVIEW,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“So I see a few possible strategies here:
+ A. Remove the line mentioned in Comment 6.
+ B. Check for cycles in nsSVGRenderingObserver::InvalidateViaReferencedElement
+ C. Check for cycles in nsSVGEffects::AddRenderingObserver
+I just tried (A) -- removing the regressing line -- on TryServer, and it doesn't actually break any unit tests, which is encouraging.  I'm guessing it'd be possible to construct a -moz-element testcase that would end up painting stale data as a result of that change, but I'm not immediately sure what that testcase would look like.
+(B) and (C) might be better for correctness, but I'm not entirely sure how to best check for cycles there. Maybe we'd disallow rendering-observer-notifications being sent to an element from any of its ancestors?  And even if that's the right thing to do, it could still be undesirable perf-wise (it'd make us walk the DOM tree on every InvalidateViaReferencedElement or AddRenderingObserver call).
+Also: I'm not sure that (C) would work after tree-surgery -- i.e. when we re-parent an element, do we un-register and then re-register it as a rendering observer?  If not, then you could still construct testcases that fail here, if they just do some node-reparenting at the last minute.
+I tend to lean towards strategy (A), but I'm open to suggestions/advice.  (Maybe there's another obvious solution I'm missing?)”",1,1
+18,601999,20,"That would work, and I'd definitely take a patch for that.
+However, one of our post-FF4 priorities is to rework invalidation to compare ""before"" and ""after"" display lists instead of using the nsIFrame::Invalidate machinery. That will make all these issues go away, or at least behave very differently.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“That would work, and I'd definitely take a patch for that.
+However, one of our post-FF4 priorities is to rework invalidation to compare ""before"" and ""after"" display lists instead of using the nsIFrame::Invalidate machinery. That will make all these issues go away, or at least behave very differently.”",1,1
+19,627984,23,"Brendan and I talked about this on IRC yesterday or the day before.
+Two reasons not to do it that way: first, js_UpdateWatchpointsForShape is called at a weird time; the method property exists but the slot isn't populated yet. No big deal; I could populate the slot from shape->methodValue(), then trip the read barrier.
+Second, and more importantly, js_UpdateWatchpointsForShape's relevant caller (js_SetPropertyHelper) doesn't expect it to trip the read barrier, so it will unconditionally write the noncloned function to the slot. To avoid that, the caller would have to check whether js_UpdateWatchpointsForShape changed the shape. That adds a branch to the no-watchpoint path, and it complicates code outside jsdbgapi.cpp.
+So I put the added complexity in js_watch_set, which seemed more consistent with the design.",SOLUTION_REVIEW,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Brendan and I talked about this on IRC yesterday or the day before.
+Two reasons not to do it that way: first, js_UpdateWatchpointsForShape is called at a weird time; the method property exists but the slot isn't populated yet. No big deal; I could populate the slot from shape->methodValue(), then trip the read barrier.
+Second, and more importantly, js_UpdateWatchpointsForShape's relevant caller (js_SetPropertyHelper) doesn't expect it to trip the read barrier, so it will unconditionally write the noncloned function to the slot. To avoid that, the caller would have to check whether js_UpdateWatchpointsForShape changed the shape. That adds a branch to the no-watchpoint path, and it complicates code outside jsdbgapi.cpp.
+So I put the added complexity in js_watch_set, which seemed more consistent with the design.”",1,1
+20,642412,6,"Several fixes to inference precision.  These mostly fall into the category of not overapproximating to capture the behavior of an unlikely event (calling a non-function, indexing an object with a non-integer), but waiting for it to happen dynamically.
+http://hg.mozilla.org/projects/jaegermonkey/rev/a900619f0e04
+http://hg.mozilla.org/projects/jaegermonkey/rev/bff02e9994e3
+http://hg.mozilla.org/projects/jaegermonkey/rev/ac5f63354ab2
+http://hg.mozilla.org/projects/jaegermonkey/rev/b48f1d51c6f5
+There is still some imprecision because of a few accesses to Math which are JSOP_NAME rather than GNAME.  That can be fixed similarly to how we do monitored SETNAME/SETPROP, will file separately.  For now adding '| 0' to the calls to Math.round and Math.floor should fix precision.  I get these times:
+JM+TI (old): 691
+JM+TI (new): 438
+JM: 474
+JM+TM: 345
+V8: 229
+Looking at shark, JM seems to be getting killed by the slow paths it takes for the '(...) | 0' operations in C's inner loop.  We try to branchTruncateToInt32 on these, but on average about 1.5 times per iteration this truncation fails (the double does not fit in an int32) and we take I think a very expensive slow path.  We could instead call an infallible native like the tracer does, but to get to V8's performance I think we should instead generate inline code which is good enough to capture the large finite doubles being truncated here.",CODE_IMPLEMENTATION,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Several fixes to inference precision.  These mostly fall into the category of not overapproximating to capture the behavior of an unlikely event (calling a non-function, indexing an object with a non-integer), but waiting for it to happen dynamically.
+http://hg.mozilla.org/projects/jaegermonkey/rev/a900619f0e04
+http://hg.mozilla.org/projects/jaegermonkey/rev/bff02e9994e3
+http://hg.mozilla.org/projects/jaegermonkey/rev/ac5f63354ab2
+http://hg.mozilla.org/projects/jaegermonkey/rev/b48f1d51c6f5
+There is still some imprecision because of a few accesses to Math which are JSOP_NAME rather than GNAME.  That can be fixed similarly to how we do monitored SETNAME/SETPROP, will file separately.  For now adding '| 0' to the calls to Math.round and Math.floor should fix precision.  I get these times:
+JM+TI (old): 691
+JM+TI (new): 438
+JM: 474
+JM+TM: 345
+V8: 229
+Looking at shark, JM seems to be getting killed by the slow paths it takes for the '(...) | 0' operations in C's inner loop.  We try to branchTruncateToInt32 on these, but on average about 1.5 times per iteration this truncation fails (the double does not fit in an int32) and we take I think a very expensive slow path.  We could instead call an infallible native like the tracer does, but to get to V8's performance I think we should instead generate inline code which is good enough to capture the large finite doubles being truncated here.”",1,1
+21,670853,9,"Created attachment 611270
+Patch v1
+Everything works except one of the mochitests fails because it checks for a mixed element being checkable. Since that doesn't appear to make sense if we add this patch, should I remove that from states.js?",CODE_IMPLEMENTATION,1,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 611270
+Patch v1
+Everything works except one of the mochitests fails because it checks for a mixed element being checkable. Since that doesn't appear to make sense if we add this patch, should I remove that from states.js?”",1,1
+22,677173,12,Adding crash signature so it gets picked up on the Socorro side.,ISSUE_METADATA_CHANGE,0,FULL_TEXT,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Adding crash signature so it gets picked up on the Socorro side.”",0,1
+23,677173,20,"Does it work if you:
+ * comment out the bits of property_database.js
+ * hack ListCSSProperties.cpp to exclude them?",COLLATERAL_POTENTIAL_SOLUTION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Does it work if you:
+ * comment out the bits of property_database.js
+ * hack ListCSSProperties.cpp to exclude them?”",1,1
+24,714547,8,"Hah, I almost added a ""Is there some document.domain afoot here?"".  Thanks for the explanation Blake.  Would a more immediate fix (than c-p-g) be for FilteringWrapper to override objectClassIs and then provide an exception for AccessCheck::documentDomainMakesSameOrigin?",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Hah, I almost added a ""Is there some document.domain afoot here?"".  Thanks for the explanation Blake.  Would a more immediate fix (than c-p-g) be for FilteringWrapper to override objectClassIs and then provide an exception for AccessCheck::documentDomainMakesSameOrigin?”",1,1
+25,714547,11,"To your question: it seems like we go through great lengths to avoid exposing any cross-origin information, and I think ""is this object an array/string/regexp/etc"" qualifies as a few bits of information.
+However, your question isn't the situation we have: our assumption is that these SecurityWrapper'd objects are only being exposed in document.domain situations (where it is  ok for them to be transparent).  So, for that reason, I'm happy to neuter SecurityWrapper as a quick fix.  But it seems like, when we tighten up the document.domain situation after c-p-g, we'll want the proposed fix in comment 7.",SOLUTION_REVIEW,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“To your question: it seems like we go through great lengths to avoid exposing any cross-origin information, and I think ""is this object an array/string/regexp/etc"" qualifies as a few bits of information.
+However, your question isn't the situation we have: our assumption is that these SecurityWrapper'd objects are only being exposed in document.domain situations (where it is  ok for them to be transparent).  So, for that reason, I'm happy to neuter SecurityWrapper as a quick fix.  But it seems like, when we tighten up the document.domain situation after c-p-g, we'll want the proposed fix in comment 7.”",1,1
+26,731836,13,"That means it's using the Intel OpenGL driver. If you put Mesa's DLL in the same directory as the firefox executable, does it find it? Otherwise, here's what you can try:
+ - search for all files named opengl32.dll on your system
+ - edit gecko source code to replace ""opengl32.dll"" by ""mesallvmpipe.dll"", rename Mesa's binary to that, so that it will only be able to find it and not the system opengl library. That's actually, probably, a step we want to take anyway, as described in comment 0, so that we can dynamically choose between mesa and system opengl.",POTENTIAL_SOLUTION_DESIGN,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“That means it's using the Intel OpenGL driver. If you put Mesa's DLL in the same directory as the firefox executable, does it find it? Otherwise, here's what you can try:
+ - search for all files named opengl32.dll on your system
+ - edit gecko source code to replace ""opengl32.dll"" by ""mesallvmpipe.dll"", rename Mesa's binary to that, so that it will only be able to find it and not the system opengl library. That's actually, probably, a step we want to take anyway, as described in comment 0, so that we can dynamically choose between mesa and system opengl.”",1,1
+27,779500,37,"Do we really want to name the interface ""FM"" as opposed to, say, ""FMRadio""?
+As far as the implementation plan, why do you need QI weirdness?  It seems like all you really need is a way to create a JS object with the right JSClass and native slot (one which will claim to implement EventTarget and have a native which does so, as discussed) and the right prototype (the FM.prototype or FMRadio.prototype, as desired), no?",SOLUTION_REVIEW,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Do we really want to name the interface ""FM"" as opposed to, say, ""FMRadio""?
+As far as the implementation plan, why do you need QI weirdness?  It seems like all you really need is a way to create a JS object with the right JSClass and native slot (one which will claim to implement EventTarget and have a native which does so, as discussed) and the right prototype (the FM.prototype or FMRadio.prototype, as desired), no?”",1,1
+28,779500,99,"That leads to different page-visible behavior.  For example, consider this:
+  foo.onenabled = { dispatchEvent: function foo() {} };
+This would work if onenabled is an nsIDOMEventListener, but not if it's a jsval.  Other on* attributes are jsval, fwiw.",SOLUTION_REVIEW,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“That leads to different page-visible behavior.  For example, consider this:
+  foo.onenabled = { dispatchEvent: function foo() {} };
+This would work if onenabled is an nsIDOMEventListener, but not if it's a jsval.  Other on* attributes are jsval, fwiw.”",0,0
+29,840284,11,"Created attachment 716296
+fuzzing material
+Linux64 and OSX64 are done (except for the bugs, of course), so we are ready for fuzzing.  You should be able to pull http://hg.mozilla.org/users/lwagner_mozilla.com/odinmonkey/ and build.  A threadsafe shell would be useful since it allows more realistic operation-callback testing (just add a 'timeout(X)' call at the beginning and the watchdog thread will start firing interrupts every 1/10 of a second).
+Attached is the Emscripten benchmark suite; just run each file individually from the shell (no args).  You should see ""warning: Successfully compiled asm.js code"" printed to the console.
+A few notes/ideas for fuzzing:
+ - It would be good to direct mutations to *inside* function containing the ""use asm"" directive.
+ - Some of the benchmarks are tiny (corrections, memopsnjn, primes, copy) and short-running, so it would be fruitful to inject probably-valid asm.js into these scripts to see if you can get a crash or divergent behavior (compared to running either on a trunk shell or an odin shell with the ""use asm"" directive removed).  Note: different recursion limits are expected.
+ - Other benchmarks are quite large (bullet.js, fannkuch.js, zlib) and take longer to run (esp if the code doesn't asm.js-type-check; several of these benchmarks are 5-10x slower w/o odin).  However, they compile relatively quickly (<1s) so these would be good files to mutate randomly to test for errors in the typechecker/compiler.  If you set warnings-as-errors (options(""werror"") toggles this option), you'll get a clean exception when compilation succeeds/fails and not have to wait for the actual script to run.
+Let me know if you have any problems or ideas.  Alon said he started looking at Csmith and it's already caught an Emscripten bug; I think he'll turn the guns on Odin after he gets out from under the MWC work.",CODE_IMPLEMENTATION,1,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 716296
+fuzzing material
+Linux64 and OSX64 are done (except for the bugs, of course), so we are ready for fuzzing.  You should be able to pull http://hg.mozilla.org/users/lwagner_mozilla.com/odinmonkey/ and build.  A threadsafe shell would be useful since it allows more realistic operation-callback testing (just add a 'timeout(X)' call at the beginning and the watchdog thread will start firing interrupts every 1/10 of a second).
+Attached is the Emscripten benchmark suite; just run each file individually from the shell (no args).  You should see ""warning: Successfully compiled asm.js code"" printed to the console.
+A few notes/ideas for fuzzing:
+ - It would be good to direct mutations to *inside* function containing the ""use asm"" directive.
+ - Some of the benchmarks are tiny (corrections, memopsnjn, primes, copy) and short-running, so it would be fruitful to inject probably-valid asm.js into these scripts to see if you can get a crash or divergent behavior (compared to running either on a trunk shell or an odin shell with the ""use asm"" directive removed).  Note: different recursion limits are expected.
+ - Other benchmarks are quite large (bullet.js, fannkuch.js, zlib) and take longer to run (esp if the code doesn't asm.js-type-check; several of these benchmarks are 5-10x slower w/o odin).  However, they compile relatively quickly (<1s) so these would be good files to mutate randomly to test for errors in the typechecker/compiler.  If you set warnings-as-errors (options(""werror"") toggles this option), you'll get a clean exception when compilation succeeds/fails and not have to wait for the actual script to run.
+Let me know if you have any problems or ideas.  Alon said he started looking at Csmith and it's already caught an Emscripten bug; I think he'll turn the guns on Odin after he gets out from under the MWC work.”",1,1
+30,1514429,5,"Yep.
+I believe the only scenario where we process a meta viewport tag but don't set a visual viewport size, is fixed by [this patch](https://phabricator.services.mozilla.com/D13173). So, with that patch in place, there should be no problem.
+That surprises me. The visual viewport size is set [here](https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/layout/base/MobileViewportManager.cpp#369) based on `MobileViewportManager::GetCompositionSize()`, which subtracts the scrollbar dimensions [here](https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/layout/base/MobileViewportManager.cpp#357).",SOLUTION_REVIEW,1,90_PCT_MATCH,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Yep.
+I believe the only scenario where we process a meta viewport tag but don't set a visual viewport size, is fixed by [this patch](https://phabricator.services.mozilla.com/D13173). So, with that patch in place, there should be no problem.
+That surprises me. The visual viewport size is set [here](https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/layout/base/MobileViewportManager.cpp#369) based on `MobileViewportManager::GetCompositionSize()`, which subtracts the scrollbar dimensions [here](https://searchfox.org/mozilla-central/rev/76fe4bb385348d3f45bbebcf69ba8c7283dfcec7/layout/base/MobileViewportManager.cpp#357).”",1,1
+31,1529006,5,"Comment on attachment 9045942
+Patch.
+Review of attachment 9045942:
+-----------------------------------------------------------------
+I like this approach, it's simple and it's obvious what's happening.  Steve's approach is more general though.
+I guess we'll see how often we need this - if it turns out to be a lot we can shift to the other approach, but for now I'd say let's go with this.
+::: js/src/vm/Realm.h
+@@ +330,5 @@
+We generally trace roots such as these manually rather than using PersistentRooted everywhere.  Can you keep this as is and call GCPolicy<NewObjectMetadataState>::trace in Realm::traceRoots()?",CODE_REVIEW,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 9045942
+Patch.
+Review of attachment 9045942:
+-----------------------------------------------------------------
+I like this approach, it's simple and it's obvious what's happening.  Steve's approach is more general though.
+I guess we'll see how often we need this - if it turns out to be a lot we can shift to the other approach, but for now I'd say let's go with this.
+::: js/src/vm/Realm.h
+@@ +330,5 @@
+We generally trace roots such as these manually rather than using PersistentRooted everywhere.  Can you keep this as is and call GCPolicy<NewObjectMetadataState>::trace in Realm::traceRoots()?”",1,1
+32,1529006,7,"Comment on attachment 9047168
+Patch v2
+Review of attachment 9047168:
+-----------------------------------------------------------------
+Great!  r=me with the changes below.
+::: js/src/vm/Realm.h
+@@ +183,5 @@
+We should be able to remove the inheritance from CustomAutoRooter now, and the empty trace() method below.",CODE_REVIEW,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 9047168
+Patch v2
+Review of attachment 9047168:
+-----------------------------------------------------------------
+Great!  r=me with the changes below.
+::: js/src/vm/Realm.h
+@@ +183,5 @@
+We should be able to remove the inheritance from CustomAutoRooter now, and the empty trace() method below.”",1,1
+33,1683093,6,"Pushed by evilpies@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/5d416b2096d7
+Remove MCompare::determineCompareType. r=jandem
+https://hg.mozilla.org/integration/autoland/rev/d7be751c9b43
+Remove Compare_Bitwise. r=jandem
+https://hg.mozilla.org/integration/autoland/rev/074c9b0a8e77
+Remove Compare_DoubleMaybeCoerce. r=jandem",UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Pushed by evilpies@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/5d416b2096d7
+Remove MCompare::determineCompareType. r=jandem
+https://hg.mozilla.org/integration/autoland/rev/d7be751c9b43
+Remove Compare_Bitwise. r=jandem
+https://hg.mozilla.org/integration/autoland/rev/074c9b0a8e77
+Remove Compare_DoubleMaybeCoerce. r=jandem”",1,1
+34,1688325,9,"Backed out for causing failures on browser_inplace-editor_maxwidth.js.
+Backout link: https://hg.mozilla.org/integration/autoland/rev/31462a8e07406103e8d97b19faf9af3bd63530b6
+Push with failures: https://treeherder.mozilla.org/jobs?repo=autoland&selectedTaskRun=E9eyDlOnQi6c4aq97GSfGw.0&revision=64682b454ac62a9ad7bccedd3efce40e1dab29ae&searchStr=dt
+Failure log: https://treeherder.mozilla.org/logviewer?job_id=327674911&repo=autoland&lineNumber=4367",IMPLEMENTATION_REVERSION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Backed out for causing failures on browser_inplace-editor_maxwidth.js.
+Backout link: https://hg.mozilla.org/integration/autoland/rev/31462a8e07406103e8d97b19faf9af3bd63530b6
+Push with failures: https://treeherder.mozilla.org/jobs?repo=autoland&selectedTaskRun=E9eyDlOnQi6c4aq97GSfGw.0&revision=64682b454ac62a9ad7bccedd3efce40e1dab29ae&searchStr=dt
+Failure log: https://treeherder.mozilla.org/logviewer?job_id=327674911&repo=autoland&lineNumber=4367”",1,0
+35,682449,1,"************************************************************
+* Call to xpconnect wrapped JSObject produced this error:  *
+[Exception... ""Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [nsIXPCComponents_Utils.import]""  nsresult: ""0x80520012 (NS_ERROR_FILE_NOT_FOUND)""  location: ""JS frame :: resource://services-sync/status.js :: checkSetup :: line 93""  data: no]
+************************************************************
+Caused by:
+JS Component Loader: ERROR resource://services-sync/resource.js:412
+                     SyntaxError: redefining delete is deprecated",PROBLEM_CAUSE_IDENTIFICATION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“************************************************************
+* Call to xpconnect wrapped JSObject produced this error:  *
+[Exception... ""Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [nsIXPCComponents_Utils.import]""  nsresult: ""0x80520012 (NS_ERROR_FILE_NOT_FOUND)""  location: ""JS frame :: resource://services-sync/status.js :: checkSetup :: line 93""  data: no]
+************************************************************
+Caused by:
+JS Component Loader: ERROR resource://services-sync/resource.js:412
+                     SyntaxError: redefining delete is deprecated”",0,0
+36,593387,15,"Comment on attachment 471988
+fix v2
+Pending answers to the questions.",UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 471988
+fix v2
+Pending answers to the questions.”",0,0
+37,552359,12,http://hg.mozilla.org/mozilla-central/rev/e75d28fbaa0b,UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“http://hg.mozilla.org/mozilla-central/rev/e75d28fbaa0b”",0,1
+38,552359,20,"I meant, which OS?  ;-)",QUESTION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“I meant, which OS?  ;-)”",0,0
+39,552359,26,"Created attachment 444802
+Log for placeholder-7.html randomness",UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Created attachment 444802
+Log for placeholder-7.html randomness”",0,0
+40,1823751,14,"The patch landed in nightly and beta is affected.
+:bradwerth, is this bug important enough to require an uplift?
+- If yes, please nominate the patch for beta approval.
+- If no, please set `status-firefox112` to `wontfix`.
+For more information, please visit [auto_nag documentation](https://wiki.mozilla.org/Release_Management/autonag#uplift_beta.py).",UNCODED,0,UNMATCHED,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“The patch landed in nightly and beta is affected.
+:bradwerth, is this bug important enough to require an uplift?
+- If yes, please nominate the patch for beta approval.
+- If no, please set `status-firefox112` to `wontfix`.
+For more information, please visit [auto_nag documentation](https://wiki.mozilla.org/Release_Management/autonag#uplift_beta.py).”",0,1
+41,1823751,21,"Reproduced the initial issue using a Firefox 111.0.1 on a macOS 13, and also verified that using the latest Firefox Beta build 112.0b8 and latest Nightly 113.0a1 from today I now can drag drop downloaded files to the desktop without issues. 
+I did noticed that the icons for the dragged files are cropped or very tiny while dragged and not dropped. Once they are dropped the correct icon is displayed for the file, will log an additional bug asap. Will leave this bug as RESOLVED for now and not move it to VERIFIED since Firefox 111 is still affected and maybe will be uplifted there as well.",SOLUTION_VERIFICATION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Reproduced the initial issue using a Firefox 111.0.1 on a macOS 13, and also verified that using the latest Firefox Beta build 112.0b8 and latest Nightly 113.0a1 from today I now can drag drop downloaded files to the desktop without issues. 
+I did noticed that the icons for the dragged files are cropped or very tiny while dragged and not dropped. Once they are dropped the correct icon is displayed for the file, will log an additional bug asap. Will leave this bug as RESOLVED for now and not move it to VERIFIED since Firefox 111 is still affected and maybe will be uplifted there as well.”",0,1
+42,1823751,22,"Comment on attachment 9324558
+Bug 1823751: Make macOS pasteboard use NSString for urls, and don't convert to NSData.
+There is no 111 dot release planned before 112 go-live. 
+This will ride the trains with 112.",ADDITIONAL_CONSIDERATION,0,FULL_TOKEN,"Task Description:
+You will classify a comment made in the discussion thread of an issue report of Mozilla Firefox, as either: “Solution-related” or “Non-solution-related”.
+
+Criteria for Classification:
+“Solution-related”: The comment is written by a person and describes any of these three information kinds:
+1. a solution to the reported problem in the issue report, proposed by a developer;
+2. a review of a solution made by another developer; or
+3. a description of the implemented solution made by a developer.
+
+“Non-solution-related”: Any other comments that do not describe the above three kinds of information.
+
+Instructions:
+Classify the issue report comment below as either “Solution-related” or “Non-solution-related” and respond using the format below. Do not include anything else in the response.
+
+Response Format:
+Respond 1 if the comment is “Solution-related”, or 0, otherwise.
+
+Issue report comment to classify:
+“Comment on attachment 9324558
+Bug 1823751: Make macOS pasteboard use NSString for urls, and don't convert to NSData.
+There is no 111 dot release planned before 112 go-live. 
+This will ride the trains with 112.”",1,1

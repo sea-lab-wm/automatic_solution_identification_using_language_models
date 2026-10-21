@@ -1,0 +1,43 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_8
+40771754,1,Window Placement: user permission responses for Window.getScreens() aren't being logged,,0,0
+40771754,2,"For the new Multi-Screen Window Placement API, we'd like to log user permission responses. But although we're logging Permissions.Action.WindowPlacement, the data can't be accessed.",,0,0
+40771754,3,"I can't get our UMA dashboard to actually show the name or data for *WindowPlacement, as I can for *Geolocation.
+
+We log Permissions.Action.WindowPlacement (just like other permissions actions) here:
+https://source.chromium.org/chromium/chromium/src/+/main:components/permissions/permission_uma_util.cc;drc=1156b5f891de178171e71b9221a96bef1ced3d3b;l=749
+The histograms.xml entry is here:
+https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/histograms_xml/permissions/histograms.xml;drc=a7ae2e73f857edba50afa585ff8bfdc85c706be3;l=24
+
+Testing on canary, chrome://histograms/ Monitoring Mode emits the expected value when I accept the prompt from the ""Update screens"" button on https://michaelwasserman.github.io/window-placement-demo/
+
+- Histogram: Permissions.Action.WindowPlacement recorded 2 samples, mean = 2.0 (flags = 0x41)
+0  -O                                                                        (1 = 50.0%)
+1  ...
+4  -O                                                                        (1 = 50.0%) {50.0%}
+5  ...
+
+I didn't see any glaring mistakes per https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md
+Perhaps our usage is too low for the dashboard to surface data, or we missed a step somewhere?
+phillis@ or dmurph@, do you know what we are missing? Should we ping the metrics team or schedule office hours?
+
+[Monorail components: -Blink>WindowDialog -UI>Browser -UI>Browser>WebAppInstalls Internals>Metrics UI>Browser>WebAppInstalls>Desktop]",ANALYSIS,0,0
+40771754,4,"Hmm, I think we need to add an entry at:
+https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/histograms_xml/histogram_suffixes_list.xml;drc=06f8d10c0662614a6858a2a4da155496c73210ac;l=14377
+I'll remove the Metrics component and un-CC some folks to reduce noise, sorry!
+
+[Monorail components: -Internals>Metrics]",SOLUTION_DESIGN,1,0
+40771754,5,"Window Placement: Add permission suffixes for UMA histograms
+
+This should help us query the UMA dashboard for existing logging of:
+- Permissions.Action.WindowPlacement
+- PermissionsEngagement.Accepted.WindowPlacement (etc.)
+
+FOLLOWUP: update ContentSettingsType for ContentSettings.Exceptions?
+(Window Placement may not need that, we can optionally follow up)",IMPLEMENTATION,1,0
+40771754,6,I'll try to verify this on Wed or Thu; hopefully a few of our own testing or dev trial uses will be logged and the surfaced by our dashboard.,,0,0
+40771754,7,Verified I can access the data now on the UMA dashboard,VERIFICATION,0,0
+40771754,8,"This issue was migrated from crbug.com/chromium/1218676?no_tracker_redirect=1
+
+[Multiple monorail components: Internals>Permissions, UI>Browser>WebAppInstalls>Desktop]
+[Monorail blocking: crbug.com/chromium/897300]
+[Monorail components added to Component Tags custom field.]",,0,0

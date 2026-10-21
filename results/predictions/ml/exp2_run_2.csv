@@ -1,0 +1,21 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_2
+798680,1,Not able to match a reverse transaction of a previously matched transaction,,0,0
+798680,2,Make sure the the online id is unset in the reverse transaction,,0,0
+798680,3,"As an example, consider an imported credit card purchase transaction for items you subsequently decide to return.  If you use reverse transaction to enter the reimbursement, the new transaction erroneously maintains the original online id which will prevent the new transaction from being available to be matched on a subsequent import.  To work-around the issue, you may use duplicate transaction to clear the online id.",SOLUTION_DESIGN,1,0
+798680,4,"This is IMHO a worthwhile oneline change. Any further thoughts from more experienced devs?
+
+modified   libgnucash/engine/Transaction.c
+@@ -2907,7 +2907,7 @@ xaccTransReverse (Transaction *orig)
+     qof_instance_set_dirty (QOF_INSTANCE (orig));
+     xaccTransCommitEdit (orig);
+ 
+-    trans = xaccTransClone(orig);
++    trans = xaccTransCloneNoKvp (orig);
+     g_return_val_if_fail (trans, NULL);
+     xaccTransBeginEdit(trans);",SOLUTION_DESIGN,1,1
+798680,5,"That makes sense, but please either regenerate your patch with git format-patch or create a github pull request.",SOLUTION_DESIGN,1,0
+798680,6,"Oops. For clarity comment 4 was directed at Sherlock.
+
+Chris, NoKvp is too much. Transactions and splits have a lot of associated slots besides online-id and it might be important in some cases for reversals to preserve them.",SOLUTION_DESIGN,1,0
+798680,7,Here you go: https://github.com/Gnucash/gnucash/pull/1478,IMPLEMENTATION,1,0
+798680,8,Fixed for GnuCash 4.13.,VERIFICATION,0,0

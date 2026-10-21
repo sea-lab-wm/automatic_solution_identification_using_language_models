@@ -1,0 +1,1952 @@
+issue_id,issue_type,issue_class,issue_category,text_id,text,code,label,llama_prediction_0,llama_prediction_1,llama_prediction_2
+552359,defect,Implementation,UI Issue,27,"Hmm, based on this log, this is a different bug.  Please file it separately.
+Also, it would be great if you could debug this locally (because I haven't been able to reproduce this).  You could set a breakpoint in nsCaret::DrawCaret, and see the code path which invokes it for the reference file, and see what happens differently in the original test file when this fails randomly.
+Marking this bug as FIXED again.",VERIFICATION_REQUEST,0,0,0,0
+554061,defect,Implementation,UI Issue,1,"Created attachment 433939
+screenshot before/after mouse-over
+maybe regression by bug 538187 and/or bug 508482",UNCODED,0,0,0,0
+554061,defect,Implementation,UI Issue,4,"Yes Alice that is true, but you have to do it everytime you restart Minefield.",SOLUTION_REVIEW,1,0,0,0
+554061,defect,Implementation,UI Issue,8,I think this is toolkit bug. (and also in seamonkey 2.1 nightlies),ADDITIONAL_CONSIDERATION,0,0,0,0
+554061,defect,Implementation,UI Issue,15,"Comment on attachment 434724
+v1
+r=dbaron",CODE_REVIEW,0,0,0,0
+554061,defect,Implementation,UI Issue,20,"Bug 508482 needs to be documented, not this bug, as far as I can see.",ANSWER_TO_QUESTION,0,0,0,0
+558970,defect,Implementation,Code Design,8,"But only nsHTMLEditor should create nsHTMLEditorEventListener.
+So you know that editor is nsHTMLEditor.",CLARIFICATION,0,1,1,1
+558970,defect,Implementation,Code Design,9,"Currently, yes. However, isn't it risky in future? If you don't mind that, I'll just remove it.",QUESTION,0,1,1,1
+561168,defect,Implementation,Performance Optimization,1,"Canvas needs to use a custom Layer for rendering, so that the compositing can be hardware accelerated where possible (e.g. WebGL).",PROBLEM_MOTIVATION,0,1,1,1
+561168,defect,Implementation,Performance Optimization,11,"Your lack of 'a' prefixes on parameters makes me itch. I will let it slide on the canvas rendering context code, but not elsewhere in content/ or in layers.
++/* XXX move into nsContentUtils */
+This needs to actually move into nsContentUtils :-).
+Also the version in nsHTMLMediaElement has improved, so you should move that one to nsContentUtils.
++    PRBool mIsOpaque;
+We don't need this. You can just use mIsOpaqueContent/SetIsOpaqueContent that the layer already has.
++  virtual void Initialize(const Data& aData) = 0;
++  virtual void Updated(const nsIntRect& aRect) = 0;
+Document these --- and CanvasLayer itself.
++  NS_ASSERTION(mUpdatedRect.IsEmpty(), ""CanvasLayer::Updated called more than once during a transaction!"");
++  NS_ASSERTION(mUpdatedRect.IsEmpty() || mBounds.Contains(mUpdatedRect), ""CanvasLayer: Updated rect bigger than bounds!"");
+Break these lines ... think of the teletypes!
++  nsIntRect mBounds;
+We only need an nsIntSize here, right?
++  nsIntRect mUpdatedRect;
+We don't need this in BasicLayers, so I would just not have it at all.
+Shouldn't we be calling Updated() somewhere?
++#if 0
+   void PaintVideo(nsIRenderingContext& aRenderingContext,
+                    const nsRect& aDirtyRect, nsPoint aPt);
+-                              
++#endif
+Er ... lose this?",CODE_REVIEW,0,0,0,0
+561168,defect,Implementation,Performance Optimization,22,"Created attachment 444923
+updated, v3
+Updated with review comments.  Note that this omits all the pure-file removals.",CODE_IMPLEMENTATION,1,0,0,0
+561168,defect,Implementation,Performance Optimization,23,"Created attachment 444924
+file removals patch
+just the file removals",CODE_IMPLEMENTATION,1,0,0,0
+561168,defect,Implementation,Performance Optimization,27,"Created attachment 445806
+filter followup
+and one more followup -- the image-rendering mode was being ignored.  try server run going again, this was the only reftest that failed last time.",CODE_IMPLEMENTATION,1,0,0,0
+577462,defect,Implementation,Performance Optimization,4,"Comment on attachment 456644
+Use GetDC where we can v2
+Someplace you should put a comment that says that GetDC is not supported
+on surfaces of D3DFMT_A8R8G8B8 format and that that's the motivation
+for splitting things out here.",CODE_REVIEW,0,1,1,1
+585832,defect,Implementation,Compatibility Issue,1,"Seen while running  Mozilla/5.0 (Windows; Windows NT 6.1; WOW64; rv:2.0b3) Gecko/20100805 Firefox/4.0b3. I tried in 32 bit mode and the same thing happens.
+STR:
+1. Enable WebGL with the about:config pref
+2. Load the site in the URL, or one of the demos from http://www.ambiera.com/copperlicht/demos.html
+Expected: it would work as it does using Windows XP and Vista using the same build
+Actual: I get an error saying that ""This demo requires a WebGL-enabled browser""
+I have seen Bug 560975 and I do not have those prefs set in about:config since I am using a new profile.",PROBLEM_DESCRIPTION,0,0,0,0
+585832,defect,Implementation,Compatibility Issue,6,"Marcia: still need to know what's your graphics card! If it's Intel and doesn't have GL drivers on Windows, then your issue is a dupe of the fact that we need to use ANGLE in your case (known issue).",INFO_REQUEST,0,0,0,0
+593387,defect,Implementation,Incorrect Page Rendering,1,"User-Agent:       Mozilla/5.0 (Windows NT 6.1; WOW64; rv:2.0b6pre) Gecko/20100903 Firefox/4.0b6pre
+Build Identifier: 
+Looks like it doesn't like being loaded in an iframe. I see an error page on screen, and a really long error logged to the error console (due to all of my extensions being parts of the requested URL?).
+Reproducible: Always
+Steps to Reproduce:
+1. Open Addons Manager
+2. Go to ""Get Addons"" pane
+3. See the error.
+Actual Results:  
+Content from AMO is restricted by X-FRAME-OPTIONS header.
+Expected Results:  
+Content from AMO is displayed in the pane.
+X-FRAME-OPTIONS: blocked https://services.addons.mozilla.org/en-US/firefox/discovery/4.0b6pre/WINNT#{%22CompactMenuCE@Merci.chao%22:{%22name%22:%22Personal%20Menu%22,%22version%22:%224.3.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22contacts@labs.mozilla.com%22:{%22name%22:%22Contacts%22,%22version%22:%220.3.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22dataman@kairo.at%22:{%22name%22:%22Data%20Manager%22,%22version%22:%221.0.1%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22downloadbadge@jes_jm.software%22:{%22name%22:%22Download%20Badge%22,%22version%22:%220.1.7%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22firebug@software.joehewitt.com%22:{%22name%22:%22Firebug%22,%22version%22:%221.6X.0b1%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22inspector@mozilla.org%22:{%22name%22:%22DOM%20Inspector%22,%22version%22:%222.0.8%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22jid0-t3eeRQgGANLCH9c50lPqcTDuNng@jetpack%22:{%22name%22:%22Add-ons%20Builder%20Helper%22,%22version%22:%220.0.5%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22locationbar2@design-noir.de%22:{%22name%22:%22Locationbar%C2%B2%22,%22version%22:%221.0.5%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22omnibar@ajitk.com%22:{%22name%22:%22Omnibar%22,%22version%22:%220.7.0.20100707%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22rtse-nightly@shawnwilsher.com%22:{%22name%22:%22RT%20Site%20Extender%22,%22version%22:%221.2.0.20100829%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22siteprefs.mehdi@mozilla.com%22:{%22name%22:%22Site%20Preferences%22,%22version%22:%220.1.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22tabsintitlebar@roosterteethsiteextender.com%22:{%22name%22:%22Tabs%20in%20Titlebar%22,%22version%22:%220.1%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:true,%22isBlocklisted%22:false},%22testpilot@labs.mozilla.com%22:{%22name%22:%22Test%20Pilot%22,%22version%22:%221.0.1%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22twitternotifier@naan.net%22:{%22name%22:%22Echofon%22,%22version%22:%221.9.6.5RC2%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{02450954-cdd9-410f-b1da-db804e18c671}%22:{%22name%22:%22Screengrab%22,%22version%22:%220.96.3%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{1280606b-2510-4fe0-97ef-9b5a22eafe80}%22:{%22name%22:%22Console%C2%B2%22,%22version%22:%220.6.1%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{2e61e246-e640-4c56-b1ed-f146dbed48cd}%22:{%22name%22:%22Stop%20Autoplay%22,%22version%22:%220.7.6%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{46551EC9-40F0-4e47-8E18-8E5CF550CFB8}%22:{%22name%22:%22Stylish%22,%22version%22:%221.0.11%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{59c81df5-4b7a-477b-912d-4e0fdf64e5f2}%22:{%22name%22:%22ChatZilla%22,%22version%22:%220.9.86%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}%22:{%22name%22:%22Adblock%20Plus%22,%22version%22:%221.3a.20100831%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{e4a8a97b-f2ed-450b-b12d-ee082ba24781}%22:{%22name%22:%22Greasemonkey%22,%22version%22:%220.8.20100408.6.3%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{000a9d1c-beef-4f90-9363-039d445309b8}%22:{%22name%22:%22Google%20Gears%22,%22version%22:%220.5.36.0%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{3252b9ae-c69a-4eaf-9502-dc9c1f6c009e}%22:{%22name%22:%22Default%20Manager%22,%22version%22:%222.2%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{27182e60-b5f3-411c-b545-b44205977502}%22:{%22name%22:%22Search%20Helper%20Extension%22,%22version%22:%221.0%22,%22type%22:%22extension%22,%22userDisabled%22:true,%22isCompatible%22:false,%22isBlocklisted%22:false},%22{73a6fe31-595d-460b-a920-fcc0f8843232}%22:{%22name%22:%22NoScript%22,%22version%22:%222.0.2.5rc1%22,%22type%22:%22extension%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{972ce4c6-7e08-4474-a285-3208198ce6fd}%22:{%22name%22:%22Default%22,%22version%22:%224.0b6pre%22,%22type%22:%22theme%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%2233@personas.mozilla.org%22:{%22name%22:%22Groovy%20Blue%22,%22version%22:%22%22,%22type%22:%22theme%22,%22userDisabled%22:true,%22isCompatible%22:true,%22isBlocklisted%22:false},%22215507@personas.mozilla.org%22:{%22name%22:%22Firefox%20Cup%20-%20USA%22,%22version%22:%22%22,%22type%22:%22theme%22,%22userDisabled%22:true,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{06b38f9d-7392-47a0-b3de-bb9304e66837}%22:{%22name%22:%22Microsoft%C2%AE%20Windows%20Media%20Player%20Firefox%20Plugin%22,%22version%22:%221.0.0.8%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{9b29438d-3436-4cc8-821e-d2cf929caa9c}%22:{%22name%22:%22Foxit%20Reader%20Plugin%20for%20Mozilla%22,%22version%22:%221.0.1.1117%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{776c1d62-6afa-49e3-ba60-6c8e02129836}%22:{%22name%22:%22Google%20Update%22,%22version%22:%221.2.183.29%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{6a5396e5-ae37-4c8e-b7bc-7d9a2ac0fed7}%22:{%22name%22:%22Shockwave%20Flash%22,%22version%22:%2210.1.82.76%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{ea5854ac-49c9-4532-97c0-1216098104c4}%22:{%22name%22:%22Garmin%20Communicator%20Plug-In%22,%22version%22:%222.8.1.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{f723e9b0-4dff-48f1-8e4e-76154c57abe6}%22:{%22name%22:%22Java(TM)%20Platform%20SE%206%20U21%22,%22version%22:%226.0.210.7%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{cacaa5d6-9843-4b9e-b013-8ec3c3247ec4}%22:{%22name%22:%22Java%20Deployment%20Toolkit%206.0.210.7%22,%22version%22:%226.0.210.7%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{76952b67-64de-4320-9cd2-2f2dd392ef84}%22:{%22name%22:%22Silverlight%20Plug-In%22,%22version%22:%224.0.50524.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{6870bba4-7f50-4676-8fb2-784bcccee91b}%22:{%22name%22:%22Microsoft%20Office%202010%22,%22version%22:%2214.0.4730.1010%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{b9284f3e-b0fc-4115-9c49-eadfc63c47a6}%22:{%22name%22:%22Microsoft%20Office%202010%22,%22version%22:%2214.0.4761.1000%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{0410798f-2e26-40f7-bd38-c1cfd461dc57}%22:{%22name%22:%22Microsoft%20Office%20Live%20Plug-in%20for%20Firefox%22,%22version%22:%222.0.3009.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{e1274911-3d4c-483d-a5c5-89d15abe4ec6}%22:{%22name%22:%22Windows%20Live%C2%99%20Photo%20Gallery%22,%22version%22:%2215.4.3002.810%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false},%22{f6df2a89-4624-4cc4-a3af-8724e8dc6c81}%22:{%22name%22:%22VLC%20Multimedia%20Plug-in%22,%22version%22:%221.0.5.0%22,%22type%22:%22plugin%22,%22userDisabled%22:false,%22isCompatible%22:true,%22isBlocklisted%22:false}}",PROBLEM_DESCRIPTION,0,0,0,0
+593387,defect,Implementation,Incorrect Page Rendering,5,Taking this.  Will have a patch shortly.,DEVELOPER_SELECTION_DECISION,0,1,1,1
+593387,defect,Implementation,Incorrect Page Rendering,6,Sadly this prevents us also in Beta5 and down to Beta3 to show the one and only location where the Addons Compatibility Reporter is promoted. I would expect more negative via feedback.,ISSUE_IMPACT,0,0,0,0
+593387,defect,Implementation,Incorrect Page Rendering,23,"Of course, if besides DENY and SAMEORIGIN, x-frame-options could also specify a whitelist of things permitted to include this in a frame, this would probably be helpful not only here, but in other cases as well.  But, I guess Microsoft never thought of that when they specified this.",SOLUTION_REVIEW,1,1,1,1
+593387,defect,Implementation,Incorrect Page Rendering,29,"I am not sure if I am parsing your comment incorrectly or if you are misunderstanding the use case. Aren't we talking about loading a _content_ page in a _chrome area_?  This bug addresses the case where about:addons frames a page from services.addons.mozilla.org.
+If we go forward with comment 26, the only cases where we end up with less secure behavior is if chrome frames a page that in turn frames another page who doesn't want to be framed.  This proposal would allow that inner page to be framed because the top-level context is chrome.  For there to be any real security impact, the page we chose to frame under the top-level chrome document would have to be a bad actor and do something malicious with the page it in turn framed (e.g. clickjacking).  It seems highly unlikely that we would frame any web content in the product that we don't trust or have control over.
+Can you explain the danger you see here a bit more?  What are the cases where we load a chrome page in a content area and how is our comparison between the framed content and the top-level page not sufficient for those cases?",SOLUTION_REVIEW_REQUEST,0,1,1,1
+593387,defect,Implementation,Incorrect Page Rendering,36,I really do not understand this bug at all.  THe client is trying to display from the server in a frame.  THe server sepcifacally says this content can not be displayed in a frame under any circumstances.  So exactly why should code be changed to actually allow the content to be displyed in the frame??,QUESTION,0,0,0,0
+597071,defect,Implementation,Feature Development,1,"This came out of bug 596592, where entering PB mode with just a popup and then leaving causes the last opened window to reopen.
+_getCurrentState is actually lying about the current state when there is a single window open and it's a popup (and there was a recently closed non-popup). It shifts a closed window into the open window list
+http://mxr.mozilla.org/mozilla-central/source/browser/components/sessionstore/src/nsSessionStore.js#1953
+This is fine for when quitting and we've been doing such for a long time. But I don't think it's the right thing to do when entering/exiting private browsing mode.",PROBLEM_MOTIVATION,0,1,1,1
+597071,defect,Implementation,Feature Development,8,"Comment on attachment 476464
+Patch v0.1
+This makes sense, makes the API more consistent. To make the test only run for Win/Linux, move the check to the makefile so that it doesn't run at all. r=me w/ that change.",CODE_REVIEW,0,1,1,1
+597389,defect,Implementation,Incorrect Page Rendering,9,"Comment on attachment 476234
+Patch v1.0
+Thank you, Steven.
+This patch just removes an optimizing code for reducing API call. I think that this change doesn't affect to performance.",CODE_REVIEW,0,1,1,1
+601912,enhancement,Implementation,Incorrect Page Rendering,6,"Created attachment 509082
+Test case: OL lists with start, value, and reversed attributes
+Firefox 4 implements:
+- <ol start=integer> (with positive and negative integers),
+- <li value=integer> (likewise).
+Doesn't implement:
+- <ol reversed>",TEST_CASES,0,1,1,1
+601912,enhancement,Implementation,Incorrect Page Rendering,18,"Created attachment 640083
+With some assertions also fixed so this passes tests",UNCODED,0,0,0,0
+601912,enhancement,Implementation,Incorrect Page Rendering,26,https://hg.mozilla.org/mozilla-central/rev/f083c0a666d3,UNCODED,0,0,0,0
+601912,enhancement,Implementation,Incorrect Page Rendering,27,"Updated:
+https://developer.mozilla.org/en-US/docs/HTML/Element/ol
+and
+https://developer.mozilla.org/en-US/docs/Firefox_18_for_developers",UNCODED,0,0,0,0
+601999,defect,Implementation,Code Design,22,It does to me.,ANSWER_TO_QUESTION,0,0,0,0
+623742,defect,Implementation,Defective Functionality,4,verified with 1.6.2,SOLUTION_VERIFICATION,0,0,0,0
+627984,defect,Implementation,Code Design,31,A testcase for this bug was automatically identified at js/src/tests/js1_8_5/extensions/regress-627984-6.js.,ADDITIONAL_CONSIDERATION,0,0,0,0
+634654,defect,Implementation,Code Design,3,"So with the tabs: GMail, GReader, Tech Crunch, Twitter, and CAD comic I get the following stats:
+RegExpCache stats:
+  hits:                  2244
+  flagMisses:              34
+  constructs:              24
+  lookups:               3979
+  removals:                23
+  puts:                  1759
+Which is a hearty 56% hit rate. When I switch the protocol to only put cache entries that are atomized (and only do lookups for atomized strings) I get:
+RegExpCache stats:
+  hits:                    72
+  flagMisses:               0
+  constructs:              19
+  lookups:                112
+  removals:                 3
+  puts:                    59
+So atomizing the strings makes this cache useful. I'll rdtsc the atomization overhead.",PROBLEM_REVIEW,0,1,1,1
+634654,defect,Implementation,Code Design,23,Thanks for the review Waldo! Just going to finish investigating bug 696524 before I land this so we don't muddle up the results.,STATUS_UPDATE,0,0,0,0
+642412,defect,Implementation,Performance Optimization,1,"TI+JM is slower than trunk JM on all Kraken crypto tests. TI and JM should do very well on crypto tests, so I'd like to investigate what's happening here. 
+TI is also slower on SS crypto-aes, it's probably related.",PROBLEM_MOTIVATION,0,0,0,0
+658675,defect,Implementation,Feature Development,9,http://hg.mozilla.org/services/services-central/rev/c69124dfd7b7,UNCODED,0,0,0,0
+659018,defect,Implementation,UI Issue,2,"FWIW, NVDA always picks up the change in unread messages on Windows.",ADDITIONAL_CONSIDERATION,0,0,0,0
+659018,defect,Implementation,UI Issue,7,"I think the cost is pretty low, and it ensures that we don't have a race like you describe where we send an event say the name has changed when it actually hasn't.  I'm not sure what you mean by the do you handle this case question.  If your asking why I make the check then I think, if something else not sure.",ANSWER_TO_QUESTION,0,1,1,1
+667586,defect,Implementation,UI Issue,8,Maybe the label could be really faint instead of hidden to prevent the identity box from looking broken.,SOLUTION_REVIEW,1,1,1,1
+667586,defect,Implementation,UI Issue,19,*** Bug 754498 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+667586,defect,Implementation,UI Issue,39,*** Bug 267146 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+670853,defect,Implementation,Code Design,3,"Fixing summary. Hope you don't mind, Alex. :)",ISSUE_METADATA_CHANGE,0,0,0,0
+670853,defect,Implementation,Code Design,16,"Created attachment 612359
+Patch v4
+ARIA value removed",CODE_IMPLEMENTATION,1,0,0,0
+674446,defect,Implementation,Code Design,1,"Created attachment 548676
+add logging
+The attached patch helped me debug why my build was not starting on 10.5. I tried to change fprintf to PR_LOG, but got undefined references to _PR_LogPrint.",CODE_IMPLEMENTATION,1,0,0,0
+676248,defect,Implementation,Code Design,4,"Comment on attachment 675320
+make it transparent
+I'm ok with this patch if it doesn't regress performance. If it does regress performance we should quantify it first.
+Have you had a chance to compare some profiles before or after for operations like 60Hz compositing and resizing? I find them very informative when we're changing a significant code paths.",CODE_REVIEW,0,1,1,1
+676248,defect,Implementation,Code Design,6,"Yes, and I haven't found any regressions.",ANSWER_TO_QUESTION,0,0,0,0
+676248,defect,Implementation,Code Design,7,Sorry I missed your comment. 60Hz in this context was not in any ways an upper bound. Proper vsync is very important to us but we need to solve some other bugs first.,CLARIFICATION,0,0,0,0
+676248,defect,Implementation,Code Design,9,"Created attachment 721448
+Patch v1.1 (r+'d by bgirard)
+I've de-bitrotted this patch, and I ran some profiles with and without the patch.
+I ran this demo: https://developer.mozilla.org/en-US/demos/detail/kai-opua
+And rotated the camera around a bit, and then resized the window.
+Here's the profile without the patch:
+http://people.mozilla.com/~bgirard/cleopatra/#report=712ceb292adfe496b85233e2b88d1a1773083593
+and here's the profile with the patch:
+http://people.mozilla.com/~bgirard/cleopatra/#report=dc05af436747e583332d9dcb5cfa33245ab9e2da
+Does anything in there strike you as particularly worrying in terms of performance?",CODE_IMPLEMENTATION,1,1,1,1
+677173,defect,Implementation,UI Issue,3,"From http://dev.openclic.fr/css/all.css:
+  html.no-csstransforms .slideshow.horizontal > ol.slides > li.current {
+    left:0;
+  }
+  html.csstransforms.no-csstransforms3d .slideshow.horizontal > ol.slides >
+   li.current {
+    -moz-transform:translateX(0);
+    -webkit-transform:translateX(0);
+    -o-transform:translateX(0);
+    -ms-transform:translateX(0);
+    transform:translateX(0);
+  }
+  html.csstransforms3d .slideshow.horizontal > ol.slides > li.current {
+    -webkit-transform:translate3d(0, 0, 0);
+    transform:translate3d(0, 0, 0);
+  }
+So the site assumes that if .csstransforms3d is set then the browser must be either WebKit or implement unprefixed 3D transforms.
+Unfortunately, that class _is_ set in a current nightly, because the site is using Modernizr, which looks for a ""MozPerspective"" property, which we now have as a result of the patches in bug 505115.",PROBLEM_CAUSE_IDENTIFICATION,0,1,1,1
+677173,defect,Implementation,UI Issue,7,"That's what I guessed reading you. I'm the server-side dev/admin so I haven't dug enough.
+Anyway, it's a great news to see 3D transforms available in Firefox!
+I will make the needed changes tomorrow.
+I hope there are not too much webkitists like my client-side dev. It may cause trouble when ffx 8 will be the rc (I'm the Linux-Mozillist of the team ).
+""...no point... Not much point..."", I'll probably be happy to read your english for a while as it shows me how to improve my own. :)
+By the way, the last sentence becomes :
+Malheureusement, cette classe EST définie avec la nightly actuelle puisque le site utilise Modernizr, qui cherche la propriété ""MozPerspective"" que nous avons depuis les patches du bug 505115.
+Thank you very much for your lights.",UNCODED,0,1,1,1
+677173,defect,Implementation,UI Issue,9,"I added the rules to the css :
+html.csstransforms3d .slideshow.horizontal > ol.slides > li.current {
+	-webkit-transform:translate3d(0, 0, 0);
+	-moz-transform:translate3d(0, 0, 0);
+	-o-transform:translate3d(0, 0, 0);
+	-ms-transform:translate3d(0, 0, 0);
+	transform:translate3d(0, 0, 0);
+}
+Nothing changed... The slides don't move. And firebug doesn't show the rule.
+Let's be patient!",SOLUTION_REVIEW,1,1,1,1
+677173,defect,Implementation,UI Issue,16,http://hg.mozilla.org/integration/mozilla-inbound/rev/6409a44ecb17,UNCODED,0,0,0,0
+677173,defect,Implementation,UI Issue,21,"Created attachment 555325
+Remove the IDL properties for now v2
+Looks like it does, yes. Thanks!
+Try push: http://tbpl.allizom.org/?tree=Try&usebuildbot=1&pusher=mwoodrow@mozilla.com",CODE_IMPLEMENTATION,1,0,0,0
+686900,defect,Implementation,Code Design,4,"Created attachment 560387
+3 - Rewrite js_InitFunctionAndObjectClasses
+The pièce de résistance!  The sine qua non!  The cliched concluding phrase!",UNCODED,0,0,0,0
+687754,defect,Implementation,Code Design,21,"The attribute removal should happen before the TabSelect event, I think. Other than that, it's not really correlated with the TabSelect event. As I said, everything in this method is about a tab being selected.",REQUIREMENT,0,1,1,1
+687754,defect,Implementation,Code Design,35,"The unread attribute got added to FF9 on 2011-09-15 (see Bug 487242) and I think it would be better to have it completely fixed before FF9 is getting released.
+It's a no risk fix. Since this second patch only moves the 3 lines (add and remove attribute) of the first patch to a different position in the code, there is no reason why it should have any bad impact.
+Seamonkey already released version 2.4 with the adapted patch from bug 487242 and there is a question from only 2 days ago if this second patch will be adapted too. I saw on userstyles.org the addition of ""unread"" in FF9 is noted there too. I think this shows the interest in having this old regression (bug 487242) finally fixed.",CLARIFICATION,0,1,1,1
+687929,defect,Implementation,Crash,2,Almost certainly a regression from the workers rewrite.,PROBLEM_CAUSE_IDENTIFICATION,0,0,0,0
+687929,defect,Implementation,Crash,3,"Full stack:
+mozjs.dll!JS_BeginRequest(JSContext * cx)
+xul.dll!JSAutoRequest::JSAutoRequest(JSContext * cx)
+xul.dll!mozilla::dom::workers::RuntimeService::ResumeWorkersForWindow(JSContext * aCx, nsPIDOMWindow * aWindow)
+xul.dll!mozilla::dom::workers::ResumeWorkersForWindow(JSContext * aCx, nsPIDOMWindow * aWindow)
+xul.dll!nsGlobalWindow::ResumeTimeouts(int aThawChildren)
+xul.dll!nsResumeTimeoutsEvent::Run()
+xul.dll!nsThread::ProcessNextEvent(int mayWait, int * result)
+...
+xul.dll!XRE_main(int argc, char * * argv, const nsXREAppData * aAppData)
+This one is simple, just need to make sure ResumeWorkersForWindow can handle a null context. It's not really needed, but if we have one we need a request.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+687929,defect,Implementation,Crash,10,https://hg.mozilla.org/mozilla-central/rev/21aac86d6658,UNCODED,0,0,0,0
+687929,defect,Implementation,Crash,13,"Comment on attachment 579934
+Patch. v1
+[Triage Comment]
+Minusing for beta because of how late we are in the cycle, but let's land this on aurora.",CODE_REVIEW,0,1,1,1
+687929,defect,Implementation,Crash,16,Don't forget to also set the status-firefox10 flag to verified.,ISSUE_METADATA_CHANGE,0,0,0,0
+691184,defect,Implementation,Code Design,6,"No problem, I should have expressed myself more clearly. (I've been working on updating these tests, and I'd rather get closer to my expected end-result than farther away from it :).)",STATUS_UPDATE,0,0,0,0
+691184,defect,Implementation,Code Design,11,"https://hg.mozilla.org/mozilla-central/rev/d5c6d21109da
+https://hg.mozilla.org/mozilla-central/rev/45249d949463",UNCODED,0,0,0,0
+695213,defect,Implementation,Code Design,2,https://hg.mozilla.org/integration/mozilla-inbound/rev/cb1c23bd837b,UNCODED,0,0,0,0
+713597,defect,Implementation,Crash,6,https://hg.mozilla.org/mozilla-central/rev/f6928624a1ce,UNCODED,0,0,0,0
+714547,defect,Implementation,Code Design,15,"Created attachment 587100
+as described
+As discussed above, this patch just let nativeCall/objectClassIs pass through.",CODE_IMPLEMENTATION,1,0,0,0
+714547,defect,Implementation,Code Design,16,"Comment on attachment 587100
+as described
+Review of attachment 587100:
+-----------------------------------------------------------------
+::: js/src/jswrapper.cpp
+@@ +860,5 @@
+Either this or actually checking document.domain work for me.
+Nit: let's -> lets.",CODE_REVIEW,0,0,0,0
+714547,defect,Implementation,Code Design,22,*** Bug 723388 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+714547,defect,Implementation,Code Design,26,"How will yo know whether it affects enterprise users if you don't track it?
+[this kind of decisions pushed me away from this project, among other related things]",QUESTION,0,0,0,0
+714547,defect,Implementation,Code Design,41,Not to quibble over version numbers but I would expect the Firefox 11 ESR to be 10.1 -- right?,QUESTION,0,0,0,0
+717147,defect,Implementation,Code Design,7,"Comment on attachment 587686
+Patch part.3 Findbar shouldn't do incremental search during composition
+nit: for tests, the comment should be an assertion about the correct behavior, not a description of the error. So you should have:
+-> ""findbar should be hidden after testNormalFindWithComposition""
+-> ""testNormalFindWithComposition: find field should be focused""
+-> ""testNormalFindWithComposition: text should be found after committing composition""
+etc. This applies to a bunch of places in the existing test, it looks like...",CODE_REVIEW,0,1,1,1
+724586,defect,Implementation,Code Design,1,"Created attachment 594741
+v1
+Also rips out some dangling sharp references and sanifies the control flow a bit.  Allows us to rip out about 75 lines of fiddly C string manipulation.  There is still more to do here before this code path is sane enough to replace the hash table.",CODE_IMPLEMENTATION,1,1,1,1
+730907,defect,Implementation,Technology Update,1,"Mitre reports that the VP8 Codec SDK (libvpx) before 1.0.0 ""Duclair"" allows remote attackers to cause a denial of service (application crash) via (1) unspecified ""corrupt input"" or (2) by ""starting decoding from a P-frame,"" which triggers an out-of-bounds read, related to ""the clamping of motion vectors in SPLITMV blocks"".
+See:
+http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0823
+http://code.google.com/p/webm/source/browse/CHANGELOG?repo=libvpx
+http://www.openwall.com/lists/oss-security/2012/01/30/2
+http://blog.webmproject.org/2012/01/vp8-codec-sdk-duclair-released.html
+So, I believe we need to update to the 1.0.0 version of libvpx since this is publicly disclosed now.
+A testcase would be nice to repro the DOS.",PROBLEM_MOTIVATION,0,1,1,1
+730907,defect,Implementation,Technology Update,5,The SPLITMV fix landed in November (bug 696390).  It'd still be a good idea to update to the latest libvpx release so that it's obvious we're up to date.,POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+731836,defect,Implementation,Feature Development,11,Sorry for the delay with my responses. I had to get a new laptop to work on. I will rebuild the llvmpipe and detail the steps accordingly.,STATUS_UPDATE,0,0,0,0
+731836,defect,Implementation,Feature Development,14,It does.,ANSWER_TO_QUESTION,0,0,0,0
+731836,defect,Implementation,Feature Development,18,"Created attachment 613023
+patch
+State of patch before our discussion on IRC.",CODE_IMPLEMENTATION,1,0,0,0
+731836,defect,Implementation,Feature Development,19,"Comment on attachment 613023
+patch
+Review of attachment 613023:
+-----------------------------------------------------------------
+::: content/canvas/src/WebGLContext.cpp
+@@ +379,5 @@
+As discussed on IRC, I think we should always refer to it as 'Mesa LLVMpipe', not just 'LLVMpipe'. Both in the pref name and the variable.
+Indeed:
+ - llvmpipe alone doesn't give Mesa enough credit,
+ - mesa alone isn't specific enough since on Linux, most people use Mesa with their GPU, just not with the llvmpipe driver.
+@@ +489,5 @@
+We can do better/simpler than that, without hardcoding WGL here.
+Just GLContextProvider will give you the default context provider on the current platform. On Windows, it gives you GLContextProviderWGL. We already do that below, but only after we try EGL which is what we do by default on Windows (ANGLE rendering uses the EGL path).
+Just edit this part:
+    if (PR_GetEnv(""MOZ_WEBGL_FORCE_OPENGL"")) {
+        preferEGL = false;
+        useANGLE = false;
+        useOpenGL = true;
+    }
+and add
+    useMesaLlvmpipe ||
+in that if() condition. This way, enabling llvmpipe will cause ANGLE to be disabled and thus we'll skip straight to the desktop OpenGL path.
+@@ +491,5 @@
+Mesa LLVMpipe.
+::: gfx/gl/GLContextProviderWGL.cpp
+@@ +136,5 @@
+Good call. This way, if we have a surge of crashiness correlated with llvmpipe usage, we'll know that these people did something nonstandard.
+We'll want to revert that, though, if/when we automatically use llvmpipe.
+@@ +150,5 @@
+Please factor out this code by doing e.g.
+   const char *libGLfilename = useMesaLlvmpipe ? ""mesallvmpipe.dll"" : ""opengl32.dll"";
+Don't worry about outputting a different NS_WARNING, it's not a sufficient reason to avoid factoring this code.",CODE_REVIEW,0,1,1,1
+731836,defect,Implementation,Feature Development,20,"I've been tinkereing with building and using llvmpipe with firefox on Linux. I've not had any trouble building it against LLVM 3.0. I just built LLVM 3.0, put it in my $PATH and built Mesa 8.0.2 against it. Using LLVM 3.0 also fixes some rendering bugs I was seeing with LLVM 2.8.
+Slightly off topic, and maybe something for another bug report, but, I've also hacked my version of Mesa to fast path glReadPixels. With Mesa 8.0.2 the developers significantly improved the performance of glReadPixels. Problem is, the performance boost for llvmpipe is for BGRA data only. Firefox seems to read RGBA data, so it doesn't benefit at all. I bodged the code to force a fast path for RGBA data. My patch regresses BRGA performance (and rendering) but boosts RGBA performance (on my machine) by up to 850%.
+Before (stats from mesa-demos-8.0.1/src/perf/readpixels):
+glReadPixels(10 x 10, RGBA/ubyte): 12002.9 images/sec, 4.6 Mpixels/sec
+glReadPixels(100 x 100, RGBA/ubyte): 2229.7 images/sec, 85.1 Mpixels/sec
+glReadPixels(500 x 500, RGBA/ubyte): 109.8 images/sec, 104.7 Mpixels/sec
+glReadPixels(1000 x 1000, RGBA/ubyte): 27.8 images/sec, 106.2 Mpixels/sec
+glReadPixels(10 x 10, BGRA/ubyte): 12760.1 images/sec, 4.9 Mpixels/sec
+glReadPixels(100 x 100, BGRA/ubyte): 11959.1 images/sec, 456.2 Mpixels/sec
+glReadPixels(500 x 500, BGRA/ubyte): 5736.7 images/sec, 5470.9 Mpixels/sec
+glReadPixels(1000 x 1000, BGRA/ubyte): 567.0 images/sec, 2162.9 Mpixels/sec
+After:
+glReadPixels(10 x 10, RGBA/ubyte): 12226.9 images/sec, 4.7 Mpixels/sec
+glReadPixels(100 x 100, RGBA/ubyte): 8047.2 images/sec, 307.0 Mpixels/sec
+glReadPixels(500 x 500, RGBA/ubyte): 973.4 images/sec, 928.3 Mpixels/sec
+glReadPixels(1000 x 1000, RGBA/ubyte): 250.5 images/sec, 955.5 Mpixels/sec
+glReadPixels(10 x 10, BGRA/ubyte): 12291.1 images/sec, 4.7 Mpixels/sec
+glReadPixels(100 x 100, BGRA/ubyte): 8287.3 images/sec, 316.1 Mpixels/sec
+glReadPixels(500 x 500, BGRA/ubyte): 944.6 images/sec, 900.9 Mpixels/sec
+glReadPixels(1000 x 1000, BGRA/ubyte): 239.9 images/sec, 915.2 Mpixels/sec
+Patch (a horrible hack, but it works for firefox):
+--- src/mesa/main/readpix.c     2012-04-08 18:14:38.263151001 +0100
++++ src/mesa/main/readpix.c     2012-04-08 19:30:21.811151008 +0100
+@@ -209,8 +209,6 @@
+    GLubyte *dst, *map;
+    int dstStride, stride, j, texelBytes;
+ 
+-   if (!_mesa_format_matches_format_and_type(rb->Format, format, type))
+-      return GL_FALSE;
+ 
+    /* check for things we can't handle here */
+    if (packing->SwapBytes ||
+@@ -240,10 +238,19 @@
+    }
+ 
+    texelBytes = _mesa_get_format_bytes(rb->Format);
++
++   uint32_t dst_off=0,map_off=0;
++   uint32_t k;
++
+    for (j = 0; j < height; j++) {
+-      memcpy(dst, map, width * texelBytes);
+-      dst += dstStride;
+-      map += stride;
++      for(k=0;k<width * texelBytes;k=k+4){
++         dst[dst_off+k+2]=map[map_off+k+0];
++         dst[dst_off+k+1]=map[map_off+k+1];
++         dst[dst_off+k+0]=map[map_off+k+2];
++         dst[dst_off+k+3]=map[map_off+k+3];
++      }
++      dst_off += dstStride;
++      map_off += stride;
+    }
+ 
+    ctx->Driver.UnmapRenderbuffer(ctx, rb);",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+731836,defect,Implementation,Feature Development,22,"Thought so, I've opened bug 743585 .",NEW_ISSUE_FILING,0,0,0,0
+731836,defect,Implementation,Feature Development,33,"Continued the review; the cost, in terms of code complexity, to allow dynamic switching, is really huge. It will have to be done again for each other context provider. I think I'm back to the opinion I had in comment 26: that allowing dynamic switching is not worth the hassle.
+Other things to consider: even allowing this dynamic switching, certain things won't work in full generality. For example, the global context is meant to allow resource sharing across contexts, but it won't work across different GL libraries.",CODE_REVIEW,0,1,1,1
+734506,defect,Implementation,Defective Functionality,5,"https://hg.mozilla.org/mozilla-central/rev/0d866eb9ac24
+https://hg.mozilla.org/mozilla-central/rev/a3b40d32ad97",UNCODED,0,0,0,0
+735312,defect,Implementation,Defective Functionality,11,"Sure, though most of those are to import from an external file or a pre-places file, not for default bookmarks that is the only case affected by omni.ja. Btw, will look and file eventual follow-ups as needed.",STATUS_UPDATE,0,0,1,1
+735312,defect,Implementation,Defective Functionality,14,"Created attachment 605749
+screenshot
+I've tested using the try build and the favorites from IE9 are imported in Bookmarks Menu but items are not present in a new directory and also are not in the same order as in IE9.
+See the screenshot.",SOLUTION_VERIFICATION,0,0,0,0
+735312,defect,Implementation,Defective Functionality,19,https://hg.mozilla.org/integration/mozilla-inbound/rev/a10f5ab758b4,AUTO_LINK_CODE_IMPLEMENTATION,0,0,0,0
+752781,defect,Testing,Test Failure,21,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=11987827&tree=Firefox
+Rev3 WINNT 5.1 mozilla-central pgo test mochitests-1/5 on 2012-05-23 06:10:49
+slave: talos-r3-xp-004
+60702 ERROR TEST-UNEXPECTED-FAIL | /tests/content/events/test/test_bug607464.html | Pixel scrolling should have finished after waiting for one 0-interval timer. We shouldn't be scrolling smoothly, even though the pref is set. - got 0, expected 15",UNCODED,0,0,0,0
+752781,defect,Testing,Test Failure,25,https://hg.mozilla.org/mozilla-central/rev/347e2fe15b54,UNCODED,0,0,0,0
+752781,defect,Testing,Test Failure,27,"log: https://treeherder.mozilla.org/logviewer.html#?repo=fx-team&job_id=1915482
+repository: fx-team
+start_time: 2015-02-06T03:56:18
+who: rvandermeulen[at]mozilla[dot]com
+machine: talos-mtnlion-r5-058
+buildname: Rev5 MacOSX Mountain Lion 10.8 fx-team opt test mochitest-2
+revision: eecd602fe207
+249 INFO TEST-UNEXPECTED-FAIL | dom/events/test/test_bug607464.html | Pixel scrolling should have finished after one refresh driver iteration. We shouldn't be scrolling smoothly, even though the pref is set. - got 0, expected 15",UNCODED,0,0,0,0
+752781,defect,Testing,Test Failure,28,"log: https://treeherder.mozilla.org/logviewer.html#?repo=b2g-inbound&job_id=1420453
+repository: b2g-inbound
+start_time: 2015-02-27T11:20:51
+who: rvandermeulen[at]mozilla[dot]com
+machine: t-snow-r4-0108
+buildname: Rev4 MacOSX Snow Leopard 10.6 b2g-inbound debug test mochitest-2
+revision: ee5d1f234412
+249 INFO TEST-UNEXPECTED-FAIL | dom/events/test/test_bug607464.html | Pixel scrolling should have finished after one refresh driver iteration. We shouldn't be scrolling smoothly, even though the pref is set. - got 0, expected 15",UNCODED,0,0,0,0
+758103,defect,Testing,Test Failure,10,"Created attachment 689201
+Set remaining time to 0 if battery level is 1 [v2]
+This is an update to the previous patch. The major changes are the use of TEMP_FAILURE_RETRY and ScopedClose. Because of the latter, the file I/O has been rewritten to use file descriptors, and all gotos are gone.",CODE_IMPLEMENTATION,1,1,1,1
+758103,defect,Testing,Test Failure,13,"Thanks for the reviews!
+The funny thing is that I first  named this function GetCurrentBatteryLevel, but then I thought that the use of 'capacity' on the original code might be for a reason. I'll change the naming to 'level'. :)
+I'll put some helpers into this file, and we can add generic variants later. I don't want to add even more changes to this patch.
+I didn't notice that during testing. Thank you.
+I had a look into the encoding of floating-point numbers. Representing 1.0 seems possible. If we use an epsilon here, I'd have to use it in the upper layers as well. I was more worried about the division of (capacity = 100) by 100 really results in 1.0.",CLARIFICATION,0,1,1,1
+759033,defect,Refactoring,Code Improvement,6,https://hg.mozilla.org/mozilla-central/rev/ee5b6efa9bda,UNCODED,0,0,0,0
+768901,defect,Implementation,UI Issue,6,"So nsCSSStyleSheetInner::mSheets holds pointers to each of the nsCSSStyleSheets that share the inner?  I see.  There will be a bit of arbitrariness in terms of who gets blamed for the memory consumption of the inner, but that seems hard to avoid and double-counting is worse.",SOLUTION_REVIEW,1,1,1,1
+768901,defect,Implementation,UI Issue,11,https://hg.mozilla.org/integration/mozilla-inbound/rev/b275f72aba11,UNCODED,0,0,0,0
+779500,defect,Implementation,Feature Development,1,Implement the proposed WebFM API: https://groups.google.com/forum/?fromgroups#!topic/mozilla.dev.webapi/PraULCQntqA,PROBLEM_DESCRIPTION,0,0,1,1
+779500,defect,Implementation,Feature Development,11,"Those patches are ready to be reviewed, i just don't know who i should request, so if you would review those as well, that's great!",CODE_REVIEW_REQUEST,0,1,1,1
+779500,defect,Implementation,Feature Development,16,"I'm not going to look at the remaining patches until we get this IDL actually settled, so clearing the r?'s for now.",STATUS_UPDATE,0,0,0,0
+779500,defect,Implementation,Feature Development,21,"What I meant was, the security discussion indicated that WebFM will be
+available implicitly to all apps and (with a prompt) to any webpage.
+Since this API will be so widely accessible, I don't think we should add hacks
+like ""speaker on"" to this API.
+https://wiki.mozilla.org/WebAPI/Security/FMRadioAPI
+Yeah, it's a consistency argument.  We don't need 52 bits of precision for
+either signal strength or FM frequency, so neither of them /needs/ to be a
+double.
+But double is JavaScript's natural floating-point type (it does not have a
+32-bit float, except as a typed array), so in the absence of any good reason to
+use a float, I think we should use a double.
+I think we're not talking about the same thing.  There are two separate things here.
+  * ""The current band"", which indicates the parameters (AM/FM,
+    frequency upper and lower bounds, and channel interval) that the radio is
+    currently using.  There is only ever one current band.
+  * ""The band ranges"", which indicates all possible values that the current
+    band might be set to.
+The FM app needs only ""the current band"" in order to show the dialier.  It does
+not need a list of all band ranges that the FM chipset supports.
+But apps implementing an FM radio cannot necessarily read settings.  The
+settings API is not available to unprivileged web content (or even many apps).
+If the FM app were able to read settings, then we would not need to expose ""the
+current band"" to the FM app; we could define that information in the settings,
+too.  In fact, we would not need the FM API at all; we could define everything
+about this API in the settings.
+That settles that, then.  :)
+Ah, I remember this now.
+As you discovered, nsIDOMEventTarget is a builtinclass.  That means that if
+nsIDOMFMRadio inherits from nsIDOMEventTarget, you can't implement it in JS.
+That's probably why nsIDOMWifiManager doesn't inherit from it.
+But if you don't inherit from nsIDOMEventTarget, then you can't do
+addEventListener on it.
+In other words, you can't implement event targets in JS!
+It's bad that nsIDOMWifiManager is not an event target, but I think it would be
+worse if the FM radio was not an event target, because we're exposing it to all
+of the web.  So I think you're going to have to rewrite the implementation of
+nsIDOMFMRadio in C++.  I don't think we want to create a public interface where
+you have to use the onX handlers.
+Unless Jonas has different thoughts?",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+779500,defect,Implementation,Feature Development,22,"Comment on attachment 647942
+option MOZ_B2G_FM
+Review of attachment 647942:
+-----------------------------------------------------------------
+autoconf.mk.in substitution was just rewritten, so this needs to be updated.",CODE_REVIEW,0,0,0,0
+779500,defect,Implementation,Feature Development,29,"I'm told that this is a v1 blocker, so I'm noming it.
+As I've made clear in a variety of forums, I think it would be a mistake to hold the release for this feature, and I do not think it is a blocker.  In fact, I think it would be prudent to allow this feature to slip, so we have time to focus on other things for v1.  But I understand that is not the decision product has made.",ADDITIONAL_CONSIDERATION,0,0,0,0
+779500,defect,Implementation,Feature Development,38,"What native slot? I thought the implementation would be in JS.
+Though, comment 30 talks about WebIDL so I'm not sure anymore what kind of EventTarget impl
+will be added.",QUESTION,0,0,1,0
+779500,defect,Implementation,Feature Development,61,"We're not using WebIDL yet, so that won't work here.",ADDITIONAL_CONSIDERATION,0,0,0,0
+779500,defect,Implementation,Feature Development,73,"I'm going to look at bug 749053 first, since changes there may mean you have to make changes here.",ADDITIONAL_CONSIDERATION,0,1,1,1
+779500,defect,Implementation,Feature Development,84,"Hi Justin, do you have a plan to review my code?",CODE_REVIEW_REQUEST,0,0,0,0
+779500,defect,Implementation,Feature Development,87,"Steven asked Qualcomm about this, and this is what Qualcomm answered.",ANSWER_TO_QUESTION,0,0,0,0
+779500,defect,Implementation,Feature Development,90,"Um...maybe you need NS_MIN<uint32_t>(signalStrength, 100), because otherwise the compiler doesn't know whether 100 should be signed or unsigned?
+http://dxr.mozilla.org/mozilla-central/xpcom/string/public/nsAlgorithm.h.html#l36",QUESTION,0,1,1,1
+779500,defect,Implementation,Feature Development,103,"In the second one, the second and third lines start in the same column as the t in ""this"".  This is because the ""@mozilla.org"" argument is contained within the same parenthesis level as ""this"".
+We break this rule in plenty of places, but in general, we try to indent this way.  It's not always possible, and when it's not, we prefer to indent the second line one indent (that is, two or four spaces, depending on the file).  If you were to do that here, you'd do
+although I don't think that would be the right indentation style here.  On the other hand, if ""@mozilla.org/settingsService;1"" were instead some very long string, we might do
+Or we might just store the long string in a variable.  But in any case, we wouldn't use the style from the first example in comment 101.
+Does that make sense?",SOLUTION_REVIEW,1,1,1,1
+779500,defect,Implementation,Feature Development,122,"Created attachment 660727
+part B - nsIDOMFMRadio IDL, v1.1",UNCODED,0,0,0,0
+779500,defect,Implementation,Feature Development,128,"I copied them from dom/bluetooth/linux/BluetoothDBusService.cpp and dom/bluetooth/linux/BluetoothDBusUtils.cpp.
+Then we should change the type of signalStrength to ""long"", like this:
+    /**
+     * The signal strength.
+     * The value returned is between 0 (no signal) and 5 (full signal), inclusive.
+     */
+    readonly attribute long signalStrength;
+?",UNCODED,0,1,1,1
+779500,defect,Implementation,Feature Development,137,"Created attachment 662059
+part B - nsIDOMFMRadio IDL, v1.2
+Removed signalStrength and onsignalstrengthchange",CODE_IMPLEMENTATION,1,0,0,0
+779500,defect,Implementation,Feature Development,138,"Created attachment 662062
+part C - mozFMRadio v5.1
+- Rebased the lastest m-c
+- Removed signalStrength related codes
+- Fixed nits based on the comment 124 and comment 125",CODE_IMPLEMENTATION,1,1,1,1
+783505,defect,Implementation,Code Design,1,"Latest birch (where we ensure OS X still builds with gcc, now that trunk has switched to clang) merge is failing with:
+{
+../../../../js/src/jstypedarray.cpp:1427: error: template parameter 'ValueGetter' of type 'JS::Value (*)(JSObject*)' is not allowed in an integral constant expression because it is not of integral or enumeration type
+}
+https://hg.mozilla.org/projects/birch/pushloghtml?startID=117&endID=118
+-> bug 777174",PROBLEM_DESCRIPTION,0,0,0,0
+783505,defect,Implementation,Code Design,3,CCing espindola for last part of comment 1.,PROBLEM_REVIEW_REQUEST,0,0,0,0
+790547,defect,Implementation,Feature Development,45,"https://hg.mozilla.org/integration/mozilla-inbound/rev/d0194ff64049
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c2e9422b1be8
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c249961afd99
+https://hg.mozilla.org/integration/mozilla-inbound/rev/48d10ef28d52",UNCODED,0,0,0,0
+794101,task,Implementation,Feature Development,1,"Changes since the last update:
+#2089 Removes unnecessary ctx.mozCurrentTransformInverse transforms
+#2091 Refresh the zoom settings after rotating the pages
+#2102 Fix regression from #2087.
+#2107 Fix gh-pages bloat
+#2106 Adds text layer testing
+#2111 Move font translation to the worker
+#2100 Fix zoom out keyboard shortcut for mac.
+#2115 Refactor text extraction / font loading logic
+#2122 Update index template.
+#2123 Fixes RTL text extraction
+#2125 Add 'text' test coverage for simpletype3font + arabiccidtruetype-pdf test PDF
+#2130 Update Japanese l10n
+#2132 Update zh-TW translation
+#2136 Fix l10n labels ids for rotation menu items
+#2124 Provides right fallback fonts for text layer
+#2116 Mozilla central change for metro.
+#2118 Removing font loading hack from MOZCENTRAL
+#2110 Use document fragment in text layer
+#2143 Fix current.x for type3 font word break
+#2131 Metadata optimization
+#2058 Small fixes for normal and potential post-compilation bugs
+#2145 Renaming export to exportData
+#2155 Fix issue #2141
+#2144 Update the Arabic translation
+#2160 Handle Arabic Ligatures in issue #2141
+#2162 Fullscreen updates for latest (unprefixed) spec.
+#2146 Workaround for android gb browser bug
+#2153 Renames fullscreen to presentation mode
+#2127 Use the text extracted in the getTextContent function for the divs of the textLayer.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+794507,defect,Implementation,Code Design,8,"How about we change the code for conditional requests so that we never add the conditional request headers if we're doing an offline cache update and the existing entry doesn't have a security-info entry?
+Also, when we fetch the cache manifest, if the cache manifest itself doesn't have security-info then we should consider the cache manifest as having been updated, to force a refresh of the app.
+I agree that it doesn't need to be removed right away and probably can't be, to avoid breaking things. But, the other things I suggest above are very important to do now.",CODE_REVIEW,0,1,1,1
+794507,defect,Implementation,Code Design,18,"Lee, could you please check the latest Firefox Nightly build and make sure the issue is fixed: http://nightly.mozilla.org/
+Note that it may not be fixed for already-AppCached content. But, if you clear your appcache then newly-cached content should work.",VERIFICATION_REQUEST,0,1,1,0
+812431,defect,Implementation,UI Issue,4,"Very minor regression (if at all), but we'd take a low risk fix on Aurora if found.",PROBLEM_REVIEW,0,1,1,1
+817531,defect,Implementation,UI Issue,1,"User Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/17.0 Firefox/17.0
+Build ID: 20121120062532
+Steps to reproduce:
+Visited http://www.fotocommunity.com/contest
+Actual results:
+Background images for the tables (Different photo contests listed) are not beeing loaded. 
+Expected results:
+Requests for those images are beeing made and result in a 403 since a referer check is made for those requests and the referer beeing sent along with those requests is the request url (for the image asset) itself, not the url for the website including those images.
+This seems to be introduced in FF 17, we verified it on Mac, Linux and Windows.
+In FF 16 it still worked.",ADDITIONAL_CONSIDERATION,0,0,0,0
+819493,defect,Implementation,UI Issue,4,"I don't think we want to block this on snippet service improvements, since that complicates the dependency chain significantly. We don't need to use the existing default snippet mechanism for this; we could have a hard-coded ""first run"" snippet separate from the default snippets, that is used only first run.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+819493,defect,Implementation,UI Issue,5,"Fine by me. 
+Marketing requirement: Make sure this First Run snippet is shown only once, to new users only.  I'm happy to provide the copy, graphic, and link - let me know when you need this.",REQUIREMENT,0,1,1,1
+819493,defect,Implementation,UI Issue,19,"Created attachment 721710
+Added unit tests and now passing serialized JSON between documents",UNCODED,0,1,1,1
+819493,defect,Implementation,UI Issue,20,"Comment on attachment 721710
+Added unit tests and now passing serialized JSON between documents
+Hrm, this image (and the 2x version) doesn't seem to be in the patch. Did you forget to |hg add| it?
+I actually kind of prefer having it all on one line, much easier to copy/paste and replace.
+aw yeah proper bracing style
+This string concatenation may not be acceptable for localization and/or RTL. I think we might need to do something like http://hg.mozilla.org/mozilla-central/annotate/1b49fb552e18/browser/base/content/aboutDialog.xul#l71, where we allow localizers to add text before and after the link. But I'm not certain about this - ask Axel?
+Seems like it might be simpler to just have this code be something like:
+let knowYourRightsData = AboutHomeUtils.knowYourRightsData;
+if (knowYourRightsData)
+  docElt.setAttribute(...)
+and have AboutHomeUtils return null when nothing needs to be shown (and have the code in aboutHome.js just check for the presence of the attribute, rather than rightsData.show).
+Hrm, now it's starting to seem gratuitous :)
+clearUserPref before setBoolPref is redundant, FWIW.
+You should remove it from EXTRA_JS_MODULES if you're adding it here, otherwise we will copy it over twice unecessarily during build time.
+r- for the potential l10n issue and missing images, but with all of these comments addressed this should be ready to go.",CODE_REVIEW,0,1,1,1
+819493,defect,Implementation,UI Issue,22,"Comment on attachment 726131
+Update as oer Gavin's review and comments
+Seems like you shouldn't add the related style yet, then (or the empty #rightsSnippet {} block).
+Please avoid making the bracing changes in this patch.
+This could check ""rightsData.start || rightsData.end"" to be localization-agnostic (we don't currently run browser-chrome tests in non-en-US builds, but we might want to someday).
+Wouldn't a more accurate description be ""after it has already been shown once (in the previous test)""?
+Hrm, don't think is kosher. IIRC formatStringFromName can do bad things if it's expecting a variable to substitute and doesn't find one in the string. Axel would probably know the details. But in any case it seems like this would be simpler if you added the relevant strings to aboutHome.dtd, similar to how abouthome.defaultSnippet1.v1 works:
+<!-- LOCALIZATION NOTE (rightsSnippet.message) text in <a> will be linked to about:rights -->
+<!ENTITY rightsSnippet.message ""&brandShortName; is free and open source software from the non-profit Mozilla Foundation. <a>Know your rights…</a>"">
+and then have the about:home code linkify the <a> appropriately.
+(I think both this link and the default snippet links should actually be branding-specific, i.e. in brand.dtd, but I can file a separate bug about that.)
+It's a bit risky that the setting of the ""shown"" pref is now decoupled from the actual showing. This currently relies on the AboutHomeUtils.knowYourRightsData getter only ever being called when about:home is going to be displayed, which seems a bit fragile. It would be nice to avoid that somehow - I suppose you could just move this block of code to the browser.js block where the AboutHomeUtils.knowYourRightsData is currently accessed.
+This #define will never be true, because you didn't also move over the block at:
+http://hg.mozilla.org/mozilla-central/annotate/5dbcbd03d7ba/browser/components/Makefile.in#l23
+to browser/modules/Makefile.in. Should test this manually to make sure official/non-official builds work properly.",CODE_REVIEW,0,1,1,1
+819493,defect,Implementation,UI Issue,28,"Comment on attachment 732768
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+Review of attachment 732768:
+-----------------------------------------------------------------
+Since I want to be annoying today, https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style#JavaScript_objects has braces on a new line for functions :)
+This is not to say it's important, it's not. Just wanted to point out how it's hard (and pointless) to have a common style that everyone likes.
+Fwiw, some of us also likes using a space to label anonymous functions, thus why you found ""function ()"" instead of ""function()"".
+Again, this doesn't matter, we usually just care a single code module is coherent with itself.
+::: browser/base/content/abouthome/aboutHome.js
+@@ +294,5 @@
+trailing space
+::: browser/base/content/browser.js
+@@ +2654,4 @@
+this will always set to true, no need to cache showRights into a temp var, you may just
+if (AboutHomeUtils.showKnowYourRights) {
+  docElt.setAttribute(""showKnowYourRights"", ""true"");
+::: browser/base/content/test/browser_aboutHome.js
+@@ +212,5 @@
+why the need for beforeRun instead of using setup?
+@@ +221,5 @@
+the test should cleanup after itself, this test is setting a pref and not clearing it before existing.
+@@ +230,5 @@
+ditto
+@@ +234,5 @@
+trailing spaces",CODE_REVIEW,0,0,0,0
+819493,defect,Implementation,UI Issue,31,"setup runs after the snippets have been initialized, which is too late for this AIUI.",ANSWER_TO_QUESTION,0,0,0,0
+819493,defect,Implementation,UI Issue,36,"Created attachment 732983
+Know Your Rights notification box has moved to be shown as default snippet on first startup
+added proposed changes of Gavin and Marco.",CODE_IMPLEMENTATION,1,0,0,0
+819493,defect,Implementation,UI Issue,55,https://hg.mozilla.org/mozilla-central/rev/c950d2ea4c5b,UNCODED,0,0,0,0
+822952,defect,Implementation,Code Design,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/5f697a87ec46,UNCODED,0,0,0,0
+833964,defect,Implementation,Crash,13,Can you provide the URL where this was reproducible?,INFO_REQUEST,0,0,0,0
+833964,defect,Implementation,Crash,35,*** Bug 849884 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+840284,defect,Testing,Test Update,5,"I think so. Would be interesting to have a random code generator based on the type system itself, and/or to mutate asm.js from emscripten in ways that *do* keep it asm.js, not just break out of it. Both would test things just emscripten output does not.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+840284,defect,Testing,Test Update,6,"Additionally, it would be interesting to throw a C fuzzer in front of Emscripten :)",POTENTIAL_SOLUTION_DESIGN,1,0,0,0
+840284,defect,Testing,Test Update,21,Here it is: http://dl.dropbox.com/u/80664946/emscripten_test_suite2.zip,UNCODED,0,0,0,0
+851828,defect,Implementation,Defective Functionality,10,https://hg.mozilla.org/integration/mozilla-inbound/rev/f5a256c02fc6,UNCODED,0,0,0,0
+852135,defect,Refactoring,Code Improvement,6,"Comment on attachment 734285
+Patch v1.2
+Going to wait until Attr lands.",STATUS_UPDATE,0,0,0,0
+855335,defect,Implementation,Preventive Changes,7,"Created attachment 735884
+Signaling - fix Wformat warnings in logging",UNCODED,0,0,0,0
+855335,defect,Implementation,Preventive Changes,18,"BTW, you know you can get gcc to generate these warnings without such hackery, right? See the ""format"" attribute at http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html",CLARIFICATION,0,1,1,1
+861246,defect,Implementation,UI Issue,4,"Comment on attachment 736858
+Fix IPC for fixed layer margins
+Review of attachment 736858:
+-----------------------------------------------------------------
+Looks good, thanks for catching this Chris!",CODE_REVIEW,0,0,0,0
+861246,defect,Implementation,UI Issue,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/278d87108cb0,UNCODED,0,0,0,0
+866470,defect,Testing,Test Failure,7,"RyanVM
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22426553&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-04-30 13:11:43
+slave: t-w864-ix-077
+13:24:19     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,0,0,0
+866470,defect,Testing,Test Failure,14,"edmorley
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22493573&tree=Mozilla-Inbound
+Rev4 MacOSX Snow Leopard 10.6 mozilla-inbound debug test reftest on 2013-05-02 01:14:21
+slave: talos-r4-snow-079
+01:25:35     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,0,0,0
+866470,defect,Testing,Test Failure,21,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22487406&tree=Try
+Rev4 MacOSX Snow Leopard 10.6 try debug test reftest on 2013-05-01 20:23:21
+slave: talos-r4-snow-079
+20:34:17     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///Users/cltbld/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,0,0,0
+866470,defect,Testing,Test Failure,32,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22599806&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-04 15:48:06
+slave: t-w864-ix-012
+15:58:10     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,0,0,0
+866470,defect,Testing,Test Failure,34,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22619936&tree=Mozilla-Inbound
+WINNT 6.2 mozilla-inbound debug test reftest on 2013-05-05 18:24:05
+slave: t-w864-ix-063
+18:34:34     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///C:/slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,0,0,0
+866470,defect,Testing,Test Failure,60,"philor
+https://tbpl.mozilla.org/php/getParsedLog.php?id=22716176&tree=Mozilla-Central
+Rev3 WINNT 6.1 mozilla-central debug test reftest on 2013-05-07 20:58:43
+slave: talos-r3-w7-049
+21:14:59     INFO -  REFTEST TEST-UNEXPECTED-FAIL | file:///c:/talos-slave/test/build/tests/reftest/tests/layout/reftests/bugs/289480.html#top | assertion count 1 is more than expected 0 assertions",UNCODED,0,0,0,0
+869069,defect,Refactoring,Unnecessary Code Removal,4,"Does this also cover removing the dupe widgets (cut/copy/paste, Zoom) and the ""activity"" indicator ?",QUESTION,0,0,0,0
+894646,defect,Refactoring,Code Improvement,2,"Comment on attachment 776725
+Patch
+Review of attachment 776725:
+-----------------------------------------------------------------
+A few bugs and crashes... Please attach an interdiff when you address the comments.
+::: content/base/src/nsDocument.cpp
+@@ +6620,5 @@
+Let's just cast here, and make this an nsRefPtr<Attr>
+@@ +6623,5 @@
+You're shadowing the rv argument here.
+::: content/xul/document/src/nsXULCommandDispatcher.cpp
+@@ +209,2 @@
+Followup to fix SetFocus?
+::: dom/base/nsContentPermissionHelper.cpp
+@@ +92,5 @@
+This is crashy if mParent->mElement is null.
+::: dom/base/nsContentPermissionHelper.h
+@@ +27,4 @@
+One space is sufficient
+::: dom/base/nsDOMWindowUtils.cpp
+@@ +1289,5 @@
+Crash
+::: dom/base/nsGlobalWindow.cpp
+@@ +3097,5 @@
+Element
+@@ +6370,5 @@
+nullptr while you're here
+@@ +7606,5 @@
+Crash
+@@ +10858,5 @@
+Get rid of this nonsense, please.
+@@ +11057,5 @@
+Element
+@@ +11169,5 @@
+Ditto
+::: dom/base/nsLocation.cpp
+@@ +42,5 @@
+Unused variable
+@@ +51,4 @@
+Double-check if you need to hold a ref here
+::: dom/base/nsPIDOMWindow.h
+@@ +196,5 @@
+Ask someone if those are perf-sensitive
+::: dom/ipc/ContentParent.cpp
+@@ +399,1 @@
+AttrValueIs
+::: dom/ipc/TabChild.cpp
+@@ +543,5 @@
+Let's keep this a strong pointer
+::: dom/ipc/TabParent.cpp
+@@ +316,5 @@
+Followup
+@@ +1242,5 @@
+Can mFrameElement change from under us?
+@@ +1259,1 @@
+Followup
+::: dom/ipc/TabParent.h
+@@ +62,5 @@
+const
+::: dom/system/nsDeviceSensors.cpp
+@@ +218,4 @@
+Uh, I don't think so
+::: layout/inspector/src/inLayoutUtils.cpp
+@@ +103,2 @@
+* to the left
+@@ +105,1 @@
+{}",CODE_REVIEW,0,0,0,0
+894646,defect,Refactoring,Code Improvement,4,"Created attachment 778194
+Addressing review comments",UNCODED,0,0,0,0
+894931,defect,Implementation,UI Issue,12,"Comment on attachment 777360
+Patch
+Review of attachment 777360:
+-----------------------------------------------------------------
+This patch isn't correct because it changes the z-ordering of scrollbars.",CODE_REVIEW,0,0,0,0
+894931,defect,Implementation,UI Issue,13,"Oh, I think I finally understand: you're saying by changing the position we're also changing z-ordering? I missed that.",QUESTION,0,0,0,0
+894931,defect,Implementation,UI Issue,14,"I know what the bug is. The bug is that we need to reframe when transitioning from position:static to position:relative if there are position:absolute descendants, because they need to change their containing blocks to be the new frame.",PROBLEM_CAUSE_IDENTIFICATION,0,1,1,1
+894931,defect,Implementation,UI Issue,34,https://hg.mozilla.org/mozilla-central/rev/be10b6e8dfad,UNCODED,0,0,0,0
+897027,defect,Implementation,Defective Functionality,2,"David, you have any interest in fixing this perhaps?",ASSIGNEE_REQUEST,0,0,0,0
+897027,defect,Implementation,Defective Functionality,3,"Sure, feel free to assign me. Will try doing some work over this weekend.",DEVELOPER_SELECTION_DECISION,0,0,0,0
+897027,defect,Implementation,Defective Functionality,10,"Comment on attachment 815315
+bug-897027-fix.patch
+Review of attachment 815315:
+-----------------------------------------------------------------
+Perfect, thanks. Do you have checkin rights? If not, just add the checkin-needed keyword on the bug and the sheriffs will do their magic.
+(Just for future reference, if you get an r+ with a request to do some small changes, you can set the r+ yourself on the new version and add something like ""carrying r+ from tschneidereit"" to the comment.)",CODE_REVIEW,0,0,0,0
+897027,defect,Implementation,Defective Functionality,13,"Backed out for assertions:
+eg https://tbpl.mozilla.org/php/getParsedLog.php?id=28934657&tree=Mozilla-Inbound
+https://hg.mozilla.org/integration/mozilla-inbound/rev/45f35cc52ceb
+Were the jit-tests run locally on a debug build before requesting checkin-needed..? :-)",IMPLEMENTATION_REVERSION,0,0,0,0
+897027,defect,Implementation,Defective Functionality,16,"Created attachment 815582
+bug-897027-fix.patch
+Thanks everyone for the comments. This update will hopefully fix the previous issue (tested it on my platform's debug and release builds)
+Please note the local variables assignments: 
+    double x = GenericNaN();
+This should handle (and hopefully not introduce new bugs) the cases where less arguments are being passed (thus being undefined) according to my understanding of the draft. Otherwise please feel free to advise me of better alternatives.",CODE_IMPLEMENTATION,1,1,1,1
+897027,defect,Implementation,Defective Functionality,19,"Comment on attachment 815582
+bug-897027-fix.patch
+Review of attachment 815582:
+-----------------------------------------------------------------
+I'm terrribly sorry for the late review - this fell off my radar completely.
+Looks great. And thank you so much for the thorough tests of Number functions.
+::: js/src/jsmath.cpp
+@@ +298,5 @@
+this hasDefined isn't necessary, as we'll have returned above if it were false
+@@ +647,5 @@
+Same here about hasDefined
+::: js/src/tests/ecma_6/Math/20.2.2.ToNumber.js
+@@ +3,5 @@
+Nit: can you add the date of the spec draft this numbering refers to. It will get outdated at some point, otherwise.
+@@ +8,5 @@
+Please just remove this entire paragraph: the EcmaScript spec's license isn't compatible with Public Domain. While this is very likely to fall under fair use, no need to go anywhere near the boundaries of that.",CODE_REVIEW,0,0,0,0
+900384,defect,Refactoring,Code Improvement,1,"""Redo"" is now defined.",UNCODED,0,1,1,1
+904571,defect,Implementation,Crash,5,"Created attachment 8365135
+v1
+My recent re-experience with this code tells me there is nothing more to do.",CODE_IMPLEMENTATION,1,0,0,0
+904571,defect,Implementation,Crash,10,"There is a potential for foreign (unknown) code be called while AutoRedirectVetoNotifier is on stack.  So it's actually not possible to say whether it can happen to be multiple times on the stack or not.  I think we can easily use mRedirectChannel of the channel to indicate whether we have called OnRedirectResult or not.  ~AutoRedirectVetoNotifier drops it from the channel (I've added an assert to check it's always non-null there and xpcshell tests that cover all codepaths for this class).  But a flag might be more reliable and also we'd have more control over the behavior...  
+Question is, what happens when the nested notifier's dtor is called with FAILED and the other is called with SUCCEEDED.  Which one is right?  But I think this is a broader problem, since in this case the code would be seriously broken.  More arg for a flag...",CLARIFICATION,0,1,1,1
+906912,defect,Refactoring,Code Improvement,15,"Something I'm discovering as I try to use std::move instead of mozilla::Move is that a mozilla::MoveRef<T> can be passed to a constructor that takes T&, while a T&& can be cast only to |const T&|, not |T&|.
+This is causing some cascading sets of changes.",SOLUTION_REVIEW,1,1,1,1
+912496,defect,Implementation,Performance Optimization,2,"Created attachment 799488
+Store source file names only once in tracelogging.log and refer to them by auto-incrementing id after that.",PROBLEM_DESCRIPTION,0,1,1,1
+916390,defect,Refactoring,Unnecessary Code Removal,1,"I was looking at the form saving code, and I can't quite figure out this field. In theory, it acts like a cache so that we don't collect form data if it hasn't changed. However, there doesn't seem to be any placed to save the cached form data, as far as I can see. That is, if browser.__SS_formDataSaved is true, we just don't appear to save any form data for the given tab in sessionstore.js.
+The problem is mostly mitigated by the TabStateCache, since we don't typically collect data for a page more than once. However, I wonder how this worked before the TabStateCache was implemented. Perhaps I've misread the code?
+In any case, it would be nice if we could just eliminate this field. Now that we have the TabStateCache, I doubt that it saves us much work. What do you guys think?",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+919434,defect,Implementation,Crash,3,"Created attachment 810737
+cycle creation stack
+Caught that cycle being created. This presumably has something to do with how we process all descendants of a fixed position layer specially, and a bad interaction of that with sticky position layers.",PROBLEM_CAUSE_IDENTIFICATION,0,0,0,0
+924397,defect,Implementation,Error Handling Improvement,2,The way to reproduce this is to remove a ; after an interface definition in any file in dom/webidl and rebuild.,S2R,0,0,0,0
+924397,defect,Implementation,Error Handling Improvement,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/48d6dad2df16,UNCODED,0,0,0,0
+927544,defect,Implementation,Code Design,1,"Created attachment 817999
+patch
+The stub call made when Ion deoptimizes a JSOP_CALLPROP does not invoke unknown method hooks on the object.",CODE_IMPLEMENTATION,1,1,1,1
+937475,defect,Implementation,Defective Functionality,4,"Ah, I don't know why but I seem to remember that I once wrote a patch to fix this.  I thought that I had gotten reviews and landed it but now I can't even find a bug, which tells me that I must have forgotten to even file the bug. :(",PROBLEM_REVIEW,0,0,0,0
+937475,defect,Implementation,Defective Functionality,6,"Created attachment 831382
+separate stream position from buffer position so that stop time can use stream position",UNCODED,0,1,1,1
+939475,defect,Implementation,Error Handling Improvement,2,"Created attachment 833395
+Patch
+I assume sliceTimeBudget also needs to be included.",CODE_IMPLEMENTATION,1,0,0,0
+939475,defect,Implementation,Error Handling Improvement,4,"Created attachment 8334237
+Patch (v2)",UNCODED,0,0,0,0
+947523,defect,Implementation,Crash,7,Does this reproduce on a 1.1 Buri device?,REPRODUCTION_REQUEST,0,0,0,0
+947523,defect,Implementation,Crash,14,"The regression here is likely on the gecko side, as this involves killing the parent process.
+A suspected patch for causing this regression is bug 927633 because is involving IPC.
+Can we get a regression range on 1.3 as well? That will help isolate with bug caused this.
+Mason - Any ideas if bug 927633 caused this?",PROBLEM_REVIEW,0,1,1,1
+947523,defect,Implementation,Crash,33,bug 934886 is trying to fix graphic artifact when taking screenshot. I didn't see the related function called (GetThebesSurfaceForDrawTarget) when I zoom in/out the browser pages.,ANSWER_TO_QUESTION,0,0,0,0
+947523,defect,Implementation,Crash,36,"I've reproduced the browser crash.  I zoomed in a fair amount and ran b2g-info:
+                  |     megabytes    |
+   NAME  PID NICE  USS  PSS  RSS VSIZE OOM_ADJ USER
+    b2g 1531    0 49.5 63.2 77.0 208.1       0 root
+Browser 1975    1 23.2 36.9 50.6 104.1       2 app_1975
+System memory info:
+            Total 179.7 MB
+     Used - cache  94.6 MB
+  B2G procs (PSS) 100.1 MB
+    Non-B2G procs  -5.4 MB
+     Free + cache  85.1 MB
+             Free  52.4 MB
+            Cache  32.6 MB
+I then zoomed just a little bit more and the browser tab was killed.  I got the ""oops, this is embarrassing"" dialog.  The logcat indicated that ""memory pressure"" was over, so that suggests it was an OOM.
+I find it interesting that just a tiny bit of zooming could cause us to consume over 50MB of free memory, though.
+I will continue investigating tomorrow.",REPRODUCTION_ATTEMPT,0,0,0,0
+947523,defect,Implementation,Crash,37,"Adding instrumentation I can see that zooming results in extremely large gralloc buffers getting created.  For example, with a zoom of 3.75 in APZC I see a gralloc buffer request for 2238x13249.  This asks the system for ~110MB of mlocked memory which ends up killing b2g altogether.  Sometimes we get moderately smaller requests for gralloc buffers around ~30MB which only end up killing the browser tab.
+I'm trying to trace where this size is getting calculated.  Are we zooming the entire layer and trying to alloc a buffer for the entire thing?  Even if that is the case it seems the zoom is being over-accumulated over time or something.",PROBLEM_REVIEW,0,0,0,0
+947523,defect,Implementation,Crash,42,Well that's not good. Seems like a sub-apzc bug.,CLARIFICATION,0,0,0,0
+947523,defect,Implementation,Crash,49,"Comment on attachment 8356186
+Change how the displayport is stored
+My first thought is that we will now have to update every display port under a presshell (and it's child documents) anytime it's resolution changes. Is this feasible/desirable?",CODE_REVIEW,0,1,1,1
+947523,defect,Implementation,Crash,73,"Will do.
+The patch is 1.2-only. I have a much bigger change in mind for 1.3 to try and fix this properly.
+Agreed. I can wrap it in an #ifdef if you prefer but since I only plan on having the code land on b2g-1.2 I don't think it matters.
+Will do.
+Yeah, good catch. I'll add that in.
+Yup, I'll do that.
+I was able to consistently reproduce the OOM on the hamachi I borrowed from Botond using a 1.2 build without my patch. The STR basically involved zooming in the page as much as possible using the area to the left of the iframe (because putting focus in the frame brings up the keyboard and that thing is impossible to work with) and then trying to scroll the iframe. Usually it would OOM before I even tried scrolling the iframe.
+With my patch the OOM crash was replaced by a tab crash, and I wasn't able to trigger an OOM with any other panning/zooming actions on the page. So unless Ben has any objections I'll address the comments and get it landed.",STATUS_UPDATE,0,1,1,1
+947523,defect,Implementation,Crash,74,"Comment on attachment 8356796
+Rollup parts 1-4
+I also was unable to get b2g to crash with the patch.  The tab reliably got killed.
+I did, however, see some content fail to draw with this patch.  See time 45s to 50s in this movie:
+  https://www.dropbox.com/s/vguya4xf6rgeqwh/20140107_apzc_etherpad_v1_2_patch.mov
+It appears to occur when you zoom in while simultaneously dragging up a bit causing a scroll.  I could not reproduce without the patch.
+On IRC kats indicated this might be explainable given that the patch shrinks the displayport.  Is this regression fixable?
+If not, is this regression serious enough to hold back the patch?  Jason, what do you think?
+I will try to see if I can reproduce it on any other websites tomorrow.  Maybe its isolated to sites with very large iframes like this etherpad.",QUESTION,0,1,1,1
+947523,defect,Implementation,Crash,85,"Created attachment 8357247
+4/4 - Crash the tab if the texture size is going to exceed the max GL texture size v2",UNCODED,0,0,0,0
+948882,defect,Refactoring,Code Improvement,8,"Never mind, he found a bug.",STATUS_UPDATE,0,0,0,0
+948882,defect,Refactoring,Code Improvement,14,"Created attachment 8408443
+bug.patch
+Hi Manish 
+Added !",CODE_IMPLEMENTATION,1,0,0,0
+948882,defect,Refactoring,Code Improvement,20,"Created attachment 8410903
+bug_final.patch
+Done !",UNCODED,0,0,0,0
+957093,defect,Refactoring,Code Improvement,1,bring some consistency to the namespaces here by converting legacy classes. this is just a subset of netwerk/* but its a good start.,PROBLEM_DESCRIPTION,0,1,1,1
+978610,defect,Implementation,Defective Functionality,11,"Comment on attachment 8391381
+window-close v5
+Never mind. This one doesn't work either.",CODE_REVIEW,0,0,0,0
+978610,defect,Implementation,Defective Functionality,12,"Created attachment 8391466
+window-close v6
+This one is really conservative. I don't think there's any way it should affect b2g.",CODE_IMPLEMENTATION,1,1,1,1
+978610,defect,Implementation,Defective Functionality,13,"Comment on attachment 8391466
+window-close v6
+Review of attachment 8391466:
+-----------------------------------------------------------------
+do you think bug 924260 needs to be addressed together?",CODE_REVIEW,0,0,0,0
+978610,defect,Implementation,Defective Functionality,15,"Yeah, I'm just starting to look at sandboxing / e10s stuff, so I'm happy to pick up bug 924260 as a separate piece.",ANSWER_TO_QUESTION,0,1,1,1
+983489,defect,Implementation,Crash,18,"Comment on attachment 8397713
+983489.patch
+Review of attachment 8397713:
+-----------------------------------------------------------------
+If call SendWillStop() then Destroy() it will make GLContext being deleted before Texture and it crashed at end of reftest.
+Please help to check if switch order is a proper solution.
+It still crash somewhere else and I'm still to identify root cause.",CODE_REVIEW,0,1,1,1
+985257,defect,Implementation,Feature Development,2,"spec: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-path-withdata
+Also implemented in Blink and WebKit",ADDITIONAL_CONSIDERATION,0,0,0,0
+1003694,defect,Testing,Test Failure,11,https://hg.mozilla.org/mozilla-central/rev/e0679448fd3b,UNCODED,0,0,0,0
+1024256,defect,Implementation,Compatibility Issue,3,try: https://tbpl.mozilla.org/?tree=Try&rev=5920576888ae,UNCODED,0,0,0,0
+1029919,defect,Implementation,UI Issue,5,Could you attach screenshot(actual and expected) of the problem?,OB_EB_SCREENSHOT_REQUEST,0,0,0,0
+1029919,defect,Implementation,UI Issue,8,"I can reproduce the problem in Aurora32.0a2 and Nightly33.0a1 WindowsXP SP3 default visual style(i.e. Luna).
+However, I cannnot reproduce in Beta31.0b4.
+Regression window(m-i)
+Good:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/bb8fc1380b00
+Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0 ID:20140519202628
+Bad:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/46d9ffb97fe3
+Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0 ID:20140519224628
+Pushlog:
+http://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=bb8fc1380b00&tochange=46d9ffb97fe3
+Triggered by:
+46d9ffb97fe3	Bas Schouten — Bug 899785: Switch on OMTC and async video on windows. r=BenWa
+Setting layers.offmainthreadcomposition.enabled = false fixes the problem",POTENTIAL_SOLUTION_DESIGN,1,0,0,0
+1029919,defect,Implementation,UI Issue,14,"Comment on attachment 8447783
+Set the proper extent on the clip_path in cairo
+Review of attachment 8447783:
+-----------------------------------------------------------------
+I'm not sure this is correct. I don't see why the extents that are set need to be extents of the path and can't be the extents of the intersection.",CODE_REVIEW,0,1,1,1
+1033283,defect,Implementation,Defective Functionality,4,"Created attachment 8449368
+Expose pressed state on menu buttons, too
+One-line fix, and I added tests for the role and states.",CODE_IMPLEMENTATION,1,1,1,1
+1033283,defect,Implementation,Defective Functionality,8,https://hg.mozilla.org/mozilla-central/rev/62eec1dede89,UNCODED,0,0,0,0
+1033887,defect,Implementation,Code Design,8,"The point of this test and the STL wrappers is that the CRT is built with exceptions enabled, even when our code isn't. So in order to prevent C++ exceptions from leaking into code which is built without, we catch and abort.
+If we are using a clang CRT with no exceptions, then we need neither the STL wrappers nor this test.
+If we are using a clang CRT with exceptions, then we need the wrappers, but perhaps the test makes no sense and we should just not build it in this config.
+Either way, I don't think the patch here makes sense.",CODE_REVIEW,0,1,1,1
+1033887,defect,Implementation,Code Design,9,"That was added by me a very long time ago before clang-cl IIRC, back when I was trying to get the gcc style driver to work on Windows.  That variable is not set in clang-cl, and I should actually remove this old cruft.",ANSWER_TO_QUESTION,0,1,1,1
+1047560,defect,Implementation,Feature Development,8,https://hg.mozilla.org/mozilla-central/rev/4e9cd601aa23,UNCODED,0,0,0,0
+1048721,defect,Implementation,Feature Development,1,Implement functions and types to support WebGLSync object.,PROBLEM_DESCRIPTION,0,1,1,1
+1055843,defect,Implementation,Defective Functionality,3,"Created attachment 8475554
+Simple test case",UNCODED,0,0,0,0
+1055843,defect,Implementation,Defective Functionality,16,"This doesn't seem to conform to the spec. Does it pass test_playback_rate.html? The playbackRate of the media element should not affect the play/pause state. This is also the reason MediaDecoder have its own play state which could be different from the one of the media element. Therefore, it is possible for an media element to be in play state with its media decoder in pause state.",SOLUTION_REVIEW,1,1,1,1
+1057903,defect,Refactoring,Code Improvement,2,"Created attachment 8478049
+Refactor RasterImage to use DrawableFrameRef and generally clean up
+Here's the patch. In addition to the switch to DrawableFrameRef there are a lot of small style and code quality issues fixed here, including a consolidation of the various GetImgFrame/GetDrawableImgFrame/etc methods which were mostly useless (and all needed to be touched in this patch anyway).",CODE_IMPLEMENTATION,1,1,1,1
+1066726,defect,Implementation,Code Design,2,*** Bug 1064408 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+1066726,defect,Implementation,Code Design,23,"Err... the bug is actually bug 1013395.  That one is not worth an uplift, but the parts needed to compile are small enough, I'll backport them.  However, there is some risk this patch won't be stable (since it is completely untested) w/o all other patches landed on 33+, this is simply a disclaimer.",COLLATERAL_PROBLEM_ANALYSIS,0,1,1,1
+1066726,defect,Implementation,Code Design,25,"Created attachment 8501348
+Missing bugs for backport
+This is the list of cache2 bugs landed on Beta and not on B2G/32.  Not sure we can just select few to make the patch for this bug safely back-portable...",ISSUE_IMPACT,0,0,0,0
+1066726,defect,Implementation,Code Design,41,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+Does this address comment 37?",CODE_REVIEW_REQUEST,0,0,0,0
+1066726,defect,Implementation,Code Design,43,Hmm.. not sure what was there to be addressed.  I don't know how run tests on the b2g32. is there a separate try repo for it?,ANSWER_TO_QUESTION,0,0,0,0
+1066726,defect,Implementation,Code Design,49,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+Review of attachment 8517537:
+-----------------------------------------------------------------
+Agree.",UNCODED,0,0,0,0
+1066726,defect,Implementation,Code Design,51,"Guys, I don't know how to properly test this.  I need some help here.",VERIFICATION_REQUEST,0,0,0,0
+1066726,defect,Implementation,Code Design,53,"Marcia, is this something you're able to help with?",VERIFICATION_REQUEST,0,0,0,0
+1066726,defect,Implementation,Code Design,54,Not really. Guessing tedm is the best one to help here.,VERIFICATION_REQUEST,0,0,0,0
+1066726,defect,Implementation,Code Design,58,"Thank you.  Here it is:
+https://treeherder.mozilla.org/ui/#/jobs?repo=try&revision=65d165912d34",UNCODED,0,0,0,0
+1071367,defect,Implementation,Defective Functionality,4,"Created attachment 8493806
+Real patch",UNCODED,0,0,0,0
+1073339,defect,Testing,Test Update,5,https://tbpl.mozilla.org/?tree=Try&rev=ce898dc49b21,UNCODED,0,0,0,0
+1073339,defect,Testing,Test Update,14,"Comment on attachment 8530242
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch, v2
+Review of attachment 8530242:
+-----------------------------------------------------------------
+I don't see any obvious reason why this is failing on Try :\",CODE_REVIEW,0,0,0,0
+1073339,defect,Testing,Test Update,19,https://tbpl.mozilla.org/?tree=Try&rev=b8a1b38b172c,UNCODED,0,0,0,0
+1073339,defect,Testing,Test Update,21,"https://hg.mozilla.org/mozilla-central/rev/d68830b2ce47
+https://hg.mozilla.org/mozilla-central/rev/704ca3c0bb46",UNCODED,0,0,0,0
+1076026,defect,Testing,Test Failure,2,"Created attachment 8498432
+stack
+(lldb) bt 5
+* thread #1: tid = 0x314869, 0x00000001003d6a31 js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(js::jit::TempAllocator&, js::jit::MInstruction*) [inlined] js::jit::MTypeBarrier* js::jit::MDefinition::to<js::jit::MTypeBarrier>(this=<unavailable>) + 5 at MIR.h:691, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x0)
+  * frame #0: 0x00000001003d6a31 js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(js::jit::TempAllocator&, js::jit::MInstruction*) [inlined] js::jit::MTypeBarrier* js::jit::MDefinition::to<js::jit::MTypeBarrier>(this=<unavailable>) + 5 at MIR.h:691
+    frame #1: 0x00000001003d6a2c js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(js::jit::TempAllocator&, js::jit::MInstruction*) [inlined] js::jit::MDefinition::toTypeBarrier(this=<unavailable>) at MIR.h:708
+    frame #2: 0x00000001003d6a2c js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(this=<unavailable>, alloc=<unavailable>, def=<unavailable>) + 668 at TypePolicy.cpp:245
+    frame #3: 0x00000001002a8a6a js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::ApplyTypeInformation(js::jit::MIRGenerator*, js::jit::MIRGraph&) [inlined] js::InlineListIterator<js::jit::MInstruction>::operator*(this=0x00000001030d57a8, def=0x0000000103133bf8) const + 86 at IonAnalysis.cpp:1080
+    frame #4: 0x00000001002a8a14 js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::ApplyTypeInformation(js::jit::MIRGenerator*, js::jit::MIRGraph&) [inlined] (anonymous namespace)::TypeAnalyzer::insertConversions(this=0x00000001030d57a8) + 1683 at IonAnalysis.cpp:1140
+(lldb)",STACK_TRACE,0,0,0,0
+1080574,defect,Testing,Flaky Tests,4,"submit_timestamp: 2014-10-26T18:40:01
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=mozilla-beta&job_id=114827
+repository: mozilla-beta
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-271
+buildname: Ubuntu VM 12.04 x64 mozilla-beta debug test mochitest-4
+revision: 080cfa7f5d79
+122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",UNCODED,0,0,0,0
+1080574,defect,Testing,Flaky Tests,19,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=10226328
+repository: mozilla-inbound
+start_time: 2015-05-28T08:20:58
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-285
+buildname: Ubuntu VM 12.04 x64 mozilla-inbound opt test mochitest-4
+revision: db3d40e8b4de
+144 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",UNCODED,0,0,0,0
+1080574,defect,Testing,Flaky Tests,24,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=11588098
+repository: mozilla-inbound
+start_time: 2015-07-10T18:59:22
+who: tomcat[at]mozilla[dot]com
+machine: t-w732-ix-047
+buildname: Windows 7 32-bit mozilla-inbound debug test mochitest-4
+revision: 07bcf36f5ab2
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS
+Return code: 1",UNCODED,0,0,0,0
+1092808,defect,Implementation,Defective Functionality,7,https://hg.mozilla.org/integration/fx-team/rev/1e99e10579d2,UNCODED,0,0,0,0
+1093374,defect,Implementation,UI Issue,2,It's because of the moz-appearance set here: http://dxr.mozilla.org/mozilla-central/source/browser/themes/osx/browser.css#3082,PROBLEM_CAUSE_IDENTIFICATION,0,0,0,0
+1093374,defect,Implementation,UI Issue,4,"Comment on attachment 8516403
+tabstoolbar-overflowing-tabs.patch
+You can use !important here. The selector should be as simple as '#TabsToolbar', as I understand it. Or am I missing some case where -moz-appearance:none isn't wanted?",CODE_REVIEW,0,1,1,1
+1093374,defect,Implementation,UI Issue,6,"Created attachment 8516772
+tabstoolbar-overflowing-tabs.patch
+This fixes the issue for me",SOLUTION_VERIFICATION,0,1,1,1
+1096093,defect,Implementation,UI Issue,2,this works for me. Got a screenshot? what platform? any addons?,QUESTION,0,0,0,0
+1096093,defect,Implementation,UI Issue,14,I am on a internal display when I run into this,ANSWER_TO_QUESTION,0,0,0,0
+1096093,defect,Implementation,UI Issue,16,Starting to investigate this.,STATUS_UPDATE,0,0,0,0
+1096093,defect,Implementation,UI Issue,18,"Hi Mike,
+STR is pretty simple just enabling e10s on OSX on any nightly for me totally makes scrollbars stop working. Would you like a video? There is no step to reproduce aside from enabling e10s and them immediately not working once the browser restarts.
+If I turn them off the scrolls bars are back like magic :)",S2R,0,0,0,0
+1096093,defect,Implementation,UI Issue,21,"Still no luck reproducing. :(
+:tracy, got any cycles to help me figure out what I need to do to see this?",PROBLEM_REVIEW_REQUEST,0,0,0,0
+1096093,defect,Implementation,UI Issue,33,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+Pull down these commits:
+hg pull -r 4abd57038185299027d51eedd5524439293e0abb https://reviewboard-hg.mozilla.org/gecko/",CODE_IMPLEMENTATION,1,0,0,0
+1096093,defect,Implementation,UI Issue,38,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=?.
+Pull down these commits:
+hg pull -r 969f30cc8c7a05541111f92f994aabb92d6e5fdf https://reviewboard-hg.mozilla.org/gecko/",UNCODED,0,0,0,0
+1096093,defect,Implementation,UI Issue,43,"https://reviewboard.mozilla.org/r/7329/#review6153
+Ship It!
+::: widget/cocoa/nsLookAndFeel.mm:32
+(Diff revision 2)
+Please initialize these members in the member initializer list, and not in the constructor body.",CODE_REVIEW,0,0,0,0
+1096093,defect,Implementation,UI Issue,51,(I have no idea why you're using InfallibleTArray and not shorter nsTArray),CODE_REVIEW,0,0,0,0
+1096093,defect,Implementation,UI Issue,69,"Created attachment 8618581
+MozReview Request: Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.",UNCODED,0,0,0,0
+1096093,defect,Implementation,UI Issue,70,"Created attachment 8618582
+MozReview Request: Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?",UNCODED,0,0,0,0
+1097236,defect,Implementation,UI Issue,4,I also see this.,REPRODUCTION_ATTEMPT,0,0,0,0
+1097236,defect,Implementation,UI Issue,8,"Comment on attachment 8520896
+Patch v1.1
+Review of attachment 8520896:
+-----------------------------------------------------------------
+As a browser peer, I will delegate review for this to bgrins.",CODE_REVIEW_REQUEST,0,0,0,0
+1097236,defect,Implementation,UI Issue,11,"Created attachment 8520981
+Patch v1.2
+Added comment explaining the selector.",CODE_IMPLEMENTATION,1,0,0,0
+1097236,defect,Implementation,UI Issue,12,"Created attachment 8520984
+Patch v1.3
+Well, looks like the comment didn't get added.",CODE_IMPLEMENTATION,1,0,0,0
+1097236,defect,Implementation,UI Issue,17,https://hg.mozilla.org/releases/mozilla-aurora/rev/92a9effa0ed4,UNCODED,0,0,0,0
+1104875,enhancement,Implementation,UI Issue,8,"Comment on attachment 8529252
+Ellipsize long unresponsive script locations so they don't make the slow script dialog too big
+Review of attachment 8529252:
+-----------------------------------------------------------------
+::: dom/base/nsGlobalWindow.cpp
+@@ +11187,5 @@
+include",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0,0
+1105771,defect,Implementation,Defective Functionality,4,"Created attachment 8536243
+Retrieve SPS and PPS from AVCC stream when necessary
+Extract SPS and PPS NAL from data stream and build extradata from it",CODE_IMPLEMENTATION,1,0,0,0
+1105771,defect,Implementation,Defective Functionality,10,"Sorry - that was a typo. We should always create the video decoder lazily rather than having two execution paths, as discussed on IRC.",CODE_REVIEW,0,1,1,1
+1116867,defect,Testing,Test Failure,4,"Now I get this instead:
+Assertion failure: progress <= progressMax (unexpected progress values), at /Users/amccreight/mc/netwerk/protocol/http/HttpChannelChild.cpp:544
+#01: mozilla::net::HttpChannelChild::RecvOnTransportAndData(tag_nsresult const&, tag_nsresult const&, unsigned long long const&, unsigned long long const&, nsCString const&, unsigned long long const&, unsigned int const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x314f03]
+#02: mozilla::net::PHttpChannelChild::OnMessageReceived(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x64e528]
+#03: mozilla::dom::PContentChild::OnMessageReceived(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x577d87]
+#04: mozilla::ipc::MessageChannel::DispatchAsyncMessage(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x46bb20]
+#05: mozilla::ipc::MessageChannel::DispatchMessage(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x46a811]
+#06: mozilla::ipc::MessageChannel::OnMaybeDequeueOne()[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x46583f]",STACK_TRACE,0,0,0,0
+1116867,defect,Testing,Test Failure,5,"The values of those variables are progress = 14827 and progressMax = 0, at least through two tries of it.",ANSWER_TO_QUESTION,0,0,0,0
+1116867,defect,Testing,Test Failure,17,"I'm going to put this at the top of my queue, but it isn't going to happen before the branch to ff38 next week. However the problem is long standing. We might want to consider working around any new code on 37 that triggers the issue.
+(or is it not new code? and we only notice it because people have e10s enabled on nightly?)",QUESTION,0,1,1,1
+1116867,defect,Testing,Test Failure,22,"thanks jryans.
+Actually, this isn't really an e10s thing. only e10s throws the assert, so we notice it more there, but the single process code path is also going to corrupt maxProgress when it goes through js boundaries - it will just happen silently. The code in places like docshell that checks uint_max64 will do the wrong thing in those cases.",SOLUTION_REVIEW,1,1,1,1
+1116867,defect,Testing,Test Failure,30,"Created attachment 8547721
+make nsIProgressEventSink and nsITransportEventSink safely scriptable
+These scriptable interfaces use uint_64 arguments with sentinel values
+of UINT64_MAX. However, UINT64_MAX exceeds MAX_SAFE_NUMBER and cannot
+be gatewayed to/from javascript - so they cannot be used
+correctly. Change them to use signed 64 bit numbers and -1 as the
+sentinnel. C++ implementations ought to be enough to audit as the
+special value could never be used correctly in JS anyhow - also
+audited OnProgressChange() uses for downstream use of this data.",UNCODED,0,1,1,1
+1118597,defect,Implementation,Crash,12,"Created attachment 8552063
+1118597.patch v3
+Re-added missing stuff, whipped hg into line, addressed comments.",CODE_IMPLEMENTATION,1,0,0,0
+1118597,defect,Implementation,Crash,14,"Comment on attachment 8552063
+1118597.patch v3
+Review of attachment 8552063:
+-----------------------------------------------------------------
+r+ with some nits.
+::: media/libstagefright/binding/Index.cpp
+@@ +131,5 @@
+CanRead16 ?
+::: media/libstagefright/binding/SinfParser.cpp
+@@ +14,5 @@
+as we can use mSinf.mDefaultEncryptionType without mSinf being valid, it needs to be initialized to 0 regardless.
+::: media/libstagefright/binding/include/mp4_demuxer/SinfParser.h
+@@ +17,5 @@
+mDefaultIVSize must be initialized before mDefaultEncryptionType (cause a compilation warning otherwise)",CODE_REVIEW,0,0,0,0
+1118597,defect,Implementation,Crash,17,"Comment on attachment 8552063
+1118597.patch v3
+I don't have much concern about this one as it has been on m-c for some time already. Let's make things easier on ourselves for MSE in 37. Aurora+",UPLIFT_APPROVAL,0,1,1,1
+1118597,defect,Implementation,Crash,21,"Trying again. I added an include to work around the (linux32 debug only!) build failure in Sinfparser.cpp.
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=ed269dd0a199",STATUS_UPDATE,0,0,0,0
+1118599,defect,Refactoring,Code Improvement,3,"Created attachment 8545642
+remove-MOZILLA_PKIX_ENUM_CLASS.patch",UNCODED,0,0,0,0
+1121826,defect,Implementation,Defective Functionality,9,"Created attachment 8549944
+backout cc192030c28f - brackets shouldn't be automatically escaped in the Query
+I reverted the change in nsEscape.cpp and changed the unit test.
+This should probably be uplifted so users don't get stuck with the bug for too long",CODE_IMPLEMENTATION,1,1,1,1
+1142350,defect,Refactoring,Unnecessary Code Removal,2,"Unfortunately this might still be in use in c-c (not sure whether this code is dead or not though):
+https://hg.mozilla.org/comm-central/annotate/84ac3c711098/mailnews/extensions/smime/content/am-smime.js#l271",ADDITIONAL_CONSIDERATION,0,0,0,0
+1173001,defect,Implementation,Code Design,10,"Created attachment 8617699
+Part 3 - Fix up some task queue naming to make MediaDecoderReader consistent with MDSM. v1",UNCODED,0,0,0,0
+1173001,defect,Implementation,Code Design,13,It's just about the initialization order - the task queue needs to be initialized early so that mirror initializers can use it.,ANSWER_TO_QUESTION,0,1,1,1
+1179123,defect,Implementation,Crash,9,"Created attachment 8629165
+safeguard patch
+This would still trigger assertion in existing versions, but won't crash.
+I tried to thoroughly fix it, but failed to figure out how.
+This bug happened at the end of nsINode::doRemoveChildAt().
+That method calls nsXULElement::UnbindFromTree() there, which calls nsFrameLoader::Destroy() -> nsDocument::SetSubDocumentFor() to remove the child document from the XUL document, then calls nsElement::UnbindFromTree() -> nsDocument::ExitFullscreen() to exit fullscreen on the root document. Since the child document has been detached at this point, we won't be able to visit that document to exit fullscreen there.
+Then the method calls the destructor of mozAutoDocUpdate, which eventually calls nsDocument::OnPageHide() which again tries to exit fullscreen, but finds the root has exited fullscreen.
+Not sure how this is fixed in the current m-i.
+I thought about replacing FullscreenRoots with FullscreenLeaves to track the leaf documents instead of roots. That could work now, but once the Fullscreen API spec is updated so that the fullscreen element is no longer necessarily in the same containing chain, maintaining the list of leaf documents could be more tricky.",CODE_IMPLEMENTATION,1,1,1,1
+1179123,defect,Implementation,Crash,13,"Comment on attachment 8629169
+mochitest patch
+So I don't know how we could then land this.",CODE_REVIEW,0,1,1,1
+1179123,defect,Implementation,Crash,21,"Created attachment 8630195
+safeguard patch for uplift, r=smaug
+Approval Request Comment
+[Feature/regressing bug #]: bug 947854
+[User impact if declined]: may crash in some cases
+[Describe test coverage new/current, TreeHerder]: test added on m-c
+[Risks and why]: no risk, just a safeguard to ensure we won't crash
+[String/UUID change made/needed]: n/a",REQUEST_FOR_UPLIFT,0,0,0,0
+1179123,defect,Implementation,Crash,22,Sorry I forgot that...,ANSWER_TO_QUESTION,0,0,0,0
+1183934,defect,Implementation,Error Handling Improvement,1,"Created attachment 8633836
+0001-Bug-XXXXXXX-only-log-an-error-saving-JSON-if-an-erro.patch
+Sync logs may include an entry similar to:
+1436815520239	Sync.Engine.History	ERROR	null
+This is more of a problem since bug 1148980 landed as any ""error"" entry in the logs cause Sync to generate an error log and note the error in the browser console.
+Although I haven't yet reproduced this, I'm confident the problem is https://hg.mozilla.org/mozilla-central/file/e7e69cc8c07b/services/sync/modules/engines.js#l786. This is the callback from Utils.jsonSave, which is at https://hg.mozilla.org/mozilla-central/file/e7e69cc8c07b/services/sync/modules/util.js#l369, and as you can see, the callback is made with null when there's no error - but we still log it.",CODE_IMPLEMENTATION,1,1,1,1
+1187056,defect,Implementation,Defective Functionality,12,"I can reproduce this behaviour very intermittently. When I do, I see in WebIDE that the buttons in question don't have their onclick listeners registered, which seems very odd. I don't see how my change could have caused that behaviour, since the onclick listeners are registered unconditionally in frames.js. I'll keep digging.",REPRODUCTION_ATTEMPT,0,0,0,0
+1187056,defect,Implementation,Defective Functionality,28,"Comment on attachment 8641210
+Patch v2
+r+, naturally assuming tryserver results look good",CODE_REVIEW,0,1,1,1
+1187056,defect,Implementation,Defective Functionality,30,https://hg.mozilla.org/integration/mozilla-inbound/rev/8fa22ffa2da2,UNCODED,0,0,0,0
+1189924,defect,Implementation,UI Issue,1,mstange pointed that the minimap's DP is too difficult to see. Let's fix it.,PROBLEM_MOTIVATION,0,1,1,1
+1190676,defect,Testing,Test Failure,12,"Created attachment 8643106
+Part 8 - Fix consumers: CameraPreviewMediaStream. r=",UNCODED,0,0,0,0
+1190676,defect,Testing,Test Failure,17,"Comment on attachment 8643113
+Part 11 - Fix consumers: Web Speech. r=
+This looks good to me, but I'd like to ask eeejay to please double check since he's more familiar with Synthesis",CODE_REVIEW_REQUEST,0,0,0,0
+1191113,defect,Implementation,Error Handling Improvement,9,"Created attachment 8643787
+bug_1191113_csp_gcli_localization2.patch
+Joe, once r+ed I will fold that patch into the other one. Those are just the new changes on top.
+I figured it makes sense to have a unified behavior whenever we encounter a CSP or not. For that reason, I also removed the "":"" after ""for:"".
+Sorry I missed those hardcoded strings the first time around when we landed the devtool.",CODE_IMPLEMENTATION,1,1,1,1
+1191113,defect,Implementation,Error Handling Improvement,10,"Created attachment 8644419
+bug_1191113_csp_gcli_localization.patch
+Folded patches together into one. Carrying over r+ from jwalker.",CODE_IMPLEMENTATION,1,0,0,0
+1203253,defect,Testing,Test Update,18,"Comment on attachment 8665416
+Patch v2
+Approval Request Comment
+[Feature/regressing bug #]: bug 1140495
+[User impact if declined]: no impact, only additional automated tests
+[Describe test coverage new/current, TreeHerder]: automated tests being run on mozilla-central
+[Risks and why]: none expected
+[String/UUID change made/needed]: none",REQUEST_FOR_UPLIFT,0,0,0,0
+1203871,defect,Implementation,Performance Optimization,5,Thanks. I'll check current nsTextFrame.,UNCODED,0,0,0,0
+1203871,defect,Implementation,Performance Optimization,7,"Using gfxTexRun, we can get width per character.  OK, I will take this",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+1203871,defect,Implementation,Performance Optimization,23,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40057/diff/1-2/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0,0
+1203871,defect,Implementation,Performance Optimization,35,"Comment on attachment 8730638
+Bug 1203871 - Part 1. Add nsIFrame::GetCharacterRectsInRange.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40057/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0,0
+1203871,defect,Implementation,Performance Optimization,39,"Comment on attachment 8730642
+Bug 1203871 - Part 5. Use mozilla::Move for rect array.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/40065/diff/3-4/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0,0
+1203871,defect,Implementation,Performance Optimization,41,"Humm..  It cannot...
+To use const as parameter, PropertyProvider::GetSpacing(...) must be const function.  But PropertyProvider::GetSpacingInternal() wants to update mTabWidths on PropertyProvider::CalcTabWidths() and CalcTabWidths() adds tab width data to mFrame....",CODE_REVIEW,0,1,1,1
+1203871,defect,Implementation,Performance Optimization,42,"OK, I guess we'll have to leave that -- thanks for looking into it.",UNCODED,0,0,0,0
+1207931,defect,Refactoring,Unnecessary Code Removal,1,"RenderFrameParent::mBackgroundColor can be set via SetBackgroundColor(), but
+the value is never read. So that means TabParent::RecvSetBackgroundColor() is a
+no-op.
+billm, is this expected? It seems weird to me. Though maybe this message
+doesn't matter and can be excised on both the child and the parent sides.",PROBLEM_REVIEW,0,0,0,0
+1209952,defect,Implementation,Code Design,3,"I don't think ASAN is needed to reproduce this -- ASAN just gives a more friendly crash message.  But since this is a crash-on-poison, we should crash in the same way regardless of ASAN-ness.
+In a debug build, I get this output before crashing:
+nsBlockReflowContext: Block(div)(1)@7f7743963ea0 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(3)@7f7743964000 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f7743964c10 metrics=1073741824,5400!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439663d0 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,0!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,0!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f7743966028 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(3)@7f7743964000 metrics=1073741824,6000!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,0!
+[Child 6240] ###!!! ASSERTION: letter frames and orthogonal floats with auto block-size shouldn't break, and if they do now, then they're breaking at the wrong point: 'NS_FRAME_IS_COMPLETE(reflowStatus)', file /layout/generic/nsBlockReflowState.cpp, line 778
+nsBlockReflowContext: Block(div)(1)@7f7743966cc8 metrics=1073741824,2400!
+nsBlockReflowContext: Block(div)(3)@7f7743964000 metrics=1073741824,14400!
+nsBlockReflowContext: Block(div)(1)@7f77439665b8 metrics=1073741824,3000!
+nsBlockReflowContext: Block(div)(1)@7f7743964c10 metrics=1073741824,14400!
+And then I crash, in  nsFloatManager::GetFlowArea calling into nsIFrame::StyleDisplay, on a poisoned nsIFrame object. The frame looks like this:
+ p/x *fi.mFrame
+$6 = {
+  <nsQueryFrame> = {
+    _vptr$nsQueryFrame = 0x7ffffffff0dea7ff
+  }, 
+  members of nsIFrame: 
+  static kFrameIID = 0x28, 
+  static kPrincipalList = 0x1,
+  [...] 
+  mContent = 0x7ffffffff0dea7ff, 
+  mStyleContext = 0x7ffffffff0dea7ff, 
+  mParent = 0x7ffffffff0dea7ff, 
+  mNextSibling = 0x7ffffffff0dea7ff, 
+  mPrevSibling = 0x7ffffffff0dea7ff, 
+  mState = 0x7ffffffff0dea7ff, 
+  [...]
+}
+Looks like all of the pointer-values are poison addresses (and we're crashing when we try to deref one of them, mStyleContext). So, I think this is successfully mitigated by frame poisoning.",STACK_TRACE,0,0,0,0
+1209952,defect,Implementation,Code Design,13,"Well, it passed tests on Linux at least:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=6ffdbe718e26c854bd4ad98b2d15e602453359a8
+As I said earlier, I'm not going to review this until I understand
+what goes wrong in the frame tree with our current code.  It would
+help if you can try to explain it to me, otherwise I'll have to
+debug it myself.",SOLUTION_VERIFICATION,0,0,0,0
+1209952,defect,Implementation,Code Design,17,"Sorry for the delay, some other bugs required my attention.
+I'm debugging this now so I'll get back to you soon...",STATUS_UPDATE,0,0,0,0
+1209952,defect,Implementation,Code Design,23,"Created attachment 9056360
+Bug 1209952 - Move [Excess]OverflowContainers continuations of children we pull in from our prev-in-flow to our principal list to avoid making them unordered.  r=dholbert",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0,0
+1217663,defect,Implementation,Code Design,5,Fixed by landing upstream update to branch 43 in bug 1198458,SOLVED_BY_OTHER_ISSUE,0,0,0,0
+1248726,defect,Refactoring,Code Improvement,4,https://hg.mozilla.org/mozilla-central/rev/1ef77d653c4f,UNCODED,0,0,0,0
+1249818,defect,Implementation,UI Issue,20,"I managed to reproduce this bug on Nightly 47.0a1 (2016-02-19).
+I also investigated it using 
+- Windows 10 x64
+- Ubuntu 14.04 x86
+- Mac OS X 10.11.1
+There are some problems with latest Nightly 50.0a1 (2016-07-10) build on Mac - there is a narrow area
+for which two actions are overlapping: window dragging and tab dragging (see the screencast https://drive.google.com/file/d/0B0nYKG6PRiCcVFdNMEh2a21NVnc/view?usp=sharing).
+Also, it seems that on Windows and Mac the fix didn't land yet for Aurora and Beta. I will continue the verification process when the fix will land.",SOLUTION_VERIFICATION,0,0,0,0
+1253516,defect,Testing,Test Failure,7,"Thanks for the digging, Hiroyuki! This indeed should not be re-entrant, and I'm not sure why it is. Investigating.",PROBLEM_REVIEW,0,0,0,0
+1253516,defect,Testing,Test Failure,14,"To be honest, I don't really understand the locking scheme in use here and exactly what is protected by which lock and where the critical sections are. I defer to :tromey and :vporof for that information, as they were much more involved in authoring the timeline consumers infrastructure than I was.",CLARIFICATION,0,0,0,0
+1254694,defect,Implementation,Defective Functionality,2,"Steps to reproduce:
+1. Create a new profile in Firefox 44.0.2.
+2. Install the German language pack from https://ftp.mozilla.org/pub/firefox/releases/44.0.2/win32/xpi/de.xpi
+3. Open about:config.
+4. Set general.useragent.locale to 'de'
+5. Close and relaunch Firefox.
+6. Open search settings.
+7. Set keyword for Bing search to 'bg'.
+8. Close Firefox.
+9. Launch profile in Firefox 45.0 and accept to upgrade for the language pack.
+10. Open search settings.
+Actual result:
+Search keyword for Bing is gone (search engines have still their order). If I reorder the search engines in step 7, they will be order alphabetically after step 10.
+There is no error in the Browser Console.
+If the language pack doesn't get updated in step 9, keyword and order are untouched after step 10.
+Expected result:
+Search engines unaltered.
+See also bug 1236347 which is also about issues with language packs starting in Firefox 45.",PROBLEM_DESCRIPTION,0,0,0,0
+1254694,defect,Implementation,Defective Functionality,15,"Created attachment 8728957
+Fix synchronous code path v2 (with test)
+Note: Surprisingly, the patch was developped against mozilla-release, but also applies cleanly to the current fx-team.",CODE_IMPLEMENTATION,1,1,1,1
+1254694,defect,Implementation,Defective Functionality,19,"See bug 1138112.
+If you think you are encountering a different case I may not have identified yet, and would like me to try to reproduce with the search settings of the profile, you can email me the relevant files (see comment 13).
+Not until they are released.",ANSWER_TO_QUESTION,0,0,0,0
+1254694,defect,Implementation,Defective Functionality,25,"Comment on attachment 8728957
+Fix synchronous code path v2 (with test)
+Fix a migration issue, taking it on all branches.",UPLIFT_APPROVAL,0,1,1,1
+1254694,defect,Implementation,Defective Functionality,34,"Right, updated, merci!",UNCODED,0,0,0,0
+1261576,defect,Implementation,UI Issue,8,THis is addresses by the pending patches for bug 1234158.,CLARIFICATION,0,1,1,1
+1263083,defect,Implementation,Performance Optimization,2,"Hi David, dcamp pointed me your way for Firefox perf issues these days. Can you route this into the right hands?
+We should try to not ship this regression, and the clock is running on that, so appreciate any help.",ASSIGNEE_REQUEST,0,0,0,0
+1263083,defect,Implementation,Performance Optimization,6,"I've been experiencing this too, but recent (last 2-3 days) Nightlies actually don't even load Inbox completely.",REPRODUCTION_ATTEMPT,0,0,0,0
+1263083,defect,Implementation,Performance Optimization,8,I don't reproduce this on my Linux machine so it might be Mac-specific. Are you in e10s mode or not? If you are then can you try running in non-e10s mode and see if the problem goes away?,QUESTION,0,0,0,0
+1297315,defect,Implementation,Code Design,10,"Mozilla coding style calls for bracing all control structures, even when the braces are redundant.[1] Is there a compelling reason for this code _not_ to follow that guideline?
+(Skimming through the file concerned, I see that it's a bit of a mix, but even for the if-statements where the controlled code is a single |return| statement, the braced examples outnumber brace-less by at least 2:1, so it doesn't look like ""use the prevailing style"" readily trumps the style guide here...)
+[1] https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style#Control_Structures",CLARIFICATION,0,0,0,0
+1298588,defect,Implementation,Code Design,9,"Created attachment 8822386
+part 2.  Pass through an nsPresContext to the PerDocumentStyleData constructor",UNCODED,0,0,0,0
+1298588,defect,Implementation,Code Design,13,"Created attachment 8822391
+part 6.  Stop using initial_values when doing inheritance in Gecko glue code",UNCODED,0,0,0,0
+1298588,defect,Implementation,Code Design,19,"Created attachment 8822399
+part 12.  Compile some bits that call ComputedValues::initial_values only for servo, not stylo
+I'm not super-happy with this, but a better solution is best done after we decide how we're doing media queries in stylo.",CODE_IMPLEMENTATION,1,1,1,1
+1298588,defect,Implementation,Code Design,30,"Comment on attachment 8822387
+part 3.  Add a default ComputedValues member to PerDocumentStyleData
+Review of attachment 8822387:
+-----------------------------------------------------------------
+::: servo/components/style/properties/gecko.mako.rs
+@@ +132,5 @@
+Nit: The convention in Servo is to do:
+FIXME(bz): This seems dubious
+Same below.",CODE_REVIEW,0,0,0,0
+1298588,defect,Implementation,Code Design,35,"Comment on attachment 8822400
+part 13.  Make sure Device has a ComputedValues for stylo
+Review of attachment 8822400:
+-----------------------------------------------------------------
+Probably worth filing a bug depending on bug 1290228 and blocking the stylo metabug to make sure that we end up updating these values.",CODE_REVIEW,0,1,0,0
+1316964,defect,Refactoring,Code Improvement,4,https://hg.mozilla.org/mozilla-central/rev/e5c8e3d23cf2,UNCODED,0,0,0,0
+1324053,defect,Implementation,Performance Optimization,2,"Created attachment 8819360
+Ensure that speculative connect and DNS prefetching aren't disabled when annotating tracking channels",UNCODED,0,1,1,1
+1324183,defect,Refactoring,Unnecessary Code Removal,8,"Matt, you disabled hardware decoding on XP and Vista in bug 1154536. mirh wonders whether we should be blocklisting the relevant drivers instead of Windows versions.",POTENTIAL_SOLUTION_DESIGN,1,0,0,0
+1324183,defect,Refactoring,Unnecessary Code Removal,14,"https://hg.mozilla.org/mozilla-central/rev/9a768dc05d7e
+https://hg.mozilla.org/mozilla-central/rev/86c08096f8c4",UNCODED,0,0,0,0
+1325731,defect,Testing,Test Failure,3,"(I don't know which patch fixed it, unfortunately.",CLARIFICATION,0,0,0,0
+1325731,defect,Testing,Test Failure,6,"All good now, closing",SOLUTION_VERIFICATION,0,0,0,0
+1329110,defect,Refactoring,Code Improvement,7,"Created attachment 8825264
+Bug 1329110. Part 6 - remove StateObject::HandleWaitingForData().
+Since DecodingState is the only one that overrides the function, we will let it
+just override HandleWaitingFor{Audio,Video}. We also reduce the code complexity
+because it is hard to trace the code when one virtual function calls another
+virtual function.
+Review commit: https://reviewboard.mozilla.org/r/103440/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/103440/",CODE_IMPLEMENTATION,1,1,1,1
+1329110,defect,Refactoring,Code Improvement,17,"Comment on attachment 8825263
+Bug 1329110. Part 5 - split Split StateObject::HandleVideoNotDecoded into small functions.
+https://reviewboard.mozilla.org/r/103438/#review104088
+::: dom/media/MediaDecoderStateMachine.cpp
+(Diff revision 1)
+It will be done in bug 1329891 to improve the assertion/invariant.",ANSWER_TO_QUESTION,0,0,0,0
+1332070,defect,Implementation,Incorrect Page Rendering,2,"Created attachment 8828095
+Test case to reproduce
+Should be: red box with text foo
+Renders: black box",PROBLEM_DESCRIPTION,0,0,0,0
+1332070,defect,Implementation,Incorrect Page Rendering,4,Thanks Miko!,UNCODED,0,0,0,0
+1340967,defect,Implementation,UI Issue,9,"I think it would be better to have the ""search"" as placeholder text like it has been done in bug 1324171.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+1340967,defect,Implementation,UI Issue,13,"I have reproduced this bug with Nightly 54.0a1 (2017-02-19) on Windows 10, 64 bit!
+The Bug's fix is now verified on Latest Nightly 54.0a1
+Build ID 	20170228030203
+User Agent 	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0
+[bugday-20170301]",SOLUTION_VERIFICATION,0,0,0,0
+1340967,defect,Implementation,UI Issue,14,"Created attachment 8842466
+Search_is_less_center_aligned.JPG
+While verifying the fix of this bug with Latest Nightly 54.0a1 (2017-02-28) on Windows 8.1, 64 bit, I felt that the ""search"" is still less center aligned. 
+I have attached a screenshot of the fix that I saw. But this doesn't resemble to the one of comment 1. Is the current fix (attached in the attachment) should be expected as the fix?",SOLUTION_VERIFICATION,0,0,0,0
+1343787,defect,Implementation,Crash,4,"Comment on attachment 8843176
+Bug 1343787. Part 2 - move the Register() calls to Load().
+https://reviewboard.mozilla.org/r/116942/#review118578",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1343787,defect,Implementation,Crash,15,Setting qe-verify- based on JW Wang's assessment on manual testing needs (see Comment 11) and the fact that this fix has automated coverage.,ISSUE_METADATA_CHANGE,0,0,0,0
+1347860,defect,Testing,Flaky Tests,3,"From the source, returned pointer of HTMLMediaElement::GetCurrentImage() seems not safe.
+  https://dxr.mozilla.org/mozilla-central/source/dom/html/HTMLMediaElement.cpp#1531",PROBLEM_CAUSE_IDENTIFICATION,0,0,0,0
+1353954,enhancement,Implementation,Feature Development,12,"Build ID: 20170618030207
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
+""browser.preferences.search"" pref is turned on by default on Firefox Nightly 56.0a1 on Windows 10 x 64, Mac OS X 10.12 and Ubuntu 16.04 x64.",SOLUTION_VERIFICATION,0,0,0,0
+1357049,enhancement,Implementation,Feature Development,8,"I think we don't need to include the full UITour-lib into onboarding.
+Since the only function we use in UITour is `showHighlight`, we can pick the message sending portion from UITour and do it in onboarding. I tested the following script on about:home, about:newtab, and activity-stream, they all works fine.
+Put `_sendEvent` as one of the onboarding method
+```
+  _sendEvent(action, data) {
+    var event = new this._window.CustomEvent(""mozUITour"", {
+      bubbles: true,
+      detail: {
+      action,
+      data: data || {}
+      }
+    });
+    this._window.document.dispatchEvent(event);
+  }
+```
+Embed this in button action (this might be too simple to not worth wrap another layer)
+```
+this._sendEvent(""showHighlight"", {
+  target: ""addons""
+});
+```",SOLUTION_REVIEW,1,1,1,1
+1357049,enhancement,Implementation,Feature Development,12,"Oh I didn't realise you were trying to access it from the framescript. You'd need to bypass the X-ray wrappers to get at the object in the content window.
+This sounds like a sane approach to me. I'll review the patch now.",SOLUTION_REVIEW,1,1,1,1
+1357049,enhancement,Implementation,Feature Development,18,"Comment on attachment 8876111
+Bug 1357049 - add one button in the Private Browsing and Search tour of onBoarding overlay to demonstrate the corresponding features.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/147540/diff/1-2/",UNCODED,0,0,0,0
+1357049,enhancement,Implementation,Feature Development,19,"Comment on attachment 8876111
+Bug 1357049 - add one button in the Private Browsing and Search tour of onBoarding overlay to demonstrate the corresponding features.
+https://reviewboard.mozilla.org/r/147540/#review152264
+I saw you modified that in the polish bug, should I just leave that to you?",QUESTION,0,0,0,1
+1357049,enhancement,Implementation,Feature Development,30,"Pushed by rchien@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/8da76b2d3d1c
+add one button in the Private Browsing and Search tour of onBoarding overlay to demonstrate the corresponding features. r=Fischer,gasolin,mossop",UNCODED,0,0,0,0
+1357065,enhancement,Implementation,Code Design,4,"Created attachment 8858807
+Bug 1357065 - Add a PushClip/PopClip API to WebRenderAPI to more easily distinguish between scrolling clips and non-scrolling clips.
+Note that in upstream WR the push_scroll_layer API has already been
+renamed to push_clip_node, so conceptually the same API covers both
+""scrolling clips"" (aka scroll layers) and non-scrolling clips. So using
+the same underlying API for two different WebRenderAPI.h functions makes
+sense.
+Review commit: https://reviewboard.mozilla.org/r/130834/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/130834/",CODE_IMPLEMENTATION,1,1,1,1
+1357065,enhancement,Implementation,Code Design,10,"Comment on attachment 8858807
+Bug 1357065 - Add a PushClip/PopClip API to WebRenderAPI to more easily distinguish between scrolling clips and non-scrolling clips.
+https://reviewboard.mozilla.org/r/130834/#review133802",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1357065,enhancement,Implementation,Code Design,11,"Comment on attachment 8858808
+Bug 1357065 - Update WebRenderDisplayItemLayer to use PushClip instead of PushScrollLayer because it's pushing a non-scrolling clip.
+https://reviewboard.mozilla.org/r/130836/#review133804",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1357386,enhancement,Implementation,Feature Development,4,"Comment on attachment 8859505
+bug_1357386_telemetry_data_toplevel.patch
+Review of attachment 8859505:
+-----------------------------------------------------------------
+Is this all the information we need? I suspect we're going to find out that compared to the number of documents and frames loaded data: urls are a very small fraction. What then? Are there types of data documents we can carve out to get a better sense of what we might break? My first thought was to count sandboxed data: documents because clearly we can't break those, but since such documents would be essentially sandboxed in Chrome already maybe web devs wouldn't bother to add that attribute.
+I'd like to know what fraction of top-level data: documents are from navigations/links vs manual entry or bookmark. Whether or not there's a referrer could be a proxy for that, although Referrer Policy and/or user prefs can mess that up. Is there an easy way to check the ""real"" referrer from that point in DocShell? If not I could live with the simpler method and just hope Referrer Policy isn't used much to completely blank the referrer.
+Would prefer some descriptive #define or const for the buckets rather than raw numbers, though not sure where you'd stick them that would make much sense. If we ever added buckets that we counted elsewhere it would be even more important.
+r- mainly for not counting ""developer"" use of data: vs ""web"" encounters -- I think that's important to help us judge scale.",CODE_REVIEW,0,1,1,1
+1359490,enhancement,Implementation,Code Design,13,"Would it be problematic for the callback to post an event to the caller thread instead?  That would let use spin the event loop properly, without racing on |done|.
+It's not the same, because the current code uses NS_ProcessNextEvent(..., false), which checks to see if there's a runnable event, and if there's not, immediately returns.  So the SpinEventLoopUntil version has a race, which looks like:
+T1: Checks value of |done|, finds it to be false.
+T1: Calls NS_ProcessNextEvent.
+T1: Waits for an event to show up in the event queue.
+T2: Sets |done| to true.
+And now T1 is waiting for an event that will never get posted.",ANSWER_TO_QUESTION,0,1,1,1
+1362590,defect,Implementation,Crash,15,"sec-approval+ for trunk.
+We'll want this on Beta and ESR-52 as well, please nominate patches there.",ISSUE_METADATA_CHANGE,0,1,1,1
+1363344,enhancement,Testing,Test Update,2,"I also plan to fix bug 1342488 soonish, which will remove the QR builds as a separate build job and just use the regular non-QR build with the pref flipped on. That should save some machine time.",STATUS_UPDATE,0,1,1,1
+1363344,enhancement,Testing,Test Update,7,"Pushed by kgupta@mozilla.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/f4aa943a5bc9
+Update linux64-qr test jobs on central and integration branches. r=dustin,catlee",UNCODED,0,0,0,0
+1373154,enhancement,Refactoring,Code Improvement,9,"Well, this is weird.
+I did a bunch of try pushes and it clearly shows that part 1 is the culprit. Harmless looking part 1! Here's a run with just part 1 applied:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=a877377b61c2b0742e0e9fd6ae323f9ed824cc3e&selectedJob=107575159
+(I also did a try run with no patches applied, just to be sure. It was all green.)
+The most relevant part of the crash info is this thread:
+It's crashing on the `PSAutoLock lock(gPSMutex)` line in profiler_suspend_and_sample_thread(). I can't tell from the treeherder log if this is really a crash or a hang.
+A couple of other threads are waiting to lock the mutex in TimeStamp_windows.cpp. I wonder if that's relevant, given that part 1 only changed some calls to TimeStamp::Now().
+Even weirder, I did a try run yesterday with all three patches applied that was fine:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=6da4c3baa7971e936bf8e541c00468b4f883cf84&selectedJob=107272738
+So it seems like something landed overnight that is interacting with part 1? Ugh.",QUESTION,0,0,0,0
+1382702,defect,Testing,Test Failure,6,"Created attachment 8889544
+bug_1382702_v1.patch
+This is just a tmp fix, by disabling TFO for this tests. They want to turn them on on 26th and I do not want to interfere with that plan. I will leave this bug open and dig into the failure probably tomorrow.",CODE_IMPLEMENTATION,1,1,1,1
+1382702,defect,Testing,Test Failure,14,"Tests are now back to green[1] thanks to [2]. Thank you very much Dragana! 
+[1] https://treeherder.mozilla.org/#/jobs?repo=mozilla-central&revision=44121dbcac6a9d3ff18ed087a09b3205e5a04db1&filter-searchStr=xpcshell&filter-tier=1&filter-tier=2&filter-tier=3&filter-platform=win
+[2] https://hg.mozilla.org/mozilla-central/rev/3e01e416c117",SOLUTION_VERIFICATION,0,0,0,0
+1384677,enhancement,Refactoring,Unnecessary Code Removal,1,"Near as I can tell, this is a daemon that maintains access to cookies for things like Safari, which we don't use for anything.
+Try run: https://treeherder.mozilla.org/#/jobs?repo=try&revision=606879a4d952524dd9f02ab6ed4fcae99c92bc6f
+(failures are all flakes, they don't reproduce locally)",PROBLEM_MOTIVATION,0,1,1,1
+1384677,enhancement,Refactoring,Unnecessary Code Removal,3,"Comment on attachment 8890481
+Bug 1384677 - remove com.apple.cookied access from content processes;
+https://reviewboard.mozilla.org/r/161614/#review166932",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1385699,defect,Implementation,Code Design,9,"Created attachment 8893194
+Bug 1385699. P3 - remove MediaDecoder::SetInfinite() and related code.
+Since inf can be encoded in MDSM::mDuration, we don't need an additional flag
+in MediaDecoder to indicate 'infinite' anymore. Note duration change from infinite
+to finite is handled by MDSM, so we can remove the explicit calls to SetInfinite(false).
+Review commit: https://reviewboard.mozilla.org/r/164226/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/164226/",CODE_IMPLEMENTATION,1,1,1,1
+1385699,defect,Implementation,Code Design,12,"Comment on attachment 8893192
+Bug 1385699. P1 - don't adjust playback position to the duration in MDSM at the end of playback.
+https://reviewboard.mozilla.org/r/164222/#review170060",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1385699,defect,Implementation,Code Design,19,"https://hg.mozilla.org/mozilla-central/rev/e10236332d1d
+https://hg.mozilla.org/mozilla-central/rev/90612a88de7c
+https://hg.mozilla.org/mozilla-central/rev/c03cc5e6a7c3
+https://hg.mozilla.org/mozilla-central/rev/3741783d35c1
+https://hg.mozilla.org/mozilla-central/rev/01a413050ab7",UNCODED,0,0,0,0
+1386502,defect,Testing,Test Failure,1,"When I execute something like
+the reftest windows open, but they get stuck and no test runs at all.
+I can see messages like:
+in the console.
+Those files indeed exist, and I can run the test with --disable-e10s specified.
+I suppose there might probably be some issue around sandbox.",UNCODED,0,0,0,0
+1386502,defect,Testing,Test Failure,8,"Yeah, adding MOZ_DISABLE_CONTENT_SANDBOX=1 makes the test run as expected, so this is indeed because of content sandbox.
+The may be regressed by different bugs, but I imagine that the fix can be the same: either disable content sandbox for reftest or add the harness directory to the whitelist somehow. So it probably isn't necessary to have a separate bug for that.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+1386502,defect,Testing,Test Failure,16,"... 
+Potentially yes, I'm not sure if extensions couldn't just read any file they wanted anyway.
+Maybe that's not true now that (I think) web extensions will be running in their own process.
+Maybe this could also just be done for IsDevelopmentBuild().
+Perhaps that wouldn't work if you were running tests on a packaged build.
+Alex - what do you think? (I think you hit these problems initially)
+Ideally, of course we should fix the tests that rely on opening files in the content process, but I'm not sure how much work that is.",ANSWER_TO_QUESTION,0,1,1,1
+1390087,defect,Testing,Test Failure,3,"autoBisect shows this is probably related to the following changeset:
+The first bad revision is:
+changeset:   https://hg.mozilla.org/mozilla-central/rev/e33e38d61829
+user:        Jon Coppeard
+date:        Tue Jul 25 11:28:41 2017 +0100
+summary:     Bug 1374797 - Fix logic around triggering atoms GCs r=sfink
+Jon, is bug 1374797 a likely regressor?",PROBLEM_LOCALIZATION,0,0,0,0
+1395751,defect,Testing,Test Failure,2,"Bug 1395322 is filed for the real fix.
+Here's an example of the failures:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=4c2998f33d9a493d9e5350a63da832d61333f24b&filter-searchStr=M(c3",ADDITIONAL_CONSIDERATION,0,0,0,0
+1396319,defect,Implementation,Crash,1,"This bug was filed from the Socorro interface and is 
+report bp-f34ea901-6ceb-4512-b74e-42b9a0170826.
+=============================================================
+Crashing Thread (7), Name: Socket Thread
+Frame 	Module 	Signature 	Source
+0 	xul.dll 	mozilla::MediaPipeline::RtcpPacketReceived(mozilla::TransportLayer*, unsigned char const*, unsigned __int64) 	media/webrtc/signaling/src/mediapipeline/MediaPipeline.cpp:1211
+1 	xul.dll 	mozilla::MediaPipeline::PacketReceived(mozilla::TransportLayer*, unsigned char const*, unsigned __int64) 	media/webrtc/signaling/src/mediapipeline/MediaPipeline.cpp:1258
+2 	xul.dll 	sigslot::signal3<mozilla::TransportLayer*, unsigned char const*, unsigned __int64, sigslot::single_threaded>::operator()(mozilla::TransportLayer*, unsigned char const*, unsigned __int64) 	media/mtransport/sigslot.h:2486
+3 	xul.dll 	mozilla::TransportLayerIce::IcePacketReceived(mozilla::NrIceMediaStream*, int, unsigned char const*, int) 	media/mtransport/transportlayerice.cpp:224
+4 	xul.dll 	mozilla::NrIceCtx::msg_recvd(void*, nr_ice_peer_ctx_*, nr_ice_media_stream_*, int, unsigned char*, int) 	media/mtransport/nricectx.cpp:380
+5 	xul.dll 	nr_ice_peer_ctx_deliver_packet_maybe 	media/mtransport/third_party/nICEr/src/ice/ice_peer_ctx.c:831
+6 	xul.dll 	nr_ice_ctx_deliver_packet 	media/mtransport/third_party/nICEr/src/ice/ice_ctx.c:944
+7 	xul.dll 	nr_ice_socket_readable_cb 	media/mtransport/third_party/nICEr/src/ice/ice_socket.c:191
+8 	xul.dll 	mozilla::NrSocket::OnSocketReady(PRFileDesc*, short) 	media/mtransport/nr_socket_prsock.cpp:372
+9 	xul.dll 	mozilla::net::nsSocketTransportService::DoPollIteration(mozilla::BaseTimeDuration<mozilla::TimeDurationValueCalculator>*) 	netwerk/base/nsSocketTransportService2.cpp:1176
+10 	xul.dll 	mozilla::net::nsSocketTransportService::Run() 	netwerk/base/nsSocketTransportService2.cpp:928
+11 	xul.dll 	nsThread::ProcessNextEvent(bool, bool*) 	xpcom/threads/nsThread.cpp:1418
+12 	xul.dll 	NS_ProcessNextEvent(nsIThread*, bool) 	xpcom/threads/nsThreadUtils.cpp:475
+13 	xul.dll 	mozilla::ipc::MessagePumpForNonMainThreads::Run(base::MessagePump::Delegate*) 	ipc/glue/MessagePump.cpp:338
+14 	xul.dll 	MessageLoop::RunHandler() 	ipc/chromium/src/base/message_loop.cc:231
+15 	xul.dll 	MessageLoop::Run() 	ipc/chromium/src/base/message_loop.cc:211
+16 	xul.dll 	nsThread::ThreadFunc(void*) 	xpcom/threads/nsThread.cpp:501
+17 	nss3.dll 	PR_NativeRunThread 	nsprpub/pr/src/threads/combined/pruthr.c:397
+18 	nss3.dll 	pr_root 	nsprpub/pr/src/md/windows/w95thred.c:95
+19 	ucrtbase.dll 	o__realloc_base 	
+20 	kernel32.dll 	BaseThreadInitThunk 	
+21 	ntdll.dll 	RtlUserThreadStart
+crash reports with this signature seem to be newly appearing in firefox 55, but they get worse in volume during the 56.0b cycle.",STACK_TRACE,0,0,0,0
+1396319,defect,Implementation,Crash,9,"Nico, can you take a look?
+Marco, do happen to have the repro steps your friend is using?",S2R_REQUEST,0,0,0,0
+1401249,defect,Implementation,Defective Functionality,2,"Created attachment 8909869
+Bug 1401249 - Fix getStringPref usage in clicktoplay-rollout.
+getStringPref(.., undefined) actually returns null instead of undefined.
+Review commit: https://reviewboard.mozilla.org/r/181366/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/181366/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0,0
+1401249,defect,Implementation,Defective Functionality,9,"I managed to verify this issue on Firefox 57.0a1 (2017-09-19) (64-bit), under Windows 10x64.
+Click-to-Play staged rollout is set to 1.4 by default and Shockwave Flash is set to 'Ask to Activate' by default. 
+I'm not marking this issue Verified Fix until I can confirm the fix also on Firefox 56.",SOLUTION_VERIFICATION,0,0,0,0
+1407435,defect,Implementation,UI Issue,1,"STR:
+- Right click on any toolbar button
+- Click ""Remove from Toolbar""
+- Go inside customization mode
+AR:
+- The button that was just removed has an invisible icon
+ER:
+- The button icon should be visible
+It seems like the animate-out class is not properly removed.",PROBLEM_DESCRIPTION,0,0,0,0
+1407955,defect,Implementation,UI Issue,1,"Created attachment 8917762
+testcase, SVG text with text-shadow
+See testcase: the SVG text renders with colored stroke and fill, as specified in the attributes of the <svg> element, and inherits its font family/weight/size from the body. But it fails to render the text-shadow that was also specified on the body element.
+(The fact that these properties are inherited from the body in this example is irrelevant; behavior is the same if they're specified in an inline style attribute on the <text> element itself.)
+Safari and Chrome both render the expected shadow on the SVG text.
+The fun surprise here is that if you select any part of the text, suddenly the shadow appears (for the whole of the text element).",PROBLEM_DESCRIPTION,0,0,0,0
+1407955,defect,Implementation,UI Issue,9,https://treeherder.mozilla.org/jobs?repo=try&revision=67287356dd36cf49395c9bcedacfc6dc919c76ab,UNCODED,0,0,0,0
+1407955,defect,Implementation,UI Issue,10,"Pushed by longsonr@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/624c3df8fcd4
+Display text shadow with fill and stroke specified r=jfkthame",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0,0
+1410565,defect,Implementation,Code Design,5,"Comment on attachment 8921363
+Bug 1410565 - check mTimescale to avoid dividing by zero.
+https://reviewboard.mozilla.org/r/192396/#review197802",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1421170,enhancement,Refactoring,Code Improvement,3,https://treeherder.mozilla.org/#/jobs?repo=try&revision=c5dab36c940118744045ede91cb6a6e7261be1bc&group_state=expanded,UNCODED,0,0,0,0
+1421170,enhancement,Refactoring,Code Improvement,6,https://hg.mozilla.org/mozilla-central/rev/c7633e5266c0,UNCODED,0,0,0,0
+1424993,enhancement,Implementation,Preventive Changes,2,"Created attachment 8936562
+Bug 1424993 - Fix PresentationTransport to correctly throw NS_ERROR_NOT_AVAILABLE.
+Review commit: https://reviewboard.mozilla.org/r/207308/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/207308/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0,0
+1435264,defect,Implementation,Defective Functionality,4,I'm pretty sure this is fixed by https://github.com/jcjones/webauthn.bin.coffee/commit/c21d5be2a739b2b061d3ce580eb4aeb069fb7765.,CODE_IMPLEMENTATION,1,1,1,1
+1442559,defect,Implementation,Defective Functionality,2,"Xidorn, you fixed this in bug 1333175. Any reason why this is failing again?",PROBLEM_REVIEW_REQUEST,0,0,0,0
+1442559,defect,Implementation,Defective Functionality,17,"Comment on attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+https://reviewboard.mozilla.org/r/224808/#review230844",AUTO_LINK_CODE_REVIEW,0,0,0,0
+1442559,defect,Implementation,Defective Functionality,24,"Comment on attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224806/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0,0
+1442559,defect,Implementation,Defective Functionality,25,"Comment on attachment 8955730
+Bug 1442559 part 3 - Detect whitelist item which doesn't have any condition.
+Review request updated; see interdiff: https://reviewboard.mozilla.org/r/224808/diff/2-3/",AUTO_REV_REQ_UP_CODE_IMPLEMENTATION,0,0,0,0
+1442559,defect,Implementation,Defective Functionality,29,"Comment on attachment 8955729
+Bug 1442559 part 2 - Use a separate whitelist for prop names.
+https://reviewboard.mozilla.org/r/224806/#review230918
+Code analysis found 1 defect in this patch:
+ - 1 defect found by mozlint
+You can run this analysis locally with:
+ - `./mach lint path/to/file` (JS/Python)
+If you see a problem in this automated review, please report it here: http://bit.ly/2y9N9Vx
+::: browser/base/content/test/static/browser_parsable_css.js:472
+(Diff revision 2)
+Error: 'whitelist' is already declared in the upper scope. [eslint: no-shadow]",CODE_REVIEW,0,0,0,0
+1454126,defect,Implementation,Crash,4,"I investigated this yesterday but I still don't understand what happens. I cannot access the bugs mentioned in comment 3. If they could be good hint, could you cc me them too?",PROBLEM_REVIEW,0,0,0,0
+1454126,defect,Implementation,Crash,14,"Actually, Dan looked at this and said it looks like a null deref and not a serious security bug. This isn't a sec-high.
+I'll clear sec-approval but we REALLY shouldn't check in tests with any kind of security issue. If this was a sec-high or sec-critical, I'd deny the sec-approval and ask for a patch with no test.",ISSUE_METADATA_CHANGE,0,0,0,0
+1454126,defect,Implementation,Crash,27,*** Bug 1454133 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+1456911,defect,Implementation,Defective Functionality,1,"I haven't tested this yet, but it seems to be the case from code inspection: if a file descriptor in LaunchOptions::fds_to_remap has the same numeric value in the parent as the child, it won't have its close-on-exec bit cleared.  (In contrast, the general case dup2()s the descriptor, which does clear close-on-exec.)  So if the fd was close-on-exec, which is the general best practice, it will be closed on exec instead of inherited.
+Note that dup2(x, x) is defined as a no-op and POSIX specifically says it won't change the close-on-exec bit, so that will need to be done explicitly.
+This *probably* isn't a problem in practice, because the low-valued fds we map things to will *probably* wind up occupied by long-lived fds in the parent process… but maybe not.  In any case I'd like to rule this out as a possible cause of bug 1455828.
+Interestingly, Chromium's current version of this code doesn't seem to handle that either, so maybe I'm missing something... or maybe they have a 10-year-old bug.",PROBLEM_REVIEW,0,1,1,1
+1456911,defect,Implementation,Defective Functionality,2,"Another possibility is to just rip out most of this code, and instead dup() as needed to keep the source and destination fd ranges disjoint, at which point everything gets dup2()ed and this isn't a special case.
+That could also help for the posix_spawn implementation on Mac, which isn't using this and should be (that's another bug I'm in the middle of filing), because I've heard that OS X doesn't like identity mappings with posix_spawn_file_actions_adddup2 (which, if true, is an OS bug, and also I have no idea how it interacts with POSIX_SPAWN_CLOEXEC_DEFAULT).",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+1456911,defect,Implementation,Defective Functionality,12,"https://hg.mozilla.org/mozilla-central/rev/808a2fe2aaab
+https://hg.mozilla.org/mozilla-central/rev/69ffa8eab9d9",UNCODED,0,0,0,0
+1458856,defect,Implementation,Defective Functionality,2,"Created attachment 8973029
+Bug 1458856 - Handle prefs with only a user value in preference rollout
+Review commit: https://reviewboard.mozilla.org/r/241560/diff/#index_header
+See other reviews: https://reviewboard.mozilla.org/r/241560/",AUTO_REV_COM_CODE_IMPLEMENTATION,0,0,0,0
+1458856,defect,Implementation,Defective Functionality,3,"Comment on attachment 8973029
+Bug 1458856 - Handle prefs with only a user value in preference rollout
+https://reviewboard.mozilla.org/r/241560/#review247390
+Code analysis found 1 defect in this patch:
+ - 1 defect found by mozlint
+You can run this analysis locally with:
+ - `./mach lint path/to/file` (JS/Python)
+If you see a problem in this automated review, please report it here: http://bit.ly/2y9N9Vx
+::: toolkit/components/normandy/lib/PrefUtils.jsm:46
+(Diff revision 1)
+Error: Unnecessary 'else' after 'return'. [eslint: no-else-return]",CODE_REVIEW,0,0,0,0
+1458856,defect,Implementation,Defective Functionality,6,"Pushed by mcooper@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/b28e041ff83c
+Handle prefs with only a user value in preference rollout r=Gijs",UNCODED,0,0,0,0
+1462624,defect,Implementation,Incorrect Page Rendering,7,"Created attachment 8977047
+Link to GitHub pull-request: https://github.com/mozilla/activity-stream/pull/4157",UNCODED,0,0,0,0
+1479989,enhancement,Implementation,Code Design,7,"Pushed by nbeleuzu@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/2a0b1c169e24
+Update test262 exclusions for BigInt. r=wingo",UNCODED,0,0,0,0
+1482681,defect,Implementation,Defective Functionality,2,"Just writing up a test for this, I have a fix already.",STATUS_UPDATE,0,1,1,1
+1482681,defect,Implementation,Defective Functionality,5,"Comment on attachment 8999555
+Bug 1482681 - Fix load iframe in tab context menu.
+Johann Hofmann [:johannh] has approved the revision.",CODE_REVIEW,0,0,0,0
+1485422,enhancement,Implementation,Feature Development,3,"Created attachment 9005050
+wip screenshot",UNCODED,0,0,0,0
+1485422,enhancement,Implementation,Feature Development,7,"Pushed by elee@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/0cdebe3c53f8
+Add rating stars to CFR r=ahillier",UNCODED,0,0,0,0
+1485422,enhancement,Implementation,Feature Development,8,"Commit pushed to master at https://github.com/mozilla/activity-stream
+https://github.com/mozilla/activity-stream/commit/9ab80ad72851e430ea55bdd4f2dba7033fb508b9
+Bug 1485422 - Add rating stars to CFR (#4393)",UNCODED,0,0,0,0
+1487135,enhancement,Implementation,Code Design,5,"Pushed by emilio@crisal.io:
+https://hg.mozilla.org/integration/autoland/rev/752786e0dd01
+followup: Add a missing check. r=me",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0,0
+1493860,enhancement,Implementation,Audit Task,4,"## Audit of Web Authentication / Credential Management
+1) Should the ""= null"" stay?
+This is bug: https://github.com/w3c/webauthn/issues/750
+And yes, it should stay. Also with the fixes in #750. 
+The spec needs to be updated to deal with ""challenge"" being null, as well as some other values being nulled. 
+Git blame says ask @qdot :) What happens if `mChallenge` is passed as null in `dom/webauthn/WebAuthnManager.cpp`? I'm guessing it's all good, as you reviewed bug 1368949?",PROBLEM_REVIEW,0,1,1,1
+1493860,enhancement,Implementation,Audit Task,11,"Right, because I explicitly kept the old behavior pending someone who knows webauthn looking at it.
+What you can do is remove the ""= null"" bits from WebAuthentication.webidl and then fix the resulting compile errors in whatever way the spec says that stuff should work.   Assuming it says.",SOLUTION_REVIEW,1,1,1,1
+1493860,enhancement,Implementation,Audit Task,12,":jib, I could use some help with the WebRTC parts - please see what changed in the IDL in 1368949.",ADDITIONAL_CONSIDERATION,0,0,0,0
+1506200,enhancement,Refactoring,Unnecessary Code Removal,4,"r?baku for the bits in dom/fetch, r?jwalden for the rest.",CODE_REVIEW_REQUEST,0,0,0,0
+1509994,enhancement,Refactoring,Code Improvement,1,"This code does not exist in upstream webrtc.org, but based upon the headers in the files, it once did. Rather than restoring it each time we pull from upstream webrtc.org, we should move it elsewhere in tree.
+It appears to be used by dom/media/systemservices/VideoEngine.cpp, so that seems like the logical place to put it.
+We should also take the opportunity to see if we can switch to supported interfaces for accessing video / desktop capture rather than relying on code that has been undeleted from upstream.",PROBLEM_MOTIVATION,0,1,1,1
+1509994,enhancement,Refactoring,Code Improvement,4,"Created attachment 9027950
+Bug 1509994 - Update gn generated json files (part 2); r=pehrsons!
+Depends on D13094",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0,0
+1509994,enhancement,Refactoring,Code Improvement,5,"Created attachment 9027951
+Bug 1509994 - Regenerate moz.build files; r=pehrsons!
+Depends on D13095",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0,0
+1510786,defect,Testing,Test Failure,10,"there is a missing colon at the end of the ""elif"" line, but with that added it builds again and runs",SOLUTION_VERIFICATION,0,1,1,1
+1513854,enhancement,Implementation,Feature Development,2,"The Data Science ticket for the progressive rollout using Feature Gate for Fx 67 is Bug 1533030
+I suggest that we use this ticket to enable it by default in Fx 68",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+1514062,defect,Implementation,Performance Optimization,3,"Can confirm that it works when reverting the CDM to 4.9.1088 or 4.10.1146.0.
+I only have two monitors, but do experience the problem. (2* 1920x1080 @ 60Hz)
+See attached about:support files.
+(they show the netflix-1808p extension, but the problem still exists when disabling it, this has of course been my first test; also the fact that swapping CDM versions as per :bryce's post worked seemed to point to the latter as the culprit)",REPRODUCTION_ATTEMPT,0,0,0,0
+1514429,enhancement,Implementation,Defective Functionality,11,"Brad, what's the status on this bug?  I did take a look at failures in the try in comment 9.  The failure on 
+test_viewport_metrics_on_landscape_content.html is a case that bug 1508177 didn't handle properly.  I am fine with replacing `is` in question with `todo` and filing a new bug for that.  As for the failure on test_innersize_scrollport.html, I believe it's no longer valid, we can drop it entirely.  As for browser_viewport_resizing_after_reload.js, I have no idea what's going on there since I can't run it locally due to bug 1595936, but you are more familiar with the code than I am, so you've already known what we should do?",CODE_REVIEW,0,0,0,0
+1521066,defect,Implementation,UI Issue,1,"See http://elektronotdienst-nuernberg.de/Stoerung/Fuerth-Zdf-Stein-Wdst-Feucht-SC-RH/
+There is a table with a solid black border around. 
+That should be a double border and was for ages until recently.
+I think this bug is new in Fx 64, also in Nightly 66
+Markup is like this:
+     <style> table { border:double } </style>
+     <table rules=rows>
+Works in Fx 63 (I think), Chrome, IE, etc.",POTENTIAL_SOLUTION_DESIGN,1,0,0,0
+1521066,defect,Implementation,UI Issue,4,"Created attachment 9037565
+Bug 1521066 - Fix double border rendering of border-collapsed tables. r=jrmuizel
+Gotta love C++... I missed the `break;` for that branch so we were always
+falling back to the solid border rendering path (which we use if the border is
+too small).",CODE_IMPLEMENTATION,1,1,1,1
+1521066,defect,Implementation,UI Issue,6,"Pushed by ealvarez@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/6c6fecd53382
+Fix double border rendering of border-collapsed tables. r=jrmuizel",UNCODED,0,0,0,0
+1526439,enhancement,Implementation,Feature Development,7,*** Bug 1507577 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+1526439,enhancement,Implementation,Feature Development,10,https://hg.mozilla.org/releases/mozilla-esr60/rev/3fcb4a70f591,UNCODED,0,0,0,0
+1529006,enhancement,Implementation,Code Design,9,"Pushed by allstars.chh@gmail.com:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/584d1d57db0b
+Use Rooted for NewObjectMetadataState. r=jonco",PROBLEM_DESCRIPTION,0,0,0,0
+1537936,enhancement,Refactoring,Unnecessary Code Removal,2,"Created attachment 9052674
+Bug 1537936 part 1 - Remove miscellaneous uses of pn_op.",UNCODED,0,0,0,0
+1565273,defect,Implementation,Defective Functionality,21,I think we should have QA do some testing around this since this is itself a regression from another patch which landed in this code.,VERIFICATION_REQUEST,0,0,0,0
+1565273,defect,Implementation,Defective Functionality,24,"Comment on attachment 9077544
+Bug 1565273 - Context menu clicks ignore browser.urlbar.clickSelectsAll pref. Add tests for selectAll behaviour. r?mak
+No worries. Just attach a rolled-up patch for Beta uplift when you're ready to do so and re-request approval (you don't need to fill out the questionnaire again, just setting the flag is enough).",CODE_UPDATE_REQUEST,0,1,1,1
+1565273,defect,Implementation,Defective Functionality,32,"I tested this issue on Windows 10, and Ubuntu 18.04, using the Nightly build from July 30 (build id 20190730095207) where the issue is reproducible, and I tested it on the latest Nightly from August 5th (build id 20190805095413) where the issue is fixed. Note that I also checked on Mac 10.14 using the latest Nightly, and issue is not reproducible. (based on comment 5)
+Based on this, I can confirm the issue is fixed.
+I will also verify this on beta when the fix lands.",SOLUTION_VERIFICATION,0,0,0,0
+1569123,enhancement,Implementation,Feature Development,16,We have had a general warning for wrong script MIME types since the beginning of 2019 (bug 1510223) on all channels. We have actively been blocking Worker loads with wrong MIME type on early-beta and nightly since about a year (bug 1569122).,CLARIFICATION,0,0,0,0
+1569123,enhancement,Implementation,Feature Development,20,"I'm updating the MDN docs for this - [release note here](https://wiki.developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/81#WorkersService_workers).
+The only thing I think might be incorrect in the docs is the note on Worker/SharedWorker: 
+I THINK the change is that this should include application/javascript as an option, and also note that this is only enforced from FireFox 81. Is that correct?",QUESTION,0,0,1,0
+1571472,defect,Implementation,Defective Functionality,5,"Oh definitely, just wanted to make sure nobody thought this would escape to release :) Thanks for the details in comment 0, I can fix this up.",CLARIFICATION,0,1,1,1
+1571472,defect,Implementation,Defective Functionality,15,"Huh - still orange. It's complaining about the other omni.ja whitelist entry also being unused... maybe I misinterpreted the first log, and you can just wipe out those whitelist entries entirely?",CODE_UPDATE_REQUEST,0,1,1,1
+1571487,enhancement,Implementation,Feature Development,4,"It's also possible that what should happen here is bugs blocking this one on the actual behavior changes (i.e. the handling of event handler attributes is a behavior change even if they don't get exposed via IDL), in addition to the IDL changes this bug would make.",PROBLEM_REVIEW,0,1,1,1
+1571487,enhancement,Implementation,Feature Development,9,"Created attachment 9091079
+Bug 1571487 - Implement MathML DOM
+Untested WIP patch.",CODE_IMPLEMENTATION,1,0,0,0
+1571487,enhancement,Implementation,Feature Development,14,"Yes, it's in my review queue...  Will get to it soon.",STATUS_UPDATE,0,0,0,0
+1571487,enhancement,Implementation,Feature Development,15,"I uploaded a new patch. I think the implementation is essentially done, but we need to wait for the latest WPT changes, to send the intent-to and perhaps to write more tests for the tabIndex/focus stuff.
+Brian has added more details to the MathML Core spec:
+https://mathml-refresh.github.io/mathml-core/#event-handler-content-attributes
+https://mathml-refresh.github.io/mathml-core/#focus",CODE_IMPLEMENTATION,1,1,1,1
+1571487,enhancement,Implementation,Feature Development,16,"I wrote the intent to prototype: https://groups.google.com/forum/#!topic/mozilla.dev.platform/ssTytf-pT7k
+and sent the patch for a first review.",CODE_IMPLEMENTATION,1,1,1,1
+1571487,enhancement,Implementation,Feature Development,22,Created web-platform-tests PR https://github.com/web-platform-tests/wpt/pull/19506 for changes under testing/web-platform/tests,UNCODED,0,0,0,1
+1576600,enhancement,Implementation,Defective Functionality,7,"Pushed by nhnt11@gmail.com:
+https://hg.mozilla.org/integration/autoland/rev/298653e2ce27
+Fix styling of Learn More link in protections panel info message. r=andreio",UNCODED,0,0,0,0
+1576600,enhancement,Implementation,Defective Functionality,14,"https://hg.mozilla.org/releases/mozilla-beta/rev/5e3a5cbccbb7
+https://hg.mozilla.org/releases/mozilla-beta/rev/5058b0483693",UNCODED,0,0,0,0
+1579004,enhancement,Implementation,Feature Development,7,"Backout by malexandru@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/ececf9f6d9a5
+Backed out changeset b37620ff38b6 for failures browser_urlbar_collapseOnChromeMousedown.js CLOSED TREE",UNCODED,0,0,0,0
+1581315,task,Implementation,Code Design,5,"Pushed by bzbarsky@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/4968ed697e0a
+part 1.  Adjust MOZ_MUST_RETURN_FROM_CALLER to only apply to method calls on arguments.  r=nika
+https://hg.mozilla.org/integration/autoland/rev/be26864d5a00
+part 2.  Fix incorrect behavior of PannerNode::SetRolloffFactor.  r=karlt
+https://hg.mozilla.org/integration/autoland/rev/395ae88909c6
+part 3.  Add MOZ_MUST_RETURN_FROM_CALLER_IF_THIS_IS_ARG to more ErrorResult methods.  r=smaug",UNCODED,0,0,0,0
+1581315,task,Implementation,Code Design,8,"The instability in Firefox causing the upstream test failure is a known issue with that test.  See bug 1560454 (which is marked fixed, but was ""fixed"" by disabling the test)...",COLLATERAL_PROBLEM_ANALYSIS,0,0,0,0
+1593658,defect,Implementation,Code Design,2,"Created attachment 9106172
+Bug 1593658 - network ID: Fix detecting mobile data link on some Android versions, r=valentin
+When we fail to detect the link as mobile data device, we use GW address for ID calculation. And because GW changes often in case of mobile data we often get different ID for the same network.",CODE_IMPLEMENTATION,1,1,1,1
+1598488,task,Implementation,Code Design,11,"Pushed by tnikkel@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/c038eb7d1cb1
+Fix nsMenuPopupFrame::GetWidget. r=emilio",UNCODED,0,0,0,0
+1600320,defect,Implementation,Code Design,2,"Created attachment 9112557
+Detailed Crash Information",UNCODED,0,0,0,0
+1600320,defect,Implementation,Code Design,6,https://hg.mozilla.org/mozilla-central/rev/70dac52cf66e,UNCODED,0,0,0,0
+1615767,defect,Implementation,UI Issue,3,"I can't reproduce; I see no difference between behaviour on 72, 73, 74 and 75 - the spacer adds several cm of horizontal empty space on the left-hand side of the toolbar.
+Can you find a regression window with mozregression ( https://mozilla.github.io/mozregression/ ), and take screenshots before/after to indicate what you're seeing (presumably different from my machine)? Can you reproduce on a clean profile?",REPRODUCTION_REQUEST,0,0,0,0
+1623400,defect,Implementation,Defective Functionality,17,Ok I understand but isn't that strange that notifications from sites like YouTube and Facebook are not appearing?,QUESTION,0,0,0,0
+1623400,defect,Implementation,Defective Functionality,25,"I am really sorry about that. To emphasize, the pref [dom.security.secFetch.enabled](https://searchfox.org/mozilla-central/rev/7fba7adfcd695343236de0c12e8d384c9b7cd237/modules/libpref/init/StaticPrefList.yaml#2384) is currently only enabled in Nightly. If needed we could even flip it to false in Nightly. We are not planning to let it ride the trains in the super near future. Let me know!",SOLUTION_REVIEW,1,1,1,1
+1623400,defect,Implementation,Defective Functionality,29,"The sec-fetch- code in the browser is very simple, just a pref check and a series of calls to aHTTPChannel->SetRequestHeader() which obviously succeed.
+Is there an internet path issue, and it might be different from your machine to the server? If you try one of the known-broken push examples in Firefox do they work in your nightly? https://gauntface.github.io/simple-push-demo/ seems easier to use since it has a send button. In the servicework.rs example you have to reload the page for each attempt. Is the Browser Console lying about what was actually sent and received? I haven't looked at the actual traffic.",PROBLEM_REVIEW,0,1,1,1
+1623400,defect,Implementation,Defective Functionality,32,"I did a lot of testing trying to narrow down the problem, here is what I found out:
+a) I wrote a mochitest (see phabricator) which creates a websocket also attaching the three Sec-Fetch-Headers.
+The details about the websocket:
+Running the mochitest -> works
+b) I tested https://gauntface.github.io/simple-push-demo/ using all kinds of settings:
+The details about the websocket:
+I tested sending all three headers          -> failure
+I tested sending only the first two headers -> works
+I tested sending only the third header       -> works
+Is it possible that there are some server side size constraints on request headers? Given that I also wrote a mochitest which works correctly, I still think the problem must be somewhere on the server.",QUESTION,0,1,1,1
+1623400,defect,Implementation,Defective Functionality,33,"This is why I was using something other than firefox in order to test the server. In my case I was using a python based websocket client app that is part of the [websocket_client](https://pypi.org/project/websocket_client/) package. There are other tools that can be used as well, such as [websocat](https://github.com/vi/websocat/releases ) which runs on a wide variety of platforms. This enables me to test the server directly. 
+Using websocat from my windows platform:
+```
+[INFO  websocat::lints] Auto-inserting the line mode
+[DEBUG websocat] Done third phase of interpreting options.
+[DEBUG websocat] Done fourth phase of interpreting options.
+[DEBUG websocat] Preparation done. Now actually starting.
+[INFO  websocat::sessionserve] Serving Line2Message(ThreadedStdio) to Message2Line(WsClient(""wss://push.services.mozilla.com/"")) with Options { websocket_text_mode: true, websocket_protocol: None, websocket_reply_protocol: None, udp_oneshot_mode: false, unidirectional: false, unidirectional_reverse: false, exit_on_eof: false, oneshot: false, unlink_unix_socket: false, exec_args: [], ws_c_uri: ""ws://0.0.0.0/"", linemode_strip_newlines: false, linemode_strict: false, origin: None, custom_headers: [(""Sec-Fetch-Dest"", [119, 101, 98, 115, 111, 99, 107, 101, 116]), (""Sec-Fetch-Mode"", [119, 101, 98, 115, 111, 99, 107, 101, 116]), (""Sec-Fetch-Site"", [99, 114, 111, 115, 115, 45, 115, 105, 116, 101]), (""Sec-WebSocket-Extensions"", [112, 101, 114, 109, 101, 115, 115, 97, 103, 101, 45, 100, 101, 102, 108, 97, 116, 101]), (""Sec-WebSocket-Protocol"", [112, 117, 115, 104, 45, 110, 111, 116, 105, 102, 105, 99, 97, 116, 105, 111, 110])], custom_reply_headers: [], websocket_version: None, websocket_dont_close: false, one_message: false, no_auto_linemode: false, buffer_size: 65536, broadcast_queue_len: 16, read_debt_handling: Warn, linemode_zero_terminated: false, restrict_uri: None, serve_static_files: [], exec_set_env: false, reuser_send_zero_msg_on_disconnect: false, process_zero_sighup: false, process_exit_sighup: false, socks_destination: None, auto_socks5: None, socks5_bind_script: None, tls_domain: None, tls_insecure: false, headers_to_env: [], max_parallel_conns: None, ws_ping_interval: None, ws_ping_timeout: None }
+[INFO  websocat::stdio_threaded_peer] get_stdio_peer (threaded)
+[DEBUG websocat::sessionserve] Underlying connection established
+[INFO  websocat::ws_client_peer] get_ws_client_peer
+[INFO  websocat::ws_client_peer] Connected to ws
+{""messageType"":""hello"",""use_webpush"":true}
+[DEBUG websocat::ws_peer] incoming text
+{""messageType"":""hello"",""uaid"":""7c8e82bae21d4fc2bacce8ad63d7d9b4"",""status"":200,""use_webpush"":true,""broadcasts"":{}}
+^D
+[DEBUG websocat::ws_peer] incoming close
+[DEBUG websocat::my_copy] BrokenPipe: read_done
+[DEBUG websocat::my_copy] done
+[INFO  websocat::sessionserve] Reverse finished
+[INFO  websocat::sessionserve] Reverse shutdown finished
+[DEBUG websocat::my_copy] zero len
+[DEBUG websocat::my_copy] read_done
+```
+While it's a bit hard to read through that output with the verbosity set high, note that I entered 
+`{""messageType"":""hello"",""use_webpush"":true}` (which is a proper WebPush ""hello"" message)
+and received back:
+`{""messageType"":""hello"",""uaid"":""7c8e82bae21d4fc2bacce8ad63d7d9b4"",""status"":200,""use_webpush"":true,""broadcasts"":{}}`
+which is the expected response.
+Note also that I used the following `--header` arguments and that they were relayed in the `websocat::sessionserve` body:
+* Sec-Fetch-Dest: websocket
+* Sec-Fetch-Mode: websocket
+* Sec-Fetch-Site: cross-site
+* Sec-WebSocket-Extensions: permessage-deflate
+* Sec-WebSocket-Protocol: push-notification
+These include the headers you note. including `Sec-Fetch-Dest: websocket` which you report as not working. 
+(The sessionserve message transcribes the values of these strings into byte arrays, so some use of an ascii chart may be required to verify.)
+What this means is that a simple client that specifies these headers and values is indeed able to send and receive data from the mozilla WebPush servers. 
+Look, I don't want to be contrarian or sound overly negative here, but I feel like we're arguing that the road must be broken because your car won't start after you changed the oil. I understand that firefox is a highly complex virtual machine. Far more complex than the push server. That's why I'm trying to provide as much tooling as possible so that you can solve this problem. It may not be with the code responsible for writing these headers (again, highly complex virtual machine), but it could be surfacing because of some inter-relationship around how the browser should act regarding handling these headers. I don't know, either.
+In fact, if you like, you can run [a fake Push Server](https://github.com/vi/websocat) locally, and alter `dom.push.serverURL` to point to it. (Websocket is an upgraded HTTP connection, so the server should listen on ports 80 for (`ws://`) or 443 (for `wss://`) just like a normal HTTP server.) The client should connect and send the ""hello"" message I've been using. (I'll remind that firefox tends to treat `localhost` specially, so it might be worth trying a different address as well.)
+I am not sure how I can possibly proceed on this further. I completely agree that firefox 76.0a1 (2020-03-18+) is unable to properly communicate to the server in order to initiate a push connection. This is not the case for older versions of firefox, or independent clients. I have neither the tools nor experience in order to work out why the internal websocket channels within firefox in order to further diagnose or resolve this issue, but continue to be happy to assist where I can. I will gleefully fix and frankly be in rapture if this does turn out to be a server side issue but I am unable to replicate it using anything other than firefox 76.0a1 (2020-03-18+) which, again, leads me to believe that the problem is not with the server.",CLARIFICATION,0,0,0,0
+1624268,task,Implementation,Code Design,12,"Pushed by tihuang@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/601005e66807
+Part 1: Add checking the HasStorageAccessGranted() for the ContentBlocking::ShouldAllowAccessFor(channel). r=dimi,baku
+https://hg.mozilla.org/integration/autoland/rev/8b7137730c6b
+Part 2: Moving the setting of 'HasStoragePermission' flag to the WindowContext a bit earlier. r=dimi,baku
+https://hg.mozilla.org/integration/autoland/rev/9d97ffda84cb
+Part 3: Use the 'HasStoragePermission' flag to check the storage permission. r=dimi,baku
+https://hg.mozilla.org/integration/autoland/rev/b53169070af1
+Part 4: Remove unnecessary code for ContentBlocking::ShouldAllowAccessFor(). r=dimi,baku",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0,0
+1634650,enhancement,Implementation,Feature Development,24,Is it possible this is causing a regression in golinks as per bug 1642435?,QUESTION,0,0,0,0
+1645527,enhancement,Refactoring,Unnecessary Code Removal,1,"Please see bug 1639072 comment 1
+`AssociateApplicationCache` and `OverrideReferrerInfoDuringBeginConnect` should be sent along with `PHttpChannel::OnStartRequest` to reduce potential race condition.",PROBLEM_MOTIVATION,0,1,1,1
+1651332,enhancement,Implementation,Feature Development,14,Filed bug 1653796 for that issue.,NEW_ISSUE_FILING,0,0,0,0
+1651332,enhancement,Implementation,Feature Development,18,"Hmm, interesting, I'll look into this.
+That's bug 1653796.",ANSWER_TO_QUESTION,0,0,0,0
+1654383,enhancement,Implementation,Code Design,1,"The CDM headers have a definition of encryption scheme[0] we can use rather than re-implementing our own type[1]. Historically we've used our own types, but in this case we're just adding an extra conversion step.
+If we ever need more flexibility we can add back in our own type, but for now this allows us to cut some code.
+[0] https://searchfox.org/mozilla-central/rev/3b6958c26049c1e27b2790a43154caaba9f6dd4a/dom/media/gmp/widevine-adapter/content_decryption_module.h#101
+[1] https://searchfox.org/mozilla-central/rev/3b6958c26049c1e27b2790a43154caaba9f6dd4a/dom/media/gmp/gmp-api/gmp-video-codec.h#222",PROBLEM_MOTIVATION,0,1,1,1
+1654383,enhancement,Implementation,Code Design,2,"Created attachment 9165208
+Bug 1654383 - Replace GMPEncryptionType with cdm::EncryptionScheme. r?alwu,dminor
+This removes the need to do some conversions and simplifies the code a little.
+Drive by remove an assert which is already covered by a switch statement
+containing a MOZ_ASSERT_UNREACHABLE in ChromiumCDMParent.",CODE_IMPLEMENTATION,1,1,1,1
+1654383,enhancement,Implementation,Code Design,3,"Pushed by bvandyk@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/9cec7707e84d
+Replace GMPEncryptionType with cdm::EncryptionScheme. r=alwu,dminor",UNCODED,0,0,0,0
+1677183,enhancement,Implementation,Feature Development,4,"Here's what I ended up thinking about CORS:
+Only DOM element objects have CORS.
+Both DOM element objects and non-DOM objects have ""`origin-clean`"" flags.
+In Gecko, we implement `origin-clean` via `isWriteOnly`, where `origin-clean` IFF `!isWriteOnly`.
+See 
+https://html.spec.whatwg.org/multipage/canvas.html#the-image-argument-is-not-origin-clean for how CORS becomes `origin-clean = false`.
+See https://html.spec.whatwg.org/multipage/canvas.html#security-with-canvas-elements for how this propagates.
+In particular:
+I think we might have some of our CORS checks wrong, but I want to think more about it. But this is unblocked and good to land.",UNCODED,0,1,1,1
+1685379,defect,Implementation,UI Issue,6,Marking firefox86 as fixed based on [comment 4](https://bugzilla.mozilla.org/show_bug.cgi?id=1685379#c4).,ISSUE_METADATA_CHANGE,0,0,0,0
+1685379,defect,Implementation,UI Issue,7,Marking this as Resolved based on [Robert's comment from bug 1686384](https://bugzilla.mozilla.org/show_bug.cgi?id=1686384#c4).,SOLUTION_VERIFICATION,0,0,0,0
+1686219,enhancement,Refactoring,Code Improvement,6,"https://hg.mozilla.org/mozilla-central/rev/cc7e6feeb95a
+https://hg.mozilla.org/mozilla-central/rev/496d47ff3fa1
+https://hg.mozilla.org/mozilla-central/rev/43978ebfc7ac",UNCODED,0,0,0,0
+1686238,defect,Testing,Test Failure,6,"This bug and bug 1685768 are still observed with [today's central-as-beta simulations](https://treeherder.mozilla.org/logviewer?job_id=327479966&repo=try). What's the plan forward to resolve them and when (merge to beta on Monday, test only fixes?)?",ADDITIONAL_CONSIDERATION,0,0,0,0
+1686238,defect,Testing,Test Failure,11,https://hg.mozilla.org/mozilla-central/rev/767c22222bec,UNCODED,0,0,0,0
+1688325,defect,Implementation,UI Issue,2,"ni=emilio in case he's up for taking a look, since he just landed a fix for related bug 1686606.",PROBLEM_REVIEW_REQUEST,0,0,0,0
+1688325,defect,Implementation,UI Issue,8,"Pushed by ealvarez@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/64682b454ac6
+Make textarea default padding 2px on all platforms. r=dholbert",UNCODED,0,0,0,0
+1703558,defect,Testing,Test Failure,1,This test is my nemesis.,UNCODED,0,0,0,0
+1704164,defect,Implementation,Incorrect Page Rendering,3,"Pushed by dothayer@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/dc67a43df738
+Apply darkmode theme to newtab before first paint r=mconley",UNCODED,0,0,0,0
+1705253,task,Implementation,Code Design,1,"This test has a part where it expects AXMenuOpened events for context menus, which are not observable for us when native context menus are used.
+It also has a part where it inspects the accessibility-exposed contents of a context menu. This is not testable with native context menus either, so that part of the test needs to be disabled.",CODE_IMPLEMENTATION,1,1,1,1
+1705327,task,Implementation,Feature Development,24,*** Bug 1701006 has been marked as a duplicate of this bug. ***,UNCODED,0,0,0,0
+1715838,enhancement,Implementation,Feature Development,2,"Created attachment 9226819
+Bug 1715838 - Creates preference for new screenshot components. r?emalysz",UNCODED,0,0,0,0
+1716655,defect,Implementation,Crash,8,":emilio, since this bug contains a bisection range, could you fill (if possible) the regressed_by field?
+For more information, please visit [auto_nag documentation](https://wiki.mozilla.org/Release_Management/autonag#fuzzing_bisection_without_regressed_by.py).",QUESTION,0,0,0,0
+1718031,defect,Testing,Test Failure,4,"Pushed by aoprea@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/296412895f45
+Intermittent [tier2] TV toolkit/components/nimbus/test/browser/browser_remotesettingsexperimentloader_remote_defaults.js r=k88hudson",UNCODED,0,0,0,0
+1718748,defect,Implementation,UI Issue,5,"Pushed by ealvarez@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/bc079cbb02ff
+Ensure that changing browser.theme.toolbar-theme triggers an style/layout update. r=stransky",UNCODED,0,0,0,0
+1718748,defect,Implementation,UI Issue,8,That is expected in beta since beta doesn't have the patches here.,CLARIFICATION,0,0,0,0
+1742770,defect,Testing,Test Failure,5,"That's a great idea! Thanks for doing this, I imagine we'll find some useful bugs.
+Yeah, we should definitely validate that we're getting a valid `moz-nullprincipal:` URI when deserializing a null principal from `PrincipalInfoToPrincipal`. It'd be nice if we could validate more than just the `moz-nullprincipal` scheme as well, though I suppose that'll be more work.
+Every valid `moz-nullprincipal` URI is currently created in `NullPrincipal::CreateURI` and so follows the pattern of `moz-nullprincipal:{uuidhere-edae-4733-9a29-99abcace2a48}` with an optional `?https://precursor.spec` query at the end. 
+that being said, it occurs to me that we might want to include more validation in general when serializing & deserializing URIs, as right now the process might have some validation holes (potentially which this process will help us find!)",SOLUTION_REVIEW,1,1,1,1
+1751919,defect,Implementation,Crash,1,"58 crashes starting with Firefox 96+.
+Crash report: https://crash-stats.mozilla.org/report/index/d250cb76-f52f-41ca-a3eb-127df0220125
+Reason: ```EXCEPTION_ACCESS_VIOLATION_READ```
+Top 10 frames of crashing thread:
+```
+0 xul.dll mozilla::dom::SessionHistoryEntry::ReplaceWith docshell/shistory/SessionHistoryEntry.cpp:1380
+1 xul.dll mozilla::dom::CanonicalBrowsingContext::SessionHistoryCommit docshell/base/CanonicalBrowsingContext.cpp:819
+2 xul.dll mozilla::dom::ContentParent::RecvHistoryCommit dom/ipc/ContentParent.cpp:7226
+3 xul.dll mozilla::dom::PContentParent::OnMessageReceived ipc/ipdl/PContentParent.cpp:12742
+4 xul.dll mozilla::ipc::MessageChannel::DispatchMessage ipc/glue/MessageChannel.cpp:1964
+5 xul.dll mozilla::ipc::MessageChannel::MessageTask::Run ipc/glue/MessageChannel.cpp:1851
+6 xul.dll mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal xpcom/threads/TaskController.cpp:771
+7 xul.dll NS_ProcessNextEvent xpcom/threads/nsThreadUtils.cpp:467
+8 xul.dll mozilla::ipc::MessagePump::Run ipc/glue/MessagePump.cpp:85
+9 xul.dll MessageLoop::RunHandler ipc/chromium/src/base/message_loop.cc:324
+```",STACK_TRACE,0,0,0,0
+1762088,task,Implementation,Code Design,3,"Created attachment 9269972
+Bug 1762088 - Implement parsing / serialization for container{,-type,-name} CSS properties. r=#style,#layout-reviewers
+Two noteworthy details that may seem random otherwise:
+ * Moving values around in nsStyleDisplay is needed so that the struct
+   remains under the size limit that we have to avoid jumping allocator
+   buckets.
+ * All the test expectation churn is because tests depend on
+   `container-type: size` parsing to run, and now they run. Tests for
+   the relevant bits I implemented are passing, with the only exception
+   of some `container-name-computed.html` failures which are
+   https://github.com/w3c/csswg-drafts/issues/7181. Safari agrees with
+   us there.
+Other notes when looking at the spec and seeing how it matches the
+implementation:
+ * `container` syntax doesn't match spec, but matches tests and sanity:
+   https://github.com/w3c/csswg-drafts/issues/7180
+ * `container-type` syntax doesn't _quite_ match spec, but matches tests
+   and I think it's a spec bug since the definition for the missing
+   keyword is gone:
+   https://github.com/w3c/csswg-drafts/issues/7179
+Depends on D142418",CODE_IMPLEMENTATION,1,1,1,1
+1769254,defect,Implementation,Crash,1,"11 crashes from 6 installations, all with Firefox 102.0a1 (on macOS obviously), first reported build ID is 20220505185614.
+Crash report: https://crash-stats.mozilla.org/report/index/4b88927e-489d-4eb6-be12-5024c0220512
+Reason: ```EXC_BAD_ACCESS / KERN_INVALID_ADDRESS```
+Top 10 frames of crashing thread:
+```
+0 XUL mozilla::wr::RenderMacIOSurfaceTextureHost::GetSize const gfx/webrender_bindings/RenderMacIOSurfaceTextureHost.cpp:68
+1 XUL mozilla::layers::NativeLayerCA::AttachExternalImage gfx/layers/NativeLayerCA.mm:779
+2 XUL mozilla::wr::RenderCompositorNative::AttachExternalImage gfx/webrender_bindings/RenderCompositorNative.cpp:321
+3 XUL webrender::renderer::Renderer::update_native_surfaces gfx/wr/webrender/src/renderer/mod.rs:4688
+4 XUL webrender::renderer::Renderer::render_impl gfx/wr/webrender/src/renderer/mod.rs:1976
+5 XUL webrender::renderer::Renderer::render gfx/wr/webrender/src/renderer/mod.rs:1737
+6 XUL wr_renderer_render gfx/webrender_bindings/src/bindings.rs:616
+7 XUL mozilla::wr::RenderThread::UpdateAndRender gfx/webrender_bindings/RenderThread.cpp:537
+8 XUL mozilla::wr::RenderThread::HandleFrameOneDoc gfx/webrender_bindings/RenderThread.cpp:387
+9 XUL mozilla::detail::RunnableMethodImpl<mozilla::wr::RenderThread*, void  xpcom/threads/nsThreadUtils.h:1200
+```",STACK_TRACE,0,0,0,0
+1769254,defect,Implementation,Crash,13,"[Tracking Requested - why for this release]:
+Lee, I can reproduce this SWGL crash again (using the STR in comment #1) now that `gfx.canvas.accelerated` has been re-enabled in bug 1773712.
+bp-43999729-23c4-40db-ab68-930260220806",REPRODUCTION_ATTEMPT,0,0,0,0
+1769254,defect,Implementation,Crash,15,I hit this saving an edited (pdfjs.annotationEditorMode=0) PDF to PDF in yesterday(?)'s nightly on macOS.,REPRODUCTION_ATTEMPT,0,0,0,0
+1769254,defect,Implementation,Crash,17,"Sotaro, any ideas here?",PROBLEM_REVIEW_REQUEST,0,0,0,0
+1769254,defect,Implementation,Crash,21,https://hg.mozilla.org/mozilla-central/rev/0f1fe5d29884,UNCODED,0,0,0,0
+1769748,defect,Testing,Test Failure,11,"Pushed by alissy@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/465b8737f9fd
+Disable dynamic code mitigation on MinGW64 builds r=bobowen",UNCODED,0,0,0,0
+1769748,defect,Testing,Test Failure,16,"so yes, I made a typo",UNCODED,0,0,0,0
+1774026,task,Implementation,Code Design,1,"Perhaps bug 1772839 is because the when one compositor is paused the egl surface is still current, so does not get destroyed and detached from the Android Surface. Then when the next compositor is resumed we fail to create the new surface.
+Just wild speculation, but worth a try.",PROBLEM_MOTIVATION,0,1,1,1
+1778644,defect,Implementation,Feature Development,4,https://hg.mozilla.org/mozilla-central/rev/8c19a2c5a423,UNCODED,0,0,0,0
+1792203,defect,Implementation,Code Design,2,"Created attachment 9295982
+Bug 1792203 - Add gtest coverage for AsyncBlockers r?nika!",UNCODED,0,0,0,0
+1794237,defect,Implementation,Crash,14,"Pushed by lsalzman@mozilla.com:
+https://hg.mozilla.org/integration/autoland/rev/4bf6c23773ea
+Ensure worst case alignment of UniformData Range when serialized. r=jgilbert",AUTO_PUSH_CODE_IMPLEMENTATION,0,0,0,0
+1794237,defect,Implementation,Crash,23,"The patch landed in nightly and beta is affected.
+:lsalzman, is this bug important enough to require an uplift?
+- If yes, please nominate the patch for beta approval.
+- If no, please set `status-firefox107` to `wontfix`.
+For more information, please visit [auto_nag documentation](https://wiki.mozilla.org/Release_Management/autonag#uplift_beta.py).",UPLIFT_NOMINATION_REQUEST,0,0,0,0
+1794406,task,Implementation,Error Handling Improvement,4,https://hg.mozilla.org/mozilla-central/rev/212ff2476899,UNCODED,0,0,0,0
+1809080,defect,Implementation,Defective Functionality,2,"Set release status flags based on info from the regressing bug 1781960
+:cpeterson, since you are the author of the regressor, bug 1781960, could you take a look? Also, could you set the severity field?
+For more information, please visit [auto_nag documentation](https://wiki.mozilla.org/Release_Management/autonag#needinfo_regression_author.py).",QUESTION,0,0,0,0
+1809080,defect,Implementation,Defective Functionality,4,"Created attachment 9311295
+pr 15907: Fix pinch-to-zoom on a macbook trackpad (bug 1809080)",UNCODED,0,0,0,0
+1809080,defect,Implementation,Defective Functionality,6,"Comment on attachment 9311569
+Bug 1809080 - Pinch-to-zoom in pdf viewer when using the trackpad on Mac r=#pdfjs-reviewers,RyanVM
+### Beta/Release Uplift Approval Request
+* **User impact if declined**: Mac users who are zooming a pdf in using pinch-to-zoom on a trackpad will be disappointed.
+* **Is this code covered by automated tests?**: No
+* **Has the fix been verified in Nightly?**: No
+* **Needs manual test from QE?**: Yes
+* **If yes, steps to reproduce**: - Open a pdf on mac
+- pinch in using the trackpad
+- only the pdf must be zoomed and not the toolbar
+* **List of other uplifts needed**: None
+* **Risk to taking this patch**: Low
+* **Why is the change risky/not risky? (and alternatives if risky)**: Only few lines, easy to test and pdf.js is self-contained.
+* **String changes made/needed**: 
+* **Is Android affected?**: No",REQUEST_FOR_UPLIFT,0,0,0,0
+1809080,defect,Implementation,Defective Functionality,8,https://hg.mozilla.org/releases/mozilla-release/rev/ea0c9f5c9b90,UNCODED,0,0,0,0
+1811466,defect,Implementation,UI Issue,1,"Created attachment 9313233
+Video of the bad behaviour and the correct one
+User Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0
+Steps to reproduce:
+(I've confirmed this in a fresh profile, video of the behaviour, and a correct behaviour from previous version is attached)
+When you have the ""menu bar"" enabled (the one with File, Edit, View etc) move your mouse over any of them, don't click, just move the mouse over it, then move it anywhere else, again without clicking it.
+Actual results:
+The item you hovered on will be lit as if you were still hovering over it, and no firefox keyboard shortcuts will work (ctrl + t, ctrl + shift + p etc) and all key inputs will be interpreted as if you really are focused on the menu bar (left and right arrows will move you left and right on the menu bar items, down arrow will open the curently selected item etc) until you either press the alt key (which does normaly focus / defocus the menu bar) to defocus the bar, or click anywhere else in any window (this is new in 110.0b3, previously in 110.0b2 the only way was to click any menu item).
+Expected results:
+The focus should happen on mouse over, but when the mouse leaves, it should defocus it (as it was before and should still be, based on normal Windows window behaviour)",PROBLEM_DESCRIPTION,0,0,0,0
+1815706,task,Implementation,Feature Development,1,"I noticed a bug with how the cumulative histogram telemetry was implemented in bug 1801290 a few months ago. If you click *anywhere* on the sidebar, it triggers the [onclick handler](https://searchfox.org/mozilla-central/source/browser/components/places/content/historySidebar.js#92), updates the histograms and clears the counters. 
+This needs to be fixed so that the histograms are only updated when a history entry is clicked.
+Additionally, Leif suggested we add a counter for total history clicks in a session, which we don't currently have.",POTENTIAL_SOLUTION_DESIGN,1,1,1,1
+1815706,task,Implementation,Feature Development,10,"Comment on attachment 9317067
+Bug 1815706 - Update history sidebar telemetry r=mak,mkaply
+Approved for 111.0b5",UPLIFT_APPROVAL,0,0,0,0
+1820814,defect,Implementation,Defective Functionality,4,Wow. That's the squeaky-cleanest try push I've seen in at least a year.,CLARIFICATION,0,0,0,0
+1821213,defect,Testing,Flaky Tests,3,Changing summary to a more general one as there are multiple reftest failures with same fail error but different test paths.,ISSUE_METADATA_CHANGE,0,0,0,0
+1821213,defect,Testing,Flaky Tests,6,Set release status flags based on info from the regressing bug 1820699,ISSUE_METADATA_CHANGE,0,1,1,1
+1821213,defect,Testing,Flaky Tests,11,"Created attachment 9322217
+Bug 1821213: Make CocoaWindow check its maximized state against the screen maximum size.",AUTO_ATTACH_CODE_IMPLEMENTATION,0,0,0,0
+1823751,defect,Implementation,Defective Functionality,4,"I am not a mac developer what I can say is that I am very surprised that this even worked before, because from what I remember this was giving me some kind of error: https://hg.mozilla.org/integration/autoland/rev/330c5c6b4f5bd2ba3818e6859d1757023a5ac29a#l3.12
+Brad do you want to take a look?",PROBLEM_REVIEW_REQUEST,0,0,0,0
+1823751,defect,Implementation,Defective Functionality,10,Thank you for fixing this Brad. I hope we can add this to the QA drag&drop manual tests so that we don't regress it again on any platform.,ADDITIONAL_CONSIDERATION,0,1,1,1

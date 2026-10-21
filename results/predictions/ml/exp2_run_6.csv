@@ -1,0 +1,93 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_6
+40939597,1,PDF Viewer incorrectly intercepts Tab Search shortcut key on Mac,,0,0
+40939597,2,"Chrome Version: 118 Stable
+OS: macOS
+
+What steps will reproduce the problem?
+(1) Load a PDF
+(2) Press Cmd+Shift+A
+
+What is the expected result?
+
+The browser's Search Tabs dialog opens
+
+What happens instead?
+
+The PDF Viewer performs a Select All.
+
+The PDF Viewer should only select all the text when Cmd+A is pressed, and not do so when there are additional key modifiers.",,0,0
+40939597,3,"PDF Viewer: Perform Select All only in response to Ctrl+A
+
+Currently, the PDF Viewer looks for ""Ctrl"" and ""A' to determine if it
+should perform a Select All command, where ""Ctrl"" is ""Cmd"" on macOS.
+This will also incorrectly match other key combinations, like
+Ctrl+Shift+A, which is the keyboard shortcut for Tab Search.
+
+Fix this by adding a hasCtrlModifierOnly() utility function and using
+that instead of the existing hasCtrlModifier() function. Audit other ""A""
+key handling in PDF Viewer code and consistently use
+hasCtrlModifierOnly().",IMPLEMENTATION,1,0
+40939597,4,"Since the fix is relatively straight-forward, let's try to get this fixed out to our power users sooner rather than later.",,0,0
+40939597,5,"Merge approved for M120 branch: please refer to go/chrome-branches for more info
+
+
+Please merge once this is verified on canary.",VERIFICATION,0,0
+40939597,6,"Verified the fix on  Mac(12.3) using the latest Canary #121.0.6104.0
+
+Observed that The browser's Search Tabs dialog opens but unable to load the information
+
+Please let us know if anything has been missed here
+
+
+Please refer to the attached screen cast  below:
+https://drive.google.com/file/d/1CrQ5wFcSd3Zlk86jvTQxAuLB2tAl3mG3/view?usp=sharing
+
+
+Thanks...",VERIFICATION,0,0
+40939597,7,"re: https://crbug.com/chromium/1498522#c6 - Step 1 (Load a PDF) means open a PDF file, not open Print Preview.",,0,0
+40939597,8,"If the Search Tabs dialog opened up blank in an unexpected fashion, then please file a separate bug report.",,0,0
+40939597,9,M120 merge is here - https://chromium-review.googlesource.com/c/chromium/src/+/5002870,,0,0
+40939597,10,"PDF Viewer: Add more tests for Select All behavior
+
+Expand basic_plugin_test.ts with more test cases to test that:
+- The initial state has no text selection.
+- Select All via Ctrl+A (or macOS equivalent) works.
+- All other combinations of modifiers+A do not Select All.
+
+To make the tests work across platforms, change the build rules for
+//chrome/test/data/pdf to do pre-processing using build_webui_tests().
+Then the tests that use key events can choose Ctrl/Meta appropriately
+depending on the platform.
+
+To make build_webui_tests() work outside of //chrome/test/data/webui,
+change its template definition to allow custom resource_path_prefix
+values.
+
+Along the way, switch the existing Select All tests to use Promises.",IMPLEMENTATION,1,0
+40939597,11,"Verified the fix on  Mac(12.3) using the latest Canary #121.0.6110.0
+
+Observed that The browser's Search Tabs dialog opens
+
+Please refer to the screen cast attached below.
+https://drive.google.com/file/d/1MO9ukHHkR0Kri48e1cjMbDD8MRDpKfUk/view?usp=sharing
+
+As fix is working as expected, Adding the TE-verified labels.
+
+Thanks...",VERIFICATION,0,0
+40939597,12,"Verified the fix on  Mac(12.3) using Beta Rc #120.0.6099.18
+
+Observed that The browser's Search Tabs dialog opens
+
+Please refer to the screen cast attached below.
+https://drive.google.com/file/d/1cYBD1FQ3XX9mHL3hwScD9czGALqMvm4i/view?usp=sharing
+
+
+As fix is working as expected, Adding the TE-verified labels.
+TE-Verified-M120
+TE-Verified-120.0.6099.18
+
+Thanks...",VERIFICATION,0,0
+40939597,13,"This issue was migrated from crbug.com/chromium/1498522?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]",,0,0

@@ -1,0 +1,208 @@
+{
+    "run1": {
+        "train": [
+            {
+                "issue_id": 551837,
+                "text_id": 4
+            },
+            {
+                "issue_id": 906912,
+                "text_id": 5
+            },
+            {
+                "issue_id": 552914,
+                "text_id": 3
+            },
+            {
+                "issue_id": 1823751,
+                "text_id": 12
+            },
+            {
+                "issue_id": 696748,
+                "text_id": 5
+            },
+            {
+                "issue_id": 552914,
+                "text_id": 6
+            },
+            {
+                "issue_id": 593387,
+                "text_id": 44
+            }
+        ],
+        "test": [
+            {
+                "issue_id": 552359,
+                "text_id": 12
+            },
+            {
+                "issue_id": 677173,
+                "text_id": 20
+            },
+            {
+                "issue_id": 552359,
+                "text_id": 20
+            },
+            {
+                "issue_id": 552359,
+                "text_id": 26
+            },
+            {
+                "issue_id": 552914,
+                "text_id": 2
+            },
+            {
+                "issue_id": 552914,
+                "text_id": 4
+            },
+            {
+                "issue_id": 552914,
+                "text_id": 7
+            },
+            {
+                "issue_id": 554061,
+                "text_id": 10
+            },
+            {
+                "issue_id": 554061,
+                "text_id": 14
+            },
+            {
+                "issue_id": 554061,
+                "text_id": 21
+            },
+            {
+                "issue_id": 558970,
+                "text_id": 6
+            },
+            {
+                "issue_id": 558970,
+                "text_id": 10
+            },
+            {
+                "issue_id": 561168,
+                "text_id": 2
+            },
+            {
+                "issue_id": 561168,
+                "text_id": 17
+            },
+            {
+                "issue_id": 561168,
+                "text_id": 19
+            },
+            {
+                "issue_id": 561168,
+                "text_id": 30
+            },
+            {
+                "issue_id": 576837,
+                "text_id": 19
+            },
+            {
+                "issue_id": 590389,
+                "text_id": 1
+            },
+            {
+                "issue_id": 593387,
+                "text_id": 15
+            },
+            {
+                "issue_id": 597389,
+                "text_id": 1
+            },
+            {
+                "issue_id": 597389,
+                "text_id": 8
+            },
+            {
+                "issue_id": 601999,
+                "text_id": 7
+            },
+            {
+                "issue_id": 601999,
+                "text_id": 9
+            },
+            {
+                "issue_id": 601999,
+                "text_id": 20
+            },
+            {
+                "issue_id": 627984,
+                "text_id": 23
+            },
+            {
+                "issue_id": 642412,
+                "text_id": 6
+            },
+            {
+                "issue_id": 670853,
+                "text_id": 9
+            },
+            {
+                "issue_id": 677173,
+                "text_id": 12
+            },
+            {
+                "issue_id": 682449,
+                "text_id": 1
+            },
+            {
+                "issue_id": 714547,
+                "text_id": 8
+            },
+            {
+                "issue_id": 714547,
+                "text_id": 11
+            },
+            {
+                "issue_id": 731836,
+                "text_id": 13
+            },
+            {
+                "issue_id": 779500,
+                "text_id": 37
+            },
+            {
+                "issue_id": 779500,
+                "text_id": 99
+            },
+            {
+                "issue_id": 840284,
+                "text_id": 11
+            },
+            {
+                "issue_id": 1514429,
+                "text_id": 5
+            },
+            {
+                "issue_id": 1529006,
+                "text_id": 5
+            },
+            {
+                "issue_id": 1529006,
+                "text_id": 7
+            },
+            {
+                "issue_id": 1683093,
+                "text_id": 6
+            },
+            {
+                "issue_id": 1688325,
+                "text_id": 9
+            },
+            {
+                "issue_id": 1823751,
+                "text_id": 14
+            },
+            {
+                "issue_id": 1823751,
+                "text_id": 21
+            },
+            {
+                "issue_id": 1823751,
+                "text_id": 22
+            }
+        ]
+    }
+}

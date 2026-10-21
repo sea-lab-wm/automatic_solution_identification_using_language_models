@@ -1,0 +1,2 @@
+Oversample,Batch_Size,Epochs,LR,Model,Accuracy,Precision,Recall,F1 Score,TP,FP,TN,FN
+False,16,10,3e-05,roberta-base,76.923077,58.62069,44.736842,50.746269,17,12,93,21

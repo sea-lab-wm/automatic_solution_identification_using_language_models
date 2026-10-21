@@ -1,0 +1,32 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_1
+799047,1,AutoComplete Only Considers Visible Transactions,,0,0
+799047,2,"The recent improvements to autocomplete are very nice! However, it only seems to consider now visible transactions. So e.g. if I hide reconciled transactions (as I often do), the autocomplete does not consider those, which makes it much less useful. Previous versions did not have this issue.",,0,0
+799047,3,How are you hiding the transaction?,,0,0
+799047,4,"Using the filter. So View>Filter By, then uncheck ""Reconciled"". I usually do this because it's easier to see what the 'active' transactions are, so to speak.",,0,0
+799047,5,"That's what I thought you may be doing. With the recent changes, the auto-complete list of the description is recreated on every register update from the list of transactions so it can get the most recent order correct and also to reflect any changes to descriptions and possible deletions.
+
+As you exclude the reconciled transactions, they will not be in the list to load in the register and hence those descriptions will not be in the list.
+
+Not sure what can be done here but will have a think.",ANALYSIS,0,0
+799047,6,"Does GnuCash not have all the transactions in memory somewhere? I.e., does it only load the ones that meet the filter condition? If so, I see the problem, but if they are all loaded, and only the filtered ones are displayed, then this seems solvable.",ANALYSIS,0,0
+799047,7,Yes all of the Gnucash data is held in memory. The problem is that the auto-complete description list is generated as part of the register view. The register is created from an incoming list of splits which has already been filtered to remove the reconciled ones and so the descriptions are not available.,ANALYSIS,0,0
+799047,8,Got it.,,0,0
+799047,9,"One weirder thing: If I enter the description manually, then it will find the last category used. So that part actually does autocomplete.",,0,0
+799047,10,That's because it is really two separate actions. The first is to populate the description field with the text you want and then when you Tab this description text is used to do a search for the corresponding transaction and then do the autocomplete.,,0,0
+799047,11,"Sorry I'm a bit late to this but I've only just updated to 5.3, missing out 5.2, and have noticed this behaviour as well.
+
+I do the same as Richard, filtering out reconciled transactions, and was wondering why autocomplete 'no longer works' as previously.",REPRODUCTION,0,0
+799047,12,"I also noticed this bug on version 5.3. I filter my transactions to the past 30 days, but I expect the description autocomplete to consider my entire transaction history. Hoping to see a fix soon.",REPRODUCTION,0,0
+799047,13,I have the same problem as Richard with this change. I generally don't want to see reconciled transactions but I do want GC to search them for the convenience of autocomplete. Maybe I'm missing something here but it seems to me that the logic of this list update shouldn't be affected by whether or not a category is visible.,SOLUTION_DESIGN,1,0
+799047,14,"I agree. Bob, you should compose the autocomplete lists from the account instead of the register in order to bypass filters.",SOLUTION_DESIGN,1,0
+799047,15,I have the same problem here. I always hide reconciled transactions.,,0,0
+799047,16,Created PR1961 with a possible fix.,IMPLEMENTATION,1,1
+799047,17,"PR has been pushed to stable and will be in the next release 5.7
+
+As I think I have fixed this and can reproduce will close but if you find it not fixed in next release please reopen and update.",,0,0
+799047,18,"I cloned and built github version 5.6-269-gad7a51a6ef+(2024-06-27) which contains the fix and can confirm that autocomplete now provides lists including filter-hidden, historic items. I have not done rigorous testing but will report if anything crops up.
+Many thanks to the developer(s) for sorting this out. Gnucash continues to be a fantastic piece of kit and I will be donating to the project in the near future.",VERIFICATION,0,0
+799047,19,Thanks! I'll wait for 5.7 to hit Fedora but will also check and report back if there are any issues.,,0,0
+799047,20,"I've just installed 5.8 and can confirm it works as expected now.
+
+Many thanks for resolving this.",VERIFICATION,0,0

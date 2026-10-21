@@ -1,0 +1,11 @@
+run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+0,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,90.76,64.91,93.67,76.68,74,40,368,5
+1,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,89.12,64.77,72.15,68.26,57,31,377,22
+2,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,92.20,68.81,94.94,79.79,75,34,374,4
+3,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,87.27,58.10,77.22,66.30,61,44,364,18
+4,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,87.06,58.00,73.42,64.80,58,42,366,21
+5,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,89.73,61.98,94.94,75.00,75,46,362,4
+6,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,88.50,60.95,81.01,69.57,64,41,367,15
+7,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,90.53,64.04,93.59,76.04,73,41,367,5
+8,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,90.12,66.30,78.21,71.76,61,31,377,17
+9,True,8,5,1.00E-05,meta-llama/Meta-Llama-3-8B,87.24,57.94,78.48,66.67,62,45,362,17

@@ -1,0 +1,18 @@
+issue_id,text_id,text,code,label,none_gpt_os_SVC_7
+40233604,1,Add feature flag for omnibox keyboard paste button,,0,0
+40233604,2,Add a feature flag to enable paste button on the omnibox's keyboard accessories.,,0,0
+40233604,3,"[iOS] Add flag for omnibox keyboard paste button
+
+Add omnibox feature flag to enable paste button on the keyboard
+accessory.",IMPLEMENTATION,1,0
+40233604,4,"Verified on :
+
+App Version: 106.0.5228.0 canary
+Devices: iPhone XS, iPhone XR
+iOS Versions: 15.6, 16.0 Beta 4
+
+#omnibox-keyboard-paste-button is available under chrome://flags",VERIFICATION,0,0
+40233604,5,"This issue was migrated from crbug.com/chromium/1349092?no_tracker_redirect=1
+
+[Auto-CCs applied]
+[Monorail components added to Component Tags custom field.]",,0,0
