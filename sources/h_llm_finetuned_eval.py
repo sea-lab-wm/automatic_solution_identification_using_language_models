@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from peft import PeftModel
@@ -70,4 +72,8 @@ print(f"True Negatives (TN): {TN}")
 print(f"False Negatives (FN): {FN}")
 print("=" * 50)
 
-test_df.to_csv('results/predictions/llm/test-folds/0/llm_eval_predictions.csv', index=False)
+path = 'results/predictions/llm/test-folds/0'
+os.makedirs(path, exist_ok=True)
+test_df.to_csv(f'{path}/llm_eval_predictions.csv', index=False)
+
+print(f"Predictions saved to {path}/llm_eval_predictions.csv")
