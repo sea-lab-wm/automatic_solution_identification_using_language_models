@@ -1,8 +1,16 @@
 # import wandb
-from utils import *
+# from utils import *
 
 import numpy as np
+import pandas as pd
 import torch
+import os
+
+from utils import append_row_to_csv, calculate_results, get_experiment_config, print_current_time, set_llm_seed
+
+from utils import dev_data_path_temporal, test_data_path_temporal, train_data_path_temporal, val_data_path_temporal, train_os_data_path_temporal, dev_os_df_path_temporal, comment_data_llama_prediction_temporal
+
+
 torch.cuda.empty_cache()
 import torch.nn.functional as F
 
@@ -90,7 +98,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         quantization_config=quantization_config,
         num_labels=2,
         device_map='auto',
-        cache_dir="/scratch/msun12/models"
+        # cache_dir="/scratch/msun12/models"
     )
 
     ### Add LoRA Adaptation ###
@@ -186,6 +194,8 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         all_predictions = []
         all_confidences = []
         all_probabilities = []
+
+        separator_print(f"Generating Predictions for {len(sentences)} sentences with batch size {batch_size}")
 
         for i in range(0, len(sentences), batch_size):
             print(f"Processing batch {i // batch_size + 1} of {len(sentences) // batch_size + 1}")
@@ -400,7 +410,7 @@ if __name__ == "__main__":
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
 
-    runs = [4]
+    runs = [0]
 
     append_row_to_csv(res_path, result)
 

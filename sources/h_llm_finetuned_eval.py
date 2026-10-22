@@ -22,7 +22,7 @@ def predict(texts, model, tokenizer, max_length=1024, batch_size=8):
 
     return all_outputs
 
-save_loc = "models/llm/0/meta-llama/Meta-Llama-3-8B__BS_8__E_5__LR_1e-05"
+save_loc = "llm-saved-model"
 model_name = "meta-llama/Meta-Llama-3-8B"
 
 # Load the tokenizer
@@ -55,7 +55,7 @@ test_df = pd.read_csv("results/predictions/llm/folds/0/llm_eval_predictions.csv"
 texts = test_df['text'].tolist()
 predictions = predict(texts, model, tokenizer)
 
-test_df['predicted_label'] = predictions
+test_df['predicted_label_NEW'] = predictions
 
 FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(predictions, test_df['label'])
 
@@ -70,4 +70,4 @@ print(f"True Negatives (TN): {TN}")
 print(f"False Negatives (FN): {FN}")
 print("=" * 50)
 
-test_df.to_csv('results/predictions/llm/folds/0/llm_eval_predictions.csv', index=False)
+test_df.to_csv('results/predictions/llm/test-folds/0/llm_eval_predictions.csv', index=False)
