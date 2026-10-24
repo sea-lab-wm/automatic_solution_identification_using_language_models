@@ -1,4 +1,5 @@
 # import wandb
+# import wandb
 from utils import *
 
 import numpy as np
@@ -44,6 +45,8 @@ def compute_metrics(evaluations):
 
 
 def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, lr, e, save_loc=None):
+
+def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, lr, e, save_loc=None):
     set_llm_seed(42)
 
     ### Innitial Params ###
@@ -62,10 +65,15 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
     dataset_val = Dataset.from_pandas(val_df[['text', target_column]])
     dataset_test = Dataset.from_pandas(test_df[['text', target_column]])
     dataset_dev = Dataset.from_pandas(dev_df[['text', target_column]])
+    dataset_train = Dataset.from_pandas(train_df[['text', target_column]])
+    dataset_val = Dataset.from_pandas(val_df[['text', target_column]])
+    dataset_test = Dataset.from_pandas(test_df[['text', target_column]])
+    dataset_dev = Dataset.from_pandas(dev_df[['text', target_column]])
 
     # Combine them into a single DatasetDict
     dataset = DatasetDict({
         'train': dataset_train,
+        'validation': dataset_val,
         'validation': dataset_val,
     })
 
@@ -90,6 +98,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         quantization_config=quantization_config,
         num_labels=2,
         device_map='auto',
+        cache_dir="/scratch/msun12/models"
         cache_dir="/scratch/msun12/models"
     )
 
@@ -131,8 +140,12 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
     # wandb.init(
     #     project="solution_loc_llm",
     # )   
+    # wandb.init(
+    #     project="solution_loc_llm",
+    # )   
 
     training_args = TrainingArguments(
+        output_dir=f'output/{run}',
         output_dir=f'output/{run}',
         learning_rate=lr,
         per_device_train_batch_size=bs,
@@ -147,12 +160,17 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         metric_for_best_model='f1_score',
         greater_is_better=True,
         report_to='none',
+        # report_to="wandb",
+        metric_for_best_model='f1_score',
+        greater_is_better=True,
+        report_to='none',
     )
 
     trainer = CustomTrainer(
         model=model,
         args=training_args,
         train_dataset=tokenized_data['train'],
+        eval_dataset=tokenized_data['validation'], 
         eval_dataset=tokenized_data['validation'], 
         tokenizer=tokenizer,
         data_collator=collate_fn,
@@ -162,6 +180,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
 
     separator_print("TRAIN DATASET")
     print(tokenized_data['train'])
+    print(tokenized_data['validation'])
     print(tokenized_data['validation'])
 
     train_result = trainer.train()
@@ -189,6 +208,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
 
         for i in range(0, len(sentences), batch_size):
             print(f"Processing batch {i // batch_size + 1} of {len(sentences) // batch_size + 1}")
+            print(f"Processing batch {i // batch_size + 1} of {len(sentences) // batch_size + 1}")
             batch_sentences = sentences[i:i + batch_size]
 
             inputs = tokenizer(
@@ -198,7 +218,18 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
                 truncation=True,
                 max_length=max_length
             )
+            inputs = tokenizer(
+                batch_sentences,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+                max_length=max_length
+            )
 
+            inputs = {
+                k: v.to('cuda' if torch.cuda.is_available() else 'cpu')
+                for k, v in inputs.items()
+            }
             inputs = {
                 k: v.to('cuda' if torch.cuda.is_available() else 'cpu')
                 for k, v in inputs.items()
@@ -223,8 +254,27 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
             np.array(all_probabilities)
         )
 
+
+                # Convert logits to class probabilities
+                probabilities = F.softmax(outputs['logits'].float(), dim=1)
+
+                # Predicted class and its confidence
+                confidences, predictions = torch.max(probabilities, dim=1)
+
+                all_predictions.extend(predictions.cpu().numpy())
+                all_confidences.extend(confidences.cpu().numpy())
+                all_probabilities.extend(probabilities[:, 1].cpu().numpy())
+
+        return (
+            np.array(all_predictions),
+            np.array(all_confidences),
+            np.array(all_probabilities)
+        )
+
     model.eval()
 
+    y_pred, y_confidence, y_probability = generate_predictions(model, test_df, bs, max_length)
+    return y_pred, y_confidence, y_probability
     y_pred, y_confidence, y_probability = generate_predictions(model, test_df, bs, max_length)
     return y_pred, y_confidence, y_probability
 
@@ -233,6 +283,12 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
     exp_config = get_experiment_config()
     
     ### Data Retrieve ###
+    dev_df = pd.read_csv(dev_data_path_temporal.replace('<run>', f'{run}'))
+    test_df = pd.read_csv(test_data_path_temporal.replace('<run>', f'{run}'))
+    train_df = pd.read_csv(train_data_path_temporal.replace('<run>', f'{run}'))
+    val_df = pd.read_csv(val_data_path_temporal.replace('<run>', f'{run}'))
+    train_df_os = pd.read_csv(train_os_data_path_temporal.replace('<run>', f'{run}'))
+    dev_df_os = pd.read_csv(dev_os_df_path_temporal.replace('<run>', f'{run}'))
     dev_df = pd.read_csv(dev_data_path_temporal.replace('<run>', f'{run}'))
     test_df = pd.read_csv(test_data_path_temporal.replace('<run>', f'{run}'))
     train_df = pd.read_csv(train_data_path_temporal.replace('<run>', f'{run}'))
@@ -253,6 +309,10 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
             train_df = train_df_os
             dev_df = dev_df_os
 
+    dev_df = dev_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
+    test_df = test_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
+    train_df = train_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
+    val_df = val_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
     dev_df = dev_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
     test_df = test_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
     train_df = train_df[["issue_id","text_id","text","label","creation_time","comment_id"]]
@@ -283,7 +343,10 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
         LR = exp_config['llm_model_conf']['params']['learning_rate']
 
     separator_print(f"Run: {run}, Oversample: {oversample}, Batch Size: {BS}, Epoch: {E}, Learning Rate: {LR}")
+    separator_print(f"Run: {run}, Oversample: {oversample}, Batch Size: {BS}, Epoch: {E}, Learning Rate: {LR}")
 
+    model_save_path = f"models/temporal/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
+    y_pred, y_confidence, y_probability = train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, BS, LR, E, save_loc=model_save_path)
     model_save_path = f"models/temporal/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
     y_pred, y_confidence, y_probability = train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, BS, LR, E, save_loc=model_save_path)
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, test_df[target_column])
@@ -313,7 +376,10 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
 
     file_name = model_name + f"bs_{BS}__E_{E}__LR_{LR}__oversample_{'os' if oversample else 'nos'}_prediction"
     
+    
     test_df_copy[file_name] = y_pred
+    test_df_copy['confidence'] = y_confidence
+    test_df_copy['positive_probability'] = y_probability
     test_df_copy['confidence'] = y_confidence
     test_df_copy['positive_probability'] = y_probability
 
@@ -330,6 +396,7 @@ def hyperparameter_tuning(mod, model_name, oversample, run, train_df, val_df):
     for bs in mod['params']['batch_size']:
         for lr in mod['params']['learning_rate']:
             for e in mod['params']['epoch']:
+                y_pred, _, _ = train_evaluate_llm(run, model_name, train_df, val_df, bs, lr, e)
                 y_pred, _, _ = train_evaluate_llm(run, model_name, train_df, val_df, bs, lr, e)
                 FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, val_df[target_column])
 
@@ -393,9 +460,11 @@ if __name__ == "__main__":
 
     exp_config = get_experiment_config()
     # prepare_data(mapped_comment_data, train_test_comment_data)
+    # prepare_data(mapped_comment_data, train_test_comment_data)
 
     target_column = 'label'
 
+    res_path = f"results/temporal/llm_fine_tuning/comment_data_results.csv"
     res_path = f"results/temporal/llm_fine_tuning/comment_data_results.csv"
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
@@ -406,6 +475,7 @@ if __name__ == "__main__":
 
     for run in runs:
         for model in exp_config['llm_model']:
+            pred_path = comment_data_llama_prediction_temporal.replace("<run>", f'{run}')
             pred_path = comment_data_llama_prediction_temporal.replace("<run>", f'{run}')
             llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
 

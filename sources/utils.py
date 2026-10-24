@@ -231,7 +231,7 @@ def get_experiment_config():
 
 def clean_dataframe(data_path):
     data = pd.read_csv(data_path)
-    required_columns = ['issue_id', 'text_id', 'text', 'code', 'label']
+    required_columns = ['issue_id', 'text_id', 'text', 'code', 'label',]
     optional_columns = ['bert_embedding', 'gpt_embedding', 'llama_embedding']
     columns_to_keep = required_columns + [col for col in optional_columns if col in data.columns]
     data = data[columns_to_keep]
@@ -266,12 +266,8 @@ def process_run(run, data, indexes, paths):
 
     print(f"\n\nAll datas are saved successfully to {os.path.dirname(dev_data_path.replace('<run>', f'{run}'))}.")
 
-def prepare_data(data_path, index_path):
-
-    exp_config = get_experiment_config()
-    runs = exp_config.get("eval_run", [])
-    
-    data = clean_dataframe(data_path)
+def prepare_data(runs, data_path, index_path):    
+    data = pd.read_csv(data_path)
 
     print(data['label'].value_counts())
 
@@ -330,6 +326,7 @@ mapped_comment_data = 'dataset/solution_identification_data/labeled_comment_data
 data_split_comment_data = "dataset_construction/comment_data/example_actual_comment_data.csv"
 embedding_comment_data = 'dataset/embedding_data/actual_comment_data_with_embeddings.csv'
 embedding_comment_data_temporal = 'dataset/embedding_data/actual_comment_data_with_embeddings_temporal.csv'
+embedding_comment_data_temporal = 'dataset/embedding_data/actual_comment_data_with_embeddings_temporal.csv'
 promt_comment_data = 'dataset_construction/comment_data/comment_data.csv'
 preprocess_comment_data = 'dataset/solution_identification_data/preprocess_comment_data.csv'
 preprocess_sentence_data = 'dataset_construction/sentence_data/preprocess_sentence_data.csv'
@@ -347,6 +344,12 @@ dev_os_df_path_temporal = 'dataset/solution_identification_data/temporal_folds/<
 ml_prediction_comment_dir_temporal = "results/temporal/predictions/ml"
 comment_data_plm_result_temporal = "results/temporal/plm/comment_data_results.csv"
 comment_data_llama_prediction_temporal = "results/predictions/temporal/llm/folds/<run>/"
+
+# EXP2 Confidence Score
+exp2_folds_path = "dataset/solution_identification_data/exp2_folds"
+ml_prediction_comment_dir_exp2 = "results/exp2/predictions/ml"
+comment_data_plm_result_exp2 = "results/exp2/plm/comment_data_results.csv"
+comment_data_llama_prediction_exp2 = "results/predictions/exp2/llm/folds/<run>/"
 
 dataset_path = 'dataset'
 dataset_fold_path = "dataset/solution_identification_data/folds"
@@ -370,6 +373,7 @@ comment_data_dl_result = "results/plm/comment_data_results.csv"
 comment_data_llama_result = "dataset_construction/comment_data/llama/folds/<run>/mac_th/results.csv"
 comment_data_llama_prediction = "results/predictions/llm/folds/<run>/"
 ml_prediction_comment_dir = "results/predictions/ml"
+ml_model_base_path = "models/temporal/ml"
 ml_model_base_path = "models/temporal/ml"
 ml_prediction_sentence_dir = "dataset_construction/sentence_data/predictions/"
 lm_prediction_dir = "dataset_construction/comment_data/predictions/lm/"

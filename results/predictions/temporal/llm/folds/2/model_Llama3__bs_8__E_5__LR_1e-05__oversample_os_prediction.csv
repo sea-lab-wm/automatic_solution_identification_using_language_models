@@ -1,0 +1,2019 @@
+issue_id,text_id,text,label,creation_time,comment_id,meta-llama/Meta-Llama-3-8Bbs_8__E_5__LR_1e-05__oversample_os_prediction,confidence,positive_probability
+1029919,9,"I can reproduce on Windows8.1update1, Windows7 if OMTC on and HWA off.
+Graphics
+Adapter Description	ATI Radeon HD 4300/4500 Series
+Adapter Drivers	aticfx64 aticfx64 aticfx32 aticfx32 atiumd64 atidxx64 atiumdag atidxx32 atiumdva atiumd6a atitmm64
+Adapter RAM	512
+ClearType Parameters	Gamma: 2200 Pixel Structure: R ClearType Level: 50 Enhanced Contrast: 200
+Device ID	0x954f
+DirectWrite Enabled	false (6.2.9200.16492)
+Driver Date	4-29-2013
+Driver Version	8.970.100.1100
+GPU #2 Active	false
+GPU Accelerated Windows	0/1 Basic (OMTC)
+Vendor ID	0x1002
+WebGL Renderer	Google Inc. -- ANGLE (ATI Radeon HD 4300/4500 Series Direct3D9Ex vs_3_0 ps_3_0)
+windowLayerManagerRemote	true
+AzureCanvasBackend	skia
+AzureContentBackend	cairo
+AzureFallbackCanvasBackend	cairo
+AzureSkiaAccelerated	0",0,2014-06-25T12:22:35Z,8975361.0,0,0.9798384,0.020161677
+912496,7,https://hg.mozilla.org/mozilla-central/rev/ba28223861b1,0,2013-09-05T19:58:31Z,7828298.0,0,0.99952376,0.00047621163
+1003694,13,JSBugMon: This bug has been automatically verified fixed on Fx32,0,2014-06-13T14:15:35Z,8927552.0,0,0.9974367,0.0025633008
+1033887,12,"Created attachment 8450216
+Do not build TestSTLWrappers.cpp with clang-cl; r=bsmedberg",0,2014-07-03T15:03:41Z,9011150.0,0,0.98983485,0.010165075
+1023280,4,checkin-needed because m-i seems to be rather closed today.,0,2014-06-11T19:32:37Z,8917793.0,0,0.99574184,0.0042581763
+985257,17,https://hg.mozilla.org/mozilla-central/rev/8ee23d53dc27,0,2014-03-24T20:51:41Z,8572165.0,0,0.9994205,0.0005794899
+894931,24,"The tracking flags should be updated when it gets backed out to reflect the current state.  But tracking flags don't cause propagation to branches, they just show it.",0,2013-07-18T05:44:55Z,7648931.0,0,0.7220626,0.2779374
+947523,57,"[3] sounds okay - the blocking factor is the fact that we're OOMing the phone, rather than the browser tab. If we OOM the browser tab here instead, then that's okay enough to remove the blocking factor on the bug.",1,2014-01-07T17:46:18Z,8261415.0,0,0.6324042,0.3675958
+919434,13,https://hg.mozilla.org/mozilla-central/rev/a1c8f8c10088,0,2014-07-18T19:08:33Z,9073971.0,0,0.9989189,0.0010811106
+947523,67,"Comment on attachment 8356790
+2/4 - Change the displayport storage units
+What's the plan for this longer term? Make this be stored in layer pixels? Only land this on 1.2?
+We should have a comment explaining why we do this.",0,2014-01-07T22:08:20Z,8262855.0,0,0.8562069,0.14379318
+894931,4,"Got it: Regression between http://hg.mozilla.org/integration/mozilla-inbound/rev/3d33faf4d81f and http://hg.mozilla.org/integration/mozilla-inbound/rev/e8bf739addfa
+=> Bug 868498",0,2013-07-17T16:25:57Z,7645850.0,0,0.99482673,0.005173188
+897027,19,"Comment on attachment 815582
+bug-897027-fix.patch
+Review of attachment 815582:
+-----------------------------------------------------------------
+I'm terrribly sorry for the late review - this fell off my radar completely.
+Looks great. And thank you so much for the thorough tests of Number functions.
+::: js/src/jsmath.cpp
+@@ +298,5 @@
+this hasDefined isn't necessary, as we'll have returned above if it were false
+@@ +647,5 @@
+Same here about hasDefined
+::: js/src/tests/ecma_6/Math/20.2.2.ToNumber.js
+@@ +3,5 @@
+Nit: can you add the date of the spec draft this numbering refers to. It will get outdated at some point, otherwise.
+@@ +8,5 @@
+Please just remove this entire paragraph: the EcmaScript spec's license isn't compatible with Public Domain. While this is very likely to fall under fair use, no need to go anywhere near the boundaries of that.",0,2013-11-07T10:24:17Z,8052444.0,0,0.71148515,0.28851485
+948882,28,"Created attachment 8424383
+bug_final.patch
+Added !",0,2014-05-18T00:34:13Z,8806766.0,0,0.95290816,0.047091827
+947523,45,"So I tried propagating the zoom info to child APZCs as I described above but ran into a threading problem. Specifically, I need to propagate the new zoom to child APZCs in ScheduleContentRepaint *before* posting the message to the GeckoContentController. However propagating the zoom to child APZCs requires holding the tree lock, and that results in a deadlock scenario because we're already holding the APZC lock there.
+In addition this solution felt pretty hacky and brittle so I'm working on a different solution now which modifies how the displayport is stored. In nsDOMWindowUtils::SetDisplayPortForElement I'm going to multiply in the cumulative resolution and in nsLayoutUtils::GetDisplayPort I'm going to divide out the cumulative resolution. This way when the resolution of intermediate presshells change, the retrieved displayport is automatically scaled accordingly. I *think* this should work because the displayport is stored relative to the scroll offset and so scaling it won't move it around improperly, but I'm building the patch now to test it and see how it fares.",1,2014-01-03T18:58:25Z,8251828.0,1,0.9870558,0.9870558
+978610,18,"We have tests to check this and they're running on tinderbox now, so there's no need to verify.",0,2014-04-16T20:22:48Z,8672647.0,0,0.9090871,0.090912804
+906912,14,"Rename the existing one to DeprecatedMove or something, then.  It's going away, make it ugly and obvious that no one should use it.",1,2013-08-20T22:41:30Z,7770451.0,1,0.80589294,0.80589294
+1024256,1,S3TC conformance tests fail on OSX 10.9.,0,2014-06-12T01:13:32Z,8919426.0,0,0.9998585,0.0001414657
+1024256,2,"Created attachment 8438826
+Blacklist S3TC extension on OSX 10.9 Intel HD 3000 driver because of buggy glCompressedTexSubImage2D with sub-image update",0,2014-06-12T01:13:41Z,8919427.0,0,0.6195471,0.38045287
+983489,32,https://hg.mozilla.org/integration/mozilla-inbound/rev/b032a90ee083,0,2014-04-17T10:42:35Z,8675541.0,0,0.97990364,0.020096354
+947523,51,"With this patch I still see Browser crash while zooming the gaia meeting etherpad:
+  https://etherpad.mozilla.org/gaia-meeting-notes
+I would like to test a bit more with instrumentation to see if its the same OOM issue, but probably won't be able to until tomorrow morning.",0,2014-01-06T20:47:35Z,8257178.0,0,0.92799366,0.07200635
+906912,21,https://hg.mozilla.org/mozilla-central/rev/3f307f37b77a,0,2013-08-30T18:03:32Z,7809973.0,0,0.9984907,0.0015093259
+947523,24,"Milan
+Please have this assigned. We would like to have a patch for the same by 12/20.",0,2013-12-17T16:54:26Z,8206140.0,1,0.5406875,0.5406875
+983489,55,This bug is resolved.,0,2014-05-26T07:31:40Z,8839983.0,0,0.9772685,0.022731481
+812431,5,"I think it's not anymore and issue as updated patch in bug #779029 probably fixed this.
+Can someone confirm this too?",0,2013-08-06T15:56:30Z,7717046.0,0,0.99421483,0.005785123
+906912,19,"https://hg.mozilla.org/integration/mozilla-inbound/rev/3f307f37b77a
+Thanks for all the reviews lately.",0,2013-08-29T23:08:22Z,7806755.0,0,0.9823428,0.017657278
+906912,20,https://twitter.com/sayrer/status/19304989209,0,2013-08-29T23:14:22Z,7806772.0,0,0.9607722,0.039227735
+937475,11,https://hg.mozilla.org/mozilla-central/rev/8187818246ad,0,2013-12-04T08:51:26Z,8153114.0,0,0.99961334,0.00038665955
+904571,9,"I think extensions may override http channel implementation and hence the active channel is not our nsHttpChannel.
+As mentioned above, that is not an FTP.
+Hmm.. I think not, but I'll check this, good idea.
+Again, not an FTP channel :)
+Yes, that is what I've mentioned (or something like that) in https://bugzilla.mozilla.org/show_bug.cgi?id=904559#c4",0,2014-02-08T01:39:45Z,8392050.0,0,0.8920666,0.107933395
+948882,10,No hurry though. I was just wondering if you were still interested :),0,2014-02-13T12:08:17Z,8415250.0,0,0.99962306,0.00037685968
+948882,19,"This looks good.
+Can you use DOMContentLoaded instead of window's onload?",0,2014-04-23T08:16:36Z,8697409.0,1,0.7483901,0.7483901
+897027,6,"Comment on attachment 813138
+bug-897027-fix.patch
+Review of attachment 813138:
+-----------------------------------------------------------------
+Stealing ...
+Looks good, but I think we should have tests added for this. Can you create them from André's initial report? Ask me for review with those.",0,2013-10-08T12:38:23Z,7936577.0,0,0.9992768,0.0007232485
+937475,1,"""The when parameter describes at what time (in seconds) the sound should stop playing. It is in the same time coordinate system as AudioContext.currentTime.""
+Currently |when| is interpreted on a timeline that advances with AudioContext.currentTime until playback starts and then in buffer time coordinates.",0,2013-11-12T05:02:54Z,8069288.0,1,0.8822961,0.8822961
+983489,7,"We will check the bug 985773.
+Maybe we have some problem for delete sequence in gfxPlatform::Shutdown()",0,2014-03-26T01:03:19Z,8578852.0,0,0.9980268,0.0019732032
+989204,3,"Created attachment 8398541
+Part 2 - Make arrow functions fast
+Requesting review from bhackett for the JIT changes, jorendorff for everything else.
+Passes jit_test.py --tbpl. Pushed to Try:
+https://tbpl.mozilla.org/?tree=Try&rev=acbba33d927c
+Fortunately the browser uses a ton of arrow functions; let's see how this turns out.",1,2014-03-28T15:21:43Z,8592406.0,1,0.9748471,0.9748471
+894646,4,"Created attachment 778194
+Addressing review comments",0,2013-07-19T01:12:34Z,7653624.0,0,0.9751727,0.024827305
+904571,2,"Could be related to bug 904559.
+I'll do a workaround but also check how this can even happen.",0,2013-08-28T13:54:25Z,7799231.0,0,0.9981369,0.0018631145
+833964,34,"Keon and Peak that still crash are running v1.0.1 that doesn't contain the fix.
+Currently, B2G top crashers are almost exclusively on Geekphones, the most widespread Fx OS phones.",0,2013-06-14T12:56:18Z,7534746.0,0,0.9867784,0.013221603
+894931,6,So what is visible on http://www.arewefastyet.com/?a=b&view=regress is also this bug or another ?,0,2013-07-17T18:17:25Z,7646479.0,0,0.99602854,0.0039714947
+947523,65,"Created attachment 8356796
+Rollup parts 1-4
+Please let me know if you still see the OOM with this. I didn't see it on my master build for Gaia; I will try to borrow a hamachi and test there as well.",1,2014-01-07T21:55:58Z,8262790.0,1,0.9936773,0.9936773
+947523,36,"I've reproduced the browser crash.  I zoomed in a fair amount and ran b2g-info:
+                  |     megabytes    |
+   NAME  PID NICE  USS  PSS  RSS VSIZE OOM_ADJ USER
+    b2g 1531    0 49.5 63.2 77.0 208.1       0 root
+Browser 1975    1 23.2 36.9 50.6 104.1       2 app_1975
+System memory info:
+            Total 179.7 MB
+     Used - cache  94.6 MB
+  B2G procs (PSS) 100.1 MB
+    Non-B2G procs  -5.4 MB
+     Free + cache  85.1 MB
+             Free  52.4 MB
+            Cache  32.6 MB
+I then zoomed just a little bit more and the browser tab was killed.  I got the ""oops, this is embarrassing"" dialog.  The logcat indicated that ""memory pressure"" was over, so that suggests it was an OOM.
+I find it interesting that just a tiny bit of zooming could cause us to consume over 50MB of free memory, though.
+I will continue investigating tomorrow.",0,2013-12-18T20:32:43Z,8212754.0,0,0.8941584,0.10584155
+983489,39,https://hg.mozilla.org/integration/mozilla-inbound/rev/290f4be587a1,0,2014-05-05T07:59:03Z,8748820.0,0,0.9486287,0.051371258
+1003694,6,https://hg.mozilla.org/integration/mozilla-inbound/rev/e0679448fd3b,0,2014-04-30T08:35:17Z,8730752.0,0,0.9688081,0.031191926
+983489,43,"From the log: https://tbpl.mozilla.org/php/getParsedLog.php?id=39049220&tree=Mozilla-Inbound
+it's this pushlog: https://tbpl.mozilla.org/?rev=ba31cd1620bd&tree=Mozilla-Inbound and it's not my patch.
+Would you please double check if it's problem of my patch?",0,2014-05-06T04:06:12Z,8754079.0,0,0.9903555,0.009644577
+937475,10,https://hg.mozilla.org/integration/mozilla-inbound/rev/8187818246ad,0,2013-12-04T04:50:48Z,8152628.0,0,0.8769268,0.12307325
+906912,12,"Well, this is assuming that this overload
+plays well with our current definition of mozilla::Move.  If we ever call mozilla::Move() with an rvalue, this new overload will be hit, and then things won't compile.
+Given that this new Move and the existing mozilla::Move are completely different idioms, I'm not sure it makes sense for them to be overloads of each other...",1,2013-08-20T21:09:31Z,7770011.0,1,0.5348633,0.5348633
+947523,38,Let's get the explanation - going a bit trigger happy on the ni...,0,2013-12-20T15:31:20Z,8220890.0,1,0.56050766,0.56050766
+894931,13,"Oh, I think I finally understand: you're saying by changing the position we're also changing z-ordering? I missed that.",0,2013-07-17T21:11:57Z,7647481.0,0,0.9846266,0.0153734535
+1024256,7,I've marked FF31 and FF32 as affected. I've checked and the patch applies to Aurora and Beta. Should let this bake on m-c for a week?,0,2014-06-16T23:44:13Z,8937583.0,0,0.9561781,0.043821886
+1047560,1,Updated https://wiki.mozilla.org/SecurityEngineering/Public_Key_Pinning/ReleaseEngineering#Whom_to_contact_in_case_of_emergency with dropbox info. This has already been in test mode for a while.,0,2014-08-01T18:37:11Z,9131604.0,0,0.7327849,0.26721513
+1029919,18,"Mozilla/5.0 (Windows NT 5.1; rv:33.0) Gecko/20100101 Firefox/33.0
+Verified fixed in today's Nightly",0,2014-07-08T15:41:04Z,9027288.0,0,0.9921674,0.00783258
+1023280,3,"Comment on attachment 8437883
+ToObjectInternal
+r=me
+Please do the try run on b2g and update the webidl docs?",0,2014-06-10T20:40:53Z,8912178.0,0,0.9993943,0.0006057377
+894931,32,*** Bug 895453 has been marked as a duplicate of this bug. ***,0,2013-07-19T11:32:26Z,7654959.0,0,0.997072,0.0029280502
+947523,16,"Something similar to this issue looks to have started on the first working 1.3 build from 9/19. The OS will crash and display the crash report page on each build up to 9/23. 
+From 9/24 and on, there is no crash report screen displayed and appears to instead be an OOM issue... exactly as specified in comment 5 and comment 9.
+There are builds between 9/24 and 12/11 where it is really difficult to get a repro and instead the Browser tab will need to be reloaded since the webpage becomes unresponsive many times.
+I am making the window be between 9/23 and 9/24 since that is when it looks to have become and OOM issue which is what this bug is about. If the crash is considered relevant to this bug, then it occurred on the first 1.3 build from 9/19. 
+- ""Works"" (OS crashes) -
+Environmental Variables:
+Device: Buri v1.3 MOZ RIL
+BuildID: 20130923040214
+Gaia: 3408cc3f6b190c8cd31832fbb8cd2ae571041f29
+Gecko: f97307cb4c95
+Version: 27.0a1
+Firmware Version: 20131115
+- Broken (OS restarts with an OOM) -
+Environmental Variables:
+Device: Buri v1.3 MOZ RIL
+BuildID: 20130924040201
+Gaia: a22ba4a3a9efd99f94adf9ece8a2b391d4df295b
+Gecko: 1fda74e33e06
+Version: 27.0a1
+Firmware Version: 20131115",0,2013-12-11T19:51:02Z,8184479.0,0,0.96192575,0.038074262
+985257,10,try build: https://tbpl.mozilla.org/?tree=Try&rev=a2ccc8c9e639,0,2014-03-19T22:01:02Z,8554995.0,0,0.9734885,0.026511494
+904571,3,http://hg.mozilla.org/mozilla-central/annotate/c5946a8bcd5b/netwerk/protocol/http/HttpChannelParentListener.cpp#l207,0,2013-12-05T10:22:00Z,8158627.0,0,0.91035557,0.08964444
+906912,16,"Created attachment 796309
+Patch, v3
+The only difference between this and v2 is that this one uses mozilla::move().
+I'm in the process of renaming this to mozilla::Move() in my queue, but I figure that doesn't need to stand in our way.",1,2013-08-27T22:21:55Z,7796806.0,1,0.9875218,0.9875218
+1033887,2,"Created attachment 8449917
+Disable the usage of try/catch in TestSTLWrappers.cpp with clang-cl",0,2014-07-03T01:39:30Z,9008703.0,0,0.9767407,0.023259219
+916390,9,"Because we always want to re-collect form data when cloning a tab, as that might include form data from sites that would usually be excluded due to the current privacy level.
+The parameter aUpdateFormData was removed because it's always true now. We always want to collect form data. With aUpdateFormData=true the condition (aIncludePrivateData || aUpdateFormData) becomes (aIncludePrivateData || true). So I just removed it.
+Sure.",0,2013-09-17T07:59:39Z,7868450.0,0,0.8279586,0.17204145
+983489,18,"Comment on attachment 8397713
+983489.patch
+Review of attachment 8397713:
+-----------------------------------------------------------------
+If call SendWillStop() then Destroy() it will make GLContext being deleted before Texture and it crashed at end of reftest.
+Please help to check if switch order is a proper solution.
+It still crash somewhere else and I'm still to identify root cause.",0,2014-04-02T09:50:06Z,8609601.0,0,0.86837494,0.13162504
+919434,7,"It seems like this should block bug 916315, no?",0,2013-12-03T17:54:00Z,8149775.0,0,0.97207886,0.027921185
+1047560,2,"Created attachment 8466365
+Enable pinning on dropbox (",0,2014-08-01T18:37:53Z,9131607.0,0,0.7421679,0.25783208
+1023280,2,"Created attachment 8437883
+ToObjectInternal
+I may have missed some b2g stuff.
+https://tbpl.mozilla.org/?tree=Try&rev=0210eba6ac04",1,2014-06-10T19:22:38Z,8911766.0,1,0.93171763,0.93171763
+906912,7,"Comment on attachment 792466
+Part 1, v1: Add mozilla::Move::ptr().
+Yeah, this is much better using proper C++11.",0,2013-08-20T15:55:02Z,7768266.0,0,0.9948154,0.005184607
+985257,16,https://hg.mozilla.org/integration/mozilla-inbound/rev/8ee23d53dc27,0,2014-03-24T13:30:58Z,8569748.0,0,0.967612,0.032387953
+983489,21,"Created attachment 8403724
+983489.patch",0,2014-04-09T02:57:09Z,8637414.0,0,0.9973826,0.0026174234
+948882,11,Any news?,0,2014-02-20T15:00:15Z,8442914.0,0,0.97873676,0.021263212
+916390,6,Removing __SS_formDataSaved shouldn't really hurt as well because MozStorageChanged seems to be the only event where we call TabStateCache.delete() without at the same time setting formDataSaved=false. There shouldn't be a lot more overhead now when always collecting form data.,1,2013-09-16T15:10:19Z,7865160.0,0,0.53710586,0.46289414
+966240,3,*** Bug 484172 has been marked as a duplicate of this bug. ***,0,2014-01-31T13:40:00Z,8356964.0,0,0.9953694,0.004630608
+1003694,9,"Created attachment 8415850
+[crash-signature] Machine-readable crash signature",0,2014-05-01T12:36:32Z,8737025.0,0,0.9019555,0.098044574
+1033887,6,"Sure.  But that WRAP_STL_INCLUDES is guarded by a CLANG_CC check (and so is the |else| arm a little farther down).  Is that check meant to be testing for a mingw32-esque clang, or is that check just useless now that clang-cl is semi-functional?",0,2014-07-03T13:46:56Z,9010748.0,1,0.72241074,0.72241074
+983489,53,https://hg.mozilla.org/integration/mozilla-inbound/rev/3939dc732041,0,2014-05-15T12:37:46Z,8796910.0,0,0.9038078,0.09619218
+919434,6,"Sure. I had been thinking to add it in the same patch that actually fixes this problem, but then I never made any headway on figuring out the cause of the bug. I think this will need input from someone who knows the layer system better than I do.",0,2013-10-09T21:11:48Z,7943118.0,1,0.8453228,0.8453228
+983489,19,"Created attachment 8401640
+983489.patch
+The previous patch is obviously wrong. This patch prevent the crash by delay destruct mGLContext.",1,2014-04-04T00:29:24Z,8619526.0,1,0.9961993,0.9961993
+1033887,8,"The point of this test and the STL wrappers is that the CRT is built with exceptions enabled, even when our code isn't. So in order to prevent C++ exceptions from leaking into code which is built without, we catch and abort.
+If we are using a clang CRT with no exceptions, then we need neither the STL wrappers nor this test.
+If we are using a clang CRT with exceptions, then we need the wrappers, but perhaps the test makes no sense and we should just not build it in this config.
+Either way, I don't think the patch here makes sense.",0,2014-07-03T14:08:31Z,9010868.0,1,0.5695964,0.5695964
+1033283,6,"Comment on attachment 8449368
+Expose pressed state on menu buttons, too
+Review of attachment 8449368:
+-----------------------------------------------------------------
+::: accessible/generic/Accessible.cpp
+@@ +1581,5 @@
+nit: two spaces between 'button' and 'menus', dot in the end
+::: accessible/tests/mochitest/states/test_aria.xul
+@@ +3,5 @@
+nit: it'd bet good to keep it more generic",0,2014-07-03T18:06:02Z,9012298.0,0,0.6648656,0.3351344
+912496,2,"Created attachment 799488
+Store source file names only once in tracelogging.log and refer to them by auto-incrementing id after that.",0,2013-09-04T14:10:00Z,7821536.0,1,0.6913405,0.6913405
+985257,5,"Comment on attachment 8393287
+Bug 985257 - add implementation for Path2D constructor that takes an SVG path string
+no tests yet.
+Waiting for pointInPath patch to land first",0,2014-03-19T02:35:57Z,8550613.0,0,0.9987219,0.0012781097
+983489,9,"GLContext is released before Texture is released.
+Wait result: https://tbpl.mozilla.org/?tree=Try&rev=b527e30e4264",0,2014-03-26T09:33:30Z,8580202.0,0,0.9127661,0.08723392
+912496,5,"Comment on attachment 799789
+v2
+Review of attachment 799789:
+-----------------------------------------------------------------
+I think we don't need to output the string in between the logs.
+Before logging everything, we can output a textmap linking the numbers with the output.
+(Can you open a follow-up bug for this?)
+::: js/src/TraceLogging.cpp
+@@ +149,5 @@
+Adjust comment to use ""text"" instead of ""file""
+@@ +152,5 @@
+Good call. I indeed forget to check the result of strdup. Can you add check for strdup and textMap failures and just return for now?",0,2013-09-05T08:56:27Z,7825596.0,0,0.9098381,0.09016194
+937475,6,"Created attachment 831382
+separate stream position from buffer position so that stop time can use stream position",0,2013-11-13T09:24:50Z,8075000.0,1,0.81491864,0.81491864
+985257,15,new try build: https://tbpl.mozilla.org/?tree=Try&rev=eb4f961a13ef,0,2014-03-21T22:45:09Z,8565448.0,0,0.975366,0.024633953
+983489,3,"Created attachment 8392216
+Patch to reproduce
+Note this is not specific to reftests, it happens whenever nsIAppStartup.quit() is called in an emulator. To reproduce, apply this patch and run |mach mochitest-remote|",1,2014-03-17T14:50:49Z,8542063.0,0,0.7778071,0.22219281
+983489,35,"Created attachment 8415031
+983489.patch v3",0,2014-04-30T06:49:06Z,8730419.0,0,0.99965465,0.00034535298
+1029919,17,https://hg.mozilla.org/mozilla-central/rev/7e8fac17305a,0,2014-07-07T23:11:26Z,9024165.0,0,0.99868315,0.0013167872
+927544,1,"Created attachment 817999
+patch
+The stub call made when Ion deoptimizes a JSOP_CALLPROP does not invoke unknown method hooks on the object.",1,2013-10-16T19:21:05Z,7969020.0,1,0.98936534,0.98936534
+991812,3,"Created attachment 8404209
+Patch for AtomicRefCounted",0,2014-04-09T20:49:09Z,8641724.0,0,0.67156875,0.3284313
+916390,2,I think,0,2013-09-16T13:43:23Z,7864746.0,0,0.9787057,0.021294251
+906912,18,"Comment on attachment 792880
+Patch, v2 (now with C++11 move)
+Mm, Bugzilla fail when toggling flags on an obsoleted patch.  Looks like comments transfer over trivially, so no big deal here.",0,2013-08-28T21:20:30Z,7801502.0,0,0.9928491,0.0071508517
+1023280,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/1972ca2531d9,0,2014-06-11T19:43:39Z,8917853.0,0,0.923525,0.07647508
+894931,10,"You're right, I checked with the two m-i builds. IMHO quite questionable if this patch can stay on trunk/aurora/beta when there is no fast workaround for this.",0,2013-07-17T20:56:41Z,7647389.0,0,0.93406534,0.06593465
+947523,49,"Comment on attachment 8356186
+Change how the displayport is stored
+My first thought is that we will now have to update every display port under a presshell (and it's child documents) anytime it's resolution changes. Is this feasible/desirable?",0,2014-01-06T19:52:42Z,8256946.0,0,0.96197206,0.038027987
+991812,19,"So we chatted on IRC about this.  This is a sucky problem.  I guess our only two options here are either to use thread-safe refcounting or introduce a third special type of non-checked non-threadsafe refcounting.  I'd take the former.
+Can you please file a follow-up to fix all of the remaining cases for other consumers of LazyIdleThread?  Thankfully that class seems to only be used in 5 places.  Thanks!",0,2014-04-23T01:21:29Z,8696278.0,0,0.9545251,0.045474906
+894931,14,"I know what the bug is. The bug is that we need to reframe when transitioning from position:static to position:relative if there are position:absolute descendants, because they need to change their containing blocks to be the new frame.",0,2013-07-17T21:50:22Z,7647711.0,1,0.81245315,0.81245315
+983489,10,"Created attachment 8397713
+983489.patch
+The crash happen when GLContext released before Texture is released. This patch re-order the release sequence.",1,2014-03-27T09:22:32Z,8585910.0,1,0.9945971,0.9945971
+991812,17,"Wait a second, I don't think I correctly understand the issue.  Do you mind attaching a stack trace to the assertion that you're seeing please?",0,2014-04-23T00:55:57Z,8696191.0,0,0.9787714,0.021228623
+904571,1,"It first showed up in 25.0a1/20130725. The regression range might be (low volume):
+http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=2983ca6d4d1a&tochange=a4c1961bf723
+Signature 	mozilla::net::HttpChannelParentListener::OnRedirectResult(bool) More Reports Search
+UUID 	ce7b3e6c-f56c-49d0-82a1-0ba792130811
+Date Processed	2013-08-11 06:57:34.721808
+Uptime	10
+Install Age 	6035 since version was first installed.
+Install Time 	2013-08-11 05:16:52
+Product 	Firefox
+Version 	26.0a1
+Build ID 	20130810030206
+Release Channel 	nightly
+OS 	Windows NT
+OS Version 	6.1.7600
+Build Architecture 	x86
+Build Architecture Info 	GenuineIntel family 6 model 58 stepping 9 | 4
+Crash Reason 	EXCEPTION_ACCESS_VIOLATION_READ
+Crash Address 	0x0
+App Notes 	
+AdapterVendorID: 0x8086, AdapterDeviceID: 0x0152, AdapterSubsysID: 00000000, AdapterDriverVersion: 8.15.10.2669
+D2D? D2D+ DWrite? DWrite+ D3D10 Layers? D3D10 Layers+ 
+Frame 	Module 	Signature 	Source
+0 	xul.dll 	mozilla::net::HttpChannelParentListener::OnRedirectResult(bool) 	netwerk/protocol/http/HttpChannelParentListener.cpp
+1 	xul.dll 	mozilla::net::AutoRedirectVetoNotifier::ReportRedirectResult(bool) 	netwerk/protocol/http/nsHttpChannel.cpp
+2 	xul.dll 	mozilla::net::nsHttpChannel::ContinueProcessRedirection(tag_nsresult) 	netwerk/protocol/http/nsHttpChannel.cpp
+3 	xul.dll 	mozilla::net::nsHttpChannel::OnRedirectVerifyCallback(tag_nsresult) 	netwerk/protocol/http/nsHttpChannel.cpp
+4 	xul.dll 	nsAsyncVerifyRedirectCallbackEvent::Run() 	netwerk/base/src/nsAsyncRedirectVerifyHelper.cpp
+5 	xul.dll 	nsThread::ProcessNextEvent(bool,bool *) 	xpcom/threads/nsThread.cpp
+6 	xul.dll 	NS_ProcessNextEvent(nsIThread *,bool) 	obj-firefox/xpcom/build/nsThreadUtils.cpp
+7 	xul.dll 	nsHttpConnectionMgr::Shutdown() 	netwerk/protocol/http/nsHttpConnectionMgr.cpp
+8 	xul.dll 	nsHttpHandler::Observe(nsISupports *,char const *,wchar_t const *) 	netwerk/protocol/http/nsHttpHandler.cpp
+9 	xul.dll 	nsObserverService::NotifyObservers(nsISupports *,char const *,wchar_t const *) 	xpcom/ds/nsObserverService.cpp
+10 	xul.dll 	nsXREDirProvider::DoShutdown() 	toolkit/xre/nsXREDirProvider.cpp
+11 	xul.dll 	ScopedXPCOMStartup::~ScopedXPCOMStartup() 	toolkit/xre/nsAppRunner.cpp
+12 	xul.dll 	XREMain::XRE_main(int,char * * const,nsXREAppData const *) 	toolkit/xre/nsAppRunner.cpp
+13 	xul.dll 	XRE_main 	toolkit/xre/nsAppRunner.cpp
+More reports at:
+https://crash-stats.mozilla.com/report/list?product=Firefox&signature=mozilla%3A%3Anet%3A%3AHttpChannelParentListener%3A%3AOnRedirectResult%28bool%29",0,2013-08-13T13:26:05Z,7742117.0,0,0.9876724,0.012327564
+978610,3,"Comment on attachment 8384313
+window-close
+We need to coordinate this kind of changes with b2g. And have some tests.",0,2014-03-02T23:50:35Z,8481338.0,0,0.9929549,0.007045141
+1003694,10,"Yes, that sounds right:
+autoBisect shows this is probably related to the following changeset:
+The first bad revision is:
+changeset:   180713:8a3e7ed0c4c1
+user:        Nicolas B. Pierron
+date:        Tue Apr 29 10:17:52 2014 -0700
+summary:     Bug 990106 part 4 - Recover Add and DCE unused additions. r=h4writer,jandem",0,2014-05-01T15:16:53Z,8737522.0,0,0.99607545,0.0039245137
+983489,14,This blocks a blocker.,0,2014-03-31T19:04:14Z,8601089.0,1,0.7410896,0.7410896
+897027,24,https://hg.mozilla.org/integration/mozilla-inbound/rev/afd90049af4c,0,2013-11-19T14:32:43Z,8096663.0,0,0.9122499,0.087750025
+1024256,3,try: https://tbpl.mozilla.org/?tree=Try&rev=5920576888ae,0,2014-06-12T23:16:53Z,8924829.0,0,0.85983235,0.14016764
+948882,27,"Comment on attachment 8421506
+bug_final.patch
+Review of attachment 8421506:
+-----------------------------------------------------------------
+Looks good. One more thing though:
+::: toolkit/crashreporter/content/crashes.js
+@@ +14,5 @@
+Adding the event listener for clear-reports has to be placed in the event handler for DOMContentLoaded, otherwise JavaScript doesn't see the button yet.
+Can you please address this and test your next patch?",0,2014-05-13T09:31:42Z,8785053.0,0,0.994616,0.0053839777
+1047560,5,"Unfortunately I had to revert this for merge conflicts with the updated update that had already landed on mozilla-central (https://hg.mozilla.org/mozilla-central/rev/192cb23bb176). This can reland after a rebase (was one of several conflicts during this merge; didn't want to have to pick them all back apart again if any of them were resolved incorrectly):
+https://hg.mozilla.org/integration/mozilla-inbound/rev/4bdadff88a9b",0,2014-08-04T11:30:37Z,9136574.0,1,0.8600689,0.8600689
+894931,20,"Comment on attachment 777478
+Revert assert fix from bug 868498
+You don't need approval to back out something that you incorrectly landed this morning.",0,2013-07-18T04:37:18Z,7648834.0,0,0.9989197,0.001080258
+1033283,5,"Hah, no problem! I did take a look (before my dinner ;)), and I was way off base. I'll just look around for another one.",0,2014-07-02T12:30:57Z,9004185.0,0,0.9771777,0.022822376
+939475,4,"Created attachment 8334237
+Patch (v2)",0,2013-11-19T01:00:45Z,8094367.0,0,0.99699736,0.003002641
+1029919,12,"Created attachment 8446376
+Patch that 'fixes' the bug
+This patch fixes the bug, providing evidence of the rootcause suggested.",1,2014-06-26T07:09:30Z,8980098.0,1,0.9927608,0.9927608
+991812,9,Are you going to make a dev-platform post about this when all is said and done?,0,2014-04-12T00:55:55Z,8653618.0,0,0.9686498,0.03135018
+894931,35,*** Bug 896149 has been marked as a duplicate of this bug. ***,0,2013-07-20T10:46:35Z,7658517.0,0,0.9967636,0.0032363876
+947523,48,"Comment on attachment 8356186
+Change how the displayport is stored
+Review of attachment 8356186:
+-----------------------------------------------------------------
+:tn, what do you think of this change? In a nutshell it changes the displayport stored in layout to be in CSS pixels multiplied by the resolution, rather than just CSS pixels. That way when we increase the resolution on an ancestor layer, the descendants texture sizes automatically shrink and we don't OOM.",0,2014-01-06T19:31:42Z,8256853.0,0,0.86240995,0.1375901
+957093,5,"nits addressed
+https://hg.mozilla.org/integration/mozilla-inbound/rev/495387c38734",1,2014-01-08T00:28:33Z,8263422.0,0,0.5850264,0.41497362
+978610,2,How does b2g deal with this stuff?,0,2014-03-02T23:49:10Z,8481337.0,0,0.9805089,0.019491069
+947523,83,"Created attachment 8357244
+2/4 - Change the displayport storage units v2",0,2014-01-08T18:02:34Z,8266798.0,0,0.89873785,0.10126214
+1033887,7,"Comment on attachment 8449917
+Disable the usage of try/catch in TestSTLWrappers.cpp with clang-cl
+Review of attachment 8449917:
+-----------------------------------------------------------------
+I assume if clang-cl ever grows the necessary support, this check will be removed.",0,2014-07-03T13:47:38Z,9010755.0,0,0.9954672,0.004532821
+983489,27,"Comment on attachment 8403724
+983489.patch
+Review of attachment 8403724:
+-----------------------------------------------------------------
+It's not a problem with your patch but I am a bit worried about CompositorOGL making virtual method calls in its destructor. We should mark it MOZ_FINAL with a comment saying that if we want to add a subclass of CompositorOGL (which we might do at some point to have platform specific opengl optimization), then we should remove the error-prone virtual calls in the destructor. I'll file a followup bug.
+Also, we should be able to call GLContext::MakeCurrent without crashing even after the destruction of the underlying context (it should return false in that case). Some code already expects that to be the case.",0,2014-04-16T09:32:33Z,8669486.0,1,0.6754022,0.6754022
+983489,46,"Ken,
+High repro reate in m7.
+https://tbpl.mozilla.org/?tree=Try&rev=5399221c4a8c",0,2014-05-06T09:27:27Z,8754978.0,1,0.654858,0.654858
+947523,79,"I seem to be able to get the painting defect fairly easily on this iframe example site (see #3):
+  http://nunzioweb.com/iframes-example.htm
+Sometimes when the painting defect occurs I can no longer interact with the screen.  If I go to the homescreen and then back into the browser, though, touch input starts working again.
+I can also cause the tab to get killed reliably by zooming in.  The iframe in question is not particularly large.",0,2014-01-08T16:01:24Z,8266152.0,1,0.96420205,0.96420205
+1024256,5,https://hg.mozilla.org/mozilla-central/rev/1f78f3fe8475,0,2014-06-16T19:00:40Z,8936017.0,0,0.9990337,0.00096636795
+894931,17,*** Bug 895181 has been marked as a duplicate of this bug. ***,0,2013-07-18T01:32:19Z,7648509.0,0,0.99727744,0.0027225409
+989204,2,"Created attachment 8398502
+Part 1 - Tests
+Some tests I wrote for issues I ran into, also a test for bug 889158.",1,2014-03-28T14:27:09Z,8592114.0,1,0.96622354,0.96622354
+894646,8,"Comment on attachment 779657
+Rebased patch
+Review of attachment 779657:
+-----------------------------------------------------------------
+r=me with the following addressed. Thanks!
+::: content/base/src/nsFrameLoader.cpp
+@@ +1647,5 @@
+mOwnerContent is a dom::Element*. Drop the QI, but keep the ref.
+@@ +2062,5 @@
+Ditto
+::: dom/base/nsContentPermissionHelper.cpp
+@@ +8,5 @@
+mozilla/d before mozilla/u
+::: dom/base/nsContentPermissionHelper.h
+@@ +23,4 @@
+Nit: 80 columns
+::: dom/base/nsDOMWindowUtils.cpp
+@@ +1289,5 @@
+Since you're not actually changing anything here, let's drop this change.
+@@ +3222,3 @@
+This can be 'return doc->...'. Up to you.
+::: dom/base/nsGlobalWindow.cpp
+@@ +6290,5 @@
+Nit: add 'static', so we notice if it ever becomes unused.
+@@ +6391,1 @@
+{}
+@@ +6409,5 @@
+{}
+@@ +9160,5 @@
+(What a mess.)
+@@ +9161,5 @@
+Can you make this an nsCOMPtr<EventTarget>? And try to drop the .get().
+::: layout/inspector/src/inLayoutUtils.cpp
+@@ +95,2 @@
+Is this necessarily non-null?",0,2013-07-23T11:01:02Z,7665443.0,0,0.9899871,0.0100129135
+894931,25,"https://hg.mozilla.org/mozilla-central/rev/625e6c220d30
+https://hg.mozilla.org/releases/mozilla-aurora/rev/668caad64c7a
+https://hg.mozilla.org/releases/mozilla-beta/rev/e4f6d58191b9
+If this breaks the tree in any way, please back out the other patch from bug 868498.",0,2013-07-18T08:12:01Z,7649278.0,0,0.99146324,0.0085367765
+897027,15,"`ToNumber(cx, args[1], &y)` asserts when args.length() == 1.",1,2013-10-10T16:35:31Z,7946214.0,0,0.99764305,0.002356885
+991812,14,"One place this change seems to fall down is when using LazyIdleThread.
+The LazyIdleThread only ever has one thread at a time, but that thread can go away and a new thread can come back at some future time.
+This in turn, can cause http://dxr.mozilla.org/mozilla-central/source/xpcom/glue/nsISupportsImpl.h#57 to fire.
+I ran into this in bug 998097. The easy fix seems to just be to make the ref count thread safe.
+Any other uses of LazyIdleThread and non-threadsafe ref counts may also trip over this.",0,2014-04-21T20:38:25Z,8689012.0,0,0.7776414,0.22235855
+983489,4,"It seems that we call GrallocTextureSourceOGL::DeallocateDeviceData() after CompositorOGL::CleanupResources().
+The gl context is null and we dereference this null ptr for MakeCurrent().",0,2014-03-19T05:45:48Z,8551037.0,1,0.7997922,0.7997922
+947523,35,I will investigate why the parent process is getting killed and if there is anything we can do to address it.,0,2013-12-18T19:15:52Z,8212314.0,0,0.8575704,0.14242953
+939475,1,"Error message:
+http://mxr.mozilla.org/mozilla-central/source/js/src/builtin/TestingFunctions.cpp#287
+Help:
+http://mxr.mozilla.org/mozilla-central/source/js/src/builtin/TestingFunctions.cpp#1344",0,2013-11-17T01:21:05Z,8087772.0,0,0.9579508,0.042049285
+906912,1,This is helpful in general and in particular for WIP patches in bug 901746.,0,2013-08-19T22:28:05Z,7765050.0,0,0.9943685,0.00563148
+947523,25,Why does this block?  Do we expect that users will commonly try to zoom in like this?,0,2013-12-17T17:51:08Z,8206468.0,0,0.86691743,0.13308252
+894931,19,"Comment on attachment 777478
+Revert assert fix from bug 868498
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): Bug 868498
+User impact if declined: Page layout on many websites would be broken.
+Testing completed (on m-c, etc.): This is merely a backout of one of the patches in bug 868498. Verified locally that this fixes things.
+Risk to taking this patch (and alternatives if risky): very low
+String or IDL/UUID changes made by this patch: none",0,2013-07-18T04:27:10Z,7648822.0,0,0.9936609,0.0063390057
+894931,12,"Comment on attachment 777360
+Patch
+Review of attachment 777360:
+-----------------------------------------------------------------
+This patch isn't correct because it changes the z-ordering of scrollbars.",0,2013-07-17T21:08:54Z,7647466.0,0,0.98738235,0.012617682
+947523,23,"The browser doesnt do any zooming, its purely implemented inside Gecko/APZC, the graphics changes are very likely to effect it",0,2013-12-17T15:33:35Z,8205666.0,1,0.9994411,0.9994411
+906912,10,"otoh we need to land something so that there's an alternative to std::move(), right?",0,2013-08-20T20:58:14Z,7769950.0,0,0.93126655,0.06873343
+966240,2,*** Bug 486551 has been marked as a duplicate of this bug. ***,0,2014-01-31T13:39:00Z,8356960.0,0,0.9952242,0.004775884
+947523,19,Denial of service is not a security issue.  Especially when user interaction is required to trigger the bug.,0,2013-12-17T15:17:29Z,8205575.0,0,0.9654677,0.034532316
+916390,10,https://hg.mozilla.org/integration/fx-team/rev/86eff36caecf,0,2013-09-17T08:23:41Z,7868502.0,0,0.86399263,0.13600743
+989204,1,"Created attachment 8398337
+Patch
+Arrow functions are currently implemented using a bound function wrapper that passes the modified |this|. This is not ideal for a number of reasons:
+(1) It's hard to optimize arrow function calls as they go through the VM fun.bind machinery.
+(2) We have to allocate a second JSFunction when cloning arrow lambdas.
+(3) It's not spec-compliant, at least in its current form: the bound function is observable via arguments.callee, see bug 889158.
+I'm attaching a patch that removes the function binding and instead stores the lexical |this| Value for arrow functions in an extended slot. JSOP_THIS/ComputeThis now use this (no pun intended) Value for arrow functions.
+This makes arrow function calls as fast as ""normal"" function calls, and Ion is now able to inline them. For instance, for the micro-benchmark below I get:
+before: 1096 ms
+after :    3 ms
+var sum = (x, y) => x + y;
+function f() {
+    var res = 0;
+    for (var i=0; i<10000000; i++)
+	res = sum(i, 1);
+    return res;
+}
+var t = new Date;
+f();
+print(new Date - t);",0,2014-03-28T04:49:41Z,8590716.0,1,0.9923038,0.9923038
+948882,22,"Created attachment 8410915
+bug_final.patch
+Sorry ! Thanks for pointing out",1,2014-04-23T10:04:54Z,8697845.0,1,0.8510188,0.8510188
+894931,18,https://hg.mozilla.org/integration/mozilla-inbound/rev/f713a828fe36,0,2013-07-18T04:24:34Z,7648816.0,0,0.977211,0.022788998
+947523,50,"Comment on attachment 8356186
+Change how the displayport is stored
+I tested this on my 1.2 hamachi device, and I cannot reproduce the crash with it. I also didn't notice any regressions.",0,2014-01-06T20:15:04Z,8257042.0,0,0.98635733,0.013642719
+991812,7,"Comment on attachment 8405007
+A few more
+Review of attachment 8405007:
+-----------------------------------------------------------------
+::: dom/devicestorage/DeviceStorageFileDescriptor.h
+@@ +9,4 @@
+Please either make this a class again or switch the forward declarations to be a struct as well (MSVC will barf at this).
+::: dom/devicestorage/nsDeviceStorage.cpp
+@@ +125,2 @@
+Nice!",0,2014-04-10T22:26:20Z,8648050.0,0,0.9714109,0.028589157
+985257,13,"Backed out for bustage (which you probably would have seen had you not pushed to Try on top of other bustage).
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d0cf18ff619d
+https://tbpl.mozilla.org/php/getParsedLog.php?id=36500526&tree=Mozilla-Inbound",0,2014-03-21T14:08:35Z,8562868.0,0,0.9985347,0.001465371
+894646,2,"Comment on attachment 776725
+Patch
+Review of attachment 776725:
+-----------------------------------------------------------------
+A few bugs and crashes... Please attach an interdiff when you address the comments.
+::: content/base/src/nsDocument.cpp
+@@ +6620,5 @@
+Let's just cast here, and make this an nsRefPtr<Attr>
+@@ +6623,5 @@
+You're shadowing the rv argument here.
+::: content/xul/document/src/nsXULCommandDispatcher.cpp
+@@ +209,2 @@
+Followup to fix SetFocus?
+::: dom/base/nsContentPermissionHelper.cpp
+@@ +92,5 @@
+This is crashy if mParent->mElement is null.
+::: dom/base/nsContentPermissionHelper.h
+@@ +27,4 @@
+One space is sufficient
+::: dom/base/nsDOMWindowUtils.cpp
+@@ +1289,5 @@
+Crash
+::: dom/base/nsGlobalWindow.cpp
+@@ +3097,5 @@
+Element
+@@ +6370,5 @@
+nullptr while you're here
+@@ +7606,5 @@
+Crash
+@@ +10858,5 @@
+Get rid of this nonsense, please.
+@@ +11057,5 @@
+Element
+@@ +11169,5 @@
+Ditto
+::: dom/base/nsLocation.cpp
+@@ +42,5 @@
+Unused variable
+@@ +51,4 @@
+Double-check if you need to hold a ref here
+::: dom/base/nsPIDOMWindow.h
+@@ +196,5 @@
+Ask someone if those are perf-sensitive
+::: dom/ipc/ContentParent.cpp
+@@ +399,1 @@
+AttrValueIs
+::: dom/ipc/TabChild.cpp
+@@ +543,5 @@
+Let's keep this a strong pointer
+::: dom/ipc/TabParent.cpp
+@@ +316,5 @@
+Followup
+@@ +1242,5 @@
+Can mFrameElement change from under us?
+@@ +1259,1 @@
+Followup
+::: dom/ipc/TabParent.h
+@@ +62,5 @@
+const
+::: dom/system/nsDeviceSensors.cpp
+@@ +218,4 @@
+Uh, I don't think so
+::: layout/inspector/src/inLayoutUtils.cpp
+@@ +103,2 @@
+* to the left
+@@ +105,1 @@
+{}",0,2013-07-17T10:09:54Z,7644398.0,0,0.87047243,0.12952754
+924397,4,"Comment on attachment 816436
+Print_file_when_WebIDL_raises_syntax_error_at_EOF.patch
+Thanks Tareq! According to hg log, Kyle is a better choice of reviewer here.",0,2013-10-14T23:16:40Z,7959030.0,0,0.98332596,0.016674029
+894646,7,"Created attachment 779657
+Rebased patch",0,2013-07-23T08:28:38Z,7665024.0,0,0.9936061,0.006393902
+894931,11,"Created attachment 777360
+Patch
+Looks like this is a bigger issue than first thought.
+roc, I'm setting this patch to r? although you may have a better way to fix this. It turns out that we don't need to move the z-index rule. The position rule is all we need to get the correct behavior when switching scrollbar styles. The position rule seems to only affect overlay scrollbars, so maybe this is safe to do?",1,2013-07-17T21:06:04Z,7647449.0,1,0.9999583,0.9999583
+1029919,10,"Bas, can you take a look please?",0,2014-06-25T13:58:50Z,8975698.0,0,0.99547654,0.004523413
+983489,37,"Please include commit information with your patch, including a commit message that says what the patch is doing (not restating the problem it's solving).
+https://developer.mozilla.org/en-US/docs/Mercurial_FAQ#How_can_I_generate_a_patch_for_somebody_else_to_check-in_for_me.3F
+https://developer.mozilla.org/en-US/docs/Developer_Guide/Committing_Rules_and_Responsibilities#Checkin_comment",0,2014-05-01T16:19:21Z,8737823.0,0,0.949767,0.050233062
+888630,3,Fixed by bug 888673,0,2013-07-02T22:30:17Z,7597579.0,0,0.99962914,0.00037089436
+983489,23,"Comment on attachment 8403724
+983489.patch
+Review of attachment 8403724:
+-----------------------------------------------------------------
+We can't just do that... CompositorOGL::Destroy does a bunch of work that does need to be done.",0,2014-04-10T11:43:47Z,8644681.0,0,0.9812976,0.018702324
+1029919,3,"Created attachment 8445575
+testcase",0,2014-06-25T00:32:02Z,8973568.0,0,0.96965873,0.030341242
+906912,4,"It would be great if you could use C++11 move constructors instead.  The fewer usages of mozilla::Move we add, the better.",1,2013-08-19T23:05:20Z,7765188.0,0,0.61273116,0.38726884
+897027,12,"https://hg.mozilla.org/integration/mozilla-inbound/rev/774d6d582f40
+In the future, please make sure your commit message has the bug number and a brief description of what the patch is doing (preferably not just the bug title). Thanks!",0,2013-10-10T15:02:26Z,7945775.0,0,0.98647076,0.0135292215
+1033887,14,https://hg.mozilla.org/mozilla-central/rev/aa4c2a2605f8,0,2014-07-03T21:12:33Z,9013301.0,0,0.99852175,0.0014783301
+985257,7,"SVGContentUtils.h is not reachable from CanvasRenderingContext2D.cpp
+It seems like it's only meant to be used inside the SVG tree.",0,2014-03-19T17:22:35Z,8553492.0,1,0.9729964,0.9729964
+894931,23,"Sure. That's because the patch got lumped in with bug 868498, but it was really fixing bug 870941. I've taken the opportunity to separate the two. I reopened bug 870941 to track progress on the proper fix. Hope that makes sense.",0,2013-07-18T04:44:09Z,7648842.0,0,0.9459025,0.054097507
+947523,18,Andrew - Can you find someone to look into this full phone OOM?,0,2013-12-16T22:00:56Z,8202473.0,0,0.8697649,0.130235
+947523,61,"I'll test this new patch.
+Just to play devil's advocate, maybe we should consider disabling sub-apzc.  I am seeing a lot of jumpiness and general instability on this page in v1.2 compared to v1.1:
+  v1.1 on helix:  https://www.dropbox.com/s/hwhgfz4t8nne00m/20140107_apzc_etherpad_v1_1.mp4
+  v1.2 on buri:   https://www.dropbox.com/s/g2y35jd5llpnh7o/20140107_apzc_etherpad_v1_2.mp4
+It just seems there are other regressions in usability here beyond the OOM.",0,2014-01-07T21:47:03Z,8262729.0,1,0.9055391,0.9055391
+894931,21,Thanks dbaron! Do the tracking flags need to be updated for this to propagate to the right branches? It's getting late here and I won't be able to watch the tree...,0,2013-07-18T04:39:56Z,7648839.0,0,0.91873777,0.08126223
+894931,2,"This regressed between 5976b9c673f8 and 0888e29c83a3 (yesterday's and today's build), changesets: http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=5976b9c673f8&tochange=0888e29c83a3",0,2013-07-17T15:42:30Z,7645613.0,0,0.9893112,0.010688856
+1029919,1,"Mozilla/5.0 (Windows NT 5.1; rv:33.0) Gecko/20100101 Firefox/33.0
+I see this regression on XP in current Nightly, works in Fx30:
+See testcase (reduced from a real-world-website),
+hovering over <button>s draws a border in the color of the parent's inset box-shadow.
+Actually, it's just a background-color, as you can see if button's opacity < 1.",0,2014-06-25T00:24:05Z,8973542.0,1,0.97503245,0.97503245
+897027,10,"Comment on attachment 815315
+bug-897027-fix.patch
+Review of attachment 815315:
+-----------------------------------------------------------------
+Perfect, thanks. Do you have checkin rights? If not, just add the checkin-needed keyword on the bug and the sheriffs will do their magic.
+(Just for future reference, if you get an r+ with a request to do some small changes, you can set the r+ yourself on the new version and add something like ""carrying r+ from tschneidereit"" to the comment.)",0,2013-10-10T11:42:08Z,7945082.0,0,0.99979144,0.0002085378
+894931,30,Actually padding-top won't work since we need to move the border-box.,0,2013-07-19T08:27:50Z,7654486.0,0,0.5231056,0.47689438
+947523,1,"Created attachment 8344080
+Zoomingincrashlog.txt
+Description:
+If the user keeps zooming in on an etherpad webpage, the phone will crash.
+Repro Steps:
+1)  Updated Buri to Build ID: 20131206040203
+2)  Tap on the ""Browser"" icon.
+3)  Navigate to https://etherpad.mozilla.org
+4)  Tap on ""Create new public pad"".
+5)  Keep zooming in on the webpage as far as the user can go. If the crash doesn't occur keeping zooming in on the webpage while changing the phone's orientation.
+Actual:
+The device will either crash and reset or the browser will crash.
+Expected:
+The user can zoom in without a crash occurring.
+Environmental Variables
+Device: Buri v 1.3.0 Mozilla RIL
+Build ID: 20131206040203
+Gecko: http://hg.mozilla.org/mozilla-central/rev/1401e4b394ad
+Gaia: 8fca2ca67e8a6022fe6ed8cb576e5d59dfb5237f
+Platform Version: 28.0a1
+Notes:
+Repro frequency: 100%
+See attached: video clip, logcat",0,2013-12-07T00:45:38Z,8167992.0,1,0.9592521,0.9592521
+1033283,1,"Currently, we don't expose the pressed state on xul:button or xul:toolbarbutton of type ""menu"", as used in the web console. This bug was uncovered by the patch for bug 977273. We transform the role to a toggle button with the HASPOPUP state, but don't expose the pressed state.",0,2014-07-02T10:37:59Z,9003821.0,0,0.6014313,0.3985687
+897027,17,"Sorry for the late response, this somehow fell off my radar.
+Can you wield your new access level 1 powers and run this through try server? Paste the link to the run here and report back when results are in. And be forewarned: try server results aren't easy to read, because of intermittend failures.",0,2013-10-17T09:33:55Z,7971722.0,0,0.999468,0.00053203123
+897027,16,"Created attachment 815582
+bug-897027-fix.patch
+Thanks everyone for the comments. This update will hopefully fix the previous issue (tested it on my platform's debug and release builds)
+Please note the local variables assignments: 
+    double x = GenericNaN();
+This should handle (and hopefully not introduce new bugs) the cases where less arguments are being passed (thus being undefined) according to my understanding of the draft. Otherwise please feel free to advise me of better alternatives.",1,2013-10-10T21:04:29Z,7947566.0,1,0.9989525,0.9989525
+947523,63,"Created attachment 8356791
+3/4 - Shrink the displayport multiplier at high zooms
+We could probably do without this patch but it should help reduce the occurrence of the tab crashes. This contracts the subframe displayport multipliers if those subframes are getting rendered at a resolution > 1.",1,2014-01-07T21:49:43Z,8262752.0,1,0.9570291,0.9570291
+947523,15,"blocking+ - we should never cause the full phone to restart.
+Also marking security sensitive because a web page should be able to cause the full phone to restart, which could be exploited by a web developer to force phone restarts.",0,2013-12-11T16:44:55Z,8183475.0,0,0.92772776,0.07227222
+939475,7,https://hg.mozilla.org/integration/mozilla-inbound/rev/ca39b88accf3,0,2013-11-20T14:42:52Z,8102324.0,0,0.96786046,0.032139592
+983489,30,"Created attachment 8408087
+983489.patch v2
+Update patch 
+1. Remove potential of calling mCompositor->Destroy() in CompositorParent->RecvWillStop()
+2. Call mCompositor->Destroy() in CompositorParent->RecvStop()/CompositorParent->Destroy() explicitly",1,2014-04-17T09:11:49Z,8675243.0,0,0.9174786,0.082521416
+1033887,13,https://hg.mozilla.org/integration/mozilla-inbound/rev/aa4c2a2605f8,0,2014-07-03T15:57:51Z,9011452.0,0,0.87407464,0.12592536
+947523,28,"I tried to reproduce this issue after setting pref(""gfx.canvas.azure.accelerated"", false); and I could not reproduce this issue on the latest Buri 1.3 Build ID: 20131217004001
+I also checked without setting the preference on the latest Buri 1.3 and could easily reproduce the bug. 
+Gaia   dca0a3dcf062ce3e422a9c56d141c14543c816fb
+SourceStamp 1f7db4cc788e
+BuildID 20131217004001
+Version 28.0a2",0,2013-12-17T23:32:00Z,8208298.0,0,0.99894553,0.0010544619
+948882,3,"Hi this is my first try at bug so questions maybe bit naive. The JS for this already seems to have been moved to separate crashes.js. But I found this css that was still inline 
+<style type=""text/css"">
+:root {
+  font-family: sans-serif;
+}
+table {
+  padding-bottom: 2em;
+}
+th {
+  text-align: left;
+  white-space: nowrap;
+}
+th[chromedir=""rtl""] {
+  text-align: right;
+}
+/* name */
+th:first-child {
+  -moz-padding-end: 2em;
+}
+:link, :visited {
+  display: block;
+  min-height: 17px;
+}
+/* date */
+td:first-child + td {
+  -moz-padding-start: 1em;
+  -moz-padding-end: .5em;
+  white-space: nowrap;
+}
+/* time */
+td:last-child {
+  -moz-padding-start: .5em;
+  white-space: nowrap;
+}
+#clear-reports {
+  float: right;
+}
+#clear-reports[chromedir=""rtl""] {
+  float: left;
+}
+.submitting {
+  background-image: url(chrome://global/skin/icons/loading_16.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+</style>
+Does this needs to be moved too? If so I will submit a patch for it soon.",0,2013-12-30T01:13:43Z,8228886.0,1,0.9604743,0.9604743
+983489,51,in general just setting checkin-needed again should be enough and I or a different Sheriff will take this bug and do the checkin - but i guess in this specific case we might want to wait for the answer from nical to comment #49 right?,0,2014-05-14T06:47:42Z,8790430.0,0,0.99550915,0.004490853
+1025075,2,"Created attachment 8439972
+0001-bug-1025075-http2-CONNECT-streams-should-have-consis.patch
+https://tbpl.mozilla.org/?tree=Try&rev=9b550ab71ca6",0,2014-06-13T16:29:10Z,8928151.0,1,0.90344375,0.90344375
+939475,5,"Comment on attachment 8334237
+Patch (v2)
+Review of attachment 8334237:
+-----------------------------------------------------------------
+Great!
+::: js/src/builtin/TestingFunctions.cpp
+@@ +268,5 @@
+Could you add a \n after this line?  Also, could you insert "" or "" before markStackLimit?",0,2013-11-19T16:02:09Z,8097136.0,0,0.99328375,0.0067162937
+948882,12,"Created attachment 8407744
+bug-948882.patch
+I am noob here.This is my first patch .",1,2014-04-16T19:45:09Z,8672446.0,1,0.9970626,0.9970626
+906912,11,"Oh yes, sorry, I thought I had mentioned that.  Good news is that it's pretty simple, see RemoveReference and mozilla::Move in attachment 779237.  (You should be able to steal those parts of that patch verbatim, not touching the existing mozilla::Move of course.)",0,2013-08-20T21:05:01Z,7769991.0,1,0.7630826,0.7630826
+947523,42,Well that's not good. Seems like a sub-apzc bug.,0,2013-12-20T17:46:48Z,8221350.0,0,0.9728195,0.027180547
+947523,12,"This issue looks to have started reproducing on the 11/08 1.2 Buri build. On builds before 11/08, the tab would need to be reloaded every so often, but B2G would remain stable.
+- Works -
+Environmental Variables:
+Device: Buri v1.2 MOZ RIL
+BuildID: 20131107004003
+Gaia: 590eb598aacf1e2136b2b6aca5c3124557a365ca
+Gecko: 26f1e160e696
+Version: 26.0
+RIL Version: 01.02.00.019.102
+Firmware Version: 20131115
+- Broken -
+Environmental Variables:
+Device: Buri v1.2 MOZ RIL
+BuildID: 20131108004004
+Gaia: 4cf40fb30c7b8380ea83ed0d4efe043b8b81737f
+Gecko: a886c641a306
+Version: 26.0
+Firmware Version: 20131115",0,2013-12-11T00:38:58Z,8180741.0,0,0.99486005,0.005140006
+948882,14,"Created attachment 8408443
+bug.patch
+Hi Manish 
+Added !",1,2014-04-17T18:50:27Z,8678045.0,0,0.9725592,0.027440846
+983489,38,"Created attachment 8417157
+983489.patch v4
+update commit message based on v3.",1,2014-05-05T02:52:01Z,8748258.0,1,0.8338027,0.8338027
+947523,70,"Comment on attachment 8356790
+2/4 - Change the displayport storage units
+kats tell me this is for 1.2 only. So just add a comment about thus and r+.",0,2014-01-07T22:21:26Z,8262920.0,0,0.99950385,0.0004960841
+897027,11,Thanks for the tips! Will do. It was my understanding that checkin rights were given after some few contributions. Maybe the time has come :-),0,2013-10-10T11:50:31Z,7945113.0,0,0.987755,0.012245018
+1033283,7,Landed with nits addressed: https://hg.mozilla.org/integration/mozilla-inbound/rev/62eec1dede89,1,2014-07-04T07:53:28Z,9015181.0,1,0.5672168,0.5672168
+939475,8,https://hg.mozilla.org/mozilla-central/rev/ca39b88accf3,0,2013-11-21T13:30:52Z,8107636.0,0,0.9992483,0.0007516175
+1029919,13,"Created attachment 8447783
+Set the proper extent on the clip_path in cairo
+So as far as my investigation has been able to show this bug is indirectly the results of the extents on a clip path being incorrectly set. At cairo-clip.c:276 we set the extents on the clip_path struct, but those extents no longer contain the real extents but rather the intersection of these clips.
+This patch fixes that, however it does have the downside of extents of the top level clip no longer being the intersection of all the clips on the stack, I think that's okay and will only make a difference in some rare perf cases though.",1,2014-06-30T00:12:57Z,8991928.0,1,0.99310255,0.99310255
+919434,10,(Also: I'm using 64-bit Linux --> broadening Platform from Mac to All),0,2013-12-04T00:31:29Z,8151875.0,0,0.9454445,0.054555416
+947523,87,"RyanVM, could you please land this on 1.2? Parts 1-4. Thanks!",0,2014-01-08T19:53:49Z,8267482.0,0,0.9955693,0.0044307606
+947523,55,"Created attachment 8356593
+Change how the displayport is stored
+Updated patch to shrink the displayport for subframes in APZC code.",1,2014-01-07T15:39:28Z,8260738.0,1,0.9954229,0.9954229
+912496,6,"https://hg.mozilla.org/integration/mozilla-inbound/rev/ba28223861b1
+I agree on the text map, filing a bug now.",0,2013-09-05T11:16:46Z,7825989.0,0,0.9302523,0.069747634
+985257,3,"Created attachment 8393276
+Bug 985257 - add implementation for Path2D constructor that takes an SVG path string",0,2014-03-19T02:09:05Z,8550541.0,0,0.96606857,0.03393146
+947523,9,"Just wondering, should we also add ""crash"" in the keyword field?",0,2013-12-10T09:45:39Z,8176749.0,0,0.99377877,0.0062211864
+947523,82,"Created attachment 8357242
+1/4 - Add a GetCumulativeResolution function v2
+Updated versions of patches with comments addressed and reviewer info included; ready to land.",1,2014-01-08T18:01:56Z,8266786.0,1,0.9872148,0.9872148
+947523,64,"Created attachment 8356793
+4/4 - Crash the tab if the texture size is going to exceed the max GL texture size
+If the texture size exceeds 4k then we can't render it anyway so that seems like a sensible limit to hard-code to, and crash if we exceed. We actually deal ok with a page with many small iframes; it's only when the iframe gets big on one or both axes that the total texture area blows up a lot.",1,2014-01-07T21:52:40Z,8262772.0,1,0.9997806,0.9997806
+906912,17,"Comment on attachment 792880
+Patch, v2 (now with C++11 move)
+Review of attachment 792880:
+-----------------------------------------------------------------
+This'll want to use mozilla::Move as std::move isn't omnipresent yet, I assume.
+::: mfbt/LinkedList.h
+@@ +58,5 @@
+Blank line before this.
+@@ +129,5 @@
+I'd move this above the next/prev assignments.  Also, before the next/prev/next->prev/prev->next assignments, I'd put a comment like so:
+  /* Initialize this with |other|'s pointers, and adjust those elements to point to this one. */
+@@ +132,5 @@
+I'd do
+  next->prev = this;
+  prev->next = this;
+instead, as you're really mutating fields in *this* element's next/prev to connect up to this -- reads slightly conceptually more clearly to me.
+@@ +135,5 @@
+Before this, I'd do a symmetric comment to the one above:
+  /* Adjust |other| to destructible, not-in-list status. */",0,2013-08-28T21:17:55Z,7801494.0,0,0.957117,0.042882964
+1003694,11,https://hg.mozilla.org/mozilla-central/rev/e0679448fd3b,0,2014-05-01T15:19:23Z,8737529.0,0,0.99855393,0.0014461131
+904571,10,"There is a potential for foreign (unknown) code be called while AutoRedirectVetoNotifier is on stack.  So it's actually not possible to say whether it can happen to be multiple times on the stack or not.  I think we can easily use mRedirectChannel of the channel to indicate whether we have called OnRedirectResult or not.  ~AutoRedirectVetoNotifier drops it from the channel (I've added an assert to check it's always non-null there and xpcshell tests that cover all codepaths for this class).  But a flag might be more reliable and also we'd have more control over the behavior...  
+Question is, what happens when the nested notifier's dtor is called with FAILED and the other is called with SUCCEEDED.  Which one is right?  But I think this is a broader problem, since in this case the code would be seriously broken.  More arg for a flag...",0,2014-02-08T01:53:38Z,8392092.0,1,0.9623904,0.9623904
+947523,73,"Will do.
+The patch is 1.2-only. I have a much bigger change in mind for 1.3 to try and fix this properly.
+Agreed. I can wrap it in an #ifdef if you prefer but since I only plan on having the code land on b2g-1.2 I don't think it matters.
+Will do.
+Yeah, good catch. I'll add that in.
+Yup, I'll do that.
+I was able to consistently reproduce the OOM on the hamachi I borrowed from Botond using a 1.2 build without my patch. The STR basically involved zooming in the page as much as possible using the area to the left of the iframe (because putting focus in the frame brings up the keyboard and that thing is impossible to work with) and then trying to scroll the iframe. Usually it would OOM before I even tried scrolling the iframe.
+With my patch the OOM crash was replaced by a tab crash, and I wasn't able to trigger an OOM with any other panning/zooming actions on the page. So unless Ben has any objections I'll address the comments and get it landed.",0,2014-01-08T00:39:11Z,8263466.0,1,0.82189524,0.82189524
+897027,18,"Sure, that's a great idea. After some initial configuration I got this test set up https://tbpl.mozilla.org/?tree=Try&rev=97a05046b428
+There are a few tests being restarted a few times (perhaps the intermittent failures you referred to?) and a couple of failures (Mochitest) which from what I see don't seem to have much to do with this patch. Other than that the other tests passed.
+Would you mind taking a look and let me know if this looks ok?",0,2013-10-17T14:55:29Z,7972851.0,1,0.67526245,0.67526245
+978610,5,"Created attachment 8385604
+window-close v2
+Does this look right?",1,2014-03-04T21:20:08Z,8491013.0,1,0.9986596,0.9986596
+978610,16,https://hg.mozilla.org/mozilla-central/rev/18e9c7c020bd,0,2014-03-18T21:17:16Z,8549303.0,0,0.9992231,0.00077689247
+1024256,6,This will require uplift to Aurora and Beta. I'll check that the patch applies cleanly to both of those.,0,2014-06-16T23:29:47Z,8937539.0,0,0.89245135,0.10754869
+983489,25,"Mass tracking-e10s flag change. Filter bugmail on ""2be0fcce-e36a-4e2c-aa80-0e3d33eb5406"".",0,2014-04-11T23:00:14Z,8653170.0,0,0.9970696,0.0029303923
+991812,11,"Backed out for B2G bustage.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/376496720a0e
+https://tbpl.mozilla.org/php/getParsedLog.php?id=37777059&tree=Mozilla-Inbound",0,2014-04-14T20:17:43Z,8660098.0,0,0.9842053,0.015794666
+947523,78,"Would it be possible detect the condition and force a repaint after the zoom completes?  As a user I think having some artifacts during zoom would be ok if they corrected once I stopped touching the screen.  This is similar to how tiled map applications work, so users are probably used to the behavior.",0,2014-01-08T15:33:57Z,8265990.0,1,0.76855963,0.76855963
+957093,4,"Comment on attachment 8356535
+namespace consistency for netwerk/protocol/http
+Review of attachment 8356535:
+-----------------------------------------------------------------
+Looks good. Couple of really minor nits about indentation. I won't mind if you want to ignore them ;) r=me.
+::: netwerk/protocol/http/nsHttpConnection.h
+@@ +262,5 @@
+nit: indentation.
+::: netwerk/protocol/http/nsHttpHandler.h
+@@ +455,5 @@
+nit: indentation to match mCriticalRequestPrioritization?",0,2014-01-07T19:06:42Z,8261911.0,0,0.9996592,0.00034086715
+991812,16,"1 - So - should refcounts used by LazyIdleThread's be threadsafe?
+2 - Or should we consider it a bug that non-threadsafe refcounts cause an assert?
+I have some test code which demonstrates that non-threadsafe refcounts assert when used from LazyIdleThread. If 2 is what you want, then I'll file a followup bug and attach the test code.
+If 1 is the case, then bug 998097 is already filed, and I don't need a followup bug.",0,2014-04-23T00:39:21Z,8696132.0,0,0.70214486,0.29785517
+983489,42,"Merge of the backout:
+https://hg.mozilla.org/mozilla-central/rev/e7735124a892
+So far, it appears that this backout did indeed fix the crashes we were seeing.",0,2014-05-05T17:19:09Z,8751144.0,1,0.59562993,0.59562993
+894931,28,"Comment on attachment 778280
+test
+Maybe use padding-top on the outer div to avoid having to worry about whether margin collapsing makes the test pass in the failure case anyway (given some future margin collapsing changes, at least)?",0,2013-07-19T06:07:40Z,7654189.0,0,0.7633339,0.2366661
+947523,39,"The gralloc buffer request is probably coming from layout/gfx code as it tries to rasterize the requested area. The ""requested area"" is going to be a function of the resolution and the displayport. In 1.2 the code that sets these values are in TabChild.cpp, at [1], [2] and [3]. We should verify that as the resolution increases the displayport size (in CSS pixels) decreases.
+[1] http://git.mozilla.org/?p=releases/gecko.git;a=blob;f=dom/ipc/TabChild.cpp;h=8325a51b1091cc8c6a162f139e3d0d860b4ca969;hb=cd74e4ad7d9dd3d699b13f7262ee898e4cf3f628#l1639
+[2] http://git.mozilla.org/?p=releases/gecko.git;a=blob;f=dom/ipc/TabChild.cpp;h=8325a51b1091cc8c6a162f139e3d0d860b4ca969;hb=cd74e4ad7d9dd3d699b13f7262ee898e4cf3f628#l1682
+[3] http://git.mozilla.org/?p=releases/gecko.git;a=blob;f=dom/ipc/TabChild.cpp;h=8325a51b1091cc8c6a162f139e3d0d860b4ca969;hb=cd74e4ad7d9dd3d699b13f7262ee898e4cf3f628#l1648",0,2013-12-20T16:36:50Z,8221083.0,1,0.64312196,0.64312196
+897027,23,"Comment on attachment 8334005
+New fix with requested changes
+Please just set the checkin-needed bug keyword in the future :)",0,2013-11-19T14:31:53Z,8096654.0,0,0.9995739,0.00042606096
+983489,29,"Re-triage - this doesn't have proof of being a user facing crash on devices, it only happens in debug build situations & tests. So renoming to reevaluate.",0,2014-04-16T13:24:19Z,8670288.0,0,0.9896919,0.01030812
+983489,47,"1. Cannot repro on local
+2. Cannot repro on try after update code: https://tbpl.mozilla.org/?tree=Try&rev=3af70562fd0b",0,2014-05-12T09:58:02Z,8779413.0,1,0.64630526,0.64630526
+904571,13,Covered by a test landed in bug 949667.,0,2014-03-05T16:12:50Z,8494925.0,0,0.9418721,0.058127888
+978610,7,"Comment on attachment 8385604
+window-close v2
+I don't see where non-e10s code would call those functions, so I don't think we should call them in e10s either. When there's only one tab, the non-e10s code just seems to handle everything in nsGlobalWindow, which I think is what window.close() does.",0,2014-03-06T01:35:24Z,8497788.0,1,0.85941684,0.85941684
+906912,3,"Created attachment 792467
+Part 2, v1: Add move constructors to mozilla::LinkedList and mozilla::LinkedListElement.",0,2013-08-19T22:32:58Z,7765067.0,0,0.7179849,0.28201512
+897027,13,"Backed out for assertions:
+eg https://tbpl.mozilla.org/php/getParsedLog.php?id=28934657&tree=Mozilla-Inbound
+https://hg.mozilla.org/integration/mozilla-inbound/rev/45f35cc52ceb
+Were the jit-tests run locally on a debug build before requesting checkin-needed..? :-)",0,2013-10-10T16:15:03Z,7946107.0,0,0.9972524,0.002747621
+978610,10,"Created attachment 8391381
+window-close v5
+Getting this patch to work on b2g has really been painful. The IsBrowserOrApp checks didn't work and I don't know why. Anyway, this patch does everything in frontend code. Sorry for the churn, Felipe.",1,2014-03-14T18:22:48Z,8535720.0,1,0.7772603,0.7772603
+983489,45,"Bug 963113 Intermittent debug B2G mochitest ""ABORT: corrupted actor state: file PTelephony.cpp, line 35"" on shutdown
+Not fixed",0,2014-05-06T09:15:08Z,8754910.0,0,0.9996494,0.0003505684
+894931,1,"On trunk (Firefox) the text on a certain website flows out of the usual box and takes up the whole page width instead. In the latest Firefox this was still fine. I'm going to look for the regression range of this (must be a very recent regression).
+To reproduce:
+1. Go to http://www.nordbayerischer-kurier.de/
+2. Observe how the text below the animated pictures/slideshow flows out of the box where the text should be in",0,2013-07-17T15:32:09Z,7645553.0,1,0.8394091,0.8394091
+983489,26,"Comment on attachment 8403724
+983489.patch
+Review of attachment 8403724:
+-----------------------------------------------------------------
+Bas suggest for you to review.",0,2014-04-15T22:03:34Z,8667032.0,0,0.9998049,0.00019513049
+948882,29,"Comment on attachment 8424383
+bug_final.patch
+Review of attachment 8424383:
+-----------------------------------------------------------------
+Closer and closer :)
+Please address the following comments:
+::: toolkit/crashreporter/content/crashes.js
+@@ +14,5 @@
+I just noticed your querySelector is not working. It is also better for performance if you use document.getElementById() instead.
+You can wrap all your DOMContentLoaded things into one function. Please introduce line breaks after { and } and use indentation as discussed in our style guides (https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style#JavaScript_practices)
+You may start with something like this:
+Thanks!",0,2014-05-19T10:03:48Z,8809206.0,0,0.9893645,0.010635539
+991812,1,"Created attachment 8401449
+Patch
+Rather than figure out all the ways in which this stuff is not at parity with the existing stuff, let's just use the thing that already works.",1,2014-04-03T17:47:06Z,8617999.0,1,0.99670357,0.99670357
+947523,2,"This issue does not occur on Leo v 1.1.0 COM RIL
+Environmental Variables
+Device: Leo v 1.1.0 COM RIL
+Build ID: 20131024041202
+Gecko: http://hg.mozilla.org/releases/mozilla-b2g18/rev/e4cb5a852e3d
+Gaia: 39b0203fa9809052c8c4d4332fef03bbaf0426fc
+Platform Version: 18.1
+RIL Version: 01.01.00.019.264 
+The browser crash does not occur when zooming in on the page.",0,2013-12-07T00:55:06Z,8168024.0,1,0.8017384,0.8017384
+919434,8,I don't reproduce either this or bug 931450 in the latest Nightly. Discussion on bug 919156 suggests that they could have been fixed in bug 919144?,0,2013-12-03T23:34:19Z,8151670.0,0,0.9790212,0.020978829
+947523,20,"Kyle suggests testing this with skiagl off to narrow out that as a cause => qawanted.
+Dale, with Ben out can you tell us how the gaia browser zooming functionality is implemented?  Do you think it could be triggering a gecko crash with graphics changes around the beginning of September?",0,2013-12-17T15:27:42Z,8205632.0,0,0.9027078,0.09729223
+948882,24,"Comment on attachment 8410915
+bug_final.patch
+Review of attachment 8410915:
+-----------------------------------------------------------------
+Good progress!
+::: toolkit/crashreporter/content/crashes.js
+@@ +14,5 @@
+Sorry I *just* noticed this: The tag with the 'clear-reports' Id is only available after the page has loaded, not when the script is executed.
+You could add some newlines about the following DOMContentLoaded handler and add this click event handler in there!
+Would you please test your next patch? I know it's a steep curve, but it's not that hard: https://developer.mozilla.org/en-US/docs/Simple_Firefox_build",0,2014-04-23T10:13:36Z,8697880.0,1,0.69217354,0.69217354
+947523,27,"Another way to explain this - the blocker here is the full phone reboot, not the fact that we're OOMing in the STR in general. If we fixed this bug by causing the OOM to happen in the child process, rather than the parent process, then that would fix the blocking factor on this bug.",0,2013-12-17T22:46:13Z,8208056.0,1,0.7039588,0.7039588
+978610,6,"Comment on attachment 8385604
+window-close v2
+Null check mFrameElement.
+But this needs a toolkit/ review, since I'm not sure whether calling window.close() is the right thing.
+I believe BrowserTryToCloseWindow() or closeWindow(some params) should be used.
+Also, I don't know how b2g app closing works.",0,2014-03-05T01:56:18Z,8492380.0,0,0.9805628,0.01943714
+894931,5,"roc, see bug 868498 comment 47. The assertion fix there is causing this regression. Would you happen to know a way to work around this?",0,2013-07-17T16:43:09Z,7645942.0,0,0.97718847,0.022811541
+948882,17,"Created attachment 8410229
+bug_final.patch
+Hello Frederik 
+Done ! I have attached here also.",1,2014-04-22T12:50:41Z,8692027.0,1,0.984297,0.984297
+924397,2,The way to reproduce this is to remove a ; after an interface definition in any file in dom/webidl and rebuild.,0,2013-10-08T14:47:12Z,7936945.0,0,0.78232217,0.21767788
+912496,4,"Created attachment 799789
+v2
+I addressed all feedback except for:
+It could, but I'm not sure how we should deal with it. The strdup that was already there was fallible, too, and went unhandled. Should we just set a flag and stop logging altogether? Or drop this one entry? The latter would be difficult, because we'd then later have an unmatched stop event in the log.
+We can't because then we don't know which entry was supposed to introduce the string into the log file. But maybe I'm missing something.",1,2013-09-04T22:00:16Z,7823916.0,1,0.9987043,0.9987043
+894931,31,"I don't think collapsing with the top margin could ever be eliminated, due to compatibility issues, so I'll leave it as-is.",0,2013-07-19T08:28:46Z,7654490.0,1,0.773576,0.773576
+983489,44,"Hey Vicent,
+""it's this pushlog: https://tbpl.mozilla.org/?rev=ba31cd1620bd&tree=Mozilla-Inbound and it's not my patch."" yes its not your push. We sheriffs link to test failures and in some cases this might not the first occurence where the problem was seen. 
+In your specific case there was in the same cset (since this was a checkin needed bug) a bustage in builds from a different developer. Thats why we linked to a different cset here.
+However we investigated this for some time yesterday and were double checking a lot of csets that could have caused this test failure and after we did the backout of your patch the failures were gone away (see comment #41 from ryan). So we have the high assumption this test failure was caused by your patch.
+Btw the reason why this was not seen on your try run is that the try run was done on ics opt and the failure was only on ics debug",0,2014-05-06T05:53:14Z,8754302.0,0,0.9872313,0.012768693
+947523,11,"<6>[  434.353606] [ pid ]   uid  tgid total_vm      rss cpu oom_adj oom_score_adj name
+<6>[  434.353648] [   98]     0    98       78       41   0     -16          -941 ueventd
+<6>[  434.353668] [  128]  1000   128      213       15   0     -16          -941 servicemanager
+<6>[  434.353686] [  129]     0   129     1009       45   0     -16          -941 vold
+<6>[  434.353703] [  132]     0   132      834       29   0     -16          -941 fakeperm
+<6>[  434.353719] [  136]     0   136    76681    39295   0       0             0 b2g
+<6>[  434.353738] [  137]     0   137     1958       67   0     -16          -941 netd
+<6>[  434.353754] [  138]     0   138      180       14   0     -16          -941 debuggerd
+<6>[  434.353773] [  139]  1001   139     5093      370   0     -16          -941 rild
+<6>[  434.353789] [  140]  1013   140     4665      340   0     -16          -941 mediaserver
+<6>[  434.353808] [  141]  1002   141      338       27   0     -16          -941 dbus-daemon
+<6>[  434.353826] [  142]  1017   142      437       35   0     -16          -941 keystore
+<6>[  434.353843] [  152]  1000   152      481       23   0     -16          -941 mm-pp-daemon
+<6>[  434.353861] [  155]  1000   155      763       76   0     -16          -941 mm-qcamera-daem
+<6>[  434.353879] [  160]     0   160      297       27   0     -16          -941 gpu_dcvsd
+<6>[  434.353896] [  161]     0   161      863        2   0     -16          -941 adbd
+<6>[  434.353914] [  187]     0   187      218       40   0     -16          -941 location-mq
+<6>[  434.353933] [  188]  1001   188     1508       58   0     -16          -941 qmuxd
+<6>[  434.353949] [  196]  1001   196     1549       72   0     -16          -941 netmgrd
+<6>[  434.353968] [  197]     0   197     3651       73   0     -16          -941 xtwifi-inet-age
+<6>[  434.353984] [  205]  2000   205      198       16   0     -16          -941 sh
+<6>[  434.354003] [  208]     0   208     3046       83   0     -16          -941 xtwifi-client
+<6>[  434.354021] [  408]  1007   408      176       14   0     -16          -941 logwrapper
+<6>[  434.354039] [  409]  1010   409      662       78   0     -16          -941 wpa_supplicant
+<6>[  434.354058] [  421]  1000   421      337       27   0     -16          -941 qosmgr
+<3>[  434.354074] Out of memory: Kill process 136 (b2g) score 827 or sacrifice child
+<3>[  434.354268] Killed process 136 (b2g) total-vm:306724kB, anon-rss:52324kB, file-rss:104856kB
+Near the top it says total_vm is 76681 KB, but the ""Killed process"" line says 306724 KB...",0,2013-12-10T22:22:05Z,8180050.0,0,0.9497777,0.05022228
+1033283,4,"Created attachment 8449368
+Expose pressed state on menu buttons, too
+One-line fix, and I added tests for the role and states.",1,2014-07-02T12:21:34Z,9004154.0,1,0.9986609,0.9986609
+978610,13,"Comment on attachment 8391466
+window-close v6
+Review of attachment 8391466:
+-----------------------------------------------------------------
+do you think bug 924260 needs to be addressed together?",0,2014-03-17T19:21:34Z,8543503.0,0,0.99988234,0.000117591204
+948882,13,"Comment on attachment 8407744
+bug-948882.patch
+Review of attachment 8407744:
+-----------------------------------------------------------------
+This looks good, aside from the small nits below :)
+::: toolkit/crashreporter/content/crashes.xhtml
+@@ +13,5 @@
+Nit: Change the extra space here at the end to a />
+(instead of `...crashes.css"" >`, have `...crashes.css""/>`)
+::: toolkit/crashreporter/jar.mn
+@@ +4,5 @@
+Nit: There's an extra space, try to align the parentheses.",0,2014-04-17T16:23:04Z,8677091.0,0,0.9866555,0.013344502
+947523,41,"Oh... the display port of 598x2525 in ProcessUpdateSubFrame() does map directly to the visible region if you multiply it by the scale:
+  598x2525 * 2.474219 = 1480x6247",0,2013-12-20T17:04:52Z,8221204.0,1,0.931772,0.931772
+991812,13,"https://hg.mozilla.org/mozilla-central/rev/b54fdf8bb486
+https://hg.mozilla.org/mozilla-central/rev/076cdafa93f5
+https://hg.mozilla.org/mozilla-central/rev/0c55cac422f2
+https://hg.mozilla.org/mozilla-central/rev/3d7bfc590ccd",0,2014-04-16T03:31:13Z,8668337.0,0,0.9954814,0.0045186062
+947523,84,"Created attachment 8357246
+3/4 - Shrink the displayport multiplier at high zooms v2",0,2014-01-08T18:03:02Z,8266802.0,0,0.85108715,0.14891286
+947523,81,"I think given the options it would be better to prevent the b2g OOM.  So I would vote for landing the patchset in v1.2.  Jason, does this sound ok to you?
+I believe bug 957668 is the follow-up to address the memory issues in v1.3.",0,2014-01-08T17:34:28Z,8266654.0,0,0.54923296,0.45076704
+947523,37,"Adding instrumentation I can see that zooming results in extremely large gralloc buffers getting created.  For example, with a zoom of 3.75 in APZC I see a gralloc buffer request for 2238x13249.  This asks the system for ~110MB of mlocked memory which ends up killing b2g altogether.  Sometimes we get moderately smaller requests for gralloc buffers around ~30MB which only end up killing the browser tab.
+I'm trying to trace where this size is getting calculated.  Are we zooming the entire layer and trying to alloc a buffer for the entire thing?  Even if that is the case it seems the zoom is being over-accumulated over time or something.",0,2013-12-19T22:35:24Z,8218292.0,1,0.90803665,0.90803665
+916390,5,"This bug has probably existed before, though. We just didn't need step (4) because there was no cache in between.",0,2013-09-16T15:05:12Z,7865125.0,0,0.9206357,0.07936425
+937475,7,"Once bug 937057 is fixed, this will be easier to test.  Patches here are helpful in fixing bug 937057.  It may be easiest to add stop calls to the test for bug 938450.",0,2013-12-02T07:40:17Z,8142094.0,1,0.5008992,0.5008992
+947523,7,Does this reproduce on a 1.1 Buri device?,0,2013-12-09T20:13:26Z,8173916.0,0,0.992874,0.007126022
+904571,4,"When there is no activeRedirectingChannel QI'ed out of mActiveChannel, we should turn succeeded to false and bypass call on the null activeRedirectingChannel.
+I think there is nothing more to do here.  We will just show the content of the 30X response page and not crash.",1,2014-01-24T16:49:51Z,8330921.0,1,0.5820482,0.5820482
+937475,8,"https://hg.mozilla.org/integration/mozilla-inbound/rev/27c02b405be0
+https://hg.mozilla.org/integration/mozilla-inbound/rev/2e2cdd1826e1",0,2013-12-03T08:19:33Z,8147677.0,0,0.9879923,0.01200769
+888630,2,"The BOM should be treated as whitespace by regexps, indeed. Thanks for reporting.",1,2013-06-29T15:21:26Z,7588245.0,1,0.58689517,0.58689517
+916390,8,"Comment on attachment 805340
+Remove __SS_formDataSaved
+Review of attachment 805340:
+-----------------------------------------------------------------
+::: browser/components/sessionstore/src/SessionStore.jsm
+@@ +2269,5 @@
+I don't quite understand why there was a |if (aIncludePrivateData)|, but then, I'm not sure why you have removed it.
+::: browser/components/sessionstore/test/Makefile.in
+@@ +135,5 @@
+Couldn't we take an opportunity to give a better name to the test?",0,2013-09-16T15:33:30Z,7865275.0,0,0.99035573,0.009644231
+1003694,5,"Created attachment 8415067
+Settle on first frame by skipping all allocations.",0,2014-04-30T08:14:04Z,8730673.0,0,0.65735024,0.34264976
+906912,13,"Yeah, I don't think they should be either.  I would rather call this new function something completely different (mozilla::StdMove/etc?  I'm terrible at naming things.)",1,2013-08-20T21:15:01Z,7770050.0,0,0.6852402,0.31475982
+985257,11,Can you review?,0,2014-03-19T22:50:26Z,8555229.0,0,0.94692266,0.05307739
+924397,6,https://hg.mozilla.org/mozilla-central/rev/48d6dad2df16,0,2013-10-18T19:19:15Z,7978913.0,0,0.9994392,0.0005608463
+978610,19,Thanks Bill!,0,2014-04-17T00:01:51Z,8673656.0,0,0.9157024,0.08429758
+919434,1,"Created attachment 808460
+testcase
+With these prefs:
+  user_pref(""layers.acceleration.disabled"", true);
+  user_pref(""layers.force-active"", true);
+the testcase makes Firefox infinitely recurse due to a cyclic layer tree.",0,2013-09-23T08:49:50Z,7888949.0,1,0.7271595,0.7271595
+939475,6,"Created attachment 8334961
+Patch with review comments addressed. r=luke",0,2013-11-20T00:20:47Z,8100085.0,0,0.9994836,0.0005164025
+947523,74,"Comment on attachment 8356796
+Rollup parts 1-4
+I also was unable to get b2g to crash with the patch.  The tab reliably got killed.
+I did, however, see some content fail to draw with this patch.  See time 45s to 50s in this movie:
+  https://www.dropbox.com/s/vguya4xf6rgeqwh/20140107_apzc_etherpad_v1_2_patch.mov
+It appears to occur when you zoom in while simultaneously dragging up a bit causing a scroll.  I could not reproduce without the patch.
+On IRC kats indicated this might be explainable given that the patch shrinks the displayport.  Is this regression fixable?
+If not, is this regression serious enough to hold back the patch?  Jason, what do you think?
+I will try to see if I can reproduce it on any other websites tomorrow.  Maybe its isolated to sites with very large iframes like this etherpad.",0,2014-01-08T00:51:37Z,8263510.0,0,0.9606221,0.03937795
+948882,7,"Rishabh, do you still plan to work on this?
+(Someone in #introduction is interested in this bug too)",0,2014-02-10T21:04:20Z,8399803.0,0,0.7119303,0.28806975
+919434,2,"Created attachment 808461
+stack+",0,2013-09-23T08:50:47Z,7888952.0,1,0.7058655,0.7058655
+948882,18,"Comment on attachment 8410229
+bug_final.patch
+Review of attachment 8410229:
+-----------------------------------------------------------------
+This looks good. Some indentation may be called for (split the handlers across multiple lines), but otherwise it should work.",0,2014-04-22T15:03:44Z,8692763.0,0,0.9972404,0.002759527
+927544,3,"Thanks, good catch.
+I ended up folding this into the patch for bug 925962, rev 81b505e9a435.  That rev inadvertently fixed the above bug, by using a different mechanism to distinguish calls vs. gets (weirdly, CallGetProperty isn't associated with a resume point when used to fetch the |prototype| property for callee functions).",0,2013-10-18T15:20:21Z,7977718.0,1,0.9746489,0.9746489
+947523,26,"I think it's not the likelihood that's caused to be marked as a blocker - instead, it was marked as a blocker because it should never be possible to cause a full reboot of the phone. During 1.01, a lot our partners were pretty adamant on having a no known full phone crashes on release policy, as that ensures a user never sees an unexpected reboot of the phone to think that something is fundamentally broken with the phone.",0,2013-12-17T22:37:27Z,8208004.0,0,0.9216424,0.078357585
+948882,2,Hello I want to work on this. I am very new but I want to start work here.Please guide me how to do that.,0,2013-12-20T21:41:48Z,8222169.0,0,0.9432449,0.056755044
+947523,80,"I tried to do this quickly but was unsuccessful. At this point I'm not going to work on this bug any further - unfortunately there are too many pressing 1.3 issues for me to spend more time on this. We can either land the patchset as-is, which fixes the OOMs, and file follow-up bugs for the regressions. Or we can leave it out.",0,2014-01-08T17:22:58Z,8266567.0,1,0.7585223,0.7585223
+948882,21,"Comment on attachment 8410903
+bug_final.patch
+Review of attachment 8410903:
+-----------------------------------------------------------------
+One small fix, and then I think you're all set :)
+::: toolkit/crashreporter/content/crashes.js
+@@ +15,5 @@
+Nit: There's an extra space right before ""DomContentLoaded""",0,2014-04-23T10:00:06Z,8697822.0,0,0.9730436,0.026956402
+1029919,15,"Created attachment 8449937
+Properly composite when using an unbounded operator even if the extents don't intersect
+I believe this is the correct fix this time, I'd like to hear what you think :-).",1,2014-07-03T02:36:10Z,9008833.0,1,0.9984231,0.9984231
+991812,18,"Do we need a mechanism to say that certain non-threadsafely-reference-counted objects can be transferred from one thread to another?  (I've thought for a while that we might.  It would require changing the DEBUG-only owning thread member variable from (should be but isn't) const to Atomic, which might be expensive enough that we'd want different variant of nsAutoOwningThread for only classes that need this.)",0,2014-04-23T01:06:30Z,8696232.0,1,0.83335084,0.83335084
+983489,36,"Comment on attachment 8415031
+983489.patch v3
+Review of attachment 8415031:
+-----------------------------------------------------------------
+add check mCompositor before call Destroy()
+https://tbpl.mozilla.org/?tree=Try&rev=c88c51437df2",0,2014-04-30T14:53:32Z,8732218.0,0,0.9786059,0.021394106
+1003694,2,This is flooding jsfunfuzz results.,0,2014-04-30T06:33:27Z,8730389.0,0,0.9355888,0.0644112
+983489,49,"1. As I cannot repro on local, do you have any suggestion for me to repro this issue?
+2. I can repro it on try, but cannot yesterday. Would you please try it on m-i?",0,2014-05-12T22:34:45Z,8783173.0,0,0.98302424,0.0169758
+897027,20,"Comment on attachment 815582
+bug-897027-fix.patch
+Review of attachment 815582:
+-----------------------------------------------------------------
+Evilpie had a few comments on IRC that are very helpful:
+You can just use args.get(0) and args.get(1) without checking the arg count. args.get returns undefined if fewer args were provided, and ToNumber returns GenericNaN for undefined. Doing this makes the function a lot simpler. I don't think it's worth it to return early for the 0-args case.
+Canceling the review based on that, sorry for the churn.",0,2013-11-07T11:30:18Z,8052658.0,0,0.990838,0.009161962
+985257,4,"Created attachment 8393287
+Bug 985257 - add implementation for Path2D constructor that takes an SVG path string",0,2014-03-19T02:34:13Z,8550610.0,0,0.96419907,0.03580094
+947523,59,"I was discussing this a bit with bjacob and we came to the conclusion it would be better to kill the tab because it's a much simpler codepath and we lose a lot of information by the time we get to the code that allocates the texture.
+The zoom is always done on the root frame of the page, and it doesn't always know how large the iframes are. So we'd have to plumb all of that in to go with this approach, and even a 2.0 zoom might trigger an OOM if the iframe is large enough. So it still wouldn't completely guard against this case.
+I have a set of patches now which crash the tab if the texture size would be too large. I will upload them shortly; there is a rollup at http://people.mozilla.org/~kgupta/tmp/rollup.patch to test with.",0,2014-01-07T21:40:20Z,8262696.0,1,0.92082983,0.92082983
+948882,25,"Biraj, can you address my recent comments? This patch is nearly ready!",0,2014-05-06T11:09:10Z,8755496.0,0,0.9669589,0.03304107
+947523,56,"I've been discussing this issue with :tn and :bkelly and thinking about it, and we might need to take a step back here with the approach taken.
+The fundamental problem is that when async subframe scrolling is enabled, we need more memory to render content. This is expected behaviour, but it was always unclear just how much more memory we would need, how it would be bounded, and whether we would often run into OOM situations. For the most part we went with a ""let's do it and see"" approach.
+Turns out that with our current implementation (in 1.2+) the memory usage is unbounded, and can easily run into OOM situations. A simple conceptual example is a page that looks something like this:
+<body>
+ <iframe style=""height: 10000px"" src=""reallylongpage.html""></iframe>
+</body>
+The iframe is 10,000 pixels tall, and we end up requesting a giant displayport (some multiple of 10000px) for this, because we could scroll either the outer page or the iframe, and need to have enough pre-rendered content to paint all of that. This, of course, will trigger an OOM. Even if the patches I uploaded to this bug worked perfectly we would still probably OOM on this page.
+Going forward I think we have to use the visible region of the iframe (i.e. clipped by parent frames and the screen) rather than the full composition bounds as the base for the displayport. However I think that doing this is too risky for 1.2.
+For 1.2 I see four main options:
+1) Disable subframe apzc. This eliminates the memory requirement and also reduces responsiveness. I suspect this is off the table because of commitments we made to partners.
+2) Apply some tweaks to make the OOMs less frequent. This is what I've been trying to do with the above patches, but it's hard to reduce the OOM threshold enough to stop OOMing on this etherpad page because the iframe is huge. It also doesn't guarantee OOMs will not happen.
+3) Try some other method to clamp the memory usage, such as putting a hard limit on texture sizes. (I don't know if this can be easily implemented, and it would almost certainly result in scenarios where parts of subframes remain blank.) Another option is to just kill the entire tab if the requested displayport is too big. That limits the crash to a browser tab rather than a phone reboot.
+4) Do nothing for 1.2; leave this bug unfixed and ship subframe APZC as-is. Focus efforts on getting a proper fix in for 1.3+
+Based on comment 26, I'm thinking of abandoning my current attempt at option #2 and going with option #3 instead. If anybody has other thoughts please let me know.",1,2014-01-07T17:41:18Z,8261384.0,0,0.603302,0.396698
+937475,4,"Ah, I don't know why but I seem to remember that I once wrote a patch to fix this.  I thought that I had gotten reviews and landed it but now I can't even find a bug, which tells me that I must have forgotten to even file the bug. :(",0,2013-11-12T23:07:47Z,8073383.0,0,0.54395485,0.45604518
+1029919,16,https://hg.mozilla.org/integration/mozilla-inbound/rev/7e8fac17305a,0,2014-07-07T16:43:44Z,9022000.0,0,0.90212756,0.09787245
+978610,9,"Created attachment 8389001
+window-close v4
+Oops, wrong patch.",1,2014-03-11T05:39:52Z,8516830.0,1,0.9164466,0.9164466
+983489,13,"FYI, if you're trying to reproduce locally, do a ""./build.sh buildsymbols"" first so you get function names in your stack traces.",0,2014-03-28T17:48:59Z,8593151.0,0,0.8840022,0.115997806
+948882,15,"Comment on attachment 8408443
+bug.patch
+Review of attachment 8408443:
+-----------------------------------------------------------------
+This looks good :)",0,2014-04-17T18:52:33Z,8678061.0,0,0.9995272,0.00047274446
+983489,2,"Full stack:
+06:18:50     INFO -  Operating system: Android
+06:18:50     INFO -                    0.0.0 Linux 2.6.29-00302-g586075d #31 Mon Feb 24 10:28:23 PST 2014 armv7l Android/full/generic:4.0.4.0.4.0.4/OPENMASTER/eng.cltbld.20140313.071241:eng/test-keys
+06:18:50     INFO -  CPU: arm
+06:18:50     INFO -       0 CPUs
+06:18:50     INFO -  Crash reason:  SIGSEGV
+06:18:50     INFO -  Crash address: 0x218
+06:18:50     INFO -  Thread 20 (crashed)
+06:18:50     INFO -   0  libxul.so!mozilla::gl::GLContext::MakeCurrent(bool) [GLContext.h:bfe897476327 : 2514 + 0x0]
+06:18:50     INFO -       r4 = 0x44df4eb0    r5 = 0x44df4e74    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffba0    lr = 0x40fa4a5b    pc = 0x40f3680e
+06:18:50     INFO -      Found by: given as instruction pointer in context
+06:18:50     INFO -   1  libxul.so!mozilla::layers::GrallocTextureSourceOGL::DeallocateDeviceData() [GrallocTextureHost.cpp:bfe897476327 : 268 + 0x3]
+06:18:50     INFO -       r4 = 0x44df4eb0    r5 = 0x44df4e74    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffba8    pc = 0x40fa4a5b
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   2  libxul.so!mozilla::layers::GrallocTextureHostOGL::DeallocateDeviceData() [GrallocTextureHost.cpp:bfe897476327 : 365 + 0x5]
+06:18:50     INFO -       r4 = 0x44df4e80    r5 = 0x44df4e74    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffbb0    pc = 0x40fa45ff
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   3  libxul.so!mozilla::layers::TextureHost::Finalize() [TextureHost.cpp:bfe897476327 : 282 + 0x7]
+06:18:50     INFO -       r4 = 0x44df4e80    r5 = 0x44df4e74    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffbb8    pc = 0x40f90399
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   4  libxul.so!mozilla::RefPtr<mozilla::layers::TextureHost>::operator=(mozilla::layers::TextureHost*) [AtomicRefCountedWithFinalize.h : 42 + 0x5]
+06:18:50     INFO -       r4 = 0x44df4e80    r5 = 0x44df4e74    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffbc0    pc = 0x40f8d4fd
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   5  libxul.so!mozilla::layers::TextureParent::ActorDestroy(mozilla::ipc::IProtocolManager<mozilla::ipc::IProtocol>::ActorDestroyReason) [TextureHost.cpp:bfe897476327 : 833 + 0x3]
+06:18:50     INFO -       r4 = 0x44df4e50    r5 = 0x00000001    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffbd0    pc = 0x40f90597
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   6  libxul.so!mozilla::docshell::POfflineCacheUpdateChild::DestroySubtree(mozilla::ipc::IProtocolManager<mozilla::ipc::IProtocol>::ActorDestroyReason) [POfflineCacheUpdateChild.cpp : 388 + 0x9]
+06:18:50     INFO -       r4 = 0x44df4e50    r5 = 0x00000001    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffbe0    pc = 0x40d6709d
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   7  libxul.so!mozilla::layers::PTextureParent::Send__delete__(mozilla::layers::PTextureParent*) [PTextureParent.cpp : 69 + 0x5]
+06:18:50     INFO -       r4 = 0x44df4e50    r5 = 0x00000001    r6 = 0x00000000    r7 = 0x00840001
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffbf0    pc = 0x40e03caf
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   8  libxul.so!mozilla::layers::TextureParent::RecvRemoveTexture() + 0x5
+06:18:50     INFO -       r4 = 0x44df4e50    r5 = 0x00840005    r6 = 0x453ffd00    r7 = 0x44274270
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffc20    pc = 0x40f9060b
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -   9  libxul.so!mozilla::layers::PTextureParent::OnMessageReceived(IPC::Message const&) [PTextureParent.cpp : 217 + 0x7]
+06:18:50     INFO -       r4 = 0x44df4e50    r5 = 0x00840005    r6 = 0x453ffd00    r7 = 0x44274270
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffc28    pc = 0x40e026d3
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  10  libxul.so!mozilla::layers::PCompositorParent::OnMessageReceived(IPC::Message const&) [PCompositorParent.cpp : 373 + 0x7]
+06:18:50     INFO -       r4 = 0x44de26a0    r5 = 0x453ffcdc    r6 = 0x453ffd00    r7 = 0x44274270
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffc50    pc = 0x40d8559d
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  11  libxul.so!mozilla::ipc::MessageChannel::DispatchAsyncMessage(IPC::Message const&) [MessageChannel.cpp:bfe897476327 : 1142 + 0x5]
+06:18:50     INFO -       r4 = 0x44de26d0    r5 = 0x453ffcdc    r6 = 0x453ffd00    r7 = 0x44274270
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffcb8    pc = 0x40d61e7f
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  12  libxul.so!mozilla::ipc::MessageChannel::DispatchMessage(IPC::Message const&) [MessageChannel.cpp:bfe897476327 : 1056 + 0x3]
+06:18:50     INFO -       r4 = 0x00000001    r5 = 0x453ffcdc    r6 = 0x453ffd00    r7 = 0x44274270
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffcd0    pc = 0x40d63abf
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  13  libxul.so!mozilla::ipc::MessageChannel::OnMaybeDequeueOne() [MessageChannel.cpp:bfe897476327 : 1039 + 0x3]
+06:18:50     INFO -       r4 = 0x00000001    r5 = 0x453ffcdc    r6 = 0x453ffd00    r7 = 0x44274270
+06:18:50     INFO -       r8 = 0x44274270    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffcd8    pc = 0x40d63b57
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  14  libxul.so!RunnableMethod<WebCore::ReverbConvolver, void (WebCore::ReverbConvolver::*)(), Tuple0>::Run() [tuple.h:bfe897476327 : 383 + 0x5]
+06:18:50     INFO -       r4 = 0x453ffde4    r5 = 0x402dd968    r6 = 0x453ffd58    r7 = 0x453ffdf0
+06:18:50     INFO -       r8 = 0x453ffd50    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffd20    pc = 0x40d61bf7
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  15  libxul.so!mozilla::ipc::MessageChannel::DequeueTask::Run() [MessageChannel.h : 383 + 0x9]
+06:18:50     INFO -       r4 = 0x453ffde4    r5 = 0x402dd968    r6 = 0x453ffd58    r7 = 0x453ffdf0
+06:18:50     INFO -       r8 = 0x453ffd50    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffd28    pc = 0x40d61b19
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  16  libxul.so!MessageLoop::RunTask(Task*) [message_loop.cc:bfe897476327 : 344 + 0x5]
+06:18:50     INFO -       r4 = 0x453ffde4    r5 = 0x402dd968    r6 = 0x453ffd58    r7 = 0x453ffdf0
+06:18:50     INFO -       r8 = 0x453ffd50    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffd30    pc = 0x40d58f19
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  17  libxul.so!MessageLoop::DeferOrRunPendingTask(MessageLoop::PendingTask const&) [message_loop.cc:bfe897476327 : 352 + 0x5]
+06:18:50     INFO -       r4 = 0x00000001    r5 = 0x453ffd48    r6 = 0x453ffd58    r7 = 0x453ffdf0
+06:18:50     INFO -       r8 = 0x453ffd50    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffd40    pc = 0x40d59c7b
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  18  libxul.so!MessageLoop::DoWork() [message_loop.cc:bfe897476327 : 430 + 0x7]
+06:18:50     INFO -       r4 = 0x453ffde4    r5 = 0x453ffd48    r6 = 0x453ffd58    r7 = 0x453ffdf0
+06:18:50     INFO -       r8 = 0x453ffd50    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffd48    pc = 0x40d5a839
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  19  libxul.so!base::MessagePumpDefault::Run(base::MessagePump::Delegate*) [message_pump_default.cc:bfe897476327 : 34 + 0x7]
+06:18:50     INFO -       r4 = 0x44e9d600    r5 = 0x453ffde4    r6 = 0x453ffd94    r7 = 0x453ffd90
+06:18:50     INFO -       r8 = 0x44e9d60c    r9 = 0x453ffd80   r10 = 0x00000000    fp = 0x453ffd88
+06:18:50     INFO -       sp = 0x453ffd78    pc = 0x40d5abc7
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  20  libxul.so!MessageLoop::RunInternal() [message_loop.cc:bfe897476327 : 226 + 0x5]
+06:18:50     INFO -       r4 = 0x453ffde4    r5 = 0x453ffde4    r6 = 0x453ffe76    r7 = 0x00000000
+06:18:50     INFO -       r8 = 0x00000000    r9 = 0x44e97714   r10 = 0x00100000    fp = 0x00000001
+06:18:50     INFO -       sp = 0x453ffdc0    pc = 0x40d58edd
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  21  libxul.so!MessageLoop::Run() [message_loop.cc:bfe897476327 : 219 + 0x5]
+06:18:50     INFO -       r4 = 0x453ffde4    r5 = 0x453ffde4    r6 = 0x453ffe76    r7 = 0x00000000
+06:18:50     INFO -       r8 = 0x00000000    r9 = 0x44e97714   r10 = 0x00100000    fp = 0x00000001
+06:18:50     INFO -       sp = 0x453ffdc8    pc = 0x40d58f5b
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  22  libxul.so!base::Thread::ThreadMain() [thread.cc:bfe897476327 : 162 + 0x5]
+06:18:50     INFO -       r4 = 0x44e97700    r5 = 0x453ffde4    r6 = 0x453ffe76    r7 = 0x00000000
+06:18:50     INFO -       r8 = 0x00000000    r9 = 0x44e97714   r10 = 0x00100000    fp = 0x00000001
+06:18:50     INFO -       sp = 0x453ffde0    pc = 0x40d5b96b
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  23  libxul.so!ThreadFunc [platform_thread_posix.cc:bfe897476327 : 39 + 0x5]
+06:18:50     INFO -       r4 = 0x453fff00    r5 = 0x40d51759    r6 = 0x44e97700    r7 = 0x00000078
+06:18:50     INFO -       r8 = 0x40d51759    r9 = 0x44e97700   r10 = 0x00100000    fp = 0x00000001
+06:18:50     INFO -       sp = 0x453ffee8    pc = 0x40d51761
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  24  libc.so!__thread_entry [pthread.c : 217 + 0x6]
+06:18:50     INFO -       r4 = 0x453fff00    r5 = 0x40d51759    r6 = 0x44e97700    r7 = 0x00000078
+06:18:50     INFO -       r8 = 0x40d51759    r9 = 0x44e97700   r10 = 0x00100000    fp = 0x00000001
+06:18:50     INFO -       sp = 0x453ffef0    pc = 0x40054e4c
+06:18:50     INFO -      Found by: call frame info
+06:18:50     INFO -  25  libc.so!pthread_create [pthread.c : 357 + 0xe]
+06:18:50     INFO -       r4 = 0x453fff00    r5 = 0x00025d90    r6 = 0xbece30f8    r7 = 0x00000078
+06:18:50     INFO -       r8 = 0x40d51759    r9 = 0x44e97700   r10 = 0x00100000    fp = 0x00000001
+06:18:50     INFO -       sp = 0x453fff00    pc = 0x4005499c
+06:18:50     INFO -      Found by: call frame info",0,2014-03-14T11:13:54Z,8533790.0,1,0.95984656,0.95984656
+1047560,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/cabe3163d4bc,0,2014-08-01T20:17:05Z,9132058.0,0,0.93855244,0.06144759
+978610,12,"Created attachment 8391466
+window-close v6
+This one is really conservative. I don't think there's any way it should affect b2g.",1,2014-03-14T20:34:34Z,8536419.0,1,0.990342,0.990342
+948882,26,"Created attachment 8421506
+bug_final.patch
+sorry for late reply. I was busy with my project.
+I have attached the patch here.",1,2014-05-13T05:04:27Z,8784377.0,1,0.992078,0.992078
+989204,7,"https://hg.mozilla.org/mozilla-central/rev/8cef7a6e9f79
+https://hg.mozilla.org/mozilla-central/rev/9517fe15e2c2
+https://hg.mozilla.org/mozilla-central/rev/7cdf043c7666",0,2014-04-03T19:28:49Z,8618563.0,0,0.99844605,0.0015539963
+897027,14,"Urgh, I'm utterly embarrassed. David, I take full responsibility for this one and am sorry for not doing a better job and catching it.
+Can you debug things and attach a new version of the patch?",0,2013-10-10T16:19:54Z,7946132.0,0,0.9119967,0.08800331
+947523,22,"If you do want to rule out the extra memory usage due to GL acceleration, just set:
+pref(""gfx.canvas.azure.accelerated"", false);",0,2013-12-17T15:33:35Z,8205665.0,1,0.8363334,0.8363334
+985257,8,You should change the moz.build file(s) to make it reachable if you need to.,1,2014-03-19T17:50:42Z,8553660.0,0,0.65463763,0.3453624
+991812,2,"Comment on attachment 8401449
+Patch
+Review of attachment 8401449:
+-----------------------------------------------------------------
+::: gfx/layers/Compositor.h
+@@ +141,2 @@
+This class is very weird, and is not directly usable with this change.  Also, as far as I can tell, it's actually dead code.  If this compiles, I guess it's fine, but please file a follow-up to remove it completely.",0,2014-04-03T18:00:23Z,8618075.0,0,0.9893829,0.010617039
+989204,4,"Created attachment 8398689
+Part 2 - Make arrow functions fast
+The browser was crashing on startup due to some XDR/cloning issue. Everything looks green now (so far):
+https://tbpl.mozilla.org/?tree=Try&rev=7d2cfcf45e9c
+Only need review for the non-JIT changes.",1,2014-03-28T19:13:14Z,8593625.0,1,0.9909753,0.9909753
+1033887,10,"There is no clang CRT involved here, we use the usual MSVC CRT headers and libraries.  Specifically the same STL.  My point was that setting _HAS_EXCEPTIONS=0 is the well known (and actually undocumented) way to get the Microsoft STL to not throw exceptions (that is, by #ifdef-ing throw statements out).  So if I understand you correctly, this test is attempting to test whether that works?  If that's the case, I still think this is a silly test as Microsoft won't be able to remove support for _HAS_EXCEPTIONS without breaking everybody that depends on it.
+(FWIW I'm fine with not taking this workaround and just falling back to cl.exe on this test, this is really not worth much debate! ;-)",1,2014-07-03T14:29:16Z,9010963.0,0,0.5910063,0.40899378
+991812,12,Sigh.  This built on Friday.,0,2014-04-14T20:46:41Z,8660231.0,0,0.9538667,0.046133336
+947523,69,"Comment on attachment 8356793
+4/4 - Crash the tab if the texture size is going to exceed the max GL texture size
+This feels fairly specific to b2g; some environments (metro when it goes with remote tabs) might not be bound by such a limit.",0,2014-01-07T22:18:04Z,8262907.0,0,0.9873683,0.012631691
+1025075,4,https://hg.mozilla.org/mozilla-central/rev/6dbb24c9937e,0,2014-06-14T00:13:29Z,8930403.0,0,0.9971084,0.0028915918
+947523,8,"This does not repro on a 1.1 Buri. The same functionality is seen in Leo 1.1 as it simply doesn't let you zoom in far enough and keeps rubber-banding back to to a set zoom if you try to keep pinching to zoom in.
+Environmental Variables:
+Device: Buri 1.1 mozRIL
+BuildID: 20131209041202
+Gaia: 6ff3a607f873320d00cb036fa76117f6fadd010f
+Gecko: 05117f42088f
+Version: 18.0
+Firmware Version: 20131115",0,2013-12-09T20:35:40Z,8174005.0,0,0.9995553,0.00044471878
+869069,8,https://hg.mozilla.org/mozilla-central/rev/8791cdcd0758,0,2013-11-18T21:18:56Z,8093228.0,0,0.9990282,0.00097182055
+947523,40,"It appears that the display port being set from ProcessUpdateFrame() shrinks with the scale, but not when its set from ProcessUpdateSubFrame().  Here is my instrumentation while zooming the etherpad:
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateSubFrame() calling SetDisplayPortForElement() width:598.000000 height:2525.000000
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetResolution() scale:0.339769
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetDisplayPortForElement() width:980.000000 height:1117.816650
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetResolution() scale:0.466176
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetDisplayPortForElement() width:980.000000 height:1117.816650
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetResolution() scale:0.466176
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetDisplayPortForElement() width:980.000000 height:1117.816650
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetResolution() scale:1.090141
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetDisplayPortForElement() width:439.500000 height:835.000000
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateSubFrame() calling SetDisplayPortForElement() width:598.000000 height:2525.000000
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateSubFrame() calling SetDisplayPortForElement() width:598.000000 height:2525.000000
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetResolution() scale:2.474219
+I/Gecko   (12250): ### ### TabChild::ProcessUpdateFrame() calling SetDisplayPortForElement() width:193.500000 height:367.500000
+I also started to instrument the ThebesLayerData::Accumulate method and got this in my last run:
+I/Gecko   (12250): ### ### ThebesLayerData::Accumulate() OR mVisibleRegion:0/0 aVisibleRect:0/0
+I/Gecko   (12250): ### ### ThebesLayerData::Accumulate() OR mVisibleRegion:0/0 aVisibleRect:0/0
+I/Gecko   (12250): ### ### ThebesLayerData::Accumulate() OR mVisibleRegion:0/0 aVisibleRect:1408/612
+8
+I/Gecko   (12250): ### ### ThebesLayerData::Accumulate() OR mVisibleRegion:1408/6128 aVisibleRect:13
+88/6126
+I/Gecko   (12250): ### ### ThebesLayerData::Accumulate() OR mVisibleRegion:1408/6128 aVisibleRect:69
+/6128
+I/Gecko   (12250): ### ### ContainerState::PopThebesLayer() calling SetVisibleRegion() width:1477 he
+ight:6128
+I still can't map the height of 6128 in this case back to the display port values.",0,2013-12-20T17:02:08Z,8221196.0,1,0.9726274,0.9726274
+948882,5,"Hi, 
+I was looking for some good first bugs and stumbles upon this one. I would like to start with this as my first bug. Can I work on it? Thanks :)",0,2014-01-27T18:44:57Z,8338013.0,0,0.7958515,0.20414846
+947523,68,"Comment on attachment 8356791
+3/4 - Shrink the displayport multiplier at high zooms
+Review of attachment 8356791:
+-----------------------------------------------------------------
+::: gfx/layers/ipc/AsyncPanZoomController.cpp
+@@ +898,5 @@
+Is this patch meant for trunk too? On trunk it's not necessarily the case that the root frame's GetParentResolution() returns 1.0, at least it won't be after bug 951936 and bug 935219 land, because then the resolution will be on the non-scrollable root layer which will be the parent of the rootmost scrollable layer.
+Perhaps we can condition on IsRootForLayersId() instead (or mIsRoot, although see bug 957221)?",0,2014-01-07T22:16:13Z,8262898.0,0,0.7891064,0.21089357
+924397,3,"Created attachment 816436
+Print_file_when_WebIDL_raises_syntax_error_at_EOF.patch
+Here is the error message that gets printed:
+ 0:28.12 WebIDL.WebIDLError: error: Syntax Error at end of file. Possibly due to missing semicolon(;), braces(}) or both, WorkerNavigator.webidl",1,2013-10-14T05:27:32Z,7955207.0,1,0.91641676,0.91641676
+927544,2,+    JS_ASSERT(op = JSOP_CALLPROP);,0,2013-10-17T23:01:17Z,7975339.0,1,0.62526846,0.62526846
+983489,24,"We still have chance to call CompositorOGL::Destroy, the patch just delay the CompositorOGL::Destroy from CompositorParent::RecvWillStop to CompositorParent::RecvStop.",0,2014-04-10T13:56:27Z,8645127.0,1,0.9452655,0.9452655
+947523,60,"Created attachment 8356789
+1/4 - Add a GetCumulativeResolution function",0,2014-01-07T21:46:05Z,8262725.0,0,0.9908221,0.009177897
+1003694,7,Looks like a security bug to me. I'm getting various crashes [@ js::jit::InlineFrameIteratorMaybeGC<(js::AllowGC)1>::findNextFrame] with bad reads.,0,2014-05-01T11:59:09Z,8736928.0,0,0.74774694,0.25225312
+989204,6,"Pushed with comments addressed:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/8cef7a6e9f79
+https://hg.mozilla.org/integration/mozilla-inbound/rev/9517fe15e2c2
+(Comment 3 has a green Try run.)",1,2014-04-03T09:37:26Z,8615748.0,0,0.9780147,0.02198534
+937475,2,"Created attachment 830627
+buffer-source-stop-rate-1.html
+These two testcases should play for 1 second, but play for 4 seconds.",0,2013-11-12T05:03:51Z,8069291.0,1,0.99824536,0.99824536
+983489,1,"https://tbpl.mozilla.org/?tree=Try&rev=bfe897476327
+Summary
+PROCESS-CRASH | Shutdown | application crashed [@ mozilla::gl::GLContext::MakeCurrent(bool)]
+Return code: 1
+AttributeError: GzipFile instance has no attribute '__exit__'
+Return code: 1",0,2014-03-14T01:02:43Z,8532403.0,0,0.90994775,0.09005221
+983489,40,https://hg.mozilla.org/mozilla-central/rev/290f4be587a1,0,2014-05-05T12:26:25Z,8749651.0,0,0.9988619,0.0011380825
+897027,9,"Created attachment 815315
+bug-897027-fix.patch
+New version with requested corrections.",1,2013-10-10T11:37:25Z,7945069.0,1,0.9814401,0.9814401
+1029919,14,"Comment on attachment 8447783
+Set the proper extent on the clip_path in cairo
+Review of attachment 8447783:
+-----------------------------------------------------------------
+I'm not sure this is correct. I don't see why the extents that are set need to be extents of the path and can't be the extents of the intersection.",0,2014-07-02T21:14:33Z,9007334.0,0,0.8508543,0.1491457
+983489,12,"Result in local test:
+Looks like Bug 987251
+Crash reason:  SIGSEGV
+Crash address: 0x5a5a5b4a
+Thread 21 (crashed)
+ 0  libxul.so + 0x65a25c
+     r4 = 0x4617bcc0    r5 = 0x00000000    r6 = 0x00000000    r7 = 0x455ffdf0
+     r8 = 0x455ffd50    r9 = 0x455ffd80   r10 = 0x00000000    fp = 0x455ffd88
+     sp = 0x455ffc88    lr = 0x410a225b    pc = 0x410a225c
+    Found by: given as instruction pointer in context
+ 1  libxul.so + 0x65ab23
+     sp = 0x455ffc98    pc = 0x410a2b25
+    Found by: stack scanning
+ 2  libxul.so + 0x65ab7f
+     sp = 0x455ffca8    pc = 0x410a2b81
+    Found by: stack scanning
+ 3  libxul.so + 0x60e3f9
+     sp = 0x455ffcb0    pc = 0x410563fb
+    Found by: stack scanning
+ 4  libxul.so + 0x6693c9
+     sp = 0x455ffcb8    pc = 0x410b13cb
+    Found by: stack scanning
+ 5  libxul.so + 0x6693ef
+     sp = 0x455ffcc0    pc = 0x410b13f1
+    Found by: stack scanning
+ 6  libxul.so + 0x6645bd
+     sp = 0x455ffcc8    pc = 0x410ac5bf
+    Found by: stack scanning
+ 7  libxul.so + 0x6651b1
+     sp = 0x455ffcd8    pc = 0x410ad1b3
+    Found by: stack scanning
+ 8  libxul.so + 0x44cb59
+     sp = 0x455ffce8    pc = 0x40e94b5b
+    Found by: stack scanning
+ 9  libxul.so + 0x44cec7
+     sp = 0x455ffcf8    pc = 0x40e94ec9
+    Found by: stack scanning
+10  libxul.so + 0x42a309
+     sp = 0x455ffd00    pc = 0x40e7230b
+    Found by: stack scanning
+11  libxul.so + 0x42abd1
+     sp = 0x455ffd08    pc = 0x40e72bd3
+    Found by: stack scanning
+12  libxul.so + 0x42ab6f
+     sp = 0x455ffd18    pc = 0x40e72b71
+    Found by: stack scanning
+13  libxul.so + 0x2cae9d
+     sp = 0x455ffd28    pc = 0x40d12e9f
+    Found by: stack scanning
+14  libxul.so + 0x42163f
+     sp = 0x455ffd30    pc = 0x40e69641
+    Found by: stack scanning
+15  libxul.so + 0x4223a1
+     sp = 0x455ffd40    pc = 0x40e6a3a3
+    Found by: stack scanning
+16  libxul.so + 0x422f5f
+     sp = 0x455ffd48    pc = 0x40e6af61
+    Found by: stack scanning
+17  libxul.so + 0x4232ed
+     sp = 0x455ffd78    pc = 0x40e6b2ef
+    Found by: stack scanning
+18  libxul.so + 0x421603
+     sp = 0x455ffdc0    pc = 0x40e69605
+    Found by: stack scanning
+19  libxul.so + 0x421681
+     sp = 0x455ffdc8    pc = 0x40e69683
+    Found by: stack scanning
+20  libxul.so + 0x424091
+     sp = 0x455ffde0    pc = 0x40e6c093
+    Found by: stack scanning
+21  libxul.so + 0x1947ffe
+     sp = 0x455ffde8    pc = 0x42390000
+    Found by: stack scanning",0,2014-03-28T07:58:12Z,8591016.0,1,0.76300603,0.76300603
+939475,2,"Created attachment 833395
+Patch
+I assume sliceTimeBudget also needs to be included.",1,2013-11-17T06:06:54Z,8087903.0,1,0.99609935,0.99609935
+983489,28,"Comment on attachment 8403724
+983489.patch
+Review of attachment 8403724:
+-----------------------------------------------------------------
+Actually I changed my mind on one detail: please call Compositor::Destroy explicitly in RecvStop. Otherwise because of reference counting hazards, we might not call Shutdown by the end of RecvStop and that will make things chaotic at least on Linux.",0,2014-04-16T09:36:06Z,8669503.0,0,0.74110925,0.25889072
+894646,6,"Created attachment 779649
+Second version of review comments
+Sorry, I could have sworn I tried compiling before posting the last interdiff, but apparently not.",1,2013-07-23T07:57:26Z,7664956.0,1,0.9585779,0.9585779
+1029919,8,"I can reproduce the problem in Aurora32.0a2 and Nightly33.0a1 WindowsXP SP3 default visual style(i.e. Luna).
+However, I cannnot reproduce in Beta31.0b4.
+Regression window(m-i)
+Good:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/bb8fc1380b00
+Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0 ID:20140519202628
+Bad:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/46d9ffb97fe3
+Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0 ID:20140519224628
+Pushlog:
+http://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=bb8fc1380b00&tochange=46d9ffb97fe3
+Triggered by:
+46d9ffb97fe3	Bas Schouten — Bug 899785: Switch on OMTC and async video on windows. r=BenWa
+Setting layers.offmainthreadcomposition.enabled = false fixes the problem",1,2014-06-25T12:13:55Z,8975336.0,1,0.8831771,0.8831771
+906912,9,"Also, note that migrating mozilla::Move to C++11 move() is not going to be an automatic process, and cannot be done very easily unless you know the exact semantics of the code involved.",1,2013-08-20T20:55:28Z,7769936.0,1,0.53139997,0.53139997
+978610,8,"Created attachment 8388978
+window-close v3
+It turns out this patch does break b2g, so I added a branch to avoid that.",1,2014-03-11T04:10:22Z,8516699.0,1,0.9984363,0.9984363
+916390,1,"I was looking at the form saving code, and I can't quite figure out this field. In theory, it acts like a cache so that we don't collect form data if it hasn't changed. However, there doesn't seem to be any placed to save the cached form data, as far as I can see. That is, if browser.__SS_formDataSaved is true, we just don't appear to save any form data for the given tab in sessionstore.js.
+The problem is mostly mitigated by the TabStateCache, since we don't typically collect data for a page more than once. However, I wonder how this worked before the TabStateCache was implemented. Perhaps I've misread the code?
+In any case, it would be nice if we could just eliminate this field. Now that we have the TabStateCache, I doubt that it saves us much work. What do you guys think?",1,2013-09-14T02:03:12Z,7861411.0,0,0.54445845,0.45554155
+957093,6,https://hg.mozilla.org/mozilla-central/rev/495387c38734,0,2014-01-08T12:19:13Z,8265349.0,0,0.99924964,0.0007502982
+947523,29,Guess I wasn't right - the OOM is being caused by Skia GL. Still puzzled why the OOM is hitting the parent process rather than the child process.,0,2013-12-18T04:55:48Z,8209305.0,0,0.62808496,0.37191504
+947523,3,"Created attachment 8344085
+BrowserCrash.mp4",0,2013-12-07T01:01:08Z,8168041.0,1,0.78537905,0.78537905
+894931,7,"It's the same bug, I checked with mozilla-inbound builds.",0,2013-07-17T18:20:39Z,7646492.0,0,0.9967615,0.003238505
+894931,27,"Created attachment 778280
+test",0,2013-07-19T04:50:45Z,7654108.0,0,0.77786976,0.22213028
+894931,29,Sure.,0,2013-07-18T04:44:09Z,7648842.0,0,0.9868038,0.013196232
+947523,14,"The regression here is likely on the gecko side, as this involves killing the parent process.
+A suspected patch for causing this regression is bug 927633 because is involving IPC.
+Can we get a regression range on 1.3 as well? That will help isolate with bug caused this.
+Mason - Any ideas if bug 927633 caused this?",0,2013-12-11T03:08:25Z,8181187.0,0,0.9519216,0.048078403
+897027,25,https://hg.mozilla.org/mozilla-central/rev/afd90049af4c,0,2013-11-19T18:30:30Z,8097978.0,0,0.9971179,0.0028821647
+1003694,4,"I am not sure about the above regression range, but I am able to reproduce it after the landing of Bug 990106 patches, which is by the way adding this assertion.",0,2014-04-30T07:37:43Z,8730570.0,0,0.9605853,0.03941472
+989204,8,https://hg.mozilla.org/mozilla-central/rev/44c63bf18e74,0,2014-04-04T18:58:31Z,8622764.0,0,0.9991321,0.0008678768
+947523,58,"I think clamping would be preferable to predictably killing the browser tab.  While parts of the screen may not be visible, at least they can zoom back out to a more reasonable level without losing state.  The user doesn't get any feedback or options to proceed if the tab dies.
+Would it be possible to make the existing scale threshold dynamic based on the iframe size?
+  http://mxr.mozilla.org/mozilla-central/source/gfx/layers/ipc/AsyncPanZoomController.cpp#189
+So for very large iframes, perhaps zoom is capped at 2.0 or even 1.0?",1,2014-01-07T17:51:52Z,8261444.0,1,0.9499079,0.9499079
+916390,11,https://hg.mozilla.org/mozilla-central/rev/86eff36caecf,0,2013-09-18T02:57:59Z,7872890.0,0,0.99815637,0.0018436189
+894646,11,https://hg.mozilla.org/mozilla-central/rev/d9dbb5dbb96a,0,2013-07-24T12:42:19Z,7671024.0,0,0.9981061,0.0018938421
+947523,75,I believe this regression could be caused by part 3 of this patch series (although I'm not 100% sure). If we take out that part then it might make the regression go away at the expense of killing the tab far more frequently. And if this is regression is a result of my patch then it should be limited to subframes and at high zoom levels.,0,2014-01-08T00:56:40Z,8263526.0,1,0.9808096,0.9808096
+983489,33,had to backout this change for test failures like https://tbpl.mozilla.org/php/getParsedLog.php?id=38002451&tree=Mozilla-Inbound,0,2014-04-17T12:06:39Z,8675784.0,0,0.9953733,0.004626735
+991812,15,Yeah I think we should make that refcount threadsafe as well...  Please file a follow-up?,0,2014-04-22T00:31:53Z,8690063.0,0,0.7638404,0.23615965
+947523,21,"I disagree with this. DOSs are definitely security issues if it's outside of the user's control. I'm not sure if this particular bug is outside of the user's control however, as it's dependent whether the root cause can happen in other user scenarios that are triggered by visiting a malicious website/app aiming to reboot the phone.
+I'm doubtful this is related to Skia GL. This is OOMing the parent process, which shouldn't technically ever be possible on the phone with anything driven by untrusted web content. This is likely a process management regression, which is why this why filed in IPC.",0,2013-12-17T15:30:17Z,8205647.0,0,0.91433173,0.08566822
+894931,34,https://hg.mozilla.org/mozilla-central/rev/be10b6e8dfad,0,2013-07-20T01:05:21Z,7658016.0,0,0.99959546,0.00040458643
+991812,21,I filed bug 999864,0,2014-04-23T01:43:05Z,8696367.0,0,0.9993105,0.00068952807
+948882,4,"Yes, the inline style should be moved to an external file. I haven't checked dirListing.css, but it looks like we should create a new file for this (crashes.css or so).
+Please also move the inline JavaScript in line 77 (onclick=...) to crashes.js.",1,2014-01-06T09:06:00Z,8254777.0,1,0.8659304,0.8659304
+904571,14,https://hg.mozilla.org/mozilla-central/rev/615c92a67089,0,2014-03-06T02:11:47Z,8497929.0,0,0.9987016,0.0012983858
+947523,88,"https://hg.mozilla.org/releases/mozilla-b2g26_v1_2/rev/8e7017c626fd
+https://hg.mozilla.org/releases/mozilla-b2g26_v1_2/rev/24b1e5cdad90
+https://hg.mozilla.org/releases/mozilla-b2g26_v1_2/rev/bb652f96ab95
+https://hg.mozilla.org/releases/mozilla-b2g26_v1_2/rev/ec909be2a849
+Kats told me that 1.3+ will be addressed by bug 957668, so resolving.",0,2014-01-08T21:22:17Z,8267936.0,0,0.86153096,0.138469
+983489,41,backedout since this might have caused the m8 and m10 test failures like https://tbpl.mozilla.org/php/getParsedLog.php?id=39049220&tree=Mozilla-Inbound,0,2014-05-05T14:20:50Z,8750113.0,0,0.9842598,0.015740229
+894646,1,"Created attachment 776725
+Patch",0,2013-07-16T22:07:31Z,7642545.0,0,0.99944216,0.0005578727
+904571,5,"Created attachment 8365135
+v1
+My recent re-experience with this code tells me there is nothing more to do.",1,2014-01-24T17:06:15Z,8331003.0,1,0.9731501,0.9731501
+1024256,4,inbound: https://hg.mozilla.org/integration/mozilla-inbound/rev/1f78f3fe8475,0,2014-06-16T05:48:43Z,8932922.0,0,0.6419278,0.35807228
+897027,5,"Created attachment 813138
+bug-897027-fix.patch
+Apologies for the delay to get back to this. Please find a proposed fix attached, which should fix the bug.
+The Math methods reported by André are the only ones having this problem (performed a check over the rest)
+Any further comment or feedback would be appreciated.",1,2013-10-02T15:16:43Z,7926503.0,1,0.8514915,0.8514915
+947523,62,"Created attachment 8356790
+2/4 - Change the displayport storage units
+We still need this patch in order to not blow up in the ""transient"" state, where the parent has increased its resolution but the child has not yet requested a new displayport. If we paint in this state then we will apply the old (small) displayport with the new (high) resolution which could OOM. So this patch prevents that.",1,2014-01-07T21:48:14Z,8262735.0,1,0.9978981,0.9978981
+983489,52,"It's really unclear what in your patch could cause a regression in telephony. Looking at the last try push, the first thing i'd look at would probably be this:
+[Parent 671] ###!!! ASSERTION: Using observer service after XPCOM shutdown!: 'Error', file ../../../gecko/xpcom/ds/nsObserverService.cpp, line 260
+Maybe see who is using this observer service and if there could be a link with delaying the destruction of the compositor...",1,2014-05-14T12:24:45Z,8791425.0,0,0.5632266,0.43677342
+947523,53,"Comment on attachment 8356186
+Change how the displayport is stored
+Talked to kats on irc about this. If we don't change AZPC code too then it will just end up setting the same display port after zooming again, so it won't fix the main problem. We need to at least pair this with an AZPC change. So clearing feedback flag for now.",1,2014-01-06T22:39:17Z,8257705.0,0,0.90087503,0.09912496
+948882,1,"With the current plan to harden the security of Firefox, we want to disallow internal privileged pages to use inline JavaScript. Since their amount is fairly limited, we start this by rewriting them bit by bit.",0,2013-12-11T12:07:39Z,8182408.0,0,0.8397116,0.16028841
+919434,3,"Created attachment 810737
+cycle creation stack
+Caught that cycle being created. This presumably has something to do with how we process all descendants of a fixed position layer specially, and a bad interaction of that with sticky position layers.",0,2013-09-26T19:56:29Z,7907383.0,1,0.9948618,0.9948618
+978610,14,"https://hg.mozilla.org/integration/mozilla-inbound/rev/18e9c7c020bd
+You mean fixing the assertion mentioned in bug 924260? That seems separate I think.",0,2014-03-18T15:01:50Z,8547261.0,0,0.8173126,0.1826874
+957093,2,https://tbpl.mozilla.org/?tree=Try&rev=1b53cc2d9792,0,2014-01-07T12:19:44Z,8259783.0,0,0.9845195,0.015480542
+906912,5,Do you really think it's better to start using C++11's move() before we've gotten rid of mfbt/Move.h?  I'm not sure that switching to a new interface before we've deprecated the old one is a good idea; that just makes it confusing for consumers (which move() do I use?).,1,2013-08-19T23:11:50Z,7765225.0,1,0.56715935,0.56715935
+897027,1,"Test case:
+---
+Math.pow({valueOf: () => print(""hello"")})
+Math.atan2({valueOf: () => print(""hello"")})
+---
+Expected:
+Both calls invoke the valueOf() function
+Actual:
+The valueOf() function is not invoked
+Somewhat related to bug 896264, also see bug 896264 comment 4 for an explanation why ToNumber needs to be executed.",0,2013-07-23T14:02:15Z,7666061.0,0,0.7344359,0.26556408
+894646,3,"nsIFocusManager is defined in idl.
+This just returns a string.
+Nope.  TabParents are created for specific iframes, which are then set as the owner element.  mFrameElement is never changed after that.
+nsIDialogCreator.idl
+Thanks, good catch.",0,2013-07-19T01:11:36Z,7653618.0,0,0.6677488,0.33225116
+904571,11,"Created attachment 8373536
+notifier flag
+xpcshells locally passing.
+https://tbpl.mozilla.org/?tree=Try&rev=4487989ea3ae",1,2014-02-10T19:53:02Z,8399393.0,1,0.81682295,0.81682295
+983489,16,1.4+ this blocks a blocker,0,2014-04-01T19:28:32Z,8606609.0,1,0.8996488,0.8996488
+947523,43,"So part of the problem here is that the composition bounds on the child APZC is getting scaled up as we zoom. This doesn't happen for the parent because the parent's composition bounds is clamped to the screen bounds [1]. (We have plans to remove that behaviour but it doesn't affect this bug on 1.2).
+The next contributing factor is that the displayport calculation at [2] doesn't account for this increase in composition bounds. For the parent APZC the composition bounds don't change, so the division by the zoom at line [2] has the desired effect of shrinking the displayport as the zoom increases. For the child APZC the division merely cancels out the increase in composition bounds, and so we end up with a constant-sized displayport (in CSS pixels) regardless of zoom.
+So the straightforward fix here would be to just divide again by the zoom. However, we can't do that because in general the child APZC doesn't request content repaints (and hence doesn't recalculate its displayport) while the parent is getting zoomed. So if the child last set a displayport of 500x1000 CSS pixels, and then the parent zooms to 5x what it was before, we would want the child to shrink its displayport down to 100x200 CSS pixels but it never gets a chance. The parent sets the resolution without the child knowing about it, and at that point layout tries to render the child's 500x1000 displayport at a 5x resolution which causes the OOM.
+For a fix to work we would either need the parent APZC to notify all other APZCs in its subtree that it's about to change the zoom (and then have the children recalculate their displayport) or, in TabChild::UpdateRootFrame, find all the displayports inside a presShell and shrink them by the right factor. I'll try to see if either of these approaches are viable.
+[1] http://git.mozilla.org/?p=releases/gecko.git;a=blob;f=layout/base/nsDisplayList.cpp;h=7e11b99bedc4b3e80b216e4ba05a8c73f40d6a2b;hb=cd74e4ad7d9dd3d699b13f7262ee898e4cf3f628#l748
+[2] http://git.mozilla.org/?p=releases/gecko.git;a=blob;f=gfx/layers/ipc/AsyncPanZoomController.cpp;h=a6878295d0c476f71855003f73b403930e339e7f;hb=cd74e4ad7d9dd3d699b13f7262ee898e4cf3f628#l911",0,2013-12-20T18:20:42Z,8221469.0,0,0.76925534,0.23074466
+1025075,3,remote:   https://hg.mozilla.org/integration/mozilla-inbound/rev/6dbb24c9937e,0,2014-06-13T18:37:51Z,8928877.0,0,0.9305232,0.06947676
+894931,22,(And dare I ask why you don't need to back out the *other* patch?),0,2013-07-18T04:41:30Z,7648841.0,0,0.8292129,0.17078714
+948882,20,"Created attachment 8410903
+bug_final.patch
+Done !",0,2014-04-23T09:53:44Z,8697803.0,1,0.9746644,0.9746644
+947523,66,"Comment on attachment 8356789
+1/4 - Add a GetCumulativeResolution function
+IID bump on presshell please.",0,2014-01-07T22:01:44Z,8262813.0,0,0.99924386,0.0007561579
+966240,1,"meta[http-equiv=""MSThemeCompatible""] is non-standard and produces bugs.",0,2014-01-31T13:37:46Z,8356955.0,0,0.70234805,0.29765192
+978610,11,"Comment on attachment 8391381
+window-close v5
+Never mind. This one doesn't work either.",0,2014-03-14T18:30:30Z,8535778.0,0,0.9971342,0.0028658162
+947523,6,"Created attachment 8344804
+947523_dmesg
+During the few hours of reproing this issue I was only able to get the OS crash three times and there was no dump in the Crash Reports folder on the phone. I talked to Kevin and he said that it could be an OOM issue so I snagged a dmesg. Hopefully that should help you guys out. I was able to get the OS crash on today's 1.2 and 1.3, but the attached dmesg is from the build below.
+Environmental Variables:
+Device: Buri 1.3 mozRIL
+BuildID: 20131209053402
+Gaia: 1d45d1dc3201059d5c8f2efdeb92c04576d8e161
+Gecko: 9f12a9fab080
+Version: 28.0a1
+Firmware Version: 20131115",0,2013-12-09T19:31:09Z,8173694.0,0,0.9945627,0.0054372814
+983489,50,"Nical,
+Need your help to give me some advice. Although the patch fix the crash after reftest test, but it seems to introduce another crash after mochitest. I have no idea why the patch will make telephony crash. Last week, I can repro the telephony crash on try but cannot on local test. This week, I cannot repro the telephony crash both on try and local. Please help.",0,2014-05-14T02:11:15Z,8789841.0,1,0.68152755,0.68152755
+897027,22,"Comment on attachment 8334005
+New fix with requested changes
+Review of attachment 8334005:
+-----------------------------------------------------------------
+This looks great, thank you!
+Can you do a final try run (just one platform, with only the reftests is ok)? If that turns out green, set checkin-needed on the bug.",0,2013-11-19T09:14:13Z,8095719.0,0,0.99894625,0.0010537454
+906912,6,"Actually...if C++11 move constructors handle superclasses properly, that would be a strong reason to use them here.
+Right now if I have
+ class Foo : LinkedListElement<Foo>
+then I can't do
+  Foo::Foo(MoveRef<Foo> other) : LinkedListElement(other)
+because MoveRef<Foo> doesn't cast to MoveRef<LinkedListElement<Foo> >.  I haven't figured out a clean way of working around this.
+Given that essentially the only time you're going to be calling the LinkedListElement move constructor is from a subclass's move constructor, if C++11 move constructors work better here, we should probably use them.",1,2013-08-20T15:43:44Z,7768206.0,1,0.98515713,0.98515713
+897027,21,"Created attachment 8334005
+New fix with requested changes
+Thanks for the comments and the last-minute help on IRC, much appreciated!
+Here's the latest version containing the requested changes.",1,2013-11-18T19:28:16Z,8092249.0,1,0.9985033,0.9985033
+937475,3,"Created attachment 830628
+buffer-source-stop-rate-2.html",0,2013-11-12T05:04:14Z,8069294.0,1,0.7912502,0.7912502
+1033887,5,"We build with _HAS_EXCEPTIONS=0, so this test really has no point in the first place.  :-)
+We get it from here: http://mxr.mozilla.org/mozilla-central/source/configure.in#610.
+But I'm not sure what you mean really.  We wrap STL includes on Windows with MSVC, and clang-cl should be no different (and rightly so.)  The issue here is that clang-cl still doesn't know how to compile code which tries to catch exceptions, which is fine, since this code won't throw exceptions because we build with _HAS_EXCEPTIONS=0.  :-)",0,2014-07-03T13:42:49Z,9010726.0,0,0.80735856,0.19264144
+894931,3,"Some further testing: Build from this revision http://hg.mozilla.org/mozilla-central/rev/5f79304fcefe is still fine, this one http://hg.mozilla.org/mozilla-central/rev/fd10ead17ace is broken
+=> http://hg.mozilla.org/mozilla-central/rev/fd10ead17ace is to ""blame"", it's a birch to mozilla-central merge.",0,2013-07-17T15:53:00Z,7645692.0,0,0.9857583,0.014241679
+983489,15,"This bug is fixed, but it crashed at another point randomly (same as Bug 987251).
+https://tbpl.mozilla.org/?tree=Try&rev=03e110fde6b3",0,2014-03-31T22:20:15Z,8602010.0,0,0.95835984,0.041640207
+1029919,11,"So after a long investigation, I've found some interesting information. This appears to be a bug in cairo clipping, it appears that the clip at nsCSSRendering.cpp:1526 fails to be applied properly if there's already a clip present for the small rectangle surrounding the button (which would be disjoint with this clip) (i.e. if I remove that clip the button always gets a green background, if I leave it in it only has a green background when doing a partial invalidation of the button). I know we've had clipping bugs with Cairo in the past, Jeff, does this sort of issue ring a bell for you?",0,2014-06-26T07:06:11Z,8980089.0,1,0.56628144,0.56628144
+906912,8,"Created attachment 792880
+Patch, v2 (now with C++11 move)",0,2013-08-20T16:07:21Z,7768327.0,0,0.8494578,0.15054223
+985257,6,The code you've put in nsSVGUtils would be better located in SVGContentUtils. Could you move it there please?,0,2014-03-19T15:17:33Z,8552685.0,1,0.85619605,0.85619605
+894931,9,*** Bug 895099 has been marked as a duplicate of this bug. ***,0,2013-07-17T20:55:25Z,7647382.0,0,0.99697256,0.0030273702
+919434,11,"Reproduced in Nightly 2013-09-25.
+Verified fixed 28.0a1 (2013-12-05), Win 7 x64",0,2013-12-05T15:23:10Z,8159708.0,0,0.99744946,0.0025505035
+894931,33,"Test pushed to inbound:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/be10b6e8dfad",0,2013-07-19T15:22:59Z,7655627.0,1,0.55155146,0.55155146
+991812,20,I really fear that might be giving people too much rope...,0,2014-04-23T01:22:09Z,8696281.0,0,0.98881173,0.011188319
+1029919,7,"Created attachment 8445799
+screenshot from real-world
+Screenshot from real website:
+Translucent Button should not get red background after hovering.",0,2014-06-25T10:57:29Z,8975166.0,1,0.9530591,0.9530591
+1003694,8,"Created attachment 8415837
+[crash-signature] Machine-readable crash signature",0,2014-05-01T12:02:26Z,8736931.0,0,0.86255324,0.1374467
+957093,3,"Created attachment 8356535
+namespace consistency for netwerk/protocol/http",0,2014-01-07T12:22:06Z,8259792.0,0,0.8807854,0.11921465
+904571,12,https://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?changeset=2275f8be60c9,0,2014-03-05T14:05:34Z,8494320.0,0,0.99328583,0.0067141433
+1023280,1,"In the new world ToJSValue should be used, and not dictionary.ToObject.
+(Currently ToJSValue just calls ToObject).
+We should rename ToObject to something which hints that it shouldn't be used.
+ToObjectInternal for example.",0,2014-06-10T14:23:24Z,8909827.0,1,0.8242666,0.8242666
+983489,54,https://hg.mozilla.org/mozilla-central/rev/3939dc732041,0,2014-05-15T23:04:25Z,8799931.0,0,0.999161,0.00083897694
+983489,20,"Created attachment 8403118
+983489.patch
+Root cause:
+http://dxr.mozilla.org/mozilla-central/source/widget/xpwidgets/nsBaseWidget.cpp#177
+mCompositorChild->SendWillStop(); will trigger CompositorParent RecvWillStop()
+mCompositorChild->Destroy(); will trigger TextureParent to clean texture
+In RecvWillStop() there are two point which will trigger CompositorOGL to destroy mGLContext and make TextureParent has no valid GLContext.
+Solution:
+Delay the time to destroy mGLContext, as mGLContext will be destroyed at destructor of CompositorOGL, so remove mCompositor = null in LayerManagerComposite.cpp and CompositorParent.cpp.",1,2014-04-08T07:45:53Z,8632297.0,1,0.9969618,0.9969618
+947523,72,"Comment on attachment 8356793
+4/4 - Crash the tab if the texture size is going to exceed the max GL texture size
+Review of attachment 8356793:
+-----------------------------------------------------------------
+::: dom/ipc/TabChild.cpp
+@@ +1686,5 @@
+Would it be possible to log something indicating why the crash occurred?  I could see this saving us some investigation time on future bug reports.",0,2014-01-07T23:54:16Z,8263290.0,0,0.8985295,0.10147043
+947523,47,"Created attachment 8356186
+Change how the displayport is stored
+While attempting to build the 1.2 branch with the attached patch applied, I encountered the following compiler errors:
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp: In function 'void DestroyGfxRect(void*, nsIAtom*, void*, void*)':
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: reference to 'gfx' is ambiguous
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/ipc/chromium/src/chrome/common/transport_dib.h:20: error: candidates are: namespace gfx { }
+../../dist/include/mozilla/gfx/Types.h:15: error:                 namespace mozilla::gfx { }
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: 'rect' was not declared in this scope
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: reference to 'gfx' is ambiguous
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/ipc/chromium/src/chrome/common/transport_dib.h:20: error: candidates are: namespace gfx { }
+../../dist/include/mozilla/gfx/Types.h:15: error:                 namespace mozilla::gfx { }
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: expected type-specifier before 'gfx'
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: expected '>' before 'gfx'
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: expected '(' before 'gfx'
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: expected primary-expression before '>' token
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:308: error: expected ')' before ';' token
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:309: error: type '<type error>' argument given to 'delete', expected pointer
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp: In member function 'virtual nsresult nsDOMWindowUtils::SetDisplayPortForElement(float, float, float, float, nsIDOMElement*)':
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:391: error: reference to 'gfx' is ambiguous
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/ipc/chromium/src/chrome/common/transport_dib.h:20: error: candidates are: namespace gfx { }
+../../dist/include/mozilla/gfx/Types.h:15: error:                 namespace mozilla::gfx { }
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:391: error: expected type-specifier before 'gfx'
+/home/botond/dev/mozilla/b2g-hamachi-1.2/gecko/dom/base/nsDOMWindowUtils.cpp:391: error: expected ')' before 'gfx'
+Attached is an updated patch that fixes these errors.",1,2014-01-06T18:50:27Z,8256621.0,0,0.54433197,0.45566803
+947523,52,"On this page, I see the crash as well with the patch (I saw a phone crash, not a browser crash), though it seemed it required zooming in further to get the crash with the patch than without.",0,2014-01-06T21:05:50Z,8257275.0,1,0.82584596,0.82584596
+985257,2,"spec: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-path-withdata
+Also implemented in Blink and WebKit",0,2014-03-19T02:07:33Z,8550537.0,0,0.99972755,0.00027244198
+1029919,5,Could you attach screenshot(actual and expected) of the problem?,0,2014-06-25T08:29:55Z,8974730.0,0,0.95016396,0.049836084
+947523,85,"Created attachment 8357247
+4/4 - Crash the tab if the texture size is going to exceed the max GL texture size v2",0,2014-01-08T18:03:28Z,8266805.0,0,0.9577191,0.042280875
+1033283,8,https://hg.mozilla.org/mozilla-central/rev/62eec1dede89,0,2014-07-06T16:17:02Z,9019063.0,0,0.99963284,0.00036714933
+1029919,6,"Created attachment 8445772
+screenshot after :hover over buttons
+Button's background gets green (and stays green) onmouseover.
+The second button is opaque, so you see a green border only.
+This is on XP and of course it differs depending on OS specific button styling.
+Expected: Display native buttons (no green background-color or border) after hovering over it.",0,2014-06-25T09:52:26Z,8974992.0,1,0.96716833,0.96716833
+985257,9,"Created attachment 8393794
+Bug 985257 - add implementation + test for Path2D constructor that takes an SVG path string",0,2014-03-19T21:56:09Z,8554973.0,0,0.94993746,0.050062507
+991812,10,"Comment on attachment 8405691
+B2G
+Review of attachment 8405691:
+-----------------------------------------------------------------
+::: dom/system/gonk/VolumeManager.h
+@@ +82,2 @@
+nsRefPtr please.",0,2014-04-13T12:21:17Z,8655297.0,0,0.99969137,0.0003087046
+948882,8,"Never mind, he found a bug.",0,2014-02-10T21:32:16Z,8399965.0,0,0.864268,0.13573201
+947523,44,"Throwing this over to :kats as he is working on a patch to propagate the zoom info to child APZCs as described in comment 42.
+Please let me know if you would like me to test anything.  Thanks!",0,2013-12-20T20:11:12Z,8221857.0,0,0.98908895,0.010910974
+947523,5,"Uh oh. That's an OS restart crash, which is really bad.
+Can we get a crash report ID for this bug?",0,2013-12-07T01:23:38Z,8168122.0,0,0.9996853,0.00031468028
+894646,5,"Comment on attachment 778194
+Addressing review comments
+Review of attachment 778194:
+-----------------------------------------------------------------
+::: content/base/src/nsDocument.cpp
+@@ +6631,5 @@
+Does this compile?
+::: dom/system/nsDeviceSensors.cpp
+@@ +217,5 @@
+Does this compile? pwindow is not an EventTarget...
+@@ +223,5 @@
+You also need to revert these three.",0,2013-07-22T08:08:20Z,7660033.0,0,0.9955511,0.004448861
+947523,54,"On the buri you can monitor the texture memory usage by looking at the Mlocked field in /proc/meminfo:
+  while true; do sleep 1; adb shell cat /proc/meminfo | grep Mlocked; done
+This shows how much memory the device has mlocked as ashmem.",0,2014-01-07T15:38:14Z,8260731.0,0,0.8871987,0.11280132
+1003694,12,JSBugMon: This bug has been automatically verified fixed.,0,2014-05-01T16:28:35Z,8737871.0,0,0.99775153,0.0022484323
+947523,33,bug 934886 is trying to fix graphic artifact when taking screenshot. I didn't see the related function called (GetThebesSurfaceForDrawTarget) when I zoom in/out the browser pages.,0,2013-12-18T06:05:10Z,8209441.0,1,0.90347534,0.90347534
+985257,14,"Created attachment 8395087
+add implementation + test for Path2D constructor that takes an SVG path string",0,2014-03-21T22:44:13Z,8565445.0,1,0.75730574,0.75730574
+948882,6,"I was hoping that the person in comment 2 will continue their work. 
+lp, please take another bug :)",0,2014-01-28T08:13:50Z,8340985.0,0,0.99275017,0.0072498247
+897027,7,"Created attachment 815216
+bug-897027-fix.patch
+This new patch includes the requested test cases.",1,2013-10-10T03:03:49Z,7944186.0,1,0.9798467,0.9798467
+897027,4,Great!  We probably should audit all the Math methods while we're at it -- might be more than just these two that need fixing.,0,2013-07-25T20:19:01Z,7677653.0,1,0.6078676,0.6078676
+1003694,3,"JSBugMon: Bisection requested, result:
+=== Tinderbox Build Bisection Results by autoBisect ===
+The ""good"" changeset has the timestamp ""20140429192012"" and the hash ""c0d658d3f739"".
+The ""bad"" changeset has the timestamp ""20140429210107"" and the hash ""429d4d1f49e1"".
+Likely regression window: https://hg.mozilla.org/integration/mozilla-inbound/pushloghtml?fromchange=c0d658d3f739&tochange=429d4d1f49e1",0,2014-04-30T06:45:31Z,8730405.0,0,0.9638389,0.036161095
+888630,1,"User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.22 (KHTML, like Gecko) Ubuntu Chromium/25.0.1364.160 Chrome/25.0.1364.160 Safari/537.22
+Steps to reproduce:
+The Byte Order Marker (a.k.a ZERO WIDTH NO-BREAK SPACE) at U+FEFF is listed as a white-space character in ECMAScript 5 (chapter 7.2). String.prototype.trim() will remove it from both ends, as expected, but \s in regular expressions doesn't match it:
+a) ""x\uFEFF"".trim()
+b) /\s/.test(""\uFEFF"")
+Actual results:
+a) ""x""
+b) false
+Expected results:
+\s should match the BOM.
+On the other hand, if there is a specific reason why the BOM should not be considered as white space, trim() should follow suit and leave it intact (same goes for trimLeft() and trimRight()).
+Current versions of Opera and Chromium behave as expected (can't test IE, sorry).",1,2013-06-29T15:10:09Z,7588239.0,0,0.7990896,0.20091033
+1023280,6,https://hg.mozilla.org/mozilla-central/rev/1972ca2531d9,0,2014-06-12T01:50:18Z,8919546.0,0,0.99921024,0.00078971736
+1033887,11,I think we should just avoid building this test entirely for clang-cl.,0,2014-07-03T14:50:39Z,9011074.0,0,0.93014205,0.069857955
+894646,9,"I changed to EventTarget, but you need the .get().
+No, I changed to QI.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d9dbb5dbb96a",0,2013-07-23T23:41:23Z,7669005.0,0,0.5501379,0.4498621
+912496,3,"Comment on attachment 799488
+Store source file names only once in tracelogging.log and refer to them by auto-incrementing id after that.
+Review of attachment 799488:
+-----------------------------------------------------------------
+Looks good.
+Can I make an additional cosmetic request. Could you change 
+void TraceLogging::log(Type type, const char* file, unsigned int lineno); to
+void TraceLogging::log(Type type, const char* text = NULL, unsigned int number = 0)
+And change sourceMap to textMap, sourceId to textId. And also the entry names.
+::: js/src/TraceLogging.cpp
+@@ +90,5 @@
+Since we don't care about order. Please use unordered map like hashmap. That's faster. I'm not sure what we use in firefox for this.
+@@ +91,5 @@
+nextSourceId(1), and use 0 when there is no text
+@@ +150,5 @@
+Could this be fallible? Please add checks for OOM situations.
+::: js/src/TraceLogging.h
+@@ +47,5 @@
+Remove this boolean and use sourceId_ == 0 to know if there is information
+@@ +52,1 @@
+This can get removed too? We can get the name back by doing sourceMap[sourceId_]",0,2013-09-04T15:12:48Z,7821853.0,0,0.75109845,0.24890155
+947523,46,"Created attachment 8355612
+Change how the displayport is stored
+Since I don't have a working 1.2 build could you guys apply this patch and see if it fixes the problem without introducing any new regressions? Possible regressions would include the painted content (the displayport) not being positioned correctly, specially when zoomed in or out.
+I did some light testing of this patch on master and I couldn't repro the OOM although there does still appear to be a fair amount of memory pressure and I think the HWC is dropping layers or something.",1,2014-01-03T19:19:46Z,8251897.0,1,0.9997503,0.9997503
+894931,26,"BTW, please tell me we have tests for this now? Kinda scary when something can break site layouts as bad as this did without our automated tests catching it...",0,2013-07-19T02:02:22Z,7653775.0,0,0.96604383,0.03395616
+904571,7,"Jason, ping on review here.",0,2014-02-05T18:32:56Z,8377636.0,0,0.970335,0.029665045
+983489,34,Looks like you need to check that mCompositor != nullptr before calling Destroy().,0,2014-04-17T12:16:42Z,8675823.0,0,0.930111,0.069888994
+916390,7,"Created attachment 805340
+Remove __SS_formDataSaved
+I added a test for the ancient bug anyway.",0,2013-09-16T15:11:33Z,7865164.0,1,0.9806442,0.9806442
+983489,22,"Comment on attachment 8403724
+983489.patch
+Review of attachment 8403724:
+-----------------------------------------------------------------
+Please refer: https://bugzilla.mozilla.org/show_bug.cgi?id=922680#c97 and https://bugzilla.mozilla.org/show_bug.cgi?id=983489#c19
+GLContext release too early, and we have many chance to release it. So, mark two line which will release GLContext.",0,2014-04-09T06:27:21Z,8637931.0,0,0.95101213,0.04898786
+1033887,3,Isn't the try/catch the whole point of this test?,0,2014-07-03T01:53:39Z,9008740.0,0,0.9685582,0.031441838
+897027,3,"Sure, feel free to assign me. Will try doing some work over this weekend.",0,2013-07-25T19:47:22Z,7677521.0,0,0.9669274,0.033072524
+991812,6,"Created attachment 8405007
+A few more
+Remove a few more.",1,2014-04-10T21:56:39Z,8647927.0,1,0.9828614,0.9828614
+904571,8,"Comment on attachment 8365135
+v1
+Review of attachment 8365135:
+-----------------------------------------------------------------
+I can see that this patch probably removes the crash, but it still seems we have an underlying bug that we're not dealing with yet?
+The issue here is that mActiveChannel is somehow not a nsIParentRedirectingChannel (in other words, it's not an HttpChannelParent--nothing else implements it AFAICT).  HttpChannelParentListener is *always* created with an initial mActiveListener == HttpChannelParent, and the only way that can change is in OnRedirectResult, if we're redirected to FTP (that's the only case so far, right).
+That can happen, of course--but then how exactly does an HttpChannelParentListener with a FTPChannelParent mActiveListener ever run across AsyncOnChannelRedirect and/or OnRedirectResult again?  FTP doesn't do redirects.  
+So it seems to me that we're getting an ""extra"" call to OnRedirectResult here.  The mostly likely cause could be that we accidentally have 2 AutoRedirectVetoNotifier's on the stack somehow?  The nsHttpChannel code here is not easy to follow--seems like we could maybe try to do something stupid like add a nsHttpChannel.mHasHadVetoNotifier member variable, set it when we use an AutoRedirectVetoNotifier, and ASSERT that it's false?  Then maybe we can catch the stack trace if we somehow call OnRedirectResult twice.
+Maybe I'm totally wrong here--but I can't think of how else OnRedirectResult is getting called when mActiveChannel isn't an HTTP channel.
+If we somehow can't figure this out, or there's a valid reason why mActiveChannel could be something else here, I'm ok with this patch.
+And it looks like bug 904559 is the same thing, except we're seeing AsyncOnChannelRedirect() get called, which seems even stranger--how can it get called again after we've switched mActiveChannel to an FTP channel?
+BTW there are two asserts that you'd need to remove for this patch--one in AsyncOnChannelRedirect and one in OnRedirectResult.",0,2014-02-08T01:30:36Z,8392031.0,0,0.97115254,0.028847445
+947523,76,"I think it would be better to OOM the tab more often and not risk the painting regression seen in the video mainly because I'm concerned about the fallout risk that this has other sites. The blocking factor on the bug is to ensure that we don't OOM the phone. If we end up OOMing the tab a lot, but not the phone, then that's still okay.",1,2014-01-08T04:12:13Z,8264098.0,1,0.8931508,0.8931508
+894931,8,"I believe Huffington Post is also affected by this bug. The ""Most Popular"" column is rendered on top of the logo, navigaton bar and the top story, making it impossible to click on some sections on the site.",0,2013-07-17T20:54:09Z,7647375.0,1,0.72748864,0.72748864
+983489,8,Vincent Chen([:vichen]) is looking this problem now.,0,2014-03-26T06:07:59Z,8579648.0,0,0.8891229,0.11087705
+916390,4,"Ok it's a little more complex than that STR above:
+1) have a tab with inputs and modify them
+2) form data is saved and formDataSaved=true
+3) append an ""#"" to the tab's URI
+4) change sessionstorage data
+5) collect data for the tab
+The tab should still have the same form data but the number of session history entries changed and that makes us re-collect session history entries (and form data). Due to formDataSaved still being true we skip form data collection though.",0,2013-09-16T14:57:49Z,7865098.0,1,0.6931492,0.6931492
+1003694,1,"Created attachment 8415027
+stack
+(function() {
+    function f(i) {
+        var d = 3 + Math.abs()
+        i ? 0 : f()
+    }
+    return f
+}())()
+asserts js debug shell on m-c changeset e19812f56952 with --ion-parallel-compile=off --ion-eager --ion-inlining=off at Assertion failure: snapshot_.numAllocationsRead() == numAllocations(), at jit/JitFrameIterator.h
+My configure flags are:
+CC=""clang -Qunused-arguments"" CXX=""clang++ -Qunused-arguments"" AR=ar sh /Users/skywalker/trees/mozilla-central/js/src/configure --target=x86_64-apple-darwin12.5.0 --enable-optimize --enable-debug --enable-profiling --enable-gczeal --enable-debug-symbols --disable-tests --with-ccache --enable-threadsafe <other NSPR options>",0,2014-04-30T06:32:55Z,8730385.0,0,0.86915636,0.13084364
+978610,1,"Created attachment 8384313
+window-close
+I mostly just copies what we do in non-e10s code. See the DOMWindowClose event.",1,2014-03-02T22:00:12Z,8481173.0,1,0.99965715,0.99965715
+947523,10,"Nope - this is an OOM of the parent process, not a crash.",0,2013-12-10T21:53:22Z,8179893.0,0,0.97978437,0.020215604
+983489,17,"There are a number of bugs that came in with requests to support better debugging on the emulator. This came in unexpected, and I need to escalate this if it is to be done in 1.4 timeframe, as it will completely mess up the 2.0 plans.  Stay tuned.",0,2014-04-02T09:48:23Z,8609594.0,1,0.6932797,0.6932797
+919434,12,"Landed the crashtest:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/a1c8f8c10088",0,2014-07-18T10:53:18Z,9071794.0,1,0.72107464,0.72107464
+939475,3,"The parameters listed still don't seem to match the list:
+  http://mxr.mozilla.org/mozilla-central/source/js/src/builtin/TestingFunctions.cpp#259
+Instead of duplicating this list in several places (which are sure to go stale before long), can you have a
+#define GC_PARAMETER_ARGS_LIST ""maxBytes, maxMallocBytes, ...""
+right above/below the paramMap and used twice below?",0,2013-11-18T16:53:09Z,8091356.0,1,0.9543141,0.9543141
+985257,12,https://hg.mozilla.org/integration/mozilla-inbound/rev/e9c807b1e3d4,0,2014-03-21T13:20:57Z,8562680.0,0,0.8831108,0.11688918
+1033887,9,"That was added by me a very long time ago before clang-cl IIRC, back when I was trying to get the gcc style driver to work on Windows.  That variable is not set in clang-cl, and I should actually remove this old cruft.",0,2014-07-03T14:21:46Z,9010931.0,1,0.8529382,0.8529382
+983489,11,"Crash in buffer release is fixed, but another crash happen.
+https://tbpl.mozilla.org/?tree=Try&rev=5e7a58e17e3a
+23:26:09  WARNING -  PROCESS-CRASH | Shutdown | application crashed [Unknown top frame]
+23:26:09     INFO -  Crash dump filename: /tmp/tmp5lZPug/2bae3694-f663-1620-7d030544-067ad376.dmp
+23:26:09     INFO -  stderr from minidump_stackwalk:
+23:26:09     INFO -  2014-03-27 23:26:09: minidump_processor.cc:264: INFO: Processing minidump in file /tmp/tmp5lZPug/2bae3694-f663-1620-7d030544-067ad376.dmp
+23:26:09     INFO -  2014-03-27 23:26:09: minidump.cc:3815: INFO: Minidump opened minidump /tmp/tmp5lZPug/2bae3694-f663-1620-7d030544-067ad376.dmp
+23:26:09     INFO -  2014-03-27 23:26:09: minidump.cc:3847: ERROR: Minidump header signature mismatch: (0x0, 0x0) != 0x504d444d
+23:26:09     INFO -  2014-03-27 23:26:09: minidump_processor.cc:268: ERROR: Minidump /tmp/tmp5lZPug/2bae3694-f663-1620-7d030544-067ad376.dmp could not be read
+23:26:09     INFO -  2014-03-27 23:26:09: minidump.cc:3787: INFO: Minidump closing minidump
+23:26:09     INFO -  2014-03-27 23:26:09: minidump_stackwalk.cc:529: ERROR: MinidumpProcessor::Process failed
+23:26:09     INFO -  minidump_stackwalk exited with return code 1
+23:26:09     INFO -  WARNING | leakcheck | refcount logging is off, so leaks can't be detected!
+23:26:09     INFO -  REFTEST INFO | runreftest.py | Running tests: end.
+23:26:14    ERROR - Return code: 1",0,2014-03-28T06:55:16Z,8590913.0,0,0.7087791,0.29122096
+947523,77,"I was able to reproduce the painting problem - my hypothesis in comment 74 was wrong. It's caused by part 2; as we zoom in the outer page the displayport (in CSS pixels) of the inner frame will shrink (by design). It remains the same size in layer pixels, but the composition bounds of the inner frame will expand in layer pixels. This results in the displayport shrinking to be smaller than the composition bounds until the APZC for the inner frame triggers a repaint for it.
+From the user's point of view the net effect is that if you zoom in on a page with an iframe, the iframe might end up clipped like in Ben's video, but it will repaint properly as soon as you touch it or scroll it.",0,2014-01-08T14:39:19Z,8265781.0,1,0.9860702,0.9860702
+900384,1,"""Redo"" is now defined.",0,2013-08-01T08:45:36Z,7700934.0,0,0.8550647,0.1449353
+983489,31,"Comment on attachment 8408087
+983489.patch v2
+Review of attachment 8408087:
+-----------------------------------------------------------------
+Thanks!",0,2014-04-17T09:14:05Z,8675251.0,0,0.9999083,9.1666996e-05
+894646,10,"Backed out the changes to nsDeviceSensors for not building on Windows.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/c68b8da6ec5a",0,2013-07-24T01:04:54Z,7669337.0,0,0.7177233,0.28227672
+1029919,4,Need a regression range.  Doesn't seem to be reproducible on Mac.  :(,0,2014-06-25T01:45:29Z,8973824.0,0,0.9933704,0.006629546
+947523,17,"I just tried the broken gaia and gecko revisions from comment 15. I was able to reproduce the crash with and without bug 927633. The patch also reduced memory usage by 1.5 mb per process, so if we're getting an OOM, it should just happen sooner without bug 927633.",0,2013-12-12T01:05:05Z,8185788.0,0,0.8882375,0.111762494
+1029919,2,"Created attachment 8445572
+testcase",0,2014-06-25T00:25:49Z,8973545.0,0,0.97283125,0.027168754
+947523,32,"Well right, but I thought each browser tab is supposed to run in a separate child process. So that means if the child process runs out of memory, then the tab should get killed with the sad face error page.",0,2013-12-18T05:06:12Z,8209348.0,0,0.80751824,0.19248177
+1047560,3,"Comment on attachment 8466365
+Enable pinning on dropbox (
+Review of attachment 8466365:
+-----------------------------------------------------------------
+Great! r=me",0,2014-08-01T18:56:28Z,9131701.0,0,0.9998889,0.00011109097
+947523,30,"There's only two gfx bugs in the regression range here:
+* bug 844819
+* bug 934886
+Which one caused this regression? Maybe bug 934886?
+Peter - What do you think?",0,2013-12-18T05:00:19Z,8209313.0,0,0.98285705,0.017142965
+947523,13,http://hg.mozilla.org/releases/mozilla-b2g26_v1_2/pushloghtml?fromchange=26f1e160e696&tochange=a886c641a306,0,2013-12-11T03:01:29Z,8181168.0,0,0.8011723,0.19882771
+906912,2,"Created attachment 792466
+Part 1, v1: Add mozilla::Move::ptr().
+You can get a raw ref out of a MoveRef with operator*, but there's no easy way
+to get a raw pointer out of a MoveRef.  |&*movePtr| is pretty inscrutable.
+I considered calling this rawPtr() or overriding operator&.  I don't feel
+strongly that this is better than the alternatives, but operator& was confusing
+(operator& is not commonly overridden, so it appears to me that we're taking
+the address of the MoveRef itself), and I didn't think rawPtr() was worth the
+extra chars.",1,2013-08-19T22:32:38Z,7765066.0,1,0.9985884,0.9985884
+897027,2,"David, you have any interest in fixing this perhaps?",0,2013-07-23T15:52:32Z,7666608.0,0,0.837293,0.16270694
+991812,5,It bounced.,0,2014-04-10T21:34:05Z,8647830.0,1,0.95991665,0.95991665
+947523,71,"Comment on attachment 8356793
+4/4 - Crash the tab if the texture size is going to exceed the max GL texture size
+Review of attachment 8356793:
+-----------------------------------------------------------------
+::: dom/ipc/TabChild.cpp
+@@ +1682,5 @@
+Should we be multiplying per aMetrics.mDevPixelsPerCSSPixel as well here?",0,2014-01-07T22:33:35Z,8262997.0,0,0.99169344,0.008306519
+947523,86,"Yup, that sounds fine. Let's land this.",0,2014-01-08T19:40:45Z,8267423.0,0,0.9888136,0.011186419
+894931,16,"Created attachment 777478
+Revert assert fix from bug 868498
+Okay, thanks roc! Let's use this bug to revert the assert fix in m-c, aurora and beta. I'll file a separate bug to turn off overlay scrollbars in beta.",1,2013-07-17T23:58:31Z,7648289.0,1,0.8912567,0.8912567
+983489,6,"Benoit, can you take a look at this?  Jerry, let us know if you've looked at this already, I didn't see any comments.",0,2014-03-25T16:36:44Z,8576145.0,0,0.856343,0.14365707
+1033283,3,"Athena, in testing your patch, I actually fixed this one. It is a one-line test in code, but needs some tests added. I just got back from lunch and am testing my tests and will attach a patch shortly.
+Sorry for ""stealing"" this one! :)",0,2014-07-02T11:55:42Z,9004065.0,0,0.88350946,0.116490506
+947523,4,"This issue occurs on the Buri v 1.2.0 COM RIL 
+Environmental Variables
+Device: Buri v 1.2.0 COM RIL
+Build ID: 20131204004003
+Gecko: http://hg.mozilla.org/releases/mozilla-b2g26_v1_2/rev/758f3fb32dda
+Gaia: 8d762f3376318fd6be390432db750ae4904c9ab6
+Platform Version: 26.0
+RIL Version: 01.02.00.019.102 
+The browser or device will crash when zooming in on the MoPad webpage.",0,2013-12-07T01:04:05Z,8168061.0,1,0.7796114,0.7796114
+978610,4,"Comment on attachment 8384313
+window-close
+And DOMTabClose is, well, tab specific. We will use remote stuff for other
+remote browsers too.
+So perhaps DOMRemoteBrowserClose.
+Also, isn't that this.tabs.length thing doing the wrong thing here.
+It prevent us to close the last tab/window.
+DOMWindowClose doesn't call event.preventDefault which means nsGlobalWindow
+doesn't try to close itself.
+I think it would be better to mimic the non-OOP behavior.
+TabChild could catch DOMWindowClose and forward it synchronously to
+parent and parent then deals it the same way as it does local
+DOMWindowClose.",0,2014-03-03T00:13:11Z,8481362.0,1,0.7600009,0.7600009
+900384,2,"Created attachment 8445185
+Support ""Redo"" key value on GTK
+This is now mappable only on GTK build. Qt doesn't have this key name. And also we need more work on Windows (bug 865561).
+https://dvcs.w3.org/hg/dom3events/raw-file/tip/html/DOM3Events-key.html#key-Redo",1,2014-06-24T14:20:08Z,8970319.0,1,0.99236226,0.99236226
+947523,34,"If this is ""just"" OOM, then anything that causes us to use more memory would cause the regression.  The memory used is no different than that used by non-graphics code.",0,2013-12-18T18:15:41Z,8211935.0,1,0.59888744,0.59888744
+948882,23,whoops,0,2014-04-23T10:13:14Z,8697878.0,1,0.8486968,0.8486968
+978610,15,"Yeah, I'm just starting to look at sandboxing / e10s stuff, so I'm happy to pick up bug 924260 as a separate piece.",0,2014-03-18T17:45:31Z,8548261.0,0,0.5016648,0.49833518
+983489,48,"2. The only exception in m9 is also happen without the patch.
+https://tbpl.mozilla.org/?tree=Try&rev=f2a09c74f6c8",0,2014-05-12T10:05:27Z,8779438.0,0,0.8197212,0.18027876
+991812,4,"This landed right? I see 88ee33546b3a listed in hg log, so I assume so?",0,2014-04-10T21:22:38Z,8647785.0,0,0.97533345,0.024666583
+904571,6,"Comment on attachment 8365135
+v1
+According https://bugzilla.mozilla.org/show_bug.cgi?id=904559#c4 we may want to remove the assert as well, what do you thing Jason?",0,2014-01-24T17:14:37Z,8331040.0,0,0.9980444,0.0019555625
+983489,5,"Milan, this is preventing us from making TBPL go orange on shutdown crashes since we'd be permanently orange.
+Is this something your team could look into.",0,2014-03-21T18:45:16Z,8564239.0,0,0.9948532,0.005146875
+937475,9,"https://hg.mozilla.org/mozilla-central/rev/27c02b405be0
+https://hg.mozilla.org/mozilla-central/rev/2e2cdd1826e1",0,2013-12-03T21:52:40Z,8151152.0,0,0.9951096,0.0048904223
+937475,5,"Created attachment 831381
+change DURATION from end-offset to duration and compare buffer length using integer sample count",0,2013-11-13T09:23:59Z,8074998.0,1,0.7615328,0.7615328
+919434,9,"Nice, yup.
+I verified that bug 919144 did indeed fix this, using targeted builds. (Its parent cset, 21df28ade757, reproduces this bug for me -- whereas the cset for the last patch in bug 919144 does not reproduce this bug for me.)
+ --> Resolving as FIXED by bug 919144.",0,2013-12-04T00:10:31Z,8151803.0,0,0.78925437,0.21074563
+978610,17,"billm, can you describe how QA can test and verify this fix? Thanks!",0,2014-04-16T19:58:32Z,8672539.0,0,0.9932145,0.0067855115
+919434,4,Should that assertion be added to mozilla-central?,0,2013-09-27T18:13:16Z,7911690.0,0,0.9997024,0.0002975329
+948882,16,"Comment on attachment 8408443
+bug.patch
+Review of attachment 8408443:
+-----------------------------------------------------------------
+OK, looking good for a first start :-)
+This removes the inline styles but leaves inline scripts. Can you modify crashes.xhtml so that ""onclick"" and ""onload"" attributes are replaced by JavaScript that adds event handlers (in crashes.js)?
+You can look how other volunteers have fixed this (In bug 948881 for example).
+See also our project wiki page! https://wiki.mozilla.org/Security/Inline_Scripts_and_Styles",0,2014-04-22T10:26:48Z,8691543.0,0,0.50425196,0.49574804
+916390,3,"Bah. I think that in its current state we might even be losing form data when:
+1) form data is saved and formDataSaved=true
+2) something calls TabStateCache.delete(tab)
+3) we re-collect all data except form data
+Boom, lost. This flag assumes that the tabData is re-used in _collectBaseTabData() which is only the case if the session history didn't change.",0,2013-09-16T13:48:42Z,7864764.0,0,0.616234,0.383766
+1033283,2,I'd like to take a crack at this.,0,2014-07-02T11:16:07Z,9003942.0,0,0.87469316,0.12530681
+989204,5,"Comment on attachment 8398689
+Part 2 - Make arrow functions fast
+Review of attachment 8398689:
+-----------------------------------------------------------------
+::: js/src/jsfun.cpp
+@@ +519,5 @@
+The caller is responsible for populating this slot, right? If so, populating it with a different value here seems like a bit of a red herring. Delete this block?
+@@ -1243,5 @@
+thank you
+::: js/src/jsfun.h
+@@ +539,5 @@
+Can we name this offsetOfArrowThisSlot()? Otherwise each caller has a magic constant 0 in it.",0,2014-04-02T21:46:47Z,8613335.0,0,0.85148287,0.14851716
+957093,1,bring some consistency to the namespaces here by converting legacy classes. this is just a subset of netwerk/* but its a good start.,0,2014-01-07T12:19:28Z,8259782.0,0,0.9765727,0.023427336
+1033887,4,"Comment on attachment 8449917
+Disable the usage of try/catch in TestSTLWrappers.cpp with clang-cl
+Review of attachment 8449917:
+-----------------------------------------------------------------
+How are we getting WRAP_STL_INCLUDES set in this case?  This code:
+http://mxr.mozilla.org/mozilla-central/source/configure.in#443
+shouldn't let us get to the point where we're setting WRAP_STL_INCLUDES.  Or is this another case where compiling with clang-cl bypasses the configury that tries to decide if we're compiling with clang?",0,2014-07-03T13:24:59Z,9010643.0,0,0.9922421,0.0077579375
+924397,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/48d6dad2df16,0,2013-10-18T14:19:36Z,7977516.0,0,0.97156084,0.028439168
+1047560,6,s/updated update/automated update/,0,2014-08-04T11:30:56Z,9136575.0,0,0.9975904,0.0024096041
+894931,15,"I can't think of an easy, beta-safe fix right now. I think we're going to have to pull disappearing scrollbars from beta, sorry :-(.",1,2013-07-17T22:02:01Z,7647755.0,0,0.9604047,0.039595224
+947523,31,Perhaps because the browser app runs in the parent process?,0,2013-12-18T05:01:32Z,8209315.0,0,0.91552,0.08447991
+906912,15,"Something I'm discovering as I try to use std::move instead of mozilla::Move is that a mozilla::MoveRef<T> can be passed to a constructor that takes T&, while a T&& can be cast only to |const T&|, not |T&|.
+This is causing some cascading sets of changes.",1,2013-08-22T00:45:46Z,7775892.0,0,0.88762194,0.112378016
+897027,8,"Comment on attachment 815216
+bug-897027-fix.patch
+Review of attachment 815216:
+-----------------------------------------------------------------
+Nice!
+r=me with a license header added to the test. Not all tests have them, but all should. Personally, I'd go with
+// Any copyright is dedicated to the Public Domain.
+// http://creativecommons.org/licenses/publicdomain/
+::: js/src/tests/ecma_6/Math/20.2.2.ToNumber.js
+@@ +2,5 @@
+Nit: remove stray spaces at the last three lines' ends.",0,2013-10-10T11:26:01Z,7945048.0,0,0.9987828,0.0012171586
+948882,9,Hey Sorry Manish I totally missed it I would like to continue the work on this bug if you don't mind. I will try to send a patch as soon as possible,0,2014-02-13T08:34:59Z,8414624.0,0,0.7225632,0.27743676
+991812,8,"Created attachment 8405691
+B2G
+And in b2g code.",1,2014-04-12T00:33:45Z,8653557.0,1,0.74550754,0.74550754
+1025075,1,"when we are connected to a SPDY or HTTP2 based proxy we create TLS CONNECT tunnels through it for https. each CONNECT tunnel is its own stream with its own priority - independent of any streams in the session inside the tunnel (those priorities are obviously invisible to the proxy)
+initially I created the priority of tunnel stream using the priority of the https stream that triggered the tunnel creation. But we end up putting a lot of different streams on that tunnel perhaps simultaneously and the priority doesn't necessarily apply for long. It also leaks a little information and leads to an inconsistent feel.
+So i think a static connect stream priority makes more sense. That would allow us to create a session of only evenly balanced connect streams if necessary down the road.
+I've chosen normal - both highest and lowest are sometimes ridiculously wrong.",1,2014-06-13T16:26:20Z,8928125.0,0,0.9605788,0.03942114
+924397,1,"[jdm@rosencrantz mozilla-central]$ ./mach build dom/bindings/
+ 0:00.12 /usr/bin/gmake -C dom/bindings -j8 -s
+ 0:00.22 Generating global WebIDL files
+ 0:00.96 Traceback (most recent call last):
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/config/pythonpath.py"", line 56, in <module>
+ 0:00.96     main(sys.argv[1:])
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/config/pythonpath.py"", line 48, in main
+ 0:00.96     execfile(script, frozenglobals)
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/dom/bindings/GlobalGen.py"", line 81, in <module>
+ 0:00.96     main()
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/dom/bindings/GlobalGen.py"", line 55, in main
+ 0:00.96     parser.parse(''.join(lines), fullPath)
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/dom/bindings/parser/WebIDL.py"", line 4830, in parse
+ 0:00.96     self._productions.extend(self.parser.parse(lexer=self.lexer,tracking=True))
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/other-licenses/ply/ply/yacc.py"", line 263, in parse
+ 0:00.96     return self.parseopt(input,lexer,debug,tracking,tokenfunc)
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/other-licenses/ply/ply/yacc.py"", line 792, in parseopt
+ 0:00.96     tok = self.errorfunc(errtoken)
+ 0:00.96   File ""/run/media/jdm/ssd/mozilla-central/dom/bindings/parser/WebIDL.py"", line 4778, in p_error
+ 0:00.96     raise WebIDLError(""Syntax Error at end of file. Possibly due to missing semicolon(;), braces(}) or both"", [])
+ 0:00.96 WebIDL.WebIDLError: error: Syntax Error at end of file. Possibly due to missing semicolon(;), braces(}) or both
+ 0:00.98 gmake[1]: *** [ParserResults.pkl] Error 1
+ 0:00.98 gmake: *** [default] Error 2",0,2013-10-08T14:36:30Z,7936918.0,0,0.97856605,0.021433974
