@@ -16,3 +16,4 @@ wandb/latest-run
 EMSE_Revision_Tasks.pdf
 AGENTS.md
 dataset/solution_identification_data/temporal_folds/*
+/GITHUB_PUSH_EXCLUSIONS.md
