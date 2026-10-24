@@ -1,0 +1,157 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792868943.032535 1633197 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Current Date & Time: 2026-10-24 15:09:09
+
+
+
+Evaluating Model: meta-llama/Meta-Llama-3-8B
+
+
+
+Dev Data Length:       issue_id  text_id  ...         creation_time  comment_id
+0       538721        1  ...  2010-01-09T03:04:07Z   4479967.0
+1       551837        1  ...  2010-03-12T00:18:03Z   4580720.0
+2       551837        5  ...  2010-04-23T18:25:38Z   4656887.0
+3       551837        7  ...  2010-04-26T18:56:32Z   4660890.0
+4       551837        8  ...  2010-04-27T07:30:16Z   4662324.0
+...        ...      ...  ...                   ...         ...
+7337    687929        3  ...  2011-09-20T21:06:24Z   5726713.0
+7338    687929        8  ...  2011-12-08T02:50:15Z   5899521.0
+7339    691184        4  ...  2011-10-06T18:01:29Z   5764018.0
+7340    691184        7  ...  2011-10-06T23:16:05Z   5765086.0
+7341    695213        1  ...  2011-10-17T22:53:03Z   5787710.0
+
+[7342 rows x 6 columns]
+Dev data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Dev data distribution: label
+0    3671
+1    3671
+Name: count, dtype: int64
+Test Data Length:      issue_id  text_id  ...         creation_time  comment_id
+0      538721        2  ...  2010-01-09T11:43:35Z   4480145.0
+1      552359        1  ...  2010-03-15T02:33:30Z   4584526.0
+2      552359        4  ...  2010-03-25T12:05:12Z   4603569.0
+3      552359        8  ...  2010-03-26T02:23:24Z   4605379.0
+4      552914        1  ...  2010-03-17T09:57:00Z   4588820.0
+..        ...      ...  ...                   ...         ...
+482   1794237       12  ...  2022-10-25T22:53:41Z  16130705.0
+483   1811466       10  ...  2023-01-30T16:43:28Z  16258538.0
+484   1815706        6  ...  2023-02-17T19:57:28Z  16285299.0
+485   1821213       14  ...  2023-03-11T06:00:05Z  16321270.0
+486   1823751       11  ...  2023-03-24T08:36:42Z  16340449.0
+
+[487 rows x 6 columns]
+Test data distribution: label
+0    0.837782
+1    0.162218
+Name: proportion, dtype: float64
+Test data distribution: label
+0    408
+1     79
+Name: count, dtype: int64
+Train Data Length:       issue_id  text_id  ...         creation_time  comment_id
+0      1581315       10  ...  2019-09-23T21:59:41Z  14379584.0
+1       894646        2  ...  2013-07-17T10:09:54Z   7644398.0
+2       768901        5  ...  2012-10-09T12:15:17Z   6710742.0
+3       947523        7  ...  2013-12-09T20:13:26Z   8173916.0
+4       779500      116  ...  2012-09-13T02:26:24Z   6631137.0
+...        ...      ...  ...                   ...         ...
+6603   1055843       15  ...  2014-08-22T06:05:01Z   9216583.0
+6604   1096093       33  ...  2015-04-20T18:05:02Z  10176479.0
+6605   1079905        7  ...  2014-10-20T14:59:25Z   9470271.0
+6606    779500       83  ...  2012-09-07T07:11:56Z   6617253.0
+6607   1262069        7  ...  2016-04-05T18:43:35Z  11302386.0
+
+[6608 rows x 6 columns]
+Train data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Train data distribution: label
+0    3304
+1    3304
+Name: count, dtype: int64
+Val Data Length:      issue_id  text_id  ...         creation_time  comment_id
+0     1121826        9  ...  2015-01-15T23:41:57Z   9801893.0
+1     1025075        2  ...  2014-06-13T16:29:10Z   8928151.0
+2     1176028        5  ...  2015-06-22T12:10:06Z  10413958.0
+3     1254694       20  ...  2016-03-10T17:21:19Z  11236186.0
+4     1073339        2  ...  2014-10-01T06:17:54Z   9385123.0
+..        ...      ...  ...                   ...         ...
+433   1513854        1  ...  2018-12-13T11:31:49Z  13810658.0
+434   1116867       15  ...  2015-01-09T21:26:58Z   9776287.0
+435   1390087        6  ...  2017-08-15T09:35:55Z  12567357.0
+436   1118597        4  ...  2015-01-20T02:06:27Z   9814941.0
+437   1359490       10  ...  2017-05-04T18:43:53Z  12293378.0
+
+[438 rows x 6 columns]
+Val data distribution: label
+0    0.8379
+1    0.1621
+Name: proportion, dtype: float64
+Val data distribution: label
+0    367
+1     71
+Name: count, dtype: int64
+--------------------------------------------------
+
+Run: 4, Oversample: True, Batch Size: 8, Epoch: 5, Learning Rate: 1e-05
+
+--------------------------------------------------
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 7342
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 487
+    })
+})
+
+
+Class Weight: tensor([0.5000, 0.5000])
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:06,  2.26s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:04<00:04,  2.28s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:06<00:02,  2.25s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:07<00:00,  1.46s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:07<00:00,  1.76s/it]
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Map:   0%|          | 0/7342 [00:00<?, ? examples/s]Map:  14%|█▎        | 1000/7342 [00:00<00:02, 2541.62 examples/s]Map:  27%|██▋       | 2000/7342 [00:00<00:01, 2676.49 examples/s]Map:  41%|████      | 3000/7342 [00:01<00:01, 2761.28 examples/s]Map:  54%|█████▍    | 4000/7342 [00:01<00:01, 2717.75 examples/s]Map:  68%|██████▊   | 5000/7342 [00:01<00:00, 2746.70 examples/s]Map:  82%|████████▏ | 6000/7342 [00:02<00:00, 2792.87 examples/s]Map:  95%|█████████▌| 7000/7342 [00:02<00:00, 2777.28 examples/s]Map: 100%|██████████| 7342/7342 [00:02<00:00, 2775.54 examples/s]Map: 100%|██████████| 7342/7342 [00:02<00:00, 2744.04 examples/s]
+Map:   0%|          | 0/487 [00:00<?, ? examples/s]Map: 100%|██████████| 487/487 [00:00<00:00, 3053.84 examples/s]Map: 100%|██████████| 487/487 [00:00<00:00, 2932.37 examples/s]
+--------------------------------------------------
+
+Tokenized Data
+
+--------------------------------------------------
+DatasetDict({
+    dev: Dataset({
+        features: ['label', 'input_ids', 'attention_mask'],
+        num_rows: 7342
+    })
+    test: Dataset({
+        features: ['label', 'input_ids', 'attention_mask'],
+        num_rows: 487
+    })
+})
+/home/msun12/project/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments_EXP2.py:379: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.class_weights = torch.tensor(class_weights,
+--------------------------------------------------
+
+TRAIN DATASET
+
+--------------------------------------------------
+Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 7342
+})
+Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 487
+})
+  0%|          | 0/4590 [00:00<?, ?it/s]/home/msun12/project/automatic_solution_identification_using_language_models/venv/lib/python3.12/site-packages/torch/utils/checkpoint.py:464: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.4 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+  0%|          | 1/4590 [00:51<65:51:11, 51.66s/it]
