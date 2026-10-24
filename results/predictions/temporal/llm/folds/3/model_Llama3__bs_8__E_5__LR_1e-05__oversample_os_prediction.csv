@@ -1,0 +1,1873 @@
+issue_id,text_id,text,label,creation_time,comment_id,meta-llama/Meta-Llama-3-8Bbs_8__E_5__LR_1e-05__oversample_os_prediction,confidence,positive_probability
+1096093,56,"https://reviewboard.mozilla.org/r/7307/#review6261
+looks good.",0,2015-04-23T14:10:48Z,10190669.0,0,0.9905338,0.009466209
+1074012,6,"https://hg.mozilla.org/integration/mozilla-inbound/rev/ab520ec5fed5
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d98720aace71
+https://hg.mozilla.org/integration/mozilla-inbound/rev/6fa1aac2d413",0,2014-09-29T13:34:20Z,9373806.0,0,0.9994711,0.0005288634
+1096093,41,"https://reviewboard.mozilla.org/r/7307/#review6149
+It does indeed, but I can remove it.
+Okie doke, I'll update the patch.",0,2015-04-21T21:00:14Z,10182553.0,0,0.9958162,0.0041838447
+1173001,7,"That seems like a good thing to fix, but I don't plan on doing it in this bug.",0,2015-06-09T23:51:19Z,10363624.0,0,0.8774257,0.12257431
+1096093,34,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+Pull down these commits:
+hg pull -r 4abd57038185299027d51eedd5524439293e0abb https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-20T18:05:02Z,10176479.0,0,0.99721307,0.0027868978
+1116867,37,"https://reviewboard.mozilla.org/r/2359/#review1735
+bz can you look at (at least) the xhr part?",0,2015-01-16T16:22:53Z,9805225.0,0,0.99913174,0.0008683177
+1057903,2,"Created attachment 8478049
+Refactor RasterImage to use DrawableFrameRef and generally clean up
+Here's the patch. In addition to the switch to DrawableFrameRef there are a lot of small style and code quality issues fixed here, including a consolidation of the various GetImgFrame/GetDrawableImgFrame/etc methods which were mostly useless (and all needed to be touched in this patch anyway).",1,2014-08-25T02:06:31Z,9222821.0,1,0.9999924,0.9999924
+1073339,13,Currently broken due to bug 1103159 unfortunately.,0,2014-11-28T15:43:31Z,9649066.0,0,0.9951443,0.004855698
+1096093,70,"Created attachment 8618582
+MozReview Request: Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?",0,2015-06-10T15:17:59Z,10367191.0,0,0.99998355,1.6447433e-05
+1111046,2,"Created attachment 8535877
+patch",0,2014-12-12T22:34:37Z,9690019.0,0,0.9995654,0.0004345576
+1055843,3,"Created attachment 8475554
+Simple test case",0,2014-08-19T23:22:53Z,9203937.0,0,0.9989913,0.001008674
+1092808,5,"The stack to the pref observer being called in this scenario is the following:
+I didn't think reading the user pref file triggered preference change observers, but apparently it does if you register your observer early enough. So let's just register the observer later during startup.",1,2014-11-03T20:57:19Z,9539413.0,1,0.9235895,0.9235895
+1080574,15,"log: https://treeherder.mozilla.org/logviewer.html#?repo=b2g-inbound&job_id=1753953
+repository: b2g-inbound
+start_time: 2015-04-18T06:11:43
+who: philringnalda[at]gmail[dot]com
+machine: tst-linux32-spot-263
+buildname: Ubuntu VM 12.04 b2g-inbound debug test mochitest-4
+revision: be44c0a5cf9e
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-04-18T16:26:05Z,10171669.0,0,0.99950325,0.0004967277
+1104875,1,"Created attachment 8528485
+unresponsive-script.png
+Stop script button was out of view because the script is is not wrapping or not being truncated.",0,2014-11-25T18:31:42Z,9636363.0,1,0.5470756,0.5470756
+1132964,2,"I have a workaround for my test now, turns out this was actually cause by bug 1047603. Not sure how important this is to fix in Firefox",0,2015-02-13T20:30:47Z,9918684.0,0,0.9985662,0.0014338442
+1066726,16,"In that case, please nominate this patch for b2g32 approval :). Might want to nominate it for v2.0 blocking status as well if you feel it's warranted.",0,2014-09-18T19:25:44Z,9330423.0,0,0.98242456,0.017575383
+1096093,35,"https://reviewboard.mozilla.org/r/7307/#review6071
+::: widget/LookAndFeel.h:592
+(Diff revision 4)
+I think this can be
+static InfallibleTArray<LookAndFeelInt> GetIntCache();
+nowadays.
+::: widget/LookAndFeel.h:593
+(Diff revision 4)
+Better make this take a const InfallibleTArray<LookAndFeelInt>& aLookAndFeelIntCache.",0,2015-04-20T18:18:11Z,10176540.0,0,0.99104077,0.008959243
+1096093,36,"https://reviewboard.mozilla.org/r/7329/#review6073
+Ship It!
+::: widget/cocoa/nsLookAndFeel.mm:677
+(Diff revision 1)
+for (auto entry : *lookAndFeelIntCache) {
+  ...
+}",0,2015-04-20T18:19:32Z,10176550.0,0,0.9948179,0.0051820595
+1130065,7,"I was going to try to include this in the next build, but it needs to be rebased now that the persistent registration patches have landed.",0,2015-02-14T03:10:38Z,9919795.0,0,0.5485551,0.45144495
+1104875,5,"Created attachment 8529234
+Ellipsize long unresponsive script locations so they don't make the slow script dialog too big",0,2014-11-26T20:18:18Z,9642193.0,1,0.67661935,0.67661935
+1071367,6,https://hg.mozilla.org/mozilla-central/rev/8abfd1252969,0,2014-09-23T22:32:20Z,9350511.0,0,0.9999542,4.580106e-05
+1080574,6,"submit_timestamp: 2014-11-13T15:33:28
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=mozilla-beta&job_id=147989
+repository: mozilla-beta
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-1265
+buildname: Ubuntu VM 12.04 x64 mozilla-beta debug test mochitest-4
+revision: 3e5cb63660bd
+122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",0,2014-11-13T23:33:29Z,9588764.0,0,0.9999943,5.7413745e-06
+1096093,30,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Cache overlay scrollbar LookAndFeel metric, and allow parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+Pull down these commits:
+hg pull -r 078699a501806305a33d51617e71527be08c8dd6 https://reviewboard-hg.mozilla.org/gecko/",1,2015-04-20T17:35:17Z,10176301.0,0,0.9948649,0.0051351856
+1057903,10,Opened up Bug 1067207,0,2014-09-15T01:01:20Z,9309287.0,0,0.999411,0.00058907433
+1071367,4,"Created attachment 8493806
+Real patch",0,2014-09-23T15:27:51Z,9348012.0,0,0.9997187,0.00028123445
+1071367,5,"Comment on attachment 8493806
+Real patch
+Yeah, that makes sense. Wouldn't expect content viewer bounds to have the right offset.",0,2014-09-23T15:47:13Z,9348110.0,0,0.99971527,0.00028474783
+1066726,45,"So, what is the problem?",0,2014-11-10T15:49:36Z,9568263.0,0,0.976439,0.023560967
+1116867,8,"Patrick, what's the significance of this bug? Should we be tracking it for e10s?",0,2015-01-06T21:47:57Z,9759986.0,0,0.99668616,0.003313857
+1118599,2,"Comment on attachment 8544988
+remove-MOZILLA_PKIX_ENUM_CLASS.patch
+Review of attachment 8544988:
+-----------------------------------------------------------------
+Thanks for cleaning that up.",0,2015-01-07T21:46:14Z,9765296.0,0,0.9996933,0.00030679247
+1118597,20,"Also w-p-t permafail.
+https://treeherder.mozilla.org/logviewer.html#?job_id=614652&repo=mozilla-aurora",0,2015-02-21T00:46:09Z,9942578.0,0,0.9983492,0.0016508484
+1080574,2,"submit_timestamp: 2014-10-09T06:57:13
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=mozilla-inbound&job_id=2865229
+repository: mozilla-inbound
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux32-spot-507
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: 50a379edc315
+122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2014-10-09T13:57:14Z,9425508.0,0,0.9995859,0.00041409658
+1093374,1,"Created attachment 8516340
+tab-controls.png
+See screenshot",0,2014-11-04T00:16:08Z,9540429.0,1,0.674218,0.674218
+1116867,38,"Comment on attachment 8547689
+MozReview Request: bz://1116867/mcmanus
+honza, I wasn't sure if you meant to r+ the last version (cause it said ship it) or cancel it or what.. nick had some problem with reviewboard setting flags earlier today adding to the confusion.
+So I'm leaving r? set for the new rev. Actually it lets you see the interdiff which is the one place reviewboard does way better than spliter imo",0,2015-01-16T16:27:38Z,9805256.0,0,0.9709819,0.029018043
+1118597,2,"Created attachment 8551531
+1118597.patch",0,2015-01-20T00:32:15Z,9814721.0,0,0.99979836,0.00020169628
+1055843,25,"If I had used the proper try link, it would probably have been better :)
+https://tbpl.mozilla.org/?tree=Try&rev=b8a10e959a1d",0,2014-08-29T03:07:52Z,9245600.0,0,0.81699955,0.18300048
+1071367,2,"This is a regression from bug 1043644 part 1, which switched to using the content viewer bounds instead of the frame bounds to fix behaviour on metro. Switching back to the frame bounds fixes the problem. It also fixes the problem where, with APZC enabled, the displayport is offset from tile boundaries by the height of the chrome.",1,2014-09-23T02:36:41Z,9345145.0,0,0.9008471,0.09915288
+1048721,1,Implement functions and types to support WebGLSync object.,0,2014-08-05T06:16:34Z,9140954.0,1,0.8675146,0.8675146
+1055843,5,"It is muted because the playback rate is beyond the valid range.
+http://hg.mozilla.org/mozilla-central/file/149d3ce6e020/content/html/content/src/HTMLMediaElement.cpp#l3841",0,2014-08-20T03:31:38Z,9204683.0,1,0.5449592,0.5449592
+1073339,16,"Created attachment 8535551
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch, v3
+This is looking better:
+https://tbpl.mozilla.org/?tree=Try&rev=497aac59ca3a
+https://tbpl.mozilla.org/?tree=Try&rev=d98d73126544",1,2014-12-12T12:09:12Z,9687204.0,1,0.99491066,0.99491066
+1066726,53,"Marcia, is this something you're able to help with?",0,2014-11-20T21:02:21Z,9618451.0,0,0.99741673,0.002583289
+1148078,3,"I'm also changing some usages of position/posn/pos in the tweaked code to ""coord"" instead. (so e.g. ""PhysicalPosFromLogicalPos"" is now known as ""PhysicalCoordFromFlexRelativeCoord"").
+I'm making this change since ""position"" is ambiguous about whether it's 1- or 2-dimensional value. ""Coord"" is a bit less ambiguous.
+(Elsewhere in this file, I still have e.g. FlexItem::GetMainPosition/GetCrossPosition, but I think that's less ambiguous.)",1,2015-03-26T20:50:36Z,10083586.0,1,0.8281034,0.8281034
+1048721,3,"Created attachment 8579685
+Implement WebGL2Sync.",0,2015-03-18T23:27:36Z,10048301.0,0,0.9505423,0.049457718
+1096093,17,What I would absolutely love is for some reliable STR for this bug to aid in my analysis. Anybody got some? bkerensa - are you still able to reproduce this reliably?,0,2015-03-30T22:47:53Z,10097946.0,0,0.9752738,0.024726227
+1066726,44,"You can push it to Try like any other branch. Just don't expect sane results from test suites that normally don't run on it.
+As for what needs addressing:",0,2014-11-10T15:42:31Z,9568229.0,0,0.9798665,0.020133413
+1066726,14,"https://hg.mozilla.org/releases/mozilla-aurora/rev/83a473a0e907
+https://hg.mozilla.org/releases/mozilla-beta/rev/8a1cffa4c130
+Is this something that needs tracking for B2G v2.0 (b2g32)?",0,2014-09-18T14:53:57Z,9328703.0,0,0.9998691,0.00013088882
+1073339,3,"Created attachment 8527295
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch
+This is based off of the patches from bug 1075450.",1,2014-11-23T11:48:29Z,9626061.0,1,0.9759083,0.9759083
+1055843,12,"Comment on attachment 8476580
+Do not pause when playbackRate = 0. Instead don't play anything
+Review of attachment 8476580:
+-----------------------------------------------------------------
+::: content/media/MediaDecoder.cpp
+@@ +1429,5 @@
+Can we remove |mPausedForPlaybackRateNull| by keeping |mPlaybackRate| only? I think checking |mPlaybackRate == 0| should be equivalent to |mPausedForPlaybackRateNull|. Then we will have fewer state variables to maintain.
+@@ -1428,5 @@
+Why removing the early return here? Passing playbackRate=0 to MediaDecoderStateMachine will cause assertion.
+@@ +1435,4 @@
+Why move this line up? I guess it doesn't make a difference.",0,2014-08-22T02:24:18Z,9216077.0,0,0.97226655,0.027733441
+1096093,49,"https://reviewboard.mozilla.org/r/7307/#review6165
+Ship It!",0,2015-04-21T21:33:33Z,10182704.0,0,0.9973827,0.0026172937
+1116867,45,"Created attachment 8619001
+MozReview Request: bug 1116867 - make nsIProgressEventSink and nsITransportEventSink safely scriptable r=mayhemer r=bz",0,2015-06-10T15:19:50Z,10367798.0,0,0.9998683,0.000131734
+1096093,71,"Created attachment 8618583
+MozReview Request: Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=smaug.",0,2015-06-10T15:17:59Z,10367192.0,0,0.9859148,0.014085137
+1096093,32,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Cache overlay scrollbar LookAndFeel metric, and allow parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+Pull down these commits:
+hg pull -r 1d6f0c882c01500fbcce22a0cbeb71a7c91ee17c https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-20T17:56:21Z,10176429.0,0,0.9952807,0.0047193146
+1055843,31,"Created attachment 8482089
+Do not pause when playbackRate = 0. Instead don't play anything
+Follow r+",0,2014-09-01T04:52:53Z,9253384.0,1,0.9960367,0.9960367
+1097236,15,"Comment on attachment 8520984
+Patch v1.3
+Approval Request Comment
+[Feature/regressing bug #]: Devedition theme
+[User impact if declined]: This is an obvious visual glitch in Windows with the devedition light theme.  There is a duplicated icon when there should only be one.
+[Describe test coverage new/current, TBPL]: None, CSS only
+[Risks and why]: Low, CSS only affecting the Windows devedition light theme.
+[String/UUID change made/needed]:",0,2014-11-12T02:10:35Z,9577486.0,0,0.99782866,0.0021712892
+1121826,7,"Just to clarify about bug 473822, the behavior that was causing issues for my team was Firefox decoding correctly percent-encoded square brackets in the URL bar, and making that ""sticky"". Typing in ""?foo%5Bb%5D=bar"" correctly sent that to the server, but in the URL bar it displayed ""?foo[b]=bar"". Now if you copied/pasted, bookmarked, or even clicked in to the URL bar and pressed enter, the next request to the server used the naked square brackets. It was this behind-the-scenes changing of what the user had entered (or been directed to) that was causing issues.",0,2015-01-15T17:09:55Z,9799940.0,1,0.70351124,0.70351124
+1066726,46,Sorted it out on IRC.,0,2014-11-10T15:53:02Z,9568275.0,0,0.99098384,0.00901619
+1071367,1,"Start nightly, set layers.async-pan-zoom.enabled and layers.draw-borders to true from about:config, and load a scrollable page (e.g. http://planet.mozilla.org/). Scroll down and observe that there is a purple border that starts at the top of the chrome and stops 79 pixels from the bottom of the window (79 pixels being the height of the chrome for me). This purple border is the composition bounds of the scrollable content document, but it has a top-left of (0,0) instead of (0,79).
+This also means that using the two-finger trackpad scroll gesture doesn't work while the mouse cursor is in the bottom 79 pixels of the content (outside the purple rect).",0,2014-09-23T02:12:15Z,9345059.0,0,0.7228014,0.2771986
+1080574,17,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=9285953
+repository: mozilla-inbound
+start_time: 2015-04-24T13:14:12
+who: wkocher[at]mozilla[dot]com
+machine: tst-linux64-spot-915
+buildname: Ubuntu VM 12.04 x64 mozilla-inbound debug test mochitest-4
+revision: 6d0fb655e2e6
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-04-24T20:55:08Z,10197471.0,0,0.99965966,0.00034038702
+1066726,22,I tried to land both at the same time.,0,2014-10-06T13:20:08Z,9406525.0,0,0.877827,0.122172974
+1118597,9," 0:03.87 Warning: -Wreorder in /Users/jyavenard/Work/Mozilla/mozilla-central/media/libstagefright/binding/include/mp4_demuxer/SinfParser.h: field 'mDefaultEncryptionType' will be initialized after field 'mDefaultIVSize'
+ 0:03.87 /Users/jyavenard/Work/Mozilla/mozilla-central/media/libstagefright/binding/include/mp4_demuxer/SinfParser.h:20:7: warning: field 'mDefaultEncryptionType' will be initialized after field 'mDefaultIVSize' [-Wreorder]
+ 0:03.87     : mDefaultEncryptionType()
+ 0:03.87       ^
+ 0:03.87 1 warning generated.
+Something weird on my box:
+1:05.58 ../../../dist/include/mp4_demuxer/MoofParser.h:8:10: fatal error: 'mp4_demuxer/Atom.h' file not found
+ 1:05.58 #include ""mp4_demuxer/Atom.h""
+jyapro:mozilla-central jyavenard$ ls -l media/libstagefright/binding/include/mp4_demuxer/Atom*
+-rw-r--r--+ 1 jyavenard  staff  425 20 Jan 17:39 media/libstagefright/binding/include/mp4_demuxer/Atom.h
+-rw-r--r--+ 1 jyavenard  staff  833 20 Jan 17:39 media/libstagefright/binding/include/mp4_demuxer/AtomType.h
+it's there!",0,2015-01-20T06:56:25Z,9815669.0,0,0.99746335,0.0025365886
+1096093,1,"Scrollbar does not show up when e10s enabled but shows up fine when disabled.
+Build: 	20141109030205",0,2014-11-09T22:57:37Z,9565559.0,0,0.9997683,0.00023171757
+1173001,15,"https://hg.mozilla.org/integration/mozilla-inbound/rev/6289cdbce7b7
+https://hg.mozilla.org/integration/mozilla-inbound/rev/e7b684137f22
+https://hg.mozilla.org/integration/mozilla-inbound/rev/0e722555cc6d
+https://hg.mozilla.org/integration/mozilla-inbound/rev/f2f35acc27a2",0,2015-06-10T21:18:58Z,10371926.0,0,0.9993861,0.00061392464
+1096093,31,"https://reviewboard.mozilla.org/r/7305/#review6069
+::: dom/ipc/PBrowser.ipdl:676
+(Diff revision 2)
+Add documentation.
+::: layout/base/nsPresContext.cpp:1745
+(Diff revision 2)
+This comment is wrong.
+::: widget/LookAndFeel.h:589
+(Diff revision 2)
+TODO.
+::: widget/nsXPLookAndFeel.cpp:709
+(Diff revision 2)
+Remove extra newline.
+::: widget/nsXPLookAndFeel.cpp:715
+(Diff revision 2)
+Remove extra newline.",0,2015-04-20T17:38:17Z,10176316.0,0,0.9303803,0.069619685
+1057903,14,"Actually I was wrong about this; the tabs are now PNGs, not SVGs, so this patch is the culprit.",0,2014-09-16T18:14:05Z,9318320.0,0,0.5191294,0.48087063
+1116867,36,"https://reviewboard.mozilla.org/r/2361/#review1733
+I can't figure this comment out.. OnProgress is changed by this patch to take unsigned",0,2015-01-16T15:48:06Z,9805050.0,1,0.9640969,0.9640969
+1121826,15,*** Bug 1124209 has been marked as a duplicate of this bug. ***,0,2015-01-21T16:03:59Z,9823475.0,0,0.99967587,0.00032410474
+1116867,12,"#6  mozilla::net::HttpChannelChild::DoOnProgress (this=0x7fffdb8de000, aRequest=0x7fffdb8de088, progress=30275, progressMax=0) at ../../../../gecko-dev/netwerk/protocol/http/HttpChannelChild.cpp:544",0,2015-01-07T22:33:09Z,9765548.0,0,0.9409253,0.059074637
+1066726,19,https://hg.mozilla.org/releases/mozilla-b2g32_v2_0/rev/152c5094843c,0,2014-10-03T21:06:05Z,9401541.0,0,0.9998479,0.0001521048
+1116867,5,"The values of those variables are progress = 14827 and progressMax = 0, at least through two tries of it.",0,2015-01-05T22:04:10Z,9754470.0,0,0.98233473,0.017665295
+1080574,11,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=7812494
+repository: mozilla-inbound
+start_time: 2015-03-19T13:36:49
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux32-spot-402
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: b3fcbf649765
+150 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-03-19T21:04:26Z,10053065.0,0,0.9995216,0.00047845303
+1173001,1,This is necessary in order to support mirroring in MediaDecoderReader.,0,2015-06-09T16:24:39Z,10361378.0,0,0.9790076,0.020992396
+1096093,27,"I suspect the flurry of remote browsers being restored on a restart is contributing to a race that we're less likely to hit after start-up has completed. I also suspect that if about:home was a tall page and had a scrollbar, we'd hit this again. I will actually try that experiment.",0,2015-04-16T16:13:57Z,10164021.0,1,0.51264966,0.51264966
+1066726,27,"I am surprised, because everything that lands on beta should be backported to b2g32. Ryan , any thoughts here?",0,2014-10-14T22:27:39Z,9446813.0,0,0.9977627,0.0022373304
+1118597,13,"This shouldn't really matter. We only set mSinf if we have a valid Sinf, otherwise mDefaultEncryptionType is 0; further we don't bother with getters elsewhere in MoofParser.",0,2015-01-20T23:14:03Z,9820058.0,0,0.61263573,0.3873643
+1173001,3,"Created attachment 8617414
+Part 2 - Fix up some task queue naming to make MediaDecoderReader consistent with MDSM. v1",0,2015-06-09T16:25:58Z,10361385.0,0,0.9527278,0.047272213
+1173001,9,"Created attachment 8617698
+Part 2 - Initialize reader task queue in the constructor. v1
+This is a necessary step towards having mirrored/canonical values, since those
+need to know the task queue in their constructor.",0,2015-06-10T01:39:26Z,10363996.0,1,0.9992499,0.9992499
+1073339,1,"Bug 1072320 ended up being quite a rabbithole of inproductivity. We have a set of tests that aren't reliable on Linux (and so have been disabled there):
+browser_action_keyword.js
+browser_action_searchengine.js
+browser_action_searchengine_alias.js
+AFAICT, this is because when the test tries to interact with the autocomplete result, nothing happens. My assumption is that this is due to focus issues around popups on Linux, which we've had troubles with in the past.",0,2014-09-26T02:56:14Z,9364284.0,1,0.51256424,0.51256424
+1121826,1,"User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36
+Steps to reproduce:
+1. Prepare a script like this.
+//request_check.php
+<?php
+exit(var_dump($_SERVER['REQUEST_URI']));
+?>
+2. Access the script with query parameter. 
+http://localhost/request_check.php?hoge[]=fuga&hoge[]=piyo 
+3. You will get a string like this.
+IE8
+string(51) ""/otsukano/request_check.php?hoge[]=fuga&hoge[]=piyo"" 
+Chrome
+string(51) ""/otsukano/request_check.php?hoge[]=fuga&hoge[]=piyo""
+FireFox35
+string(59) ""/otsukano/request_check.php?hoge%5B%5D=fuga&hoge%5B%5D=piyo""
+Actual results:
+The value of $_SERVER['REQUEST_URI']) is url-encoded unexpectedly
+([] => %5B%5D).
+Expected results:
+The value should not be url-encoded.",0,2015-01-15T05:26:17Z,9797305.0,0,0.5615481,0.43845192
+1116867,40,"/r/2361 - bug 1116867 - make nsIProgressEventSink and nsITransportEventSink safely scriptable r=mayhemer r=bz
+Pull down this commit:
+hg pull review -r 7238b3125f1f3c327465592f7f096903928aaf18",0,2015-01-16T21:20:02Z,9806801.0,0,0.9883215,0.011678459
+1074012,4,"Created attachment 8496640
+part 1 - Temporarily expose some gfxContext fill/stroke API to help with porting to Moz2D",0,2014-09-29T01:09:51Z,9371832.0,0,0.8821841,0.11781595
+1066726,32,I think finding a minimum patch would be very complicated and risky.  I vote for all or nothing.,1,2014-11-04T16:26:54Z,9543892.0,0,0.68815976,0.3118402
+1121826,9,"Created attachment 8549944
+backout cc192030c28f - brackets shouldn't be automatically escaped in the Query
+I reverted the change in nsEscape.cpp and changed the unit test.
+This should probably be uplifted so users don't get stuck with the bug for too long",1,2015-01-15T23:41:57Z,9801893.0,1,0.81476116,0.81476116
+1116867,24,"Comment on attachment 8547685
+make nsIProgressEventSink and nsITransportEventSink safely scriptable
+Review of attachment 8547685:
+-----------------------------------------------------------------
+honza, I'll have bz r the xhr bits after the necko side gets squared away.",0,2015-01-12T18:28:43Z,9783007.0,0,0.999866,0.00013397304
+1142350,3,"Ah, good call. Maybe we can move it to c-c and remove it from m-c.",1,2015-03-12T17:37:30Z,10021881.0,0,0.9892596,0.010740359
+1173001,14,"Thanks for the fast reviews!
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=2a41aee7baf2",0,2015-06-10T03:19:01Z,10364276.0,0,0.9893931,0.010606901
+1079905,9,"Ok, so going with replacing all green buttons in the Hello UI with Summit Teal vibrant (#5BC0A4) and white foreground (text + icons). Also shifting the pill button in the contacts UI to a shorter, rounded rect, in line with our other Hello buttons (see bug 1075203). Thanks everyone!",0,2014-10-20T16:19:38Z,9471146.0,0,0.78076255,0.21923746
+1121826,17,"Actually, no. Sorry about the noise!",0,2015-01-21T16:18:35Z,9823537.0,0,0.98306656,0.016933478
+1073339,2,"Also browser_search_favicon.js.  I can see the same problem intermittently with e10s on Windows, and see no reason to believe they are different - so I'm opening a new bug to also disable these tests with e10s keeping this bug number as the reason.
+As to the reason: I'm seeing that the failure in e10s is caused due to detachController in autocomplete.xml being called during the test, causing the search to stop before we've got the results we expect.  detachController is called via:
+_adjustFocusAfterTabSwitch@chrome://browser/content/tabbrowser.xml:1251:9
+_finalizeTabSwitch@chrome://browser/content/tabbrowser.xml:3273:11
+set_selectedIndex/<@chrome://browser/content/tabbrowser.xml:5252:15
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:865:23
+this.PromiseWalker.walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:744:7
+which is tabbrowser focusing the new tab asynchronously.",0,2014-10-01T06:17:54Z,9385123.0,0,0.9966444,0.0033556246
+1066726,18,"Reproduced with Nightly 2014-07-20 on Windows 7 64bit with STR from bug 1036939.
+Verified as fixed with Firefox 33 beta 6 (Build ID: 20140922173023), latest Aurora 34.0a2 (Build ID: 20140923004002) and latest Nightly 35.0a1 (Build ID: 20140923030204) on Windows 7 64-bit, Linux 14.04 32-bit and Mac OS X 10.9.5 with STR from bug 1036939 and bug 1064408.
+Also, in Socorro there are no crashes after fixing this issue for [@ mozilla::net::nsHttpChannel::OnDoneReadingPartialCacheEntry(bool*)] signature (bug 1048348): https://crash-stats.mozilla.com/report/list?signature=mozilla%3A%3Anet%3A%3AnsHttpChannel%3A%3AOnDoneReadingPartialCacheEntry%28bool%2A%29&product=Firefox&query_type=contains&range_unit=weeks&process_type=any&hang_type=any&date=2014-09-23+14%3A00%3A00&range_value=1#tab-reports",0,2014-09-23T14:54:40Z,9347861.0,0,0.99837875,0.0016211816
+1096093,33,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+Pull down these commits:
+hg pull -r 4abd57038185299027d51eedd5524439293e0abb https://reviewboard-hg.mozilla.org/gecko/",1,2015-04-20T18:05:02Z,10176479.0,0,0.9972132,0.0027868608
+1055843,9,"This is how it is specified, yes [0]. I'm sure it was working before, though.
+[0]: http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content.html#effective-playback-rate",0,2014-08-21T11:59:03Z,9211888.0,1,0.6575175,0.6575175
+1104875,3,"Hmm.  I guess the UI can't do that because we're using a generic dialog?
+The big issue is this: what width to truncate at?  I don't see a way for this code to tell....",0,2014-11-26T17:14:51Z,9641336.0,1,0.56469053,0.56469053
+1096093,15,I think this really needs to block the aurora uplift,0,2015-02-20T20:46:08Z,9941683.0,1,0.90864277,0.90864277
+1055843,13,"This is used to know if the decoder was previously paused should the rate be 0. I guess the logic could be changed and re-use mPlaybackRate instead. But not being the author of that code, I always tend to keep the change to a minimal.
+having mPausedForPlaybackRateNull was also required because mInitialPlaybackRate isn't modified when MediaDecoder::SetPlaybackRate is called with a value of 0.
+so it falls back to setting mInitialPlaybackRate to the proper value.
+mInitialPlaybackRate is set to 1.0 in the constructor.
+As such, the following call to MediaDecoder::SetStateMachineParameters() will now call SetPlaybackRate with a value of 1.0. Meaning the following call to play, will start playback with a playrate of 1.0.
+The whole concept that playback rate has been set is now lost.
+You're right, it would cause an assertion (didn't notice it as the state machine isn't defined yet in that particular example).
+I do believe that a playbackrate shouldn't be handled any differently than a non-zero playback rate.
+it does, as Play() checks the value of mPausedForPlaybackRateNull. If you didn't set to false before the call to play, then playback wouldn't restart",0,2014-08-22T03:25:11Z,9216249.0,0,0.91459024,0.08540974
+1121826,10,*** Bug 1122714 has been marked as a duplicate of this bug. ***,0,2015-01-17T00:48:27Z,9807670.0,0,0.99966586,0.00033416547
+1118597,16,"Comment on attachment 8552063
+1118597.patch v3
+Requesting 37 uplift of just this patch.
+Approval Request Comment
+[Feature/regressing bug #]: MSE.
+[User impact if declined]: Less consistent testing, harder to port critical fixes.
+[Describe test coverage new/current, TreeHerder]: Landed on m-c some time ago.
+[Risks and why]: This is an EME patch, not an MSE one, but it does no harm and simplifies porting important MSE. Risk is minimal.
+[String/UUID change made/needed]: None.",0,2015-02-20T02:59:03Z,9938929.0,0,0.99984217,0.00015786772
+1057903,11,Problem might be a different patch.  See Bug 1067207 for more info.,0,2014-09-15T01:24:52Z,9309308.0,0,0.99946004,0.00053998607
+1118599,4,https://treeherder.mozilla.org/#/jobs?repo=try&revision=d65b051c1085,0,2015-01-08T03:28:59Z,9766682.0,0,0.97681993,0.023180075
+1048721,7,"Created attachment 8580439
+Address review comments.",0,2015-03-20T02:04:12Z,10054337.0,0,0.88858503,0.111414984
+1118597,5,"I meant:
+    if (box.IsType(""sinf"")) {
+       ParseSinf(box);
+       if (mSinf.IsValid()) {
+         break;
+       }
+though ParseSinf should return a boolean that it has succeeded.",0,2015-01-20T02:09:36Z,9814953.0,0,0.64581674,0.3541833
+1066726,36,"Created attachment 8517537
+for mozilla-b2g32_v2_0, v2
+- mCacheEntry->SetPredictedDataSize not called for a partial response (avoid the crash, bug 1048348)
+- concurrent cache reading completely disabled (explanation in the code comment)
+- test_partial_response_entry_size_smart_shrink.js has been slightly modified to accept missing bug 237623 on this branch (comments in the test)",1,2014-11-05T16:49:25Z,9549669.0,0,0.5834775,0.4165225
+1096093,40,"https://reviewboard.mozilla.org/r/7307/#review6147
+::: widget/nsXPLookAndFeel.h:84
+(Diff revision 5)
+This semicolon is unexpected. Does it compile?
+::: widget/nsXPLookAndFeel.cpp:710
+(Diff revision 5)
+I think this can just be ""return InfallibleTArray<LookAndFeelInt>()"".",0,2015-04-21T20:59:00Z,10182546.0,0,0.96956605,0.030433964
+1080574,13,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=8756880
+repository: mozilla-inbound
+start_time: 2015-04-12T17:56:44
+who: bbirtles[at]mozilla[dot]com
+machine: tst-linux32-spot-149
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: df60406c8e62
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-04-13T01:29:47Z,10145840.0,0,0.9996258,0.00037422727
+1080574,22,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=10923162
+repository: mozilla-inbound
+start_time: 2015-06-18T01:22:34
+who: tomcat[at]mozilla[dot]com
+machine: unknown
+revision: f1f1a9a1c46a
+caught OS error 2: No such file or directory while running ('xset', 's', 'off', 's', 'reset')
+1962 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-06-18T08:55:54Z,10403636.0,0,0.9988943,0.0011057135
+1055843,19,"Ok, I see. But the previous patch seems simpler where MediaDecoder::Play() just returns when |mPausedForPlaybackRateNull| is true.",0,2014-08-22T06:28:59Z,9216650.0,1,0.7538574,0.7538574
+1096093,65,"https://hg.mozilla.org/integration/mozilla-inbound/rev/fc5b0c1a9a86
+https://hg.mozilla.org/integration/mozilla-inbound/rev/4cc6d2d9c5dc
+https://hg.mozilla.org/integration/mozilla-inbound/rev/a5edb5f659d7",0,2015-04-23T18:47:19Z,10192128.0,0,0.99898213,0.0010178579
+1066726,33,"Honza, you're the best-qualified person to weigh the risks of doing that in comparison to the severity of the bugs it'd fix. B2G v2.0 is at a point where we don't want to be taking any unnecessary risks, so what's your take on wontfixing vs. proceeding with a mass uplift?",0,2014-11-05T13:53:19Z,9548870.0,0,0.79669124,0.20330876
+1096093,59,"https://hg.mozilla.org/integration/mozilla-inbound/rev/5f9c7cd773a5
+https://hg.mozilla.org/integration/mozilla-inbound/rev/8ed8157d26a2
+https://hg.mozilla.org/integration/mozilla-inbound/rev/70c19dd86f63",0,2015-04-23T14:26:15Z,10190733.0,0,0.9994948,0.0005052102
+1130065,2,"Try builds with patch and all our existing tests enabled
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=083037922056
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=ee099f65016c (this one has 2 tests that i forgot to enable before - test_worker{Unregister,Update}.html)
+I'll put the patch up for review as soon as I've a couple of retriggers to spot intermittents.",0,2015-02-11T00:57:08Z,9905652.0,0,0.97883224,0.02116779
+1057903,3,"Comment on attachment 8478049
+Refactor RasterImage to use DrawableFrameRef and generally clean up
+Shouldn't this go
+  if (!frameRef) {
+    ForceDiscard();
+    WantDecodedFrames();
+    if (aFlags & FLAG_SYNC_DECODE) {
+      return CopyFrame(aWhichFrame, aFlags);
+    }
+  }
+We have the same logic in GetFrame, so same comment for GetFrame.
+This goes from asking for a decode to not asking for a decode, is that okay?
+This if is now checking if we can get a drawable ref to the frame, before it was checking if we could get an imgFrame (even if it's buffer had been thrown away). So I think the comment is wrong and you need the force discard want decoded frames dance here that you remove below.",0,2014-09-11T07:31:39Z,9297926.0,0,0.94202393,0.05797611
+1066726,60,"Don't worry about Android builds/tests on b2g32. Completely unsupported anyway :)
+Honza, this looks like a real failure? I see it on WinXP debug as well. Everything else looks safe to ignore.
+https://treeherder.mozilla.org/ui/logviewer.html#?job_id=3374596&repo=try",0,2014-11-26T16:10:59Z,9641030.0,0,0.98635405,0.013645869
+1105771,7,"Comment on attachment 8536243
+Retrieve SPS and PPS from AVCC stream when necessary
+Review of attachment 8536243:
+-----------------------------------------------------------------
+::: media/libstagefright/binding/AnnexB.cpp
+@@ +80,5 @@
+This should use ByteReader because it protects against all the run-time out of range conditions.
+::: media/libstagefright/binding/DecoderData.cpp
+@@ +192,5 @@
+Now would be a good opportunity to move this logic and the above >=7 and |= 3 into the AnnexB class.
+::: media/libstagefright/binding/mp4_demuxer.cpp
+@@ +191,5 @@
+Updating the video config seems like a nasty side-effect to have in DemuxVideoSample(). This could perhaps be solved by moving extra_data out of VideoConfig altogether.",0,2014-12-15T03:20:57Z,9692714.0,0,0.9413594,0.05864061
+1118599,3,"Created attachment 8545642
+remove-MOZILLA_PKIX_ENUM_CLASS.patch",0,2015-01-08T03:28:14Z,9766679.0,0,0.957988,0.042011894
+1073339,21,"https://hg.mozilla.org/mozilla-central/rev/d68830b2ce47
+https://hg.mozilla.org/mozilla-central/rev/704ca3c0bb46",0,2014-12-17T11:59:40Z,9703930.0,0,0.9994282,0.0005717368
+1173001,2,"Created attachment 8617413
+Part 1 - Initialize reader task queue in the constructor. v1
+This is a necessary step towards having mirrored/canonical values, since those
+need to know the task queue in their constructor.",1,2015-06-09T16:25:44Z,10361383.0,1,0.99961096,0.99961096
+1132780,5,"Try builds
+with unified build: https://tbpl.mozilla.org/?tree=Try&rev=2c599e6f9104
+without unified build: https://tbpl.mozilla.org/?tree=Try&rev=4ed2c38ed470",0,2015-02-13T03:27:16Z,9915782.0,0,0.9720196,0.027980378
+1096093,20,"10.10.3 (also happened in 10.10)
+Automatically based on mouse or trackpad (OSX Default)
+Mouse is plugged in (Unplugged mouse still happens with trackpad)
+Can reproduce with fresh profile",0,2015-03-31T16:37:51Z,10101306.0,0,0.9961124,0.0038875698
+1105771,11,"Comment on attachment 8536243
+Retrieve SPS and PPS from AVCC stream when necessary
+Will take a different approach.
+It will be up to the decoder to handle the AVC format, not the demuxer",1,2014-12-16T01:13:44Z,9697512.0,0,0.9972167,0.0027832878
+1096093,47,"https://reviewboard.mozilla.org/r/7329/#review6159
+::: widget/cocoa/nsLookAndFeel.mm:652
+(Diff revision 4)
+so here's a question - on Windows I can go in and set ui.useOverlayScrollbars to true and get overlay behavior. This works with e10s. I'm assuming we can do the same on mac, but I'm wondering if the change takes effect?",0,2015-04-21T21:21:54Z,10182643.0,0,0.88082194,0.119178064
+1055843,16,"This doesn't seem to conform to the spec. Does it pass test_playback_rate.html? The playbackRate of the media element should not affect the play/pause state. This is also the reason MediaDecoder have its own play state which could be different from the one of the media element. Therefore, it is possible for an media element to be in play state with its media decoder in pause state.",1,2014-08-22T06:10:41Z,9216605.0,0,0.51420087,0.4857991
+1116867,41,"Comment on attachment 8547689
+MozReview Request: bz://1116867/mcmanus
+I got lost between the patches.  But this one seems to be the r+comments I've already made before (comment 31).",0,2015-01-19T14:46:44Z,9812563.0,0,0.99986553,0.00013443745
+1066726,3,*** Bug 1036939 has been marked as a duplicate of this bug. ***,0,2014-09-12T18:23:24Z,9305854.0,0,0.99967635,0.00032365546
+1055843,23,https://tbpl.mozilla.org/?tree=Try&rev=396f5b6de97e,0,2014-08-29T02:17:56Z,9245478.0,0,0.9985739,0.0014261092
+1079905,6,"Something I haven't seen considered is green on green or teal on teal — http://cl.ly/image/351M2k0o370o
+I like the teal but I prefer the green in this case because it is farther away from the blue we are using in other places.
+Alternative Icon ideas — http://cl.ly/image/2h3s093H263i",1,2014-10-17T14:59:19Z,9462305.0,1,0.8836381,0.8836381
+1121826,19,*** Bug 1128434 has been marked as a duplicate of this bug. ***,0,2015-02-17T15:07:08Z,9926342.0,0,0.9996705,0.00032956063
+1121826,2,"I tried to find the relevant spec bits for this. Reading https://url.spec.whatwg.org/#url-writing , it seems it says that a query string must consist of URL units, which are either percent-encoded bytes or in the set of url code points: https://url.spec.whatwg.org/#url-code-points which don't include [ or ] , leading me to think that they should therefore be encoded. However, (a) my success rate when trying to read specs is not great, and (b) the cross-browser inconsistency is not a good sign here. Anne/bz/valentin, you probably know more than me, can (one of) you comment?",0,2015-01-15T10:51:11Z,9798132.0,0,0.6404364,0.35956356
+1066726,52,NI some build experts here you may be able help debug the failures or provide input..,0,2014-11-20T21:00:31Z,9618442.0,0,0.9980743,0.0019256282
+1093374,5,Good point - I can't really think of a time we don't want -moz-appearance none here so I'll update the patch to use !important.,0,2014-11-04T16:43:25Z,9543985.0,1,0.820008,0.820008
+1057903,12,https://hg.mozilla.org/mozilla-central/rev/606aef8e8c16,0,2014-09-15T12:27:21Z,9310553.0,0,0.9999862,1.3880247e-05
+1096093,7,"From bug 1097601 - I have this whenever I'm using session restore which is all the time on my main profile as I've got tab groups.
+It happens on all sites. Whereas opening in non-e10s is fine.
+I've also replicated this with not using tab groups, but using the History -> Restore Previous Session option.
+I'm using MacBook Pro 10.8 with a retina display on the laptop, and a non-retina external display.
+I noticed something this morning: I happened to be on just the laptop display, and the scrollbars were there. Now I've switched back to my normal setup I've lost them again (it took a couple of restarts though). My normal setup has the non-retina display as the ""master"" showing the app bar and menu bar.",0,2014-11-14T08:44:27Z,9590861.0,0,0.9998344,0.00016560587
+1055843,18,"To clarify if it wasn't clear enough.
+by:
+""so HTMLMediaElement has ownership should the decoder play or not""
+I mean, HTMLMediaElement will not call MediaDecoder::Play() , but it does everything else as if it was playing",0,2014-08-22T06:19:01Z,9216626.0,1,0.5494194,0.5494194
+1055843,11,"Right. And our test does respect the spec.
+http://hg.mozilla.org/mozilla-central/file/c14e5feadc61/content/media/test/test_playback_rate.html#l83",0,2014-08-22T02:17:44Z,9216059.0,0,0.5809646,0.41903538
+1096093,6,*** Bug 1097601 has been marked as a duplicate of this bug. ***,0,2014-11-13T23:09:49Z,9588665.0,0,0.9997944,0.00020564122
+1066726,12,"Comment on attachment 8488773
+v1
+Approval Request Comment
+[Feature/regressing bug #]: cache2enable
+[User impact if declined]: broken or missing web content delivery to user's screen even freshly loading from servers (no work around with clearing cache or so)
+[Describe test coverage new/current, TBPL]: patch adds a bunch of tests checking all corner cases the patch is fixing ; otherwise deeply tested code (main HTTP web content load)
+[Risks and why]: hard to say, this code is complex
+[String/UUID change made/needed]: none",0,2014-09-18T11:16:21Z,9327763.0,0,0.9990398,0.0009601173
+1116867,4,"Now I get this instead:
+Assertion failure: progress <= progressMax (unexpected progress values), at /Users/amccreight/mc/netwerk/protocol/http/HttpChannelChild.cpp:544
+#01: mozilla::net::HttpChannelChild::RecvOnTransportAndData(tag_nsresult const&, tag_nsresult const&, unsigned long long const&, unsigned long long const&, nsCString const&, unsigned long long const&, unsigned int const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x314f03]
+#02: mozilla::net::PHttpChannelChild::OnMessageReceived(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x64e528]
+#03: mozilla::dom::PContentChild::OnMessageReceived(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x577d87]
+#04: mozilla::ipc::MessageChannel::DispatchAsyncMessage(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x46bb20]
+#05: mozilla::ipc::MessageChannel::DispatchMessage(IPC::Message const&)[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x46a811]
+#06: mozilla::ipc::MessageChannel::OnMaybeDequeueOne()[/Users/amccreight/mc/obj-dbg.noindex/dist/NightlyDebug.app/Contents/MacOS/XUL +0x46583f]",0,2015-01-05T21:59:19Z,9754443.0,0,0.99976844,0.0002315676
+1096093,4,"Hi Benjamin, there are known problems with LastPass. Can you try with that disabled? If it still persists please try with the other two disabled as well.",0,2014-11-13T03:52:04Z,9583891.0,0,0.98951495,0.010485018
+1066726,23,"Err... the bug is actually bug 1013395.  That one is not worth an uplift, but the parts needed to compile are small enough, I'll backport them.  However, there is some risk this patch won't be stable (since it is completely untested) w/o all other patches landed on 33+, this is simply a disclaimer.",0,2014-10-06T15:57:18Z,9407339.0,0,0.994201,0.0057989764
+1121826,11,"Try is green: https://treeherder.mozilla.org/#/jobs?repo=try&revision=b7bb9b8fe50b
+https://hg.mozilla.org/integration/mozilla-inbound/rev/9124cbf3e75f",0,2015-01-17T14:14:42Z,9808522.0,0,0.8019146,0.19808537
+752781,28,"log: https://treeherder.mozilla.org/logviewer.html#?repo=b2g-inbound&job_id=1420453
+repository: b2g-inbound
+start_time: 2015-02-27T11:20:51
+who: rvandermeulen[at]mozilla[dot]com
+machine: t-snow-r4-0108
+buildname: Rev4 MacOSX Snow Leopard 10.6 b2g-inbound debug test mochitest-2
+revision: ee5d1f234412
+249 INFO TEST-UNEXPECTED-FAIL | dom/events/test/test_bug607464.html | Pixel scrolling should have finished after one refresh driver iteration. We shouldn't be scrolling smoothly, even though the pref is set. - got 0, expected 15",0,2015-02-27T20:02:18Z,9968266.0,0,0.9999957,4.318322e-06
+1055843,17,"It's exactly what is happening..
+The media element will be in play state (and have emitted the ""play"" event). But the media decoder will still be in pause state (it enters pause state when we set the playback rate to 0).
+And yes it passes the test.
+241 INFO TEST-OK | /tests/content/media/test/test_playback_rate.html | took 72206ms
+242 INFO TEST-START | Shutdown
+243 INFO Passed:  89
+244 INFO Failed:  0
+245 INFO Todo:    0
+246 INFO Slowest: 72206ms - /tests/content/media/test/test_playback_rate.html
+247 INFO SimpleTest FINISHED
+248 INFO TEST-INFO | Ran 1 Loops
+249 INFO SimpleTest FINISHED",0,2014-08-22T06:16:56Z,9216623.0,0,0.9984787,0.0015212412
+1104875,4,"Yes. That and we concatenate it with the l10n string so there's really very little way to tell anything what/how to truncate otherwise.
+Fair! I would just lowball it at 60 characters, take the first/last 30 and add an ellipsis in the middle. That will still not be good enough for customized windows themes that have a really high font-size for message-box text, but that's not the 99% case, and this dialog isn't either, so it doesn't seem to me like we should do the (significant amount of) work here to get it right 100% of the time.",1,2014-11-26T17:31:03Z,9641391.0,1,0.6855275,0.6855275
+1130253,3,"Created attachment 8560231
+logcrash.txt.zip
+Entire log of the transaction",0,2015-02-06T03:36:52Z,9888706.0,0,0.992804,0.007195988
+1116867,33,"https://reviewboard.mozilla.org/r/2361/#review1705
+Ship It!",0,2015-01-15T20:48:50Z,9801111.0,0,0.9971066,0.0028934071
+1047560,8,https://hg.mozilla.org/mozilla-central/rev/4e9cd601aa23,0,2014-08-06T12:51:14Z,9147613.0,0,0.99996805,3.1920412e-05
+1079905,8,"I OK with using Teal or blue using the same icon. The Teal was taken from a color palette Sean Martell worked up for Project Chameleon.
+Stephen, I love the idea of using green, but I think we face a bit of a challenge trying to define an alternative video icon.",1,2014-10-20T15:28:42Z,9470711.0,0,0.56142116,0.43857878
+1066726,2,*** Bug 1064408 has been marked as a duplicate of this bug. ***,0,2014-09-12T18:23:20Z,9305852.0,0,0.99960715,0.0003928448
+1055843,10,"Comment on attachment 8476580
+Do not pause when playbackRate = 0. Instead don't play anything
+Review of attachment 8476580:
+-----------------------------------------------------------------
+Paul knows more about playback rate than I.",0,2014-08-21T21:38:41Z,9214997.0,0,0.9999101,8.9904104e-05
+1096093,57,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+https://reviewboard.mozilla.org/r/7305/#review6155
+::: widget/cocoa/nsLookAndFeel.mm:652
+(Diff revision 5)
+It's not officially supported, but the overlay scrollbar setting can be set on other platforms. Is there any way we can move this out to XPLookAndFeel so it applies to all platforms?",0,2015-04-23T14:14:02Z,10190686.0,0,0.9896115,0.01038853
+1048721,9,https://hg.mozilla.org/mozilla-central/rev/f5957afe1f8d,0,2015-03-23T23:45:39Z,10067676.0,0,0.9999552,4.479614e-05
+1047560,7,"Thanks, Ed.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/4e9cd601aa23",1,2014-08-05T22:52:19Z,9145307.0,0,0.94410044,0.055899512
+1080574,9,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=5885807
+repository: mozilla-inbound
+start_time: 2015-01-25T14:02:23
+who: philringnalda[at]gmail[dot]com
+machine: tst-linux32-spot-744
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: c1fb4bf7b043
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-01-25T22:54:39Z,9839675.0,0,0.99973446,0.00026557216
+1096093,53,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=jimm.
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=smaug.
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.
+Pull down these commits:
+hg pull -r ad01a0e24fd924ea9d88b1744ae63a4a864cb09a https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-22T15:16:23Z,10185797.0,0,0.9976472,0.0023527953
+1066726,8,*** Bug 1067564 has been marked as a duplicate of this bug. ***,0,2014-09-16T12:00:29Z,9316228.0,0,0.99959093,0.00040906062
+1079905,3,"Would love to also get shorlander and mmaslaney's thoughts here. For legal concerns, we are trying to avoid the rounded green camera buttons.",0,2014-10-16T20:24:25Z,9458442.0,0,0.9478787,0.052121338
+1173001,10,"Created attachment 8617699
+Part 3 - Fix up some task queue naming to make MediaDecoderReader consistent with MDSM. v1",0,2015-06-10T01:39:41Z,10363997.0,0,0.9625159,0.037484113
+1121826,4,"Per https://url.spec.whatwg.org/#query-state it appears these are not to be escaped when found in a URL. It seems they are non-conforming to appear as such (they are not URL code points), but at the moment they do not get escaped by the parser and therefore what I suggested in bug 473822 is wrong.
+Testing other browsers using http://intertwingly.net/projects/pegurl/liveview.html shows that none of them escape either ""["" or ""]"", but that does not explain the behavior people are talking about in the other bug.
+Perhaps the only problem was that we removed percent-encoding rather than leaving it in place?
+I'm really sorry about not having done due diligence the last time.",0,2015-01-15T11:55:31Z,9798368.0,0,0.82586485,0.1741352
+1057903,1,"Bug 1057894 adds a RAII smart handle for imgFrame called DrawableFrameRef, which we should use when we want to lock an imgFrame for drawing. RasterImage currently performs this locking through implicit calls to GetSurface (either in RasterImage itself or in code that it calls like imgFrame::Draw).
+I want us to move away from this pattern, and only call GetSurface when we actually want a surface. I wrote a patch to refactor RasterImage to allow this. In the course of writing the patch, a number of opportunities for simplification and cleanup in the code I was touching jumped out, so I want to use this bug not just to mechanically replace GetSurface calls with DrawableRef but to improve the involved code while I'm at it.",0,2014-08-25T01:30:53Z,9222772.0,1,0.99960357,0.99960357
+1096093,3,"Hi Brad,
+Here is the behavior with e10s on http://youtu.be/8dWzdp2omGQ this is with LastPass, Awesome Screenshot and BugzillaJS. I also disabled all addons and the behavior persisted and also tested in a new profile.",0,2014-11-13T03:43:49Z,9583863.0,0,0.9425731,0.057426907
+1105771,2,Confirmed in 37.0a1 (2014-12-05) Win 7,0,2014-12-05T14:57:38Z,9663667.0,0,0.90368444,0.09631558
+1055843,20,The patch is indeed simpler.. The logic is conceptually different however (but in effect identical). I'm happy either way,0,2014-08-22T07:10:00Z,9216707.0,1,0.93824357,0.93824357
+1055843,1,Videos are supposed to pause when the playbackRate is set to 0. However they just play muted.,0,2014-08-19T23:16:59Z,9203902.0,0,0.8747557,0.12524433
+1096093,51,(I have no idea why you're using InfallibleTArray and not shorter nsTArray),0,2015-04-22T00:30:26Z,10183479.0,0,0.63914365,0.3608564
+1076026,5,https://hg.mozilla.org/mozilla-central/rev/748ffeff132c,0,2014-10-16T14:12:48Z,9456211.0,0,0.99997437,2.5595444e-05
+1055843,29,"Comment on attachment 8477354
+Do not pause when playbackRate = 0. Instead don't play anything
+Review of attachment 8477354:
+-----------------------------------------------------------------
+Looks good, sorry for the slow review.
+::: content/html/content/src/HTMLMediaElement.cpp
+@@ +3836,5 @@
+This should not be necessary, because if we are pausing (internally, while showing that we are in playing state) the media, no sound will be output anyways.
+::: content/media/MediaDecoder.cpp
+@@ +1429,5 @@
+nit: always use braces, even for single line statements.",0,2014-08-31T16:56:07Z,9252498.0,0,0.99999106,8.997215e-06
+1066726,48,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+Dropping based on the last comment",0,2014-11-10T15:55:00Z,9568284.0,0,0.99997246,2.7531305e-05
+1096093,61,"Backout:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/9b70530c5898
+https://hg.mozilla.org/integration/mozilla-inbound/rev/805d4233dc4b
+https://hg.mozilla.org/integration/mozilla-inbound/rev/d13a8cde5695",0,2015-04-23T15:30:10Z,10191038.0,0,0.97587764,0.024122322
+1080574,4,"submit_timestamp: 2014-10-26T18:40:01
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=mozilla-beta&job_id=114827
+repository: mozilla-beta
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-271
+buildname: Ubuntu VM 12.04 x64 mozilla-beta debug test mochitest-4
+revision: 080cfa7f5d79
+122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",0,2014-10-27T01:40:02Z,9503054.0,0,0.9999951,4.9438354e-06
+1066726,30,"issue is resolved, removing outdated qa-wanted tag",0,2014-10-17T22:44:13Z,9464508.0,0,0.9986362,0.0013637722
+1105771,3,"Our decoders do not support avc3 at present. Could quite easily change FFmpeg h264 decoder to support it, but that won't get us very far...",1,2014-12-11T07:14:56Z,9681701.0,0,0.7124446,0.28755543
+1097236,14,https://hg.mozilla.org/mozilla-central/rev/ef46e2f147ed,0,2014-11-12T02:05:02Z,9577462.0,0,0.9999733,2.6705487e-05
+1066726,38,"As bad as this looks, most of the noise is expected based on being an old branch trying to run tests it wasn't designed to run. That said, https://treeherder.mozilla.org/ui/logviewer.html#?job_id=2961089&repo=try looks real to me.",0,2014-11-05T21:14:13Z,9551187.0,0,0.9897301,0.010269872
+1130253,6,"Oh no, that's not it, because MP4Reader::Shutdown does AwaitIdle while shutting down its task queues, and so it's effectively synchronous. I'll explain what's actually happening here in the next comment.",0,2015-02-14T00:38:27Z,9919551.0,0,0.6911584,0.3088416
+1173001,8,"Created attachment 8617697
+Part 0 - Explicitly instantiate WebReader in MediaSourceReader. v1
+This will allow us to pass the borrowed task queue. It's also more explicit
+about the fact that we only support mp4 and (sort of) webm.",1,2015-06-10T01:39:12Z,10363994.0,1,0.9998776,0.9998776
+1096093,10,I've seen this with both internal and external displays,0,2014-11-14T17:18:11Z,9592682.0,0,0.9987336,0.0012664119
+1066726,58,"Thank you.  Here it is:
+https://treeherder.mozilla.org/ui/#/jobs?repo=try&revision=65d165912d34",0,2014-11-25T15:35:26Z,9635371.0,1,0.7547414,0.7547414
+1080574,14,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-central&job_id=1327426
+repository: mozilla-central
+start_time: 2015-04-14T14:33:10
+who: wkocher[at]mozilla[dot]com
+machine: tst-linux32-spot-709
+buildname: Ubuntu VM 12.04 mozilla-central debug test mochitest-4
+revision: c3e4ff7d62c6
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-04-14T22:01:15Z,10155657.0,0,0.9996381,0.00036184833
+1096093,43,"https://reviewboard.mozilla.org/r/7329/#review6153
+Ship It!
+::: widget/cocoa/nsLookAndFeel.mm:32
+(Diff revision 2)
+Please initialize these members in the member initializer list, and not in the constructor body.",0,2015-04-21T21:03:55Z,10182565.0,0,0.9159438,0.084056176
+1066726,37,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+https://treeherder.mozilla.org/ui/#/jobs?repo=try&revision=bee6dd0d450c",0,2014-11-05T16:52:11Z,9549689.0,0,0.9680361,0.03196386
+1132964,1,"We should be loading the first tab remote but aren't for some reason. This is breaking some of my SDK tests since they assume a child process is running after the browser starts.
+Regressed somewhere in here, bisecting now
+https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=2cb22c058add&tochange=ee093ca70666",0,2015-02-13T17:09:35Z,9917864.0,0,0.9822081,0.017791944
+1066726,13,"For QA, I think this can be tested using the 3 bugs listed in comment #0.",0,2014-09-18T11:25:56Z,9327787.0,0,0.9799111,0.020088883
+1073339,7,"Oh, would be good to also update browser_autocomplete_a11y_label.js too, for consistency.",0,2014-11-24T04:16:20Z,9627180.0,0,0.8104387,0.1895613
+1097236,10,"I meant ""for some reason"". I see :root is already being used in this file though",0,2014-11-11T23:02:10Z,9576579.0,0,0.9875421,0.012457941
+1130065,10,"sorry i had to to back this out in https://treeherder.mozilla.org/#/jobs?repo=mozilla-inbound&revision=491e81cd9cf8 - seems one of this changes was causing on multiple desktop platforms test failures like 
+https://treeherder.mozilla.org/logviewer.html#?job_id=6670670&repo=mozilla-inbound
+that became frequent to perma failures starting with this csets. Could you take a look at this, thanks!",0,2015-02-17T08:41:01Z,9925544.0,0,0.99758494,0.002415056
+1148078,2,"Created attachment 8584058
+fix v1",0,2015-03-26T20:43:07Z,10083529.0,0,0.999226,0.0007740445
+1105771,4,"Created attachment 8536243
+Retrieve SPS and PPS from AVCC stream when necessary
+Extract SPS and PPS NAL from data stream and build extradata from it",1,2014-12-15T00:13:00Z,9692490.0,1,0.7758744,0.7758744
+1079905,2,"Created attachment 8506358
+loop-button-options.png
+Philipp, not sure if you have any comments here or if we should get legal involved? Do you think changing the color is best? I personally find option A most appealing, the only drawback is that the green/action buttons get lost with all the other blue buttons we have.",1,2014-10-16T19:57:43Z,9458333.0,1,0.9967873,0.9967873
+1173001,11,"Created attachment 8617700
+Part 4 - Enable tail dispatch for the decode task queue. v1",0,2015-06-10T01:39:52Z,10363998.0,0,0.99253184,0.007468179
+1093374,10,This looks fixed in latest gum build (https://hg.mozilla.org/projects/gum/rev/f426e446b9aa) using Mac OS X 10.9.5.,0,2014-11-07T14:21:56Z,9560452.0,0,0.9957913,0.004208704
+1096093,60,sorry had to back this out for bustage like https://treeherder.mozilla.org/logviewer.html#?job_id=9226985&repo=mozilla-inbound,0,2015-04-23T15:20:30Z,10190996.0,0,0.99996054,3.947363e-05
+1066726,43,Hmm.. not sure what was there to be addressed.  I don't know how run tests on the b2g32. is there a separate try repo for it?,0,2014-11-10T15:39:30Z,9568219.0,0,0.9970078,0.0029922114
+1105771,16,"FYI, our Big Bucky Bunny MPEG-DASH reference streams have been reissued with valid trun boxes and other minor changes. Full details can be found at http://rdmedia.bbc.co.uk/dash/ondemand/bbb/, with the stream referenced in the user story now available at http://rdmedia.bbc.co.uk/dash/ondemand/bbb/2/client_manifest-common_init.mpd.
+I see that Bug 1111311 has now landed in Nightly which makes this less of an issue but, as you say, still better to follow the spec.",1,2014-12-23T09:58:19Z,9726594.0,0,0.94927055,0.050729495
+1073339,11,Doesn't look great with e10s and unifiedcomplete enabled. If only I could run e10s tests locally...,0,2014-11-28T14:52:19Z,9648876.0,0,0.9298585,0.07014145
+1074012,5,"Created attachment 8496642
+part 3 - Make nsSVGUtils::MakeFillPatternFor/MakeStrokePatternFor return using a Moz2D GeneralPattern out-param rather than a Thebes gfxPattern",0,2014-09-29T01:21:13Z,9371843.0,1,0.5980294,0.5980294
+1116867,30,"Created attachment 8547721
+make nsIProgressEventSink and nsITransportEventSink safely scriptable
+These scriptable interfaces use uint_64 arguments with sentinel values
+of UINT64_MAX. However, UINT64_MAX exceeds MAX_SAFE_NUMBER and cannot
+be gatewayed to/from javascript - so they cannot be used
+correctly. Change them to use signed 64 bit numbers and -1 as the
+sentinnel. C++ implementations ought to be enough to audit as the
+special value could never be used correctly in JS anyhow - also
+audited OnProgressChange() uses for downstream use of this data.",0,2015-01-12T19:28:06Z,9783385.0,1,0.99662006,0.99662006
+1096093,2,this works for me. Got a screenshot? what platform? any addons?,0,2014-11-11T21:46:24Z,9576031.0,0,0.9990243,0.00097569893
+1073339,20,"https://hg.mozilla.org/integration/fx-team/rev/d68830b2ce47
+https://hg.mozilla.org/integration/fx-team/rev/704ca3c0bb46",0,2014-12-16T13:16:54Z,9699214.0,0,0.99789846,0.002101473
+1073339,15,"Created attachment 8535550
+0002-Bug-1073339-Convert-from-CRLF-to-LF-for-autocomplete.patch, v3
+Updated due to test changes.",1,2014-12-12T12:08:32Z,9687203.0,1,0.96923584,0.96923584
+1071367,3,"Created attachment 8493489
+Thing that fixes the bug",0,2014-09-23T02:37:22Z,9345148.0,0,0.99341935,0.006580582
+1048721,8,https://hg.mozilla.org/integration/mozilla-inbound/rev/f5957afe1f8d,0,2015-03-23T06:33:58Z,10063185.0,0,0.9974612,0.0025387467
+1116867,9,jason is probably in a better place with the ipdl code to answer the question.. valentin has a repro in 1117442 that he's working.,0,2015-01-06T21:55:56Z,9760048.0,0,0.9925932,0.0074067716
+1105771,8,"Comment on attachment 8536244
+MSE/MP4 Delay video decoder creation until we can retrieve SPS
+Review of attachment 8536244:
+-----------------------------------------------------------------
+The rest of this patch looks fine to me.
+::: dom/media/fmp4/MP4Reader.cpp
+@@ +433,5 @@
+These lines seem unnecessary. We could always create the video decoder.",0,2014-12-15T03:46:43Z,9692756.0,0,0.99991393,8.611448e-05
+1092808,1,"STR:
+1. set browser.polaris.enabled to true
+2. disable tracking protection in about:preferences privacy tab
+3. restart Firefox
+Expected:
+Tracking protection is still disabled.
+Actual:
+Tracking protection is enabled.",0,2014-11-02T15:32:38Z,9534378.0,0,0.984663,0.015337038
+1118599,6,https://hg.mozilla.org/mozilla-central/rev/2880e05d5e32,0,2015-01-08T13:29:40Z,9768260.0,0,0.99998295,1.7054552e-05
+1116867,28,"JS uses the term MAX_SAFE_INTEGER not MAX_SAFE_NUMBER, probably best to use the same terminology.",0,2015-01-12T18:44:17Z,9783124.0,0,0.81221783,0.18778211
+1096093,48,"https://reviewboard.mozilla.org/r/7307/#review6163
+::: dom/ipc/ContentChild.cpp:18
+(Diff revision 6)
+On this particular patch, which you flagged me on, r+.",0,2015-04-21T21:33:19Z,10182702.0,0,0.9939114,0.006088598
+752781,27,"log: https://treeherder.mozilla.org/logviewer.html#?repo=fx-team&job_id=1915482
+repository: fx-team
+start_time: 2015-02-06T03:56:18
+who: rvandermeulen[at]mozilla[dot]com
+machine: talos-mtnlion-r5-058
+buildname: Rev5 MacOSX Mountain Lion 10.8 fx-team opt test mochitest-2
+revision: eecd602fe207
+249 INFO TEST-UNEXPECTED-FAIL | dom/events/test/test_bug607464.html | Pixel scrolling should have finished after one refresh driver iteration. We shouldn't be scrolling smoothly, even though the pref is set. - got 0, expected 15",0,2015-02-06T13:47:33Z,9890015.0,0,0.9999963,3.736358e-06
+1130065,4,"Comment on attachment 8562862
+ServiceWorkerManager capture ""atomically"" properly
+Review of attachment 8562862:
+-----------------------------------------------------------------
+can you tell me more about the tests commented out?
+::: dom/workers/ServiceWorkerManager.cpp
+@@ -76,5 @@
+You didn't remove this variable from Manager.h
+@@ +559,5 @@
+why this change?
+@@ +1042,5 @@
+indent this line.
+@@ +1043,5 @@
+MOZ_ALWAYS_TRUE(NS_SUCCEEDED(NS_DispatchToMainThread(r));
+::: dom/workers/ServiceWorkerManager.h
+@@ +48,5 @@
+#ifdef DEBUG ...
+You don't use this method in prod builds.
+@@ +86,5 @@
+make Dump() to receive a format string and you can remove the fprintf here.
+Plus... this debug messages are not really part of this bug.
+I would like to remove it and add it in a separate bug/patch.
+@@ +92,4 @@
+same here.
+::: dom/workers/test/serviceworkers/test_install_event.html
+@@ +45,3 @@
+why this code is comment out?
+@@ +91,4 @@
+same here.
+::: dom/workers/test/serviceworkers/test_unregister.html
+@@ +22,5 @@
+info?
+@@ +87,5 @@
+I'm not really happy about this dump calls :)
+What about info?",0,2015-02-12T23:37:03Z,9915089.0,0,0.99878067,0.0012193228
+1105771,10,"Sorry - that was a typo. We should always create the video decoder lazily rather than having two execution paths, as discussed on IRC.",0,2014-12-15T21:18:54Z,9696523.0,0,0.6710279,0.32897204
+1104875,8,"Comment on attachment 8529252
+Ellipsize long unresponsive script locations so they don't make the slow script dialog too big
+Review of attachment 8529252:
+-----------------------------------------------------------------
+::: dom/base/nsGlobalWindow.cpp
+@@ +11187,5 @@
+include",0,2014-12-01T10:50:08Z,9652673.0,0,0.9945749,0.005425023
+1130065,13,"https://hg.mozilla.org/mozilla-central/rev/f64c2ee33087
+https://hg.mozilla.org/mozilla-central/rev/465e4d4986e1",0,2015-02-18T02:40:03Z,9929664.0,0,0.99949205,0.0005079565
+1096093,16,Starting to investigate this.,0,2015-03-30T22:35:03Z,10097904.0,0,0.99442095,0.005579095
+1055843,28,"Comment on attachment 8475549
+Fix to existing mochitest to make it fail properly
+Review of attachment 8475549:
+-----------------------------------------------------------------
+::: content/media/test/test_playback_rate.html
+@@ +56,5 @@
+This actually reset playbackRate to defaultPlaybackRate, per spec, so it's wrong.",0,2014-08-31T16:51:02Z,9252496.0,0,0.99798286,0.002017144
+1073339,4,"Created attachment 8527296
+0002-Bug-1073339-Convert-from-CRLF-to-LF-for-browser_acti.patch
+Windows -> Unix line endings.",1,2014-11-23T11:49:04Z,9626062.0,1,0.93416774,0.93416774
+1066726,35,"Thanks, sounds like the way to go :)",0,2014-11-05T15:15:35Z,9549222.0,0,0.9959462,0.0040537547
+1130065,6,"Comment on attachment 8562862
+ServiceWorkerManager capture ""atomically"" properly
+Review of attachment 8562862:
+-----------------------------------------------------------------
+Revert all the test changes. If you really need the Dump() method, can you write it in a separate patch?",0,2015-02-13T10:00:48Z,9916642.0,0,0.9999769,2.3115677e-05
+1096093,22,"I've tried toggling various scroll settings in both Nightly and the System prefs, Session restoring, using external or laptop screen.  I am not having any success reproducing this either.  Something non-obvious is in play.",0,2015-03-31T17:41:28Z,10101686.0,0,0.99776614,0.0022338277
+1116867,15,"this isn't really an e10s problem.. we see it in e10s because of an assert in the message marshalling code for onProgress().. but the root of it is that when OnProgress, which is a scriptable interface, goes through js a sentinel value is out of range of MAX_SAFE_INTEGER.. so it can't really use the interface correctly.",0,2015-01-09T21:26:58Z,9776287.0,0,0.9580541,0.04194587
+1116867,16,*** Bug 1117442 has been marked as a duplicate of this bug. ***,0,2015-01-09T21:45:59Z,9776362.0,0,0.9996995,0.00030058343
+1066726,7,"Comment on attachment 8488773
+v1
+Review of attachment 8488773:
+-----------------------------------------------------------------
+::: netwerk/test/unit/test_cache2-28-concurrent_read_resumable_entry_size_zero.js
+@@ +54,5 @@
+Is it always ensured that the second channel gets the cache entry before the entry is doomed by the first channel?",0,2014-09-16T11:20:33Z,9316124.0,0,0.99999857,1.464732e-06
+1079905,4,"Couple options to consider
+Version 1: Normal style button + green icon
+Version 2: Default style button
+Version 3: Teal
+Version 4: Teal Gradient 
+http://people.mozilla.org/~mmaslaney/hello/Hello-button-variations.png",1,2014-10-16T22:10:49Z,9459049.0,1,0.5757672,0.5757672
+1116867,21,"I was hoping to construct a safe way to disable for e10s only, but since the merge is on Monday, it's probably best to back out bug 731318.
+I'll do this now.",1,2015-01-09T23:10:50Z,9776752.0,0,0.9545782,0.04542176
+1096093,19,"Can you tell me more about your setup? Specifically:
+1) What version of OS X you're running
+2) What your setting is in System Preferences > General, ""Show scroll bars""
+3) Whether or not you have a mouse plugged in when you see this issue
+4) Whether or not you can reproduce this with a new profile
+Thanks!",0,2015-03-31T15:47:39Z,10101059.0,0,0.9982419,0.0017581107
+833964,35,*** Bug 849884 has been marked as a duplicate of this bug. ***,0,2014-08-19T14:08:17Z,9200718.0,0,0.9997181,0.0002818599
+1132780,3,"Comment on attachment 8563860
+1132780_without_unified_build.patch
+wrong file...",0,2015-02-13T03:25:27Z,9915778.0,0,0.9999938,6.165752e-06
+1096093,29,"Created attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - [WIP] Cache overlay scrollbar LookAndFeel metric, and invalidate in the content process when parent sends Refresh message. r=?
+Pull down this commit:
+hg pull -r 58f48da582c157e3a25d53dc194840afc31d15cf https://reviewboard-hg.mozilla.org/gecko/",1,2015-04-20T14:52:45Z,10175485.0,1,0.5372037,0.5372037
+1121826,14,"https://hg.mozilla.org/releases/mozilla-aurora/rev/ac9e91778eb6
+https://hg.mozilla.org/releases/mozilla-beta/rev/12bda229bf83",0,2015-01-20T16:42:11Z,9817602.0,0,0.9968297,0.0031703087
+1097236,1,"Created attachment 8520863
+twoarrows.png
+User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0
+Build ID: 20141110004002
+Steps to reproduce:
+Switched the Dev Edition to the light theme via the radio button the in the devtools options.
+Actual results:
+The dropdown arrow in the search field became two arrows, one gray and one a glowing blue.
+Expected results:
+Only a single gray arrow should appear.",0,2014-11-11T20:42:05Z,9575649.0,0,0.7041212,0.29587883
+1066726,41,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+Does this address comment 37?",0,2014-11-10T15:31:48Z,9568181.0,0,0.9999995,4.84059e-07
+1066726,49,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+Review of attachment 8517537:
+-----------------------------------------------------------------
+Agree.",0,2014-11-13T07:13:29Z,9584221.0,0,0.999962,3.805539e-05
+1132780,8,https://hg.mozilla.org/releases/mozilla-beta/rev/e3bf6bb9b33a,0,2015-03-04T01:34:07Z,9982321.0,0,0.99813014,0.0018698695
+1096093,9,"Benjamin & Mark, do you use an external display?",0,2014-11-14T13:42:51Z,9591771.0,0,0.99653375,0.0034662886
+1092808,9,"Verified on Windows 7 64bit, Ubuntu 13.10 32bit and Mac OSX 10.9.5: 
+- using latest Aurora 36.0a2 (07-01-2015) : the UI for tracking protection is not uplifted yet to Aurora
+- using latest Nightly 37.0a1 (07-01-2015) : the issue is fixed.",0,2015-01-08T14:48:09Z,9768579.0,0,0.9875339,0.012466063
+1055843,4,"Comment on attachment 8475549
+Fix to existing mochitest to make it fail properly
+Review of attachment 8475549:
+-----------------------------------------------------------------
+::: content/media/test/test_playback_rate.html
+@@ +56,5 @@
+What is the purpose to call play() again?",0,2014-08-20T03:11:42Z,9204648.0,0,0.9997063,0.00029364176
+1130065,12,"test_workerUpdate.html was failing nearly across the board, so I disabled it.
+https://hg.mozilla.org/integration/mozilla-inbound/rev/465e4d4986e1",1,2015-02-17T21:15:42Z,9928326.0,0,0.943193,0.056807008
+1080574,3,"submit_timestamp: 2014-10-10T07:36:36
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=fx-team&job_id=872300
+repository: fx-team
+who: emorley[at]mozilla[dot]com
+machine: talos-mtnlion-r5-059
+buildname: Rev5 MacOSX Mountain Lion 10.8 fx-team debug test mochitest-4
+revision: 984a9d8ac938
+112 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2014-10-10T14:36:37Z,9430623.0,0,0.99940383,0.0005961796
+1074012,3,"Created attachment 8496638
+part 2 - Mark gfxPattern::GetPattern's DrawTarget parameter as const",0,2014-09-29T00:50:44Z,9371817.0,0,0.9546897,0.04531034
+1055843,30,"Created attachment 8482088
+Do not pause when playbackRate = 0. Instead don't play anything
+Follow r+",1,2014-09-01T04:50:19Z,9253381.0,1,0.9965586,0.9965586
+1096093,18,"Hi Mike,
+STR is pretty simple just enabling e10s on OSX on any nightly for me totally makes scrollbars stop working. Would you like a video? There is no step to reproduce aside from enabling e10s and them immediately not working once the browser restarts.
+If I turn them off the scrolls bars are back like magic :)",0,2015-03-31T14:58:40Z,10100777.0,0,0.8738675,0.12613249
+1097236,9,"Comment on attachment 8520896
+Patch v1.1
+Review of attachment 8520896:
+-----------------------------------------------------------------
+::: browser/themes/windows/devedition.css
+@@ +103,5 @@
+We normally use #main-window instead of :root for some but I don't know why.",0,2014-11-11T22:59:27Z,9576563.0,0,0.9993364,0.0006635234
+1096093,64,"https://reviewboard.mozilla.org/r/7305/#review6299
+I'll open up a follow-up to investigate this, and link it to bug 1096093.",0,2015-04-23T18:45:44Z,10192124.0,0,0.9965305,0.0034695943
+1116867,25,"Created attachment 8547689
+MozReview Request: bz://1116867/mcmanus",0,2015-01-12T18:31:18Z,9783023.0,0,0.98085207,0.019147947
+1130065,9,https://hg.mozilla.org/integration/mozilla-inbound/rev/4d8423d5a83b,0,2015-02-16T18:24:29Z,9924141.0,0,0.9939359,0.0060641197
+1073339,6,"Comment on attachment 8527295
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch
+Review of attachment 8527295:
+-----------------------------------------------------------------
+Thanks for looking into this :) It's been driving me batty.
+Will also need to deal with browser_autocomplete_autoselect.js, added in bug 1067903.
+::: browser/base/content/test/general/browser_action_searchengine.js
+@@ +8,5 @@
+Nit: Rename, so we don't accidentally assume it's a global?",0,2014-11-24T00:29:09Z,9626674.0,0,0.99811447,0.0018855158
+1132780,4,"Created attachment 8563861
+1132780_fix_build_break.patch
+fix build errors in non-unified build.",1,2015-02-13T03:26:02Z,9915780.0,1,0.87962747,0.87962747
+1105771,13,"David, I have this video playing now, but just like your other MSE sample, it has broken timestamps. The cts offset are marked as being unsigned (version 0 trun), yet are negative (bug 1105778).
+Bug 1111311 addresses that problem, but still better following the specs.
+Thanks",0,2014-12-18T00:12:43Z,9706972.0,0,0.53430295,0.46569705
+1111046,5,https://hg.mozilla.org/mozilla-central/rev/cf853aa96c6a,0,2014-12-16T10:56:48Z,9698824.0,0,0.9999064,9.351607e-05
+1066726,54,Not really. Guessing tedm is the best one to help here.,0,2014-11-20T21:18:18Z,9618536.0,0,0.99927574,0.000724235
+1076026,3,"Created attachment 8498462
+Don't consider uninitialized lexicals when initializing a singleton object property type.
+Uninitialized lexicals as required by the TDZ shouldn't escape to script and
+shouldn't be picked up by type sets, which will confuse the type set into
+thinking it's seen lazyargs.",1,2014-10-01T21:45:25Z,9390032.0,1,0.96918476,0.96918476
+1093374,11,https://hg.mozilla.org/releases/mozilla-aurora/rev/1fc29c60fb1f,0,2014-11-08T04:41:46Z,9563975.0,0,0.99603844,0.0039615836
+1097236,6,"Created attachment 8520896
+Patch v1.1
+Fixed error in commit message",1,2014-11-11T21:05:55Z,9575824.0,1,0.937349,0.937349
+1105771,18,"For the record... As it is, the video will not have the right dimensions on mac until bug 1111328 lands.",0,2014-12-24T03:43:36Z,9730007.0,0,0.85493684,0.14506316
+1066726,39,"Idea: we could disable the disk cache when capacity is 0 (internally, disabling the cache completely is something else then setting the capacity to 0 bytes right now).  I'll provide a second patch here.",1,2014-11-09T20:21:37Z,9565396.0,1,0.61134994,0.61134994
+819493,56,"Hi Gavin,
+Taking a look at our current ""first run"" default snippet as well as our two other default snippets (pointing to features and addons) - I would like to explore in updating copy/icon and CTAs. Are there legal ramifications or reasons that these snippets have to be what they currently are or do we have the flexibility to change them?
+Please let me know, thanks!
+Jean",0,2014-08-05T21:44:23Z,9145014.0,1,0.81886685,0.81886685
+1066726,21,The patch is technically dependent on bug 1000338 that has been uplifted on 2014-10-05 14:46:11.  I think you can reland now (I will first locally check the build and let you know).,0,2014-10-06T13:19:04Z,9406522.0,0,0.99696714,0.0030328974
+1080574,10,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-central&job_id=1161490
+repository: mozilla-central
+start_time: 2015-03-13T06:57:18
+who: philringnalda[at]gmail[dot]com
+machine: tst-linux32-spot-1001
+buildname: Ubuntu VM 12.04 mozilla-central debug test mochitest-4
+revision: 9dbb2d41bb2c
+144 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-03-13T14:27:28Z,10026224.0,0,0.9997396,0.00026041624
+1066726,15,Probably yes.,0,2014-09-18T19:19:21Z,9330381.0,0,0.98899543,0.011004496
+1121826,8,"Thanks Anthony, I agree that we should stop doing that. (I suppose that for display purposes we still might want to show [ and ], but we should not give an altered URL when you start to manipulate or copy it. Same as with Unicode <> ASCII.)",1,2015-01-15T17:33:11Z,9800090.0,1,0.9424984,0.9424984
+1092808,4,The same changeset also doesn't disable the preferences UI if the user clears the polaris pref mid-session.,0,2014-11-03T19:20:57Z,9538874.0,0,0.90335375,0.096646294
+1130253,5,"The problem here is that MediaDecoderReader::Shutdown() returns a promise, but TrackBuffer::RemoveDecoder assumes that it happens synchronously. I'll take this.",0,2015-02-14T00:23:41Z,9919510.0,1,0.6154723,0.6154723
+1066726,24,"Created attachment 8501227
+v1 [REFERENCE] (for mozilla-b2g32_v2_0/not functioning)
+This builds, but tests are consistently failing around the code this patch is touching - something I was afraid of.  If we want to backport this to b2g/32 we need more patches to go along with it.  I have to search for all bugs that we have fixed for 33 and select those needed to make this patch work (best all of them).",1,2014-10-07T18:07:23Z,9414750.0,1,0.94567937,0.94567937
+1093374,9,https://hg.mozilla.org/mozilla-central/rev/de9c2a2f67eb,0,2014-11-05T20:32:25Z,9551003.0,0,0.9999558,4.4243123e-05
+1105771,9,"well, no, CreateVideoDecoder may fail.
+NS_ENSURE_SUCCESS will return if rv isn't NS_OK.
+rather confusing macro I admit, but it's how it was used",0,2014-12-15T03:50:15Z,9692760.0,0,0.8838666,0.116133384
+1118597,1,"Bug 1110608 broke parsing of some fragmented CENC files. I'm disabling MoofParser for encrypted files in bug 1118593, but we still want to use MoofParser for encrypted files, since it fixes other issues.
+So, this bug is to track fixing MoofParser for encrypted files.
+STR:
+1. Get gmp-clearkey from https://github.com/cpearce/gmp-clearkey
+2. Load http://people.mozilla.org/~cpearce/eme/
+3. Observe crash; the GMPDecryptor asserts that it expected the sample to have valid crypto data, but it doesn't.
+In debugging this, it looked like the auxInfoType of the saiz box was 'sinf', and so we didn't setup crypto data. We set the default auxInfoType of the saiz box to ""sinf"", but ISO/IEC 23001-7:2012(E) says that for CENC files a auxInfoType of 'cenc' should be assumed. I still crashed when I changed the default, so that's not the only problem.",0,2015-01-07T03:52:07Z,9761317.0,1,0.8995668,0.8995668
+1066726,25,"Created attachment 8501348
+Missing bugs for backport
+This is the list of cache2 bugs landed on Beta and not on B2G/32.  Not sure we can just select few to make the patch for this bug safely back-portable...",0,2014-10-07T21:41:40Z,9415968.0,1,0.9059082,0.9059082
+1130253,9,This should be fixed by bug 1125970.,0,2015-02-17T22:00:33Z,9928607.0,0,0.9994261,0.0005738933
+1092808,3,"Hello Gavin and Tomasz,
+We are getting a pref-changed event on startup in https://hg.mozilla.org/mozilla-central/rev/54fab44be5f3#l2.30 that is causing tracking protection to be enabled on restart if polaris is enabled. What's the right thing to do here?
+Monica",0,2014-11-03T18:32:13Z,9538564.0,1,0.8903247,0.8903247
+1096093,8,I have tried it with all addons disabled and e10s on gives me no scrollbars and e10s off acts normal.,0,2014-11-14T10:56:08Z,9591330.0,0,0.9919593,0.008040641
+1066726,57,"Well, I think I was able to address the build issues at least. Can you try to rebase on top of b2g32 and see if it's any better? I'm not sure if the test job failures are related or some other issue though.",0,2014-11-25T03:14:03Z,9632925.0,0,0.9354391,0.06456091
+1105771,12,"Comment on attachment 8536244
+MSE/MP4 Delay video decoder creation until we can retrieve SPS
+Will take a different approach.
+It will be up to the decoder to handle the AVC format, not the demuxer",0,2014-12-16T01:14:22Z,9697514.0,0,0.9986243,0.0013756283
+1118597,22,"I don't see a crash when following these steps with Aurora, but I don't see any media either.",0,2015-02-24T02:01:09Z,9949552.0,0,0.9823153,0.017684752
+1080574,18,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=9442689
+repository: mozilla-inbound
+start_time: 2015-04-30T02:40:40
+who: tomcat[at]mozilla[dot]com
+machine: unknown
+revision: d0703ff693a1
+caught OS error 2: No such file or directory while running ('xset', 's', 'off', 's', 'reset')
+2992 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-04-30T10:13:16Z,10216446.0,0,0.9988438,0.0011562158
+1118597,17,"Comment on attachment 8552063
+1118597.patch v3
+I don't have much concern about this one as it has been on m-c for some time already. Let's make things easier on ourselves for MSE in 37. Aurora+",0,2015-02-20T19:00:03Z,9941200.0,0,0.9912144,0.008785554
+1048721,4,https://treeherder.mozilla.org/#/jobs?repo=try&revision=f9c8807623a9,0,2015-03-18T23:41:45Z,10048356.0,0,0.99279916,0.007200779
+1142350,1,"It doesn't look like nsIUserCertPicker is used anymore, so the interface and its implementation can be removed. As far as I can tell, that's the only user of nsICertPickDialogs, so I think the interface, its implementation, and associated xul/js/l10n strings/etc. can also be removed.",0,2015-03-12T00:59:16Z,10018404.0,1,0.85616827,0.85616827
+1096093,23,"allowed today's nightly to update and restart caused scrolls bars to disappear for me this morning.
+Here are the JS warnings, errors and logs
+flags argument of String.prototype.{search,match,replace} is deprecated d3f13b20b98c56fc4227aea92752bc90.js:1681:15
+mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create browser.js:5292:2
+TypeError: this.controller is undefined browserPlacesViews.js:258:0
+uncaught exception: 2147942487 <unknown>
+OpenGL compositor Initialized Succesfully.
+Version: 2.1 NVIDIA-8.26.28 310.40.55b01
+Vendor: NVIDIA Corporation
+Renderer: NVIDIA GeForce GT 750M OpenGL Engine
+FBO Texture Target: TEXTURE_2D
+uncaught exception: 2147942487 <unknown>
+OpenGL compositor Initialized Succesfully.
+Version: 2.1 NVIDIA-8.26.28 310.40.55b01
+Vendor: NVIDIA Corporation
+Renderer: NVIDIA GeForce GT 750M OpenGL Engine
+FBO Texture Target: TEXTURE_2D
+1428419585176	FirefoxAccounts	ERROR	FxA rejecting with error NO_ACCOUNT, details: undefined Log.jsm:749:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0
+unsafe CPOW usage BrowserUtils.jsm:115:0
+unsafe CPOW usage findbar.xml:740:0
+unsafe CPOW usage findbar.xml:743:0
+unsafe CPOW usage findbar.xml:746:0",0,2015-04-07T15:17:59Z,10126113.0,0,0.9999051,9.484216e-05
+1092808,6,"Created attachment 8516217
+patch
+This adds the observer during finalUIStartup (shortly before first window open), which is late enough that it isn't triggered while reading user prefs in my testing. This seems like a prefs API foot gun in general, and this is just dodging it.",1,2014-11-03T21:01:44Z,9539434.0,1,0.9991855,0.9991855
+1116867,31,"https://treeherder.mozilla.org/#/jobs?repo=try&revision=1f68fc12ece7
+(you can see in the diff on the try run that I changed a printf specifier in one of the C++ tests.. that's the only change)",1,2015-01-13T14:57:38Z,9787584.0,0,0.9979621,0.0020379412
+1104875,9,Fixed typo and https://hg.mozilla.org/integration/mozilla-inbound/rev/7e81094bc8f9,1,2014-12-01T20:20:55Z,9653567.0,1,0.78812885,0.78812885
+1096093,21,"Still no luck reproducing. :(
+:tracy, got any cycles to help me figure out what I need to do to see this?",0,2015-03-31T16:42:25Z,10101325.0,0,0.9991252,0.00087486027
+1073339,12,you can by passing --e10s to mach mochitest-browser?,0,2014-11-28T15:02:23Z,9648914.0,0,0.9992198,0.0007801983
+1093374,4,"Comment on attachment 8516403
+tabstoolbar-overflowing-tabs.patch
+You can use !important here. The selector should be as simple as '#TabsToolbar', as I understand it. Or am I missing some case where -moz-appearance:none isn't wanted?",0,2014-11-04T08:46:35Z,9541928.0,0,0.9983821,0.0016178502
+1173001,13,It's just about the initialization order - the task queue needs to be initialized early so that mirror initializers can use it.,0,2015-06-10T03:16:28Z,10364266.0,0,0.9905695,0.009430533
+1116867,18,"I've been using e10s for a number of months, and I only noticed this particular problem recently.  (I work around it by not opening the console until after the page opens, which isn't too bad because I have to not open the console after the page closes due to another unrelated bug...)",0,2015-01-09T21:53:02Z,9776389.0,0,0.9994205,0.0005794601
+1118597,3,"Created attachment 8551532
+1118597-enable-moofparser-eme.patch",0,2015-01-20T00:32:38Z,9814723.0,0,0.98551977,0.014480317
+1121826,18,*** Bug 1133707 has been marked as a duplicate of this bug. ***,0,2015-02-17T15:03:00Z,9926324.0,0,0.99975055,0.00024939462
+1116867,20,"cool. so 731318 exposes a latent bug.
+we need to choose between backing that out of 37, or backporting the fix of the long time bug (which is going to have to include a breaking idl change) onto aurora.
+what do you think?",1,2015-01-09T22:37:13Z,9776588.0,0,0.9692824,0.030717615
+1080574,21,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-central&job_id=1665733
+repository: mozilla-central
+start_time: 2015-06-16T08:02:56
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-341
+buildname: Ubuntu VM 12.04 x64 mozilla-central debug test mochitest-4
+revision: 64bbc886ac8c
+146 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-06-16T15:38:25Z,10394743.0,0,0.9995086,0.0004913895
+1116867,23,"Created attachment 8547685
+make nsIProgressEventSink and nsITransportEventSink safely scriptable
+These scriptable interfaces use uint_64 arguments with sentinel values
+of UINT64_MAX. However, UINT64_MAX exceeds MAX_SAFE_NUMBER and cannot
+be gatewayed to/from javascript - so they cannot be used
+correctly. Change them to use signed 64 bit numbers and -1 as the
+sentinnel. C++ implementations ought to be enough to audit as the
+special value could never be used correctly in JS anyhow - also
+audited OnProgressChange() uses for downstream use of this data.",1,2015-01-12T18:25:14Z,9782995.0,1,0.996554,0.996554
+1096093,24,"Created attachment 8589141
+restart.js
+I was finally able to reproduce this. My STR (likely not minimal, but it's a start):
+0) Make sure Firefox is set up to restore your tabs / windows from last time when starting up
+1) Open a single tab in Firefox that is long (requires a vertical scrollbar). The root document needs to be long - no CSS trickery (so a dxr page is no good. This Bugzilla bug is probably a good page to load, actually).
+2) Make sure devtools.chrome.enabled and devtools.debugger.remote-enabled are set to true
+3) Open up the Scratchpad from DevTools, and in the titlebar, set Environment to Browser
+4) Paste the script I've attached to this bug (""restart.js"") into the Scratchpad, and click ""Run""
+The browser should restart and load the test page. Every now and then, the vertical scrollbar is missing.",0,2015-04-07T15:53:47Z,10126276.0,0,0.7868142,0.21318579
+1118597,12,"Created attachment 8552063
+1118597.patch v3
+Re-added missing stuff, whipped hg into line, addressed comments.",1,2015-01-20T23:12:39Z,9820039.0,1,0.9989054,0.9989054
+1079905,5,"I think the blue version works best. We'll also use it in the permissions UI for device sharing, so it's consistent with that.
+Teal also looks very nice, but I'm afraid it wouldn't solve the possible legal issues.
+By the way: another way to work around this besides the color would be changing the icon itself significantly. I took a stab at this once, but didn't really get to a good solution.",1,2014-10-17T11:37:49Z,9461389.0,1,0.82725513,0.82725513
+1096093,5,*** Bug 1097143 has been marked as a duplicate of this bug. ***,0,2014-11-13T23:05:10Z,9588644.0,0,0.9996506,0.00034944792
+1121826,5,"Nor is mine :-)
+One thing I'm much better at is looking at actual test results:
+https://url.spec.whatwg.org/interop/test-results/
+None of these tests include square brackets outside of the authority/hostname field.  So lets add some.  If people have suggestions for a few tests, I can add the tests, gather results, and we can discuss the way forward.
+Meahwhile, the following may be helpful:
+http://software.hixie.ch/utilities/js/live-dom-viewer/?saved=3368",0,2015-01-15T12:37:42Z,9798541.0,0,0.67523843,0.32476154
+1116867,42,https://hg.mozilla.org/integration/mozilla-inbound/rev/91e1a0afee55,0,2015-01-20T19:22:15Z,9818545.0,0,0.99564594,0.0043540397
+1118597,4,"Comment on attachment 8551531
+1118597.patch
+Review of attachment 8551531:
+-----------------------------------------------------------------
+I'm not a fan a cascade of parseXXX that you have now.
+The existing style was to have constructor taking a Box and being ""self-aware"".
+::: media/libstagefright/binding/Box.cpp
+@@ +27,5 @@
+please document where those values come from
+@@ +79,4 @@
+probably should check that child offset is still within the box range and abort if not.
+::: media/libstagefright/binding/Index.cpp
+@@ +108,5 @@
+can't we just exit and stop there. File won't play but at least it won't crash
+@@ +116,4 @@
+it's a carry-on from earlier, but I dislike the use of &cenc[0] ; this will assert if the array is empty.
+cenc.Elements() won't
+@@ +122,5 @@
+test return value of ReadArray
+::: media/libstagefright/binding/MoofParser.cpp
+@@ +203,5 @@
+can't you simply break the loop instead? no need to loop when we're not going to do anything later
+@@ +209,5 @@
+a bit inconsistent with the rest of the code, make them private member of MoofReader
+@@ +212,5 @@
+test that we have 8 bytes available in BoxReader
+@@ +220,5 @@
+and here
+@@ +226,5 @@
+test that we have 4 + 3 + 1 + 16...
+@@ +229,5 @@
+The construction of the Sinf should be done in a Sinf constructor that takes a Box& argument (in line with the rest of the code)
+@@ +232,5 @@
+and here
+::: media/libstagefright/binding/include/mp4_demuxer/MoofParser.h
+@@ +119,5 @@
+Build the Sinf in a Sinf(Box& aBox) constructor, similar to all other atoms.
+@@ +133,5 @@
+if you takes two arguments, you don't need explicit.
+However, I think it should take the info type as argument rather than the Sinf; so we untangle what is starting to become messy. Keep it abstracted so a Saiz and Saio box don't need to be aware of the internal implementation of the Sinf
+@@ +143,5 @@
+same as above, take the encryption type as argument",0,2015-01-20T02:06:27Z,9814941.0,0,0.88360626,0.11639373
+1173001,5,"Comment on attachment 8617413
+Part 1 - Initialize reader task queue in the constructor. v1
+This is going to need some tweaking.",0,2015-06-09T23:35:28Z,10363559.0,0,0.99985015,0.0001497994
+1132780,2,"Created attachment 8563860
+1132780_without_unified_build.patch
+Fix build errors in non-unified build.",1,2015-02-13T03:24:54Z,9915776.0,1,0.9852534,0.9852534
+1073339,17,"Comment on attachment 8535551
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch, v3
+Review of attachment 8535551:
+-----------------------------------------------------------------
+::: browser/base/content/test/general/browser.ini
+@@ -110,5 @@
+Look like browser_action_keyword.js should get updated too.",0,2014-12-13T03:40:09Z,9690852.0,0,0.99989235,0.00010760116
+1096093,45,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.
+Pull down these commits:
+hg pull -r f5ff3638d841e7e5297538acd0e1bd6866dec6ae https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-21T21:12:21Z,10182600.0,0,0.99575764,0.004242302
+1097236,7,"Comment on attachment 8520896
+Patch v1.1
+Review of attachment 8520896:
+-----------------------------------------------------------------
+This image is only swapped out in the dark theme, so this makes sense (although it's a bit weird, so please add a comment explaining this).  Reassigning the review to someone who can do it.",0,2014-11-11T21:20:17Z,9575882.0,0,0.99987113,0.00012884938
+1080574,5,"submit_timestamp: 2014-11-04T11:04:20
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=try&job_id=2926210
+repository: try
+who: dholbert[at]mozilla[dot]com
+machine: tst-linux64-spot-229
+buildname: Ubuntu VM 12.04 x64 try debug test mochitest-4
+revision: e255299d3cba
+122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true.",0,2014-11-04T19:04:21Z,9544748.0,0,0.99999356,6.393927e-06
+1073339,5,https://tbpl.mozilla.org/?tree=Try&rev=ce898dc49b21,0,2014-11-23T11:51:51Z,9626065.0,0,0.9943011,0.0056988667
+1116867,1,"Created attachment 8543075
+assertion stack
+1. Make sure e10s is enabled.
+2. Open the browser console.
+3. Navigate to www.google.com in the main browser window.
+I tried this same thing in my regular Nightly session, and nothing obviously bad happened, so maybe it is just an overly strict assertion.",0,2014-12-31T22:06:32Z,9744880.0,1,0.70324564,0.70324564
+1111046,3,I didn't run this through try since it's trivial,0,2014-12-13T00:10:33Z,9690369.0,1,0.6210737,0.6210737
+1079905,7,"Ok, I'm leaning towards the teal background with white text/icon. Same icon as we currently have. Michael/Stephen, can you confirm for me that this teal is something you're willing to live with as part of our ongoing palette? Is there an existing palette you're drawing this from?",1,2014-10-20T14:59:25Z,9470271.0,1,0.5912027,0.5912027
+1066726,31,*** Bug 1065466 has been marked as a duplicate of this bug. ***,0,2014-11-03T15:57:50Z,9537689.0,0,0.9994961,0.0005038982
+1118597,15,"https://hg.mozilla.org/mozilla-central/rev/0f3a324e645d
+https://hg.mozilla.org/mozilla-central/rev/06648aa9a5c4",0,2015-01-27T14:26:06Z,9847370.0,0,0.99966276,0.00033729526
+1104875,10,https://hg.mozilla.org/mozilla-central/rev/7e81094bc8f9,0,2014-12-02T12:29:21Z,9654866.0,0,0.99997354,2.647332e-05
+1048721,5,"Comment on attachment 8579685
+Implement WebGL2Sync.
+Review of attachment 8579685:
+-----------------------------------------------------------------
+::: dom/canvas/WebGLSync.h
+@@ +20,5 @@
+I'd rather make this RAII, instead of passing some externally-created GLsync in. (Also, `explicit` is only for single-arg ctors, IIRC)",0,2015-03-19T01:56:59Z,10048783.0,0,0.94209754,0.057902463
+1118597,11,"Comment on attachment 8551614
+1118597.patch v2.1
+Review of attachment 8551614:
+-----------------------------------------------------------------
+Actually, on second look
+Where are 
+MoofParser::ParseMinf
+MoofParser::ParseStbl
+MoofParset::ParseStsd
+MoofParser::ParseSinf
+?",0,2015-01-20T07:13:53Z,9815715.0,0,0.9999901,9.921923e-06
+1093374,2,It's because of the moz-appearance set here: http://dxr.mozilla.org/mozilla-central/source/browser/themes/osx/browser.css#3082,0,2014-11-04T00:22:16Z,9540454.0,0,0.5550083,0.4449917
+1116867,19,"In bug 731318, we added code to net monitor which triggers this issue if the Browser Console or DevTools toolbox is open.  This landed in 37.
+It's a crash on e10s because HttpChannelChild uses MOZ_ASSERT[1], which forces a crash.  The same problem happens without e10s, but it's only an NS_WARNING[2].
+[1]: https://hg.mozilla.org/mozilla-central/annotate/b3f84cf78dc2/netwerk/protocol/http/HttpChannelChild.cpp#l544
+[2]: https://hg.mozilla.org/mozilla-central/annotate/b3f84cf78dc2/netwerk/protocol/http/nsHttpChannel.cpp#l5799",0,2015-01-09T22:10:30Z,9776480.0,0,0.9732689,0.026731022
+1148078,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/638492d777fc,0,2015-03-26T21:38:14Z,10083957.0,0,0.9970931,0.0029068482
+1076026,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/748ffeff132c,0,2014-10-16T01:07:58Z,9453776.0,0,0.99841225,0.0015877663
+1096093,66,"https://hg.mozilla.org/mozilla-central/rev/fc5b0c1a9a86
+https://hg.mozilla.org/mozilla-central/rev/4cc6d2d9c5dc
+https://hg.mozilla.org/mozilla-central/rev/a5edb5f659d7",0,2015-04-24T12:43:32Z,10195360.0,0,0.9997211,0.00027882255
+1121826,13,"Comment on attachment 8549944
+backout cc192030c28f - brackets shouldn't be automatically escaped in the Query
+Approval Request Comment
+[Feature/regressing bug #]:
+Bug 473822
+[User impact if declined]:
+Some websites may not work for users on those specific releases.
+[Describe test coverage new/current, TBPL]:
+I have changed a test to make sure this behaviour does not regress in the future.
+[Risks and why]:
+Very low risk. It reverts back to a behaviour Firefox has had for a long time.
+[String/UUID change made/needed]:
+None",0,2015-01-18T02:26:21Z,9809394.0,0,0.99998593,1.4066378e-05
+1093374,6,"Created attachment 8516772
+tabstoolbar-overflowing-tabs.patch
+This fixes the issue for me",0,2014-11-04T16:44:14Z,9543996.0,1,0.8167196,0.8167196
+1130065,5,Sorry about the debugs left in and the test code commented out. Both were mistakes.,0,2015-02-13T04:36:47Z,9915945.0,0,0.9959143,0.0040857075
+1066726,1,"This is a cover bug for bug 1064408, bug 1036939 and bug 1048348.  They are all pretty connected together, I will dup them all to this single bug and have a single patch for all of them here.",0,2014-09-12T17:22:01Z,9305561.0,0,0.9955362,0.0044637606
+1096093,55,"Hey jimm,
+I pushed my last set of patches up to Try, and oranged out because the LookAndFeel stuff was getting initted when the ContentChild was starting up, and without a display (like when running xpcshell tests), that was causing our GTK self-tests to fail.
+After consulting with karlt, my solution is to have LookAndFeel in the content process query the parent only when nsXPLookAndFeel::Init is called (so only when layout/painting needs LookAndFeel).
+Here's the interdiff:
+https://reviewboard.mozilla.org/r/7307/diff/7-8/
+Here's the new try push:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=4e057bc88610",1,2015-04-23T13:59:46Z,10190615.0,1,0.88162905,0.88162905
+1066726,11,https://hg.mozilla.org/mozilla-central/rev/1bb80b72541f,0,2014-09-17T00:10:06Z,9320290.0,0,0.9999696,3.0431744e-05
+1080574,8,"submit_timestamp: 2015-01-09T13:52:59
+log: https://treeherder.mozilla.org/logviewer.html#?repo=b2g-inbound&job_id=1133224
+repository: b2g-inbound
+who: rvandermeulen[at]mozilla[dot]com
+machine: t-snow-r4-0077
+buildname: Rev4 MacOSX Snow Leopard 10.6 b2g-inbound opt test mochitest-4
+revision: a5d5e741f8a3
+46 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-01-09T21:53:00Z,9776388.0,0,0.99911195,0.00088803505
+1074012,7,"https://hg.mozilla.org/mozilla-central/rev/ab520ec5fed5
+https://hg.mozilla.org/mozilla-central/rev/d98720aace71
+https://hg.mozilla.org/mozilla-central/rev/6fa1aac2d413",0,2014-09-29T19:02:59Z,9375936.0,0,0.9996092,0.00039091252
+1111046,4,https://hg.mozilla.org/integration/mozilla-inbound/rev/cf853aa96c6a,0,2014-12-15T20:22:55Z,9696295.0,0,0.9947778,0.005222196
+1096093,11,"Have you seen it when you haven't had an external display plugged in during the lifetime of Firefox?
+To clarify, I haven't seen this. I don't use an external display, so I'm wondering if that's a key part of reproducing this.",0,2014-11-14T17:32:13Z,9592740.0,0,0.9955787,0.004421253
+1097236,2,cc @bgrins,0,2014-11-11T20:42:25Z,9575657.0,0,0.64782315,0.35217682
+1055843,6,It looks like HTMLMediaElement::CheckAutoplayDataReady() doesn't respect playback rate and starts playing despite the playback rate is 0.,0,2014-08-20T03:36:08Z,9204700.0,0,0.8780038,0.12199624
+1055843,27,https://tbpl.mozilla.org/?tree=Try&rev=8842469f0837(In reply to JW Wang [:jwwang] from comment #25),0,2014-08-29T03:37:21Z,9245676.0,0,0.9892735,0.010726527
+1055843,22,"Created attachment 8477354
+Do not pause when playbackRate = 0. Instead don't play anything
+Revert earlier changes. The initial playrate value would be lost should the user pause then play, breaking the specs",1,2014-08-22T11:23:16Z,9217394.0,1,0.99963224,0.99963224
+1097236,12,"Created attachment 8520984
+Patch v1.3
+Well, looks like the comment didn't get added.",1,2014-11-11T23:08:13Z,9576622.0,1,0.9779252,0.9779252
+1092808,8,https://hg.mozilla.org/mozilla-central/rev/1e99e10579d2,0,2014-11-05T20:31:00Z,9550982.0,0,0.99998355,1.647549e-05
+1142350,4,"It's not, and it is essential for configuring S/MIME signing or encryption, actually, see also https://support.mozilla.org/en-US/kb/configuration-options-certificates",0,2015-03-13T08:50:24Z,10025226.0,1,0.56185,0.56185
+1118597,14,"Comment on attachment 8552063
+1118597.patch v3
+Review of attachment 8552063:
+-----------------------------------------------------------------
+r+ with some nits.
+::: media/libstagefright/binding/Index.cpp
+@@ +131,5 @@
+CanRead16 ?
+::: media/libstagefright/binding/SinfParser.cpp
+@@ +14,5 @@
+as we can use mSinf.mDefaultEncryptionType without mSinf being valid, it needs to be initialized to 0 regardless.
+::: media/libstagefright/binding/include/mp4_demuxer/SinfParser.h
+@@ +17,5 @@
+mDefaultIVSize must be initialized before mDefaultEncryptionType (cause a compilation warning otherwise)",0,2015-01-20T23:49:28Z,9820234.0,0,0.999954,4.602835e-05
+1073339,14,"Comment on attachment 8530242
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch, v2
+Review of attachment 8530242:
+-----------------------------------------------------------------
+I don't see any obvious reason why this is failing on Try :\",0,2014-12-01T03:14:25Z,9652217.0,0,0.9999958,4.16736e-06
+1079321,1,"Created attachment 8501131
+Patch (v1)",0,2014-10-07T15:44:30Z,9413905.0,0,0.9986665,0.001333436
+1057903,6,"Thanks for the review! Pushed:
+https://hg.mozilla.org/integration/mozilla-inbound/rev/606aef8e8c16",0,2014-09-14T22:20:45Z,9309167.0,1,0.8959451,0.8959451
+1073339,18,"Created attachment 8536635
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch, v4",0,2014-12-15T17:03:07Z,9695139.0,0,0.99429756,0.0057025026
+1130065,8,"couldnt land due to tree being closed. i'm away till monday, but you can grab them from here https://treeherder.mozilla.org/#/jobs?repo=try&revision=98b5d0e4a7fb",0,2015-02-14T03:14:29Z,9919797.0,0,0.88457066,0.11542933
+1130253,8,Tracking all MSE P1 bugs for Firefox 37.,0,2015-02-17T17:43:10Z,9927080.0,0,0.99611354,0.0038864885
+1097236,17,https://hg.mozilla.org/releases/mozilla-aurora/rev/92a9effa0ed4,0,2014-11-13T20:12:57Z,9587747.0,0,0.9958994,0.004100566
+1055843,33,https://hg.mozilla.org/mozilla-central/rev/bdb0a8c2902d,0,2014-09-02T05:50:27Z,9256661.0,0,0.9999584,4.1614436e-05
+1118597,19,"Something in this push caused linux32 debug bustage. Nobody was around to help, so I had to back it out.
+https://hg.mozilla.org/releases/mozilla-aurora/rev/77d5e3a30435
+https://treeherder.mozilla.org/logviewer.html#?job_id=612948&repo=mozilla-aurora",0,2015-02-20T23:16:59Z,9942335.0,0,0.97801536,0.021984642
+985257,18,https://developer.mozilla.org/en-US/docs/Web/API/Path2D.Path2D,0,2014-11-25T22:38:46Z,9637663.0,0,0.9454503,0.054549716
+1116867,17,"I'm going to put this at the top of my queue, but it isn't going to happen before the branch to ff38 next week. However the problem is long standing. We might want to consider working around any new code on 37 that triggers the issue.
+(or is it not new code? and we only notice it because people have e10s enabled on nightly?)",0,2015-01-09T21:50:21Z,9776372.0,0,0.9958133,0.0041866587
+1105771,17,https://hg.mozilla.org/mozilla-central/rev/ed08c1246e77,0,2014-12-23T18:27:15Z,9728236.0,0,0.9999758,2.4170628e-05
+1148078,5,https://hg.mozilla.org/mozilla-central/rev/638492d777fc,0,2015-03-27T16:28:42Z,10088234.0,0,0.9999795,2.0458736e-05
+819493,57,"Hi Jean,
+The wording of the ""first run"" snippet was chosen carefully, since it was a straight replacement for the ""know your rights"" info bar. Changing that would require a discussion to make sure that we're not losing important first-run messaging.
+The wording and style of the other two ""default snippets"" are completely open to modification - feel free to file a bug and CC me to discuss any changes.",0,2014-08-06T01:50:56Z,9145894.0,1,0.80622,0.80622
+900384,3,https://hg.mozilla.org/integration/mozilla-inbound/rev/7c0ab70d2e40,0,2014-12-30T01:56:33Z,9739750.0,0,0.9915325,0.00846753
+1096093,46,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.
+Pull down these commits:
+hg pull -r 3d61e9e8599c0e7b59db677cdbf67a5a734450e5 https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-21T21:15:17Z,10182613.0,0,0.99710506,0.0028949443
+1080574,1,"+++ This bug was initially created as a clone of Bug #1061186 +++
+https://treeherder.mozilla.org/ui/logviewer.html#?job_id=2865229&repo=mozilla-inbound
+builder 	Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+buildid 	20141008141406
+builduid 	6ce99c438e6548ec8646041864ab0c51
+results 	warnings (1)
+revision 	50a379edc315
+slave 		tst-linux32-spot-507
+starttime 	Wed Oct 08 2014 17:49:45 GMT-0400 (Eastern Standard Time)
+14:53:48 INFO - 115 INFO TEST-START | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html
+14:53:48 INFO - ++DOMWINDOW == 69 (0x98ceed20) [pid = 1835] [serial = 413] [outer = 0x9b38e760]
+14:53:48 INFO - *** WIFI GEO: shutdown called
+14:53:49 INFO - 116 INFO TEST-PASS | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | get geolocation object
+14:53:49 INFO - 117 INFO TEST-PASS | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | set done
+14:53:49 INFO - 118 INFO TEST-PASS | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | turned off geolocation via mozSettings
+14:53:49 INFO - 119 INFO TEST-PASS | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to false.
+14:53:49 INFO - 120 INFO TEST-PASS | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | set done
+14:53:49 INFO - 121 INFO TEST-PASS | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | turned on geolocation via mozSettings
+14:53:49 INFO - 122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS
+14:53:49 INFO - JavaScript error: resource://gre/components/SettingsManager.js, line 143: TypeError: this._window.MozSettingsTransactionEvent is not a constructor
+14:53:49 INFO - 123 INFO TEST-OK | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | took 1632ms",0,2014-10-09T13:57:02Z,9425507.0,0,0.9999993,7.283895e-07
+1104875,11,*** Bug 604626 has been marked as a duplicate of this bug. ***,0,2014-12-07T00:55:38Z,9666326.0,0,0.9996245,0.0003755424
+1096093,26,"Maybe it's helpful or not, but if you restore session from about:home this bug does not reproduce.  What is it doing that's different from update or on restart session restore?",0,2015-04-16T16:11:51Z,10164012.0,0,0.99934214,0.00065787876
+1104875,7,"Created attachment 8529252
+Ellipsize long unresponsive script locations so they don't make the slow script dialog too big",0,2014-11-26T21:01:07Z,9642407.0,1,0.6192547,0.6192547
+1097236,13,https://hg.mozilla.org/integration/fx-team/rev/ef46e2f147ed,0,2014-11-11T23:10:13Z,9576633.0,0,0.9982888,0.0017111672
+1066726,26,Probably more a question for Bhavana.,0,2014-10-07T21:43:07Z,9415980.0,0,0.91783005,0.08216997
+1116867,26,"/r/2361 - bug 1116867 - make nsIProgressEventSink and nsITransportEventSink safely scriptable r=mayhemer
+Pull down this commit:
+hg pull review -r 24652fa8a6703951d3b8e91fcbc03b69a7c86263",0,2015-01-12T18:31:20Z,9783024.0,0,0.9920717,0.00792835
+1073339,8,"Created attachment 8530242
+0001-Bug-1073339-Enable-autocomplete-tests-for-Linux-and-.patch, v2",0,2014-11-28T11:28:30Z,9648324.0,0,0.99029773,0.009702238
+1066726,9,"Definitely is, the second channel gets the entry (OnCheck/OnAvail calls) when the first channel fills the metadata on the entry (what happens on the main thread in OnStart).  Dooming happens later in OnData of chan1, by that time chan2 already pump-reads the entry.",0,2014-09-16T12:08:06Z,9316249.0,0,0.6051934,0.39480662
+1066726,4,*** Bug 1048348 has been marked as a duplicate of this bug. ***,0,2014-09-12T18:23:28Z,9305856.0,0,0.99959856,0.00040144718
+1055843,24,test_playback_rate.html timed out on both Android and B2G. Can  you check if it is so even without this patch?,0,2014-08-29T02:50:55Z,9245542.0,0,0.99959534,0.00040465058
+1116867,10,"I am not able to reproduce any issues (comment 0 or comment 3) with the linux 64 nightly debug build (2015-01-05).  I tested in e10s mode on the same sites mentioned.
+It is likely a related fix landed as part of bug 1115976, but this landed on 2015-01-03, which confuses me, since comment 3 is from 2015-01-05.
+Andrew, do you still see this even in the latest debug nightly?",0,2015-01-07T00:18:33Z,9760694.0,0,0.99815696,0.0018430348
+1118597,7,"Created attachment 8551614
+1118597.patch v2.1
+Actually address review comments and IRC comments.",1,2015-01-20T05:39:59Z,9815530.0,1,0.99760264,0.99760264
+1066726,55,"Unfortunately it looks like you're running into problems because the build automation has changed since that branch. I don't know if there's an easy way to make things work, maybe mshal has some idea.",0,2014-11-24T12:47:50Z,9628589.0,0,0.9598374,0.040162656
+1096093,44,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.
+Pull down these commits:
+hg pull -r f5ff3638d841e7e5297538acd0e1bd6866dec6ae https://reviewboard-hg.mozilla.org/gecko/",1,2015-04-21T21:12:21Z,10182600.0,0,0.99575764,0.004242302
+1055843,21,"Created attachment 8477337
+Do not pause when playbackRate = 0. Instead don't play anything
+Include comments from jwwang. Simplify code. Also remove all ambiguities in testing a double as 0",1,2014-08-22T10:43:08Z,9217272.0,1,0.9637725,0.9637725
+1118597,21,"Trying again. I added an include to work around the (linux32 debug only!) build failure in Sinfparser.cpp.
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=ed269dd0a199",0,2015-02-22T02:20:29Z,9944191.0,1,0.62424505,0.62424505
+1111046,1,These preferences are only used by the profiler add-on. They don't need to be in the tree.,0,2014-12-12T22:33:37Z,9690013.0,0,0.9989749,0.0010250683
+1116867,3,"so this is wfm with a debug build from this morning's m-c on linux64 - using e10s and both http:// and https:// versions of google.
+is this still an issue? can you provide the info from comment 1?",0,2015-01-05T16:46:43Z,9752644.0,0,0.9999393,6.0706316e-05
+1116867,22,"thanks jryans.
+Actually, this isn't really an e10s thing. only e10s throws the assert, so we notice it more there, but the single process code path is also going to corrupt maxProgress when it goes through js boundaries - it will just happen silently. The code in places like docshell that checks uint_max64 will do the wrong thing in those cases.",1,2015-01-09T23:34:22Z,9776858.0,0,0.64976585,0.35023415
+1097236,5,"Created attachment 8520894
+Patch",0,2014-11-11T21:04:26Z,9575812.0,0,0.9999566,4.3398304e-05
+1096093,25,"Ok, I have more minimal STR:
+0) Make sure Firefox is set up to restore your tabs / windows from last time when starting up and is using e10s.
+1) Make sure a mouse is plugged in, and make sure that OS X is configured to show scrollbars ""Automatically based on mouse or trackpad"" (that's in System Preferences > General).
+2) Open this bug in one tab, and then again in a second tab.
+3) Quit the browser
+4) Start the browser
+5) Note that the initial re-opened browser has overlay scrollbars instead of the inline scrollbars.
+6) Switch to the other tab - notice that the scrollbar track is just a blank area.",0,2015-04-14T22:00:16Z,10155651.0,0,0.6855589,0.31444108
+1066726,34,"I'm against the mass uplift.  Those patches are touching also a different code and there can easily be dependencies we are not aware of and totally break the stable b2g 2.0 branch.
+There are two issue when this bug is left unfixed:
+- when disk cache size is set to 0, there are some problems with showing favicons, images, sometimes pages (1036939 1064408 1067103); this is a non-standard setting that some people from some reason used to set to disable the cache
+- null crash in nsHttpChannel::OnDoneReadingPartialCacheEntry
+The first one can be left as a known issue because of the non-standard setting.
+The second one can be worked around by one of the options:
+1. we can null check and fail on null entry (can lead to a failed response and not sure of all other consequences)
+2. we can disobey a single entry limit when doing a partial request (safe and easy to do)
+I'll create a branch patch with the second solution (one line).",0,2014-11-05T15:14:14Z,9549217.0,1,0.8578737,0.8578737
+1066726,10,https://hg.mozilla.org/integration/mozilla-inbound/rev/1bb80b72541f,0,2014-09-16T13:53:31Z,9316768.0,0,0.9973143,0.0026856866
+1093374,8,"Created attachment 8516783
+tabstoolbar-overflowing-tabs-r=dao.patch
+Thanks!  Updated commit message and pushed to fx-team: https://hg.mozilla.org/integration/fx-team/rev/de9c2a2f67eb",1,2014-11-04T16:54:21Z,9544058.0,1,0.999474,0.999474
+1093374,3,"Created attachment 8516403
+tabstoolbar-overflowing-tabs.patch
+Another case where I'm not sure if it would be best to just use !important or to just copy the selector list from browser.css.  I went ahead and copied the list but let me know if you think there's a better way to do this.",1,2014-11-04T01:43:34Z,9540784.0,1,0.9984962,0.9984962
+1080574,20,"log: https://treeherder.mozilla.org/logviewer.html#?repo=fx-team&job_id=3298033
+repository: fx-team
+start_time: 2015-06-02T08:14:02
+who: rvandermeulen[at]mozilla[dot]com
+machine: unknown
+revision: a02a945edeb4
+caught OS error 2: No such file or directory while running ('xset', 's', 'off', 's', 'reset')
+1956 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-06-02T16:21:00Z,10336371.0,0,0.9990375,0.0009624913
+1055843,2,"Created attachment 8475549
+Fix to existing mochitest to make it fail properly",0,2014-08-19T23:18:53Z,9203912.0,0,0.98160285,0.018397126
+1118597,6,"Created attachment 8551613
+1118597.patch v2
+Addressed review comments and IRC comments.",1,2015-01-20T05:37:05Z,9815522.0,1,0.9986426,0.9986426
+1096093,58,"^^^^^^
+ignore",0,2015-04-23T14:15:13Z,10190691.0,0,0.91149443,0.088505544
+1057903,15,"Comment on attachment 8478049
+Refactor RasterImage to use DrawableFrameRef and generally clean up
+Review of attachment 8478049:
+-----------------------------------------------------------------
+::: image/src/RasterImage.cpp
+@@ +2643,5 @@
+So I think this is the problem: we're computing the padding based upon the rect of the final frame, but it actually needs to be computed based upon the original, unscaled frame.
+I'll create a patch accordingly. It'll be posted in bug 1067207; I won't post further about it here.",0,2014-09-16T18:35:52Z,9318470.0,0,0.9995995,0.00040044534
+1121826,3,"That change was made in bug 473822.
+:annevk would know which is the right thing to do here.",0,2015-01-15T11:28:50Z,9798247.0,0,0.9976042,0.0023958317
+1055843,8,"It is my understand that when playback rate is 0, it should play. E.g. it is not in pause state but in play state.
+It just happens to play nothing as the rate is 0.
+As such, the control bar appears to be playing, showing the pause button.
+This is how chrome handles it as well",0,2014-08-21T11:51:56Z,9211870.0,0,0.9100423,0.08995773
+1066726,47,"I was confused by comment 37 - there is a real _issue_ in the run:
+14635 10:33:56 INFO - 2589 INFO TEST-UNEXPECTED-FAIL | /tests/netwerk/test/mochitests/test_partially_cached_content.html | First response should exist
+14636 10:33:56 INFO - 2590 INFO TEST-UNEXPECTED-FAIL | /tests/netwerk/test/mochitests/test_partially_cached_content.html | Second response should exist
+going to look into it.",0,2014-11-10T15:54:30Z,9568280.0,0,0.9944112,0.0055888095
+1055843,32,https://hg.mozilla.org/integration/mozilla-inbound/rev/bdb0a8c2902d,0,2014-09-01T09:51:59Z,9254111.0,0,0.99694026,0.0030597465
+1118597,18,"Both patches pushed to aurora.
+https://hg.mozilla.org/releases/mozilla-aurora/pushloghtml?changeset=f24f0b0532f9",0,2015-02-20T21:21:27Z,9941847.0,0,0.94777566,0.052224364
+1096093,54,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=smaug.
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.
+Pull down these commits:
+hg pull -r bba18dfa277315e48699d55523942cf9dd1fe6f3 https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-23T13:56:39Z,10190592.0,0,0.9944667,0.005533294
+1048721,6,"We can do that. I think I changed to this why because of how we pass in the glname for other objects, such as textures, render buffers, frame buffers, etc.
+Good spot on explicit. This function used to be single-arg ctor.",0,2015-03-19T03:00:33Z,10048957.0,0,0.7991422,0.2008578
+1073339,9,"Created attachment 8530243
+0002-Bug-1073339-Convert-from-CRLF-to-LF-for-autocomplete.patch, v2",0,2014-11-28T11:28:57Z,9648325.0,0,0.9969727,0.0030272722
+1116867,14,"thanks jryans.
+So nsIProgressEventSink is a broken interface, at least for JS.
+I think we should update it to use a new constant nsIProgressEventSink::MAX_PROGRESS_UNKNOWN that is set to 2^53 - 1 and change each of the ~10 C++ implementations to use that instead of UINT64_MAX
+That ought to fix the problem",1,2015-01-08T15:29:23Z,9768845.0,1,0.99888426,0.99888426
+1096093,68,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley",0,2015-04-20T17:35:17Z,10176301.0,0,0.9999261,7.39485e-05
+1096093,28,"So I've done a bit of analysis, and here are my findings:
+Suppose we're starting Firefox and it automatically restores a session where the selected browser has a vertical scrollbar.
+In single-process Firefox on post-Lion OS X, we don't initially draw the scrollbar, because we assume that we're using overlay scrollbars. We're constantly polling this nsLookAndFeel metric for overlay scrollbars and it's returning ""true"".
+OS X has noticed that we're asking about the scrollbars, and after it's done an analysis of the peripherals and user preferences, it tells us ""Actually, we're supposed to use permanent scrollbars here"". nsChildView.mm hears that via the NSPreferredScrollerStyleDidChangeNotification that gets handled by ChildView's scrollbarSystemMetricChanged method. This causes nsPresContext to realize that the theme has changed, and it flushes all caches of the look and feel, and recomputes the layout of the page to draw the scrollbars correctly.
+In the multi-process case, the look-and-feel metric changes, but the child never hears about the scrollbarSystemMetricChanged event, because the content process doesn't have a ChildView. So the nsPresContext never gets ThemeChanged called on it, and we don't re-lay out the page.
+So that's the problem. I'm evaluating solutions now.",0,2015-04-17T15:40:40Z,10168563.0,1,0.848265,0.848265
+1116867,43,https://hg.mozilla.org/mozilla-central/rev/91e1a0afee55,0,2015-01-21T03:26:59Z,9821113.0,0,0.99997985,2.0124204e-05
+1105771,6,"Created attachment 8536245
+Allow playback of avc3 streams
+Add avc3 playback support",1,2014-12-15T00:18:44Z,9692493.0,1,0.83350295,0.83350295
+1066726,59,"Looks like the builds are green, at least. Is that sufficient for you? I don't think we'll be able to get all the tests green on try, since it will always be using m-c's test configuration on try, not b2g32's. Some of them may be easy to address (for example, it looks like the android tests just need an updated tooltool manifest), but from what I can gather I don't think we'll get much further without a lot of effort.",0,2014-11-26T16:07:13Z,9641018.0,0,0.74661875,0.25338128
+1104875,6,"Comment on attachment 8529234
+Ellipsize long unresponsive script locations so they don't make the slow script dialog too big
+Er, no, this is bunk.  It's better to do on UTF-16, because what I have totally fails on multibyte UTF-8 sequences!",0,2014-11-26T20:48:47Z,9642332.0,0,0.99938965,0.00061036716
+1116867,29,"/r/2361 - bug 1116867 - make nsIProgressEventSink and nsITransportEventSink safely scriptable r=mayhemer
+Pull down this commit:
+hg pull review -r 8c4c1a72203118935fa4d4637229b1b1bbfbdbda",0,2015-01-12T19:27:27Z,9783380.0,0,0.989814,0.010186
+919434,15,"I can't build this far back, but certainly in today's builds, this does not run the test with layers.acceleration.disabled actually set, as the pref() line in crashtests.list sets it too late to get picked up.  And if it was getting picked up, it would mean that the value of that preference changes mid execution, which is at best scary and certainly not supported.",0,2015-04-23T01:42:10Z,10188510.0,0,0.5098291,0.49017093
+1105771,14,"Awesome!
+We are aware of this problem with these streams and we plan to reissue them with valid trun boxes very soon.
+In the meantime, we have another test asset which should be valid: http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd
+(Note that this stream contains in-band DASH Events ('emsg' boxes) which the parser will need to ignore. If this is a problem, we will want to raise a bug for graceful support of those. In this case, an additional stream - http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest.mpd - has the same media content without DASH events.)",0,2014-12-18T08:25:17Z,9708330.0,0,0.6953545,0.30464545
+1173001,12,"Comment on attachment 8617698
+Part 2 - Initialize reader task queue in the constructor. v1
+Review of attachment 8617698:
+-----------------------------------------------------------------
+::: dom/media/MediaDecoderReader.h
+@@ +312,5 @@
+Why changing from private to protected?",0,2015-06-10T02:34:09Z,10364183.0,0,0.99995565,4.432881e-05
+1080574,16,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=9207460
+repository: mozilla-inbound
+start_time: 2015-04-22T20:29:02
+who: philringnalda[at]gmail[dot]com
+machine: tst-linux32-spot-543
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: e08e45fd8922
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-04-23T05:31:18Z,10188907.0,0,0.9996892,0.00031077312
+1121826,6,"The relevant spec is RFC 3986. ""pchar"" does not allow ""["" nor ""]"", thus Firefox is correct in percent-encoding these characters.
+A recipient that trips over percent-encoding like this is broken and should be fixed.",0,2015-01-15T14:32:24Z,9798990.0,0,0.5366247,0.4633753
+1130065,3,"Created attachment 8562862
+ServiceWorkerManager capture ""atomically"" properly
+Main changes are to not assert active worker in ::FinishActivate and to finish the RegistrationJob before attempting to activate.
+Tests are enabled on everything except b2g since they've passed successive retriggers
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=083037922056
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=ee099f65016c2 - this one enables workerUnregister and workerUpdate.
+Folds:
+Enable most SW tests
+Cannot rely on controllerchange firing in an already controlled window. The AbortError case is no longer relevant due to FIFO ordering
+Too bad we have to use timeouts",1,2015-02-11T17:09:24Z,9908528.0,1,0.5322773,0.5322773
+1118599,1,"Created attachment 8544988
+remove-MOZILLA_PKIX_ENUM_CLASS.patch
+It seems like the GCC compiler bug that I worked around in bug 1077887 is no long relevant. This patch undoes that workaround.
+It also renames some things that were named not-so-well do to the need to support non-scoped enums (without ""enum class"", multiple enums defined in the same scope cannot have the same labels like ""No"" and ""Yes"").",1,2015-01-07T04:11:54Z,9761363.0,1,0.9997923,0.9997923
+1066726,56,This is the same issue I'm trying to fix in bug 1102974. Unfortunately I don't think there's an easy way to fix it - I have to find the right patches to uplift. I'm having issues figuring out what those are though without causing other problems to surface :/,0,2014-11-24T16:57:30Z,9629991.0,0,0.87983745,0.1201625
+1097236,4,I also see this.,0,2014-11-11T21:00:11Z,9575781.0,0,0.99944085,0.0005590969
+1057903,4,"Thanks for the review, Timothy!
+Nah, because GetFrame() calls ForceDiscard() and WantDecodedFrames() automatically.
+(BTW, I noticed after writing this patch that we ended up with two methods named GetFrame(), differing only by their argument types. This is confusing and I apologize. =\ I rename the new one, which replaces methods like GetDecodedImgFrame(), to LookupFrame() in one of the next patches up for review. Unfortunately the rebase looks like it'd be pretty ugly so I'd prefer to just live with this for these few patches where it's a problem.)
+I don't think asking for a decode here adds much value since animated frames aren't discardable. It has the disadvantage that if we ask for a DrawableFrameRef then we do additional locking that we don't really need here since we aren't going to draw.
+(Additionally, this code gets replaced in a later one of the patches up for review right now.)
+The comment's correct; GetFrame() (the new one, the one being called here) calls ForceDiscard() and WantDecodedFrames() automatically.",0,2014-09-12T08:04:42Z,9303537.0,1,0.99595094,0.99595094
+1073339,10,"Try push with unifiedcomplete=false:
+https://tbpl.mozilla.org/?tree=Try&rev=3ee73b9c370d
+Try push with unifiedcomplete=true:
+https://tbpl.mozilla.org/?tree=Try&rev=2d7106bda22e",1,2014-11-28T11:29:32Z,9648328.0,0,0.9771548,0.02284519
+1148078,1,"Before switching flexbox layout to logical coordinates in bug 1079155, we should get rid of misleading uses of the term ""Logical"" in nsFlexContainerFrame (which predate the logical-coordinates work).
+I used ""logical position/size"" to refer to ""main-axis/cross-axis position/size"". For now, I'm going to switch to call these ""flex-relative"" instead of ""logical"".
+(We may come up with a better term down the line; ideally, we should use something that applies to flex & grid. For now, ""FlexRelative"" is pretty clear, though, and we can do search-and-replace later if we think of something better.)",1,2015-03-26T20:23:18Z,10083450.0,1,0.8430737,0.8430737
+1066726,50,"Trying again also with the second patch:
+https://treeherder.mozilla.org/ui/#/jobs?repo=try&revision=c29e55c08865",0,2014-11-20T17:19:41Z,9617228.0,1,0.65528226,0.65528226
+1116867,35,nope. I'll clear the regular bz one.,0,2015-01-15T22:49:14Z,9801686.0,0,0.9972555,0.0027445091
+1116867,2,Could you check what the actual status value is that's asserting?,0,2015-01-01T07:53:04Z,9745396.0,0,0.9999777,2.2343305e-05
+1066726,28,I'm not entirely sure how many of the ones in that list landed on 33+ vs. when 32 was on beta.,0,2014-10-14T22:30:31Z,9446835.0,0,0.99053127,0.009468739
+1057903,8,Forgot to add that I am running with a dpi of 120.,0,2014-09-15T00:37:39Z,9309259.0,0,0.9975682,0.0024318346
+1142350,2,"Unfortunately this might still be in use in c-c (not sure whether this code is dead or not though):
+https://hg.mozilla.org/comm-central/annotate/84ac3c711098/mailnews/extensions/smime/content/am-smime.js#l271",0,2015-03-12T09:16:44Z,10019684.0,0,0.84509015,0.1549099
+1048721,2,https://www.khronos.org/registry/webgl/specs/latest/2.0/#3.7.12,0,2014-08-05T06:19:49Z,9140961.0,1,0.9936562,0.9936562
+1096093,38,"Comment on attachment 8594783
+MozReview Request: bz://1096093/mconley
+/r/7307 - Bug 1096093 - Add infrastructure for LookAndFeel metric caching, and allowing the parent process to send down cache to content process. r=?
+/r/7327 - Bug 1096093 - Send ThemeRefresh message from parent down to content process. r=?
+/r/7329 - Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=?.
+Pull down these commits:
+hg pull -r 969f30cc8c7a05541111f92f994aabb92d6e5fdf https://reviewboard-hg.mozilla.org/gecko/",0,2015-04-21T20:22:57Z,10182391.0,0,0.9928478,0.0071522165
+1173001,6,"While at it, it would be great if the task queue constructor could be called on something else but the main thread.
+As it reads a preference to find out the size of the threads pool, this asserts when called on a thread other than the main thread.",0,2015-06-09T23:47:50Z,10363602.0,0,0.7120872,0.28791276
+1057903,5,"Comment on attachment 8478049
+Refactor RasterImage to use DrawableFrameRef and generally clean up
+Oh, sorry I was confused. You are correct.",0,2014-09-12T21:34:59Z,9306660.0,0,0.9954625,0.004537568
+1074012,2,"Created attachment 8496635
+part 1 - Temporarily expose some gfxContext fill/stroke API to help with porting to Moz2D",0,2014-09-29T00:47:03Z,9371807.0,0,0.8625082,0.13749184
+1104875,2,"The code here:
+http://hg.mozilla.org/mozilla-central/annotate/acde07cb4e4d/dom/base/nsGlobalWindow.cpp#l11171
+should truncate scriptLocation in some way. Backlogging this.",0,2014-11-25T19:01:49Z,9636541.0,0,0.8845837,0.11541625
+1055843,26,Can you remove the patch https://hg.mozilla.org/try/rev/7ceea5a3497f and Try again? Calling play() again is suspicious to me and might defeat the test of null-playback-rate shouldn't pause.,0,2014-08-29T03:16:09Z,9245626.0,0,0.894213,0.10578694
+1116867,6,"Same thing happens with techcrunch.com, cnn.com, and a few other random sites I tried loading.",0,2015-01-05T22:06:36Z,9754484.0,0,0.9827456,0.017254466
+1132780,7,https://hg.mozilla.org/mozilla-central/rev/5c8a20b982fb,0,2015-02-16T15:18:56Z,9923619.0,0,0.9999497,5.0324856e-05
+1066726,20,"Backed out for bustage. Please rebase.
+https://hg.mozilla.org/releases/mozilla-b2g32_v2_0/rev/1bfb51a08f2e
+https://treeherder.mozilla.org/ui/logviewer.html#?job_id=37434&repo=mozilla-b2g32_v2_0",0,2014-10-03T21:35:31Z,9401694.0,0,0.99967706,0.0003229229
+1121826,16,"This seems to have a dedicated straight forward test. Sylvestre, do you think it needs some additional manual testing outside of what's covered automatically?",0,2015-01-21T16:12:42Z,9823516.0,0,0.9880173,0.011982712
+1096093,67,"Created attachment 8598685
+Bugnotes
+http://people.mozilla.org/~mconley2/bugnotes/bug-1096093.html",0,2015-04-28T15:01:29Z,10207118.0,1,0.7317254,0.7317254
+1057903,7,"Created attachment 8489172
+Tabs rendered incorrectly.
+Regression testing points to this patch drawing the top portion of tabs lower on the tab. 
+Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0",0,2014-09-15T00:36:25Z,9309258.0,0,0.9998512,0.00014879067
+1130253,2,"Sounds similar to bug 1129877.
+We crash due the promise not being detached when shutting down",0,2015-02-06T03:28:55Z,9888684.0,0,0.9852895,0.014710517
+1116867,7,"Though the values were different for ""progress"".",0,2015-01-05T22:07:34Z,9754489.0,0,0.95899165,0.041008368
+1073339,19,https://tbpl.mozilla.org/?tree=Try&rev=b8a1b38b172c,0,2014-12-15T17:03:46Z,9695144.0,0,0.99800175,0.0019981896
+1055843,7,"Created attachment 8476580
+Do not pause when playbackRate = 0. Instead don't play anything
+Bug 1055843: Do not pause when playbackRate = 0. Instead don't play anything",1,2014-08-21T10:59:50Z,9211646.0,0,0.91199404,0.088005915
+1116867,39,"https://reviewboard.mozilla.org/r/2359/#review1753
+So I was worried about binary extensions, but the good news is that testing an int64_t for equality against UINT64_MAX is the same as testing it for equality against -1, both in terms of machine code and C/C++ integer promotion behavior.  So there should be pretty minimal fallout, if any.
+::: dom/base/nsXMLHttpRequest.cpp
+(Diff revision 2)
+I would prefer we had an actual constant for MAX_SAFE_JS_INTEGER or JS_MAX_SAFE_INTEGER or whatever somewhere, either in jsapi headers (probably preferred) or at least somewhere in mfbt or something.
+Then we could also static_assert things like the value being < INT64_MAX.
+::: netwerk/base/public/nsITransport.idl
+(Diff revision 2)
+The ""tbd"" comment here should go away, right?
+::: netwerk/protocol/file/nsFileChannel.cpp
+(Diff revision 2)
+Yeah, this is why I'd prefer a named constant.
+::: netwerk/protocol/ftp/nsFtpConnectionThread.cpp
+(Diff revision 2)
+Named constant.
+::: netwerk/protocol/http/nsHttpTransaction.cpp
+(Diff revision 2)
+Named constant.
+r=me with the nits fixed.",0,2015-01-16T20:29:11Z,9806585.0,0,0.9388148,0.061185163
+1076026,2,"Created attachment 8498432
+stack
+(lldb) bt 5
+* thread #1: tid = 0x314869, 0x00000001003d6a31 js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(js::jit::TempAllocator&, js::jit::MInstruction*) [inlined] js::jit::MTypeBarrier* js::jit::MDefinition::to<js::jit::MTypeBarrier>(this=<unavailable>) + 5 at MIR.h:691, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x0)
+  * frame #0: 0x00000001003d6a31 js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(js::jit::TempAllocator&, js::jit::MInstruction*) [inlined] js::jit::MTypeBarrier* js::jit::MDefinition::to<js::jit::MTypeBarrier>(this=<unavailable>) + 5 at MIR.h:691
+    frame #1: 0x00000001003d6a2c js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(js::jit::TempAllocator&, js::jit::MInstruction*) [inlined] js::jit::MDefinition::toTypeBarrier(this=<unavailable>) at MIR.h:708
+    frame #2: 0x00000001003d6a2c js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::TypeBarrierPolicy::adjustInputs(this=<unavailable>, alloc=<unavailable>, def=<unavailable>) + 668 at TypePolicy.cpp:245
+    frame #3: 0x00000001002a8a6a js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::ApplyTypeInformation(js::jit::MIRGenerator*, js::jit::MIRGraph&) [inlined] js::InlineListIterator<js::jit::MInstruction>::operator*(this=0x00000001030d57a8, def=0x0000000103133bf8) const + 86 at IonAnalysis.cpp:1080
+    frame #4: 0x00000001002a8a14 js-dbg-opt-64-dm-nsprBuild-darwin-14665b1de5ee`js::jit::ApplyTypeInformation(js::jit::MIRGenerator*, js::jit::MIRGraph&) [inlined] (anonymous namespace)::TypeAnalyzer::insertConversions(this=0x00000001030d57a8) + 1683 at IonAnalysis.cpp:1140
+(lldb)",0,2014-10-01T20:52:49Z,9389552.0,0,0.99987125,0.00012869026
+1132780,9,"Created attachment 8572368
+Beta patch
+Patch for beta branch as part of EME platform uplift.",1,2015-03-04T02:49:07Z,9982638.0,1,0.92311394,0.92311394
+1116867,13,"Okay, I am able to reproduce this now.
+What happens is that the Network Monitor code (which is used when the Browser Console is open) intercepts onProgress for its own purposes, and then forwards the message along to the original onProgress listener.  Usually, this works correctly.
+However, if |progressMax| is 0xFFFFFFFFFFFFFFFF (the ""unknown"" value), things get messed up since we are now going C++ -> JS -> C++, and JS can't safely represent integers that large, so it ends up getting forced to 0 when leaving JS.
+I tried clamping the value down to Number.MAX_SAFE_INTEGER, and this does fix the assertion and crash.  However, I see that are some C++ cases where we check for exactly UINT64_MAX.
+Is there some secret way I can force the JS -> C++ XPCOM conversion to allow JS to pass UINT64_MAX safely?",1,2015-01-08T01:41:30Z,9766363.0,1,0.5885575,0.5885575
+1097236,8,"Comment on attachment 8520896
+Patch v1.1
+Review of attachment 8520896:
+-----------------------------------------------------------------
+As a browser peer, I will delegate review for this to bgrins.",0,2014-11-11T22:58:10Z,9576555.0,0,0.9998299,0.00017007337
+1118597,8,"Comment on attachment 8551614
+1118597.patch v2.1
+Review of attachment 8551614:
+-----------------------------------------------------------------
+r=me with nits addressed
+::: media/libstagefright/binding/Index.cpp
+@@ +136,5 @@
+existing problem, but as this patch is a fix, should test the cenc contains the right amount of bytes and is well formed (otherwise this will assert).
+::: media/libstagefright/binding/MoofParser.cpp
+@@ +173,5 @@
+mSinf.IsValid() isn't required as as soon it is valid we exit the loop
+@@ +272,5 @@
+mSaizs.AppendElement(Saiz(box, aSinf.GetEncryptionType())
+::: media/libstagefright/binding/SinfParser.cpp
+@@ +25,5 @@
+not required if you simply override IsValid()
+@@ +37,5 @@
+warning unused variables...
+@@ +62,5 @@
+warning unused variables...
+::: media/libstagefright/binding/include/mp4_demuxer/Box.h
+@@ +58,4 @@
+Should probably have a method to check that Box is valid, as right now any errors reading the box and setting its member won't be propagated.
+This can be done in a another patch/bug #
+::: media/libstagefright/binding/include/mp4_demuxer/MoofParser.h
+@@ +136,5 @@
+Saiz(Box& aBox, const AtomType& aEncryptionType)
+Due to the implementation of AtomType, probably can not bother with const ref
+@@ +146,5 @@
+Saio(Box& aBox, const AtomType& aEncryptionType)
+::: media/libstagefright/binding/include/mp4_demuxer/SinfParser.h
+@@ +21,5 @@
+Use existing IsValid() API, no need to set mValid.
+mValid is only of use if you don't have a IsValid() and you then use the default implementation
+@@ +24,5 @@
+something like ..
+AtomType GetEncryptionType()
+{
+  return IsValid() ? mDefaultEncryptionType : AtomType()
+}",0,2015-01-20T06:28:26Z,9815606.0,0,0.9956682,0.0043317936
+1096093,69,"Created attachment 8618581
+MozReview Request: Bug 1096093 - Have Cocoa widget backend cache overlay scrollbar metrics. r=mstange.",0,2015-06-10T15:17:59Z,10367190.0,0,0.9903132,0.009686834
+1093374,7,"Comment on attachment 8516772
+tabstoolbar-overflowing-tabs.patch
+stealing again",0,2014-11-04T16:48:02Z,9544017.0,0,0.9999335,6.656623e-05
+1116867,32,"https://reviewboard.mozilla.org/r/2361/#review1699
+::: dom/base/nsXMLHttpRequest.cpp
+(Diff revision 2)
+We can well get to loaded < 0 here, but out of scope of this bug.
+::: embedding/components/webbrowserpersist/nsWebBrowserPersist.cpp
+(Diff revision 2)
+Here are some weird casts left..
+::: netwerk/protocol/http/nsHttpPipeline.h
+(Diff revision 2)
+indent
+::: netwerk/test/TestPageLoad.cpp
+(Diff revision 2)
+lld ?
+::: uriloader/base/nsDocLoader.cpp
+(Diff revision 2)
+no need to cast
+::: dom/base/nsXMLHttpRequest.cpp
+(Diff revision 2)
+Isn't there a define?  if not, can you please create one in some ""net.h"" or so?
+::: embedding/components/webbrowserpersist/nsWebBrowserPersist.cpp
+(Diff revision 2)
+And this still uses unsigned
+::: netwerk/protocol/http/HttpChannelChild.cpp
+(Diff revision 2)
+If you find some way to split this assert so that we know the progressMax value, I'd love that
+::: netwerk/protocol/http/HttpChannelChild.cpp
+(Diff revision 2)
+aCount's already uint64",0,2015-01-15T20:48:41Z,9801109.0,0,0.9792741,0.020725898
+1173001,4,Generalizing the bug a bit.,0,2015-06-09T23:34:33Z,10363554.0,0,0.9936186,0.006381436
+1121826,12,https://hg.mozilla.org/mozilla-central/rev/9124cbf3e75f,0,2015-01-18T02:05:20Z,9809370.0,0,0.9999654,3.454443e-05
+1080574,7,"submit_timestamp: 2014-12-15T12:49:10
+log: https://treeherder.mozilla.org/ui/logviewer.html#?repo=b2g-inbound&job_id=997552
+repository: b2g-inbound
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-179
+buildname: Ubuntu VM 12.04 x64 b2g-inbound debug test mochitest-4
+revision: debd2ce34bf9
+122 INFO TEST-UNEXPECTED-FAIL | /tests/dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2014-12-15T20:49:11Z,9696400.0,0,0.99929476,0.0007052181
+1057903,9,Set 'layout.css.devPixelsPerPx = 1' which is 96 dpi and the problem still exists.,0,2014-09-15T00:46:19Z,9309268.0,0,0.9868019,0.013198095
+1130253,7,"The problem here is basically that task queue flushing is totally insane and needs to go away.
+We get ourselves into shutdown state, so we invoke MDSM::FlushDecoding, which flushes the task queue. This destroys a DelayedDispatchToMainThread (on the calling thread!) without giving it a chance to run, which means that it release the subdecoder on the wrong thread and without having called shutdown, and stuff break.
+The solution is to get rid of flushing. I'm going to try to do bug 1125970 and pick up where cpearce left off.",0,2015-02-14T00:49:29Z,9919572.0,0,0.730372,0.269628
+1066726,6,*** Bug 1067103 has been marked as a duplicate of this bug. ***,0,2014-09-14T16:33:39Z,9308894.0,0,0.99952364,0.00047642214
+919434,14,"Pretty sure this test never actually tested the correct configuration.  The layers.acceleration.disabled preference is queried once and the value reused, so setting it for a particular test is just ignored.",0,2015-04-22T18:09:40Z,10186694.0,0,0.9903685,0.00963156
+1097236,16,*** Bug 1097562 has been marked as a duplicate of this bug. ***,0,2014-11-12T10:03:13Z,9578744.0,0,0.9997242,0.0002757196
+1096093,52,I've wondered this myself. It seems to be used in ipdl interfaces only for some reason.,0,2015-04-22T10:38:58Z,10184809.0,0,0.95920396,0.040796023
+1096093,14,I am on a internal display when I run into this,0,2014-11-15T04:55:26Z,9595059.0,0,0.95243764,0.04756233
+1173001,16,"https://hg.mozilla.org/mozilla-central/rev/6289cdbce7b7
+https://hg.mozilla.org/mozilla-central/rev/e7b684137f22
+https://hg.mozilla.org/mozilla-central/rev/0e722555cc6d
+https://hg.mozilla.org/mozilla-central/rev/f2f35acc27a2",0,2015-06-12T00:17:48Z,10378280.0,0,0.9995334,0.0004666341
+1096093,12,"Definitely, I haven't connected to an external display since leaving home on Saturday and I've restarted Firefox multiple times since then.",0,2014-11-14T19:36:44Z,9593264.0,0,0.99863666,0.0013633383
+1097236,11,"Created attachment 8520981
+Patch v1.2
+Added comment explaining the selector.",1,2014-11-11T23:04:41Z,9576594.0,1,0.99567586,0.99567586
+1057903,13,"There's pretty much no chance it's this patch, since this patch doesn't touch SVG drawing and the tabs are SVGs. I think the other patch you suggest in that bug is much more likely.",0,2014-09-15T21:15:39Z,9313301.0,0,0.66322637,0.33677357
+1066726,5,"Created attachment 8488773
+v1
+Patch description:
+- bug 1064408 comment 15
+- bug 1048348 comment 4
+In general:
+- when the output stream of the entry is closed with a fatal error, set state of the file to that error
+- forbid opening input stream anymore (it's an atomic way to indicate the entry is in a bad shape and useless that http channel can handle well w/o any more changes needed)
+- don't throw the entry on SetPredictedSize failure since it:
+  - would crash (bug 1048348)
+  - it wouldn't engage the interrupted concurrent write resume
+The rest should be commented in the code and covered by tests
+https://tbpl.mozilla.org/?tree=Try&rev=62da06db24ad",1,2014-09-12T18:50:53Z,9305971.0,1,0.9993857,0.9993857
+1130253,1,"This happened while playing the YouTube test:
+http://yt-dash-mse-test.commondatastorage.googleapis.com/unit-tests/2015.html?timestamp=1419893566526
+2066494208[1004481a0]: MediaSource(13624b280)::Detach() mDecoder=0 owner=0
+Assertion failure: mIsShutdown, at /Users/jyavenard/Work/Mozilla/mozilla-central/dom/media/MediaTaskQueue.cpp:26
+JavaScript error: , line 0: uncaught exception: Test Seek TIMED OUT!
+#01: mozilla::MediaTaskQueue::~MediaTaskQueue()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cc51ad]
+#02: mozilla::MediaTaskQueue::~MediaTaskQueue()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cc5265]
+#03: mozilla::MediaTaskQueue::Release()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ce9872]
+#04: nsRefPtr<mozilla::MediaTaskQueue>::~nsRefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cfbced]
+#05: nsRefPtr<mozilla::MediaTaskQueue>::~nsRefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ccc555]
+#06: mozilla::AVCCMediaDataDecoder::~AVCCMediaDataDecoder()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8efe7]
+#07: mozilla::AVCCMediaDataDecoder::~AVCCMediaDataDecoder()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8f045]
+#08: mozilla::AVCCMediaDataDecoder::~AVCCMediaDataDecoder()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8f069]
+#09: mozilla::MediaDataDecoder::Release()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8d748]
+#10: nsRefPtr<mozilla::MediaDataDecoder>::~nsRefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8ebdd]
+#11: nsRefPtr<mozilla::MediaDataDecoder>::~nsRefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8eba5]
+#12: mozilla::MP4Reader::DecoderData::~DecoderData()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8eb3d]
+#13: mozilla::MP4Reader::DecoderDataWithPromise<mozilla::MediaPromise<nsRefPtr<mozilla::VideoData>, mozilla::MediaDecoderReader::NotDecodedReason, true> >::~DecoderDataWithPromise()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8ecc1]
+#14: mozilla::MP4Reader::DecoderDataWithPromise<mozilla::MediaPromise<nsRefPtr<mozilla::VideoData>, mozilla::MediaDecoderReader::NotDecodedReason, true> >::~DecoderDataWithPromise()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e8b0b5]
+#15: mozilla::MP4Reader::~MP4Reader()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e868bb]
+#16: mozilla::MP4Reader::~MP4Reader()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e86935]
+#17: mozilla::MP4Reader::~MP4Reader()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2e86959]
+#18: mozilla::MediaDecoderReader::Release()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cf696b]
+#19: nsRefPtr<mozilla::MediaDecoderReader>::~nsRefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cfbb4d]
+#20: nsRefPtr<mozilla::MediaDecoderReader>::~nsRefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ccdac5]
+#21: mozilla::SourceBufferDecoder::~SourceBufferDecoder()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2d99a95]
+#22: mozilla::SourceBufferDecoder::~SourceBufferDecoder()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2d99ad5]
+#23: mozilla::SourceBufferDecoder::~SourceBufferDecoder()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2d99af9]
+#24: mozilla::SourceBufferDecoder::Release()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2d9980c]
+#25: mozilla::RefPtr<mozilla::SourceBufferDecoder>::unref(mozilla::SourceBufferDecoder*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2db33a3]
+#26: mozilla::RefPtr<mozilla::SourceBufferDecoder>::~RefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2db3378]
+#27: mozilla::RefPtr<mozilla::SourceBufferDecoder>::~RefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2db3355]
+#28: mozilla::DelayedDispatchToMainThread::~DelayedDispatchToMainThread()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2db3325]
+#29: mozilla::DelayedDispatchToMainThread::~DelayedDispatchToMainThread()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2db32b5]
+#30: mozilla::DelayedDispatchToMainThread::~DelayedDispatchToMainThread()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2db32d9]
+#31: nsRunnable::Release()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x1dbc09]
+#32: mozilla::RefPtr<nsIRunnable>::unref(nsIRunnable*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2c76eba]
+#33: mozilla::RefPtr<nsIRunnable>::~RefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cfe538]
+#34: mozilla::RefPtr<nsIRunnable>::~RefPtr()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cccc25]
+#35: mozilla::MediaTaskQueue::TaskQueueEntry::~TaskQueueEntry()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2d04a55]
+#36: mozilla::MediaTaskQueue::TaskQueueEntry::~TaskQueueEntry()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cd8bb5]
+#37: __gnu_cxx::new_allocator<mozilla::MediaTaskQueue::TaskQueueEntry>::destroy(mozilla::MediaTaskQueue::TaskQueueEntry*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cdb1d9]
+#38: std::deque<mozilla::MediaTaskQueue::TaskQueueEntry, std::allocator<mozilla::MediaTaskQueue::TaskQueueEntry> >::pop_front()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cdb190]
+#39: std::queue<mozilla::MediaTaskQueue::TaskQueueEntry, std::deque<mozilla::MediaTaskQueue::TaskQueueEntry, std::allocator<mozilla::MediaTaskQueue::TaskQueueEntry> > >::pop()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cd9045]
+#40: mozilla::MediaTaskQueue::FlushLocked()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cc5896]
+#41: mozilla::MediaTaskQueue::FlushAndDispatch(mozilla::TemporaryRef<nsIRunnable>)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ca3be7]
+#42: mozilla::MediaDecoderStateMachine::FlushDecoding()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ca3046]
+#43: mozilla::MediaDecoderStateMachine::RunStateMachine()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ca1fda]
+2066494208[1004481a0]: MediaSource(13624b280) Dispatch event 'sourceclose'
+2066494208[1004481a0]: SourceBufferList(12e195bc0) Dispatch event 'removesourcebuffer'
+2066494208[1004481a0]: SourceBufferList(12e195b60) Dispatch event 'removesourcebuffer'
+#44: mozilla::MediaDecoderStateMachine::CallRunStateMachine()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ca4057]
+#45: mozilla::MediaDecoderStateMachine::TimeoutExpired(void*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2c9563d]
+#46: mozilla::MediaDecoderStateMachineScheduler::TimeoutExpired(int)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2ca4cac]
+#47: (anonymous namespace)::TimerEvent::Run()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cc9ccf]
+#48: non-virtual thunk to (anonymous namespace)::TimerEvent::Run()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x2cc9dfc]
+2066494208[1004481a0]: MediaSource(1436d3100)::MediaSource(aWindow=12f270420) mSourceBuffers=12f7f4e20 mActiveSourceBuffers=12f7f4fa0
+#49: nsThreadPool::Run()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x185ee7]
+#50: non-virtual thunk to nsThreadPool::Run()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x185fdc]
+#51: nsThread::ProcessNextEvent(bool, bool*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x182948]
+2066494208[1004481a0]: MediaSource(1436d3100)::Attach(aDecoder=12f7d9b00) owner=134349ca0
+2066494208[1004481a0]: MediaSource(1436d3100)::SetReadyState(aState=1) mReadyState=0
+2066494208[1004481a0]: MediaSource(1436d3100) Queuing event 'sourceopen'
+2066494208[1004481a0]: Decoder=12f7d9b00 SetMinimizePrerollUntilPlaybackStarts()
+#52: NS_ProcessNextEvent(nsIThread*, bool)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x1dc6b7]
+#53: mozilla::ipc::MessagePumpForNonMainThreads::Run(base::MessagePump::Delegate*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x80d843]
+#54: MessageLoop::RunInternal()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x7a2875]
+#55: MessageLoop::RunHandler()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x7a2785]
+#56: MessageLoop::Run()[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x7a272d]
+#57: nsThread::ThreadFunc(void*)[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/XUL +0x180dd6]
+#58: _pt_root[/Users/jyavenard/Work/Mozilla/mozilla-central/obj-ff-dbg/dist/NightlyDebug.app/Contents/MacOS/libnss3.dylib +0x37445f]
+#59: _pthread_body[/usr/lib/system/libsystem_pthread.dylib +0x3268]
+#60: _pthread_body[/usr/lib/system/libsystem_pthread.dylib +0x31e5]
+(lldb)",0,2015-02-06T03:25:23Z,9888676.0,1,0.9983316,0.9983316
+1105771,5,"Created attachment 8536244
+MSE/MP4 Delay video decoder creation until we can retrieve SPS
+Delay decoder creation until we have all the information to do so.",1,2014-12-15T00:17:44Z,9692492.0,1,0.9962249,0.9962249
+1105771,15,remote:   https://hg.mozilla.org/integration/mozilla-inbound/rev/ed08c1246e77,0,2014-12-23T03:44:05Z,9725851.0,0,0.9989949,0.001005164
+1055843,15,"I've changed the logic so HTMLMediaElement has ownership should the decoder play or not. Seems more logical to me, instead of having MediaDecoder::Play() do nothing",1,2014-08-22T06:05:01Z,9216583.0,1,0.99418336,0.99418336
+1116867,44,"Comment on attachment 8547689
+MozReview Request: bz://1116867/mcmanus",0,2015-01-16T16:27:38Z,9805256.0,0,0.9995396,0.00046040906
+1096093,63,Try looks green - relanding...,0,2015-04-23T18:44:54Z,10192121.0,0,0.967589,0.032410935
+1097236,3,Windows 7,0,2014-11-11T20:43:03Z,9575663.0,0,0.98670214,0.013297828
+1118599,5,https://hg.mozilla.org/integration/mozilla-inbound/rev/2880e05d5e32,0,2015-01-08T07:43:20Z,9767262.0,0,0.9968471,0.003152947
+1096093,50,"document->GetShell() may return null, and so may presShell->GetPresContext();
+Not sure about the coding style for */LookAndFeel.h, but
+2 spaces for indentation and aFoo naming for arguments?
+widget/WidgetMessageUtils.h
+new code should follow Mozilla coding style. So, 2 spaces for indentation.
+InfallibleTArray<LookAndFeelInt> GetIntCacheImpl();
+huh, I _hate_ implicit ctor+Move(). So very much hides that we aren't doing copying. Oh well, if other people
+can live with that insanity, I can survive too (but it does make reviewing slower since one need to look at the ctor implementation).",0,2015-04-22T00:28:47Z,10183474.0,1,0.9941637,0.9941637
+1066726,51,"Guys, I don't know how to properly test this.  I need some help here.",0,2014-11-20T19:58:30Z,9618077.0,0,0.9995679,0.00043210966
+1130253,10,Bug 1125970 landed in 38 and was uplifted to 37. Marking 37+ as fixed.,0,2015-03-01T01:11:49Z,9970848.0,0,0.98970383,0.010296174
+1116867,27,I put this in reviewboard too.. maybe you want to experiment with using that. nick and I have been using it successfully for larger patches. Doesn't matter to me which way we go.,0,2015-01-12T18:32:05Z,9783028.0,0,0.96809167,0.031908337
+1080574,12,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=8318248
+repository: mozilla-inbound
+start_time: 2015-03-31T15:52:52
+who: wkocher[at]mozilla[dot]com
+machine: tst-linux32-spot-545
+buildname: Ubuntu VM 12.04 mozilla-inbound debug test mochitest-4
+revision: 3851d1999bd5
+136 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-03-31T23:26:03Z,10103939.0,0,0.99965453,0.0003454945
+1130065,1,Some of our algorithms do not use the job queue where they should and some don't split at the right boundaries. A fair number of intermittent failures are likely due to this. Fixes coming up.,0,2015-02-05T19:40:04Z,9886670.0,0,0.9581358,0.041864198
+900384,4,https://hg.mozilla.org/mozilla-central/rev/7c0ab70d2e40,0,2014-12-30T23:55:49Z,9742639.0,0,0.9999653,3.4744447e-05
+1116867,34,"Patrick, is there any difference between the board patch and the regular bz patch?",0,2015-01-15T20:52:25Z,9801133.0,0,0.84857064,0.15142937
+1066726,40,"Comment on attachment 8517537
+for mozilla-b2g32_v2_0, v2
+NOTE: Please see https://wiki.mozilla.org/Release_Management/B2G_Landing to better understand the B2G approval process and landings.
+[Approval Request Comment]
+Bug caused by (feature/regressing bug #): the new HTTP cache
+User impact if declined: comment 33
+Testing completed: tbpl, has own automated tests added
+Risk to taking this patch (and alternatives if risky): low, it disables some not highly significant perfomance features of the new cache
+String or UUID changes made by this patch: none",0,2014-11-10T15:30:32Z,9568177.0,0,0.99943703,0.00056291587
+1092808,7,https://hg.mozilla.org/integration/fx-team/rev/1e99e10579d2,0,2014-11-04T16:25:51Z,9543884.0,0,0.99788326,0.0021167104
+1066726,42,"Created attachment 8519955
+for mozilla-b2g32_v2_0, v2, improvement 1, v1
+Consider cache completely disabled when the capacity is set to 0.  I play with an idea to add this patch to m-c as well, Michal, what would you think?",1,2014-11-10T15:32:21Z,9568184.0,1,0.9127386,0.9127386
+1132780,6,https://hg.mozilla.org/integration/mozilla-inbound/rev/5c8a20b982fb,0,2015-02-13T19:27:12Z,9918422.0,0,0.9988335,0.0011665334
+1079905,1,"Created attachment 8501777
+greenbuttons.jpg
+The green buttons with the video/audio icons may not be distinct enough, we should evaluate some alternatives (including color-only changes).",0,2014-10-08T14:57:21Z,9419736.0,1,0.9992188,0.9992188
+1130065,11,https://hg.mozilla.org/integration/mozilla-inbound/rev/f64c2ee33087,0,2015-02-17T18:58:51Z,9927516.0,0,0.9972281,0.0027718947
+1076026,1,"(function() {
+    let x = (new function() {})
+    __defineGetter__(""x"", function() {
+        ({
+            e: x
+        })
+    })
+})()
+print(x)
+asserts js debug shell on m-c changeset 14665b1de5ee with --ion-eager --no-threads at Assertion failure: !ins->hasDefUses(), at jit/TypePolicy.cpp.
+Debug configure options:
+CC=""clang -Qunused-arguments"" CXX=""clang++ -Qunused-arguments"" AR=ar sh /Users/skywalker/trees/mozilla-central/js/src/configure --target=x86_64-apple-darwin12.5.0 --enable-debug --enable-optimize --enable-nspr-build --enable-more-deterministic --with-ccache --enable-gczeal --enable-debug-symbols --disable-tests
+autoBisect shows this is probably related to the following changeset:
+The first bad revision is:
+changeset:   https://hg.mozilla.org/mozilla-central/rev/7027efe7fae3
+user:        Shu-yu Guo
+date:        Mon Sep 15 16:30:45 2014 -0700
+summary:     Bug 1001090 - Part 1: Implement let temporal dead zone in the frontend and interpreter. (r=Waldo)
+Shu-yu, is bug 1001090 a possible regressor?",0,2014-10-01T20:51:28Z,9389530.0,0,0.99580127,0.0041987835
+1096093,62,"Looks like I was missing a header file that b2g didn't use.
+Here's a new try that's looking pretty green:
+https://treeherder.mozilla.org/#/jobs?repo=try&revision=f87eaa8bf913
+I'll wait for these last few to come in and re-land.",0,2015-04-23T17:22:35Z,10191736.0,0,0.96308607,0.036913943
+1118597,10,"Oh..
+It's missing the required entry in moz.build...",0,2015-01-20T06:57:41Z,9815672.0,0,0.9867552,0.013244822
+1105771,1,"User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.65 Safari/537.36
+Steps to reproduce:
+1. Navigate to http://dashif.org/reference/players/javascript/1.2.0/index.html
+2. Enter http://rdmedia.bbc.co.uk/dash/ondemand/bbb/avc3/1/client_manifest-common_init.mpd in manifest box and click Load.
+Actual results:
+Video does not display - HTMLVideoElement.canPlayType returns """". Audio plays back as expected.
+Expected results:
+HTMLVideoElement should return ""probably"" for, and playback correctly, ISOBMFF content using AVC3 sample description (ie where the SPS/PPS are not in the initialization segment). An example codec string would be video/mp4;codecs=""avc3.4d4015"".
+AVC3 is required to allow common initialization segments across all representations.",0,2014-11-27T15:32:32Z,9645777.0,1,0.5832697,0.5832697
+1080574,19,"log: https://treeherder.mozilla.org/logviewer.html#?repo=mozilla-inbound&job_id=10226328
+repository: mozilla-inbound
+start_time: 2015-05-28T08:20:58
+who: rvandermeulen[at]mozilla[dot]com
+machine: tst-linux64-spot-285
+buildname: Ubuntu VM 12.04 x64 mozilla-inbound opt test mochitest-4
+revision: db3d40e8b4de
+144 INFO TEST-UNEXPECTED-FAIL | dom/tests/mochitest/geolocation/test_mozsettingsWatch.html | Geolocation didn't work after setting geolocation.enabled to true. - expected PASS",0,2015-05-28T15:48:40Z,10321980.0,0,0.9996935,0.0003065358
+1092808,2,I confirmed this on a new profile. Either https://bugzilla.mozilla.org/show_bug.cgi?id=1031033 is wrong or we are getting a pref changed event for polaris that is resetting related prefs in https://bugzilla.mozilla.org/show_bug.cgi?id=1081343.,0,2014-11-03T18:21:23Z,9538497.0,0,0.99061245,0.0093875555
+1176028,1,"Created attachment 8624392
+use_tasks_generators_directly-v0.diff
+I added a wrapper to the generators so that we could land the unix and windows parts independently. Now we're ready to rip out the shim.",1,2015-06-18T18:44:07Z,10406061.0,1,0.99984384,0.99984384
+1055843,14,"Created attachment 8477240
+Do not pause when playbackRate = 0. Instead don't play anything
+Bug 1055843: Do not pause when playbackRate = 0. Instead don't play anything",0,2014-08-22T06:03:01Z,9216580.0,0,0.86918557,0.13081446
+1096093,13,"Yes, I'm on an external display which is non-retina and hooked up via the thunderbolt port, via hdmi.",0,2014-11-14T23:13:42Z,9594356.0,0,0.99674183,0.0032581897
+1066726,17,"Comment on attachment 8488773
+v1
+Comment 11",0,2014-09-18T19:37:50Z,9330485.0,0,0.9998196,0.00018048227
+1066726,29,"OK, so basically the bottom 5 landed on 32 when it was still on beta. Everything from bug 1013638 (rev 8f03e0ef5809) and up landed on 33+. I can't help but think that a mass uplift isn't what we're going to want to do here given where we are in the B2G v2.0 release cycle.
+So I guess that leaves either wontfixing this or figuring out what the minimum branch patch is that could be safely uplifted to the fix the bug. Honza, thoughts?",0,2014-10-15T01:00:05Z,9447506.0,0,0.8161355,0.18386447
+1116867,11,"I downloaded firefox-37.0a1.en-US.debug-mac64.dmg from here:
+  ftp://ftp.mozilla.org/pub/firefox/nightly/2015-01-06-mozilla-central-debug/
+(there's no OSX nightly for 1-7 yet for some reason)
+and I can reproduce it, in a fresh profile, with e10s enabled.
+My steps to reproduce:
+1. Hit shift-command-J to open the Browser Console.
+2. Click over to the address bar in the main window.
+3. Type ""google.com"" and hit enter.",0,2015-01-07T19:44:36Z,9764710.0,0,0.9789853,0.021014687
+1130253,4,"I also filed a media shutdown hang in bug 1129455, maybe that's related (or might be completely different, I don't know).",0,2015-02-06T14:00:45Z,9890045.0,0,0.99161786,0.008382134
+1096093,42,"https://reviewboard.mozilla.org/r/7327/#review6151
+Ship It!
+::: dom/ipc/TabParent.cpp:967
+(Diff revision 4)
+You don't need the lookAndFeelCache intermediate variable here.",0,2015-04-21T21:00:59Z,10182555.0,0,0.9639438,0.03605617
+1079321,2,https://hg.mozilla.org/mozilla-central/rev/34b96e14238c,0,2014-10-09T23:32:05Z,9428466.0,0,0.9999784,2.1588545e-05

@@ -153,7 +153,6 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         metric_for_best_model='f1_score',
         greater_is_better=True,
         report_to='none',
-        max_steps=3, # TODO Delete this line after testing
     )
 
     trainer = CustomTrainer(
@@ -401,7 +400,7 @@ if __name__ == "__main__":
     print_current_time()
 
     # runs = [0,1,2,3,4,5,6,7,8,9]
-    runs = [0]
+    runs = [3]
 
     exp_config = get_experiment_config()
     # prepare_data(runs, mapped_comment_data, train_test_comment_data)
