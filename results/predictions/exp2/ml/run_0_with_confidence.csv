@@ -1,7 +1,7 @@
 issue_id,text_id,text,code,label,none_gpt_nos_SVC_0,none_gpt_nos_SVC_0_confidence
 538721,1,"http://mxr.mozilla.org/mozilla-central/source/layout/reftests/svg/smil/reftest.list#91
 fails == anim-strokewidth-1xml.svg anim-standard-ref.svg # bug 436267
-This isn't an SMIL bug :)  What's the correct bug for animating strokewidth?",QUESTION,0,0,0.043061812956494194
+This isn't an SMIL bug :)  What's the correct bug for animating strokewidth?",QUESTION,0,`,0.043061812956494194
 538721,3,"Thanks for the report, Jesse!
 Robert is correct on both counts. (FWIW, in bug 436276, I intended ""non-length"" to mean ""non-nsSVGLength2"" -- and strokeWidth is non-nsSVGLength2. Hence the dependency on that bug).
 In any case, bug 534028 is more granular, and when it's fixed, this test will pass.  So that's indeed a better bug # to reference there.

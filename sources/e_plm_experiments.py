@@ -217,7 +217,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Confidence predictions saved to: {confidence_prediction_path}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
-    runs = range(10)
+    runs = range(1)
 
     result = ["run", "oversample", "batch_size", "epoch", "learning_Rate", "model_name", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     if not os.path.exists(res_path):
