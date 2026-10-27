@@ -25,19 +25,19 @@ def extract_positive_class_confidence(probabilities, classes):
     return probabilities[:, positive_class_index]
 
 
-def train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, BS, LR, E, model_save=None):
+def train_evaluate(model_name, classes, X_train, y_train, X_test, y_test, BS, LR, E, model_save=None):
     set_seed(42)
     t_mod = text.Transformer(model_name, maxlen=256, class_names=classes)
 
     train = t_mod.preprocess_train(X_train, y_train)
-    val = t_mod.preprocess_test(X_val, y_val)
+    test = t_mod.preprocess_test(X_test, y_test)
 
     model = t_mod.get_classifier()
     learner = ktrain.get_learner(model, train_data=train, batch_size=BS)
     learner.set_weight_decay(0.01)
     learner.fit_onecycle(LR, E)
 
-    print(learner.validate(val_data=val, print_report=True, class_names=t_mod.get_classes()))
+    print(learner.validate(val_data=test, print_report=True, class_names=t_mod.get_classes()))
 
     predictor = ktrain.get_predictor(learner.model, preproc=t_mod)
 
@@ -45,21 +45,21 @@ def train_evaluate(model_name, classes, X_train, y_train, X_val, y_val, BS, LR, 
         predictor.save(model_save)
         print(f"Model saved at: {model_save}")
 
-    y_pred = predictor.predict(X_val)
+    y_pred = predictor.predict(X_test)
     y_confidence = extract_positive_class_confidence(
-        predictor.predict_proba(X_val),
+        predictor.predict_proba(X_test),
         t_mod.get_classes(),
     )
 
     return y_pred, y_confidence
 
 def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
-    dev_df = pd.read_csv(dev_data_path_temporal.replace('<run>', f'{run}'))
-    test_df = pd.read_csv(test_data_path_temporal.replace('<run>', f'{run}'))
-    train_df = pd.read_csv(train_data_path_temporal.replace('<run>', f'{run}'))
-    val_df = pd.read_csv(val_data_path_temporal.replace('<run>', f'{run}'))
-    train_df_os = pd.read_csv(train_os_data_path_temporal.replace('<run>', f'{run}'))
-    dev_df_os = pd.read_csv(dev_os_df_path_temporal.replace('<run>', f'{run}'))
+    dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
+    test_df = pd.read_csv(test_data_path.replace('<run>', f'{run}'))
+    train_df = pd.read_csv(train_data_path.replace('<run>', f'{run}'))
+    val_df = pd.read_csv(val_data_path.replace('<run>', f'{run}'))
+    train_df_os = pd.read_csv(train_os_data_path.replace('<run>', f'{run}'))
+    dev_df_os = pd.read_csv(dev_os_df_path.replace('<run>', f'{run}'))
 
     model_name = mod['model_name']
     print(f"\n\n\nEvaluating Model: {model_name}\n\n\n")
@@ -141,10 +141,11 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
                         E = e
                         F1 = f1
     else:
-        BS = best_config['batch_size']
-        LR = best_config['learning_Rate']
-        E = best_config['epoch']
+        print(f"Using Best Config: {best_config}")
 
+        BS = best_config['batch_size']
+        LR = best_config['learning_rate']
+        E = best_config['epoch']
 
     print("-" * 50)
     print(f"Completed Validating with Max F1 Score: {F1}")
@@ -153,7 +154,8 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Learning Rate:{LR}")
     print("-" * 50)
 
-    model_path_folder = f"models/temporal/plm/{run}"
+    # Save the trained model
+    model_path_folder = f"models/exp2/plm/{run}"
     model_file_name = f"{model_name}__BS_{BS}__LR_{LR}__E_{E}__Oversample_{'os' if oversample else 'nos'}.joblib"
     model_path = os.path.join(model_path_folder, model_file_name)
 
@@ -170,7 +172,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
         model_save=model_path,
     )
     
-    print(f"Predictions :\n{y_pred}")
+    # print(f"Predictions :\n{y_pred}")
 
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, y_test)
 
@@ -200,7 +202,8 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
 
     test_df[model_name + f"_{'os' if oversample else 'nos'}_prediction"] = y_pred
     test_df[model_name + f"_{'os' if oversample else 'nos'}_confidence"] = y_confidence
-    prediction_dir = os.path.join("results/predictions/temporal/plm", model_name, f"folds/{run}")
+
+    prediction_dir = os.path.join("results/predictions/exp2/plm", model_name, f"folds/{run}")
     base_filename = f"prediction_{'os' if oversample else 'nos'}"
     standard_prediction_path = os.path.join(prediction_dir, f"{base_filename}.csv")
     confidence_prediction_path = os.path.join(
@@ -208,9 +211,9 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
         f"{base_filename}_with_confidence.csv",
     )
     os.makedirs(prediction_dir, exist_ok=True)
-    test_df.to_csv(standard_prediction_path, index=False)
+    # test_df.to_csv(standard_prediction_path, index=False)
     test_df.to_csv(confidence_prediction_path, index=False)
-    print(f"Predictions saved to: {standard_prediction_path}")
+    # print(f"Predictions saved to: {standard_prediction_path}")
     print(f"Confidence predictions saved to: {confidence_prediction_path}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
@@ -227,10 +230,11 @@ def dl_experiment(exp_config, res_path, run_best_model):
             evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config={})
     else:
         for run in runs:
-            for model in exp_config['lm_model']:
-                oversampling = exp_config['best_model_config'][str(run)][model['model_name']]['oversample']
-                model_config = exp_config['best_model_config'][str(run)][model['model_name']]
-                evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config=model_config)
+            model_name = exp_config['lm_model'][0]['model_name']
+            model = exp_config['best_model_config'][str(run)][model_name]
+            oversampling = model['oversampling']
+            model_config = model['config']
+            evaluate_model_plm(run, model, res_path, oversample=oversampling, best_config=model_config)
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()

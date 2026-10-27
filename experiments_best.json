@@ -66,6 +66,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 32, "learning_rate": 3e-5, "epoch": 10}
       }
@@ -78,6 +79,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 2e-5, "epoch": 5}
       }
@@ -90,6 +92,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 10}
       }
@@ -102,6 +105,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 10}
       }
@@ -114,6 +118,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 5}
       }
@@ -126,6 +131,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 1e-5, "epoch": 5}
       }
@@ -138,6 +144,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 32, "learning_rate": 1e-5, "epoch": 10}
       }
@@ -150,6 +157,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 2e-5, "epoch": 5}
       }
@@ -162,6 +170,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 16, "learning_rate": 1e-5, "epoch": 10}
       }
@@ -174,6 +183,7 @@
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
       },
       "roberta-base": {
+        "model_name": "roberta-base",
         "oversampling": true,
         "config": {"batch_size": 32, "learning_rate": 2e-5, "epoch": 5}
       }
