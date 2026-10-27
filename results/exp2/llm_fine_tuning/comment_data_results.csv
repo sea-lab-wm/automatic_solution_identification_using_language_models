@@ -13,3 +13,7 @@ run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precis
 run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
 run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
 run,oversample,batch_size,epoch,initial_learning_Rate,model_name,accuracy,precision,recall,f1,TP,FP,TN,FN
+1,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,89.322382,64.835165,74.683544,69.411765,59,32,376,20
+2,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,89.117043,64.130435,74.683544,69.005848,59,33,375,20
+3,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,88.706366,61.764706,79.746835,69.61326,63,39,369,16
+4,True,8,5,1e-05,meta-llama/Meta-Llama-3-8B,89.322382,66.26506,69.620253,67.901235,55,28,380,24
