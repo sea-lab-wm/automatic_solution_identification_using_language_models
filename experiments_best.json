@@ -64,6 +64,10 @@
         "embedding": "gpt",
         "oversampling": false,
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 32, "learning_rate": 3e-5, "epoch": 10}
       }
     },
     "1": {
@@ -72,6 +76,10 @@
         "embedding": "gpt",
         "oversampling": false,
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 2e-5, "epoch": 5}
       }
     },
     "2": {
@@ -80,6 +88,94 @@
         "embedding": "gpt",
         "oversampling": false,
         "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 10}
+      }
+    },
+    "3": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 10}
+      }
+    },
+    "4": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 5}
+      }
+    },
+    "5": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 1e-5, "epoch": 5}
+      }
+    },
+    "6": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 32, "learning_rate": 1e-5, "epoch": 10}
+      }
+    },
+    "7": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 2e-5, "epoch": 5}
+      }
+    },
+    "8": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 1e-5, "epoch": 10}
+      }
+    },
+    "9": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "oversampling": true,
+        "config": {"batch_size": 32, "learning_rate": 2e-5, "epoch": 5}
       }
     }
   }

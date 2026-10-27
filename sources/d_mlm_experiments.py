@@ -157,7 +157,7 @@ def get_positive_class_confidence(model, X_test):
     return probabilities[:, positive_class_index]
 
 
-def get_tuned_model_prediction(X_test, X_train, clf, model, config, y_train, model_save_path):
+def get_tuned_model_prediction(run, X_test, X_train, clf, model, config, y_train, model_save_path):
     if not config:
         searchCV = GridSearchCV(clf,
                             param_grid=model["params"],
@@ -183,7 +183,7 @@ def get_tuned_model_prediction(X_test, X_train, clf, model, config, y_train, mod
     y_pred = best_model.predict(X_test)
     y_confidence = get_positive_class_confidence(best_model, X_test)
     
-    save_model(best_model, os.path.join(ml_model_base_path, model_save_path))
+    save_model(best_model, os.path.join(ml_model_base_path, f"run_{run}_{model_save_path}"))
     return config, y_pred, y_confidence
 
 def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, config):
@@ -197,6 +197,7 @@ def ml_model(data_dict, result_path, run, mode, embedding, oversampling, model, 
     clf = getBaseModel(model["model_name"])
     model_save_path = f'model_{model["model_name"]}_preprocess_{mode}__embedding_{embedding}__oversampling_{"os" if oversampling else "nos"}.joblib'
     param, y_pred, y_confidence = get_tuned_model_prediction(
+        run, 
         X_test_embedding,
         X_train_embedding,
         clf,
@@ -323,7 +324,7 @@ def ml_run(exp_config, run_best_config=False):
 if __name__ == "__main__":
     exp_config = get_experiment_config()
 
-    runs = range(3)
+    runs = range(3,10)
 
     # prepare_data(runs, embedding_comment_data, train_test_comment_data)
 

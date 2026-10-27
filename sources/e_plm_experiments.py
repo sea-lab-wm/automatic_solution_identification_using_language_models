@@ -214,7 +214,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Confidence predictions saved to: {confidence_prediction_path}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
-    runs = [int(sys.argv[1])] if len(sys.argv) > 1 else range(9)
+    runs = range(10)
 
     result = ["run", "oversample", "batch_size", "epoch", "learning_Rate", "model_name", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     if not os.path.exists(res_path):
@@ -235,4 +235,4 @@ def dl_experiment(exp_config, res_path, run_best_model):
 if __name__ == "__main__":
     exp_config = get_experiment_config()
     # prepare_data(mapped_comment_data, train_test_comment_data)
-    dl_experiment(exp_config, comment_data_plm_result_temporal, run_best_model=False)
+    dl_experiment(exp_config, comment_data_plm_result_exp2, run_best_model=True)
