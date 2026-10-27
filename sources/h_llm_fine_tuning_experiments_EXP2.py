@@ -400,7 +400,7 @@ if __name__ == "__main__":
     print_current_time()
 
     # runs = [0,1,2,3,4,5,6,7,8,9]
-    runs = [5]
+    runs = [int(os.environ.get("RUN_ID", "7"))]
 
     exp_config = get_experiment_config()
     # prepare_data(runs, mapped_comment_data, train_test_comment_data)

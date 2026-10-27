@@ -1,0 +1,200 @@
+2026-10-24 21:31:10.856355: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-10-24 21:31:11.123866: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-10-24 21:31:11.198736: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-10-24 21:31:11.745728: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-10-24 21:31:15.145828: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Current Date & Time: 2026-10-24 21:31:42
+
+
+
+Evaluating Model: meta-llama/Meta-Llama-3-8B
+
+
+
+Dev Data Length:       issue_id  text_id  ...         creation_time  comment_id
+0       538721        1  ...  2010-01-09T03:04:07Z   4479967.0
+1       551837        1  ...  2010-03-12T00:18:03Z   4580720.0
+2       551837        5  ...  2010-04-23T18:25:38Z   4656887.0
+3       551837        7  ...  2010-04-26T18:56:32Z   4660890.0
+4       551837        8  ...  2010-04-27T07:30:16Z   4662324.0
+...        ...      ...  ...                   ...         ...
+7337    687754       25  ...  2011-10-06T00:33:09Z   5762206.0
+7338    687754       27  ...  2011-10-06T21:34:50Z   5764745.0
+7339    687929        8  ...  2011-12-08T02:50:15Z   5899521.0
+7340    691184        4  ...  2011-10-06T18:01:29Z   5764018.0
+7341    691184        7  ...  2011-10-06T23:16:05Z   5765086.0
+
+[7342 rows x 6 columns]
+Dev data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Dev data distribution: label
+0    3671
+1    3671
+Name: count, dtype: int64
+Test Data Length:      issue_id  text_id  ...         creation_time  comment_id
+0      552359       27  ...  2010-05-13T02:14:54Z   4691658.0
+1      554061        1  ...  2010-03-22T16:00:34Z   4596702.0
+2      554061        4  ...  2010-03-22T20:40:16Z   4597403.0
+3      554061        8  ...  2010-03-23T16:13:17Z   4599137.0
+4      554061       15  ...  2010-03-25T00:30:46Z   4602822.0
+..        ...      ...  ...                   ...         ...
+482   1821213        3  ...  2023-03-09T05:10:43Z  16318130.0
+483   1821213        6  ...  2023-03-09T10:32:32Z  16318439.0
+484   1821213       11  ...  2023-03-09T20:26:30Z  16319394.0
+485   1823751        4  ...  2023-03-22T19:24:35Z  16338217.0
+486   1823751       10  ...  2023-03-23T10:47:30Z  16339107.0
+
+[487 rows x 6 columns]
+Test data distribution: label
+0    0.837782
+1    0.162218
+Name: proportion, dtype: float64
+Test data distribution: label
+0    408
+1     79
+Name: count, dtype: int64
+Train Data Length:       issue_id  text_id  ...         creation_time  comment_id
+0      1598488        2  ...  2019-11-22T01:24:15Z  14503717.0
+1       894931        4  ...  2013-07-17T16:25:57Z   7645850.0
+2       779500        7  ...  2012-08-01T14:40:21Z   6523549.0
+3       947523       28  ...  2013-12-17T23:32:00Z   8208298.0
+4       779500      140  ...  2012-09-19T07:28:35Z   6646602.0
+...        ...      ...  ...                   ...         ...
+6603   1055843       15  ...  2014-08-22T06:05:01Z   9216583.0
+6604   1096093       29  ...  2015-04-20T14:52:45Z  10175485.0
+6605   1079905        6  ...  2014-10-17T14:59:19Z   9462305.0
+6606    779500       81  ...  2012-09-05T00:42:36Z   6609501.0
+6607   1262069        9  ...  2016-04-08T00:06:03Z  11309807.0
+
+[6608 rows x 6 columns]
+Train data distribution: label
+0    0.5
+1    0.5
+Name: proportion, dtype: float64
+Train data distribution: label
+0    3304
+1    3304
+Name: count, dtype: int64
+Val Data Length:      issue_id  text_id  ...         creation_time  comment_id
+0     1132780        2  ...  2015-02-13T03:24:54Z   9915776.0
+1     1029919        2  ...  2014-06-25T00:25:49Z   8973545.0
+2     1179123       18  ...  2015-07-04T18:09:18Z  10456087.0
+3     1254694       36  ...  2016-03-16T17:55:18Z  11252589.0
+4     1073339        6  ...  2014-11-24T00:29:09Z   9626674.0
+..        ...      ...  ...                   ...         ...
+433   1514062        1  ...  2018-12-13T22:46:22Z  13812186.0
+434   1116867       39  ...  2015-01-16T20:29:11Z   9806585.0
+435   1395751        4  ...  2017-08-31T23:36:19Z  12618918.0
+436   1121826        1  ...  2015-01-15T05:26:17Z   9797305.0
+437   1362590        3  ...  2017-05-05T22:51:21Z  12297227.0
+
+[438 rows x 6 columns]
+Val data distribution: label
+0    0.8379
+1    0.1621
+Name: proportion, dtype: float64
+Val data distribution: label
+0    367
+1     71
+Name: count, dtype: int64
+--------------------------------------------------
+
+Run: 5, Oversample: True, Batch Size: 8, Epoch: 5, Learning Rate: 1e-05
+
+--------------------------------------------------
+Random seed set as 42
+
+Dataset Format:  DatasetDict({
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 7342
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 487
+    })
+})
+
+
+Class Weight: tensor([0.5000, 0.5000])
+Traceback (most recent call last):
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/utils/_deprecation.py", line 101, in inner_f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1240, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1347, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1854, in _raise_on_head_call_error
+    raise head_call_error
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1751, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1673, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 376, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 400, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6add23c2-031538ad5d83627a54930837;f354b441-22e7-41bc-beef-cb2fbe01c267)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments_EXP2.py", line 419, in <module>
+    llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
+  File "/workspace/projects/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments_EXP2.py", line 296, in llama_experiments
+    y_pred, y_confidence, y_probability = train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, BS, LR, E, save_loc=model_save_path)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/automatic_solution_identification_using_language_models/sources/h_llm_fine_tuning_experiments_EXP2.py", line 94, in train_evaluate_llm
+    model = AutoModelForSequenceClassification.from_pretrained(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 524, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/transformers/models/auto/configuration_auto.py", line 972, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/transformers/configuration_utils.py", line 632, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/transformers/configuration_utils.py", line 689, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/scratch/venvs/llama-exp2/lib/python3.12/site-packages/transformers/utils/hub.py", line 420, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-6add23c2-031538ad5d83627a54930837;f354b441-22e7-41bc-beef-cb2fbe01c267)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
