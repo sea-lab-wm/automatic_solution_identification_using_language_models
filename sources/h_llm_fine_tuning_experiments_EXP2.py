@@ -4,6 +4,10 @@ import torch
 import os
 
 import json
+import socket
+import threading
+import pynvml
+import time
 
 from utils import append_row_to_csv, calculate_results, get_experiment_config, prepare_data, print_current_time, process_run, set_llm_seed
 
@@ -22,6 +26,96 @@ exp2_fold_paths = [
     for p in (dev_data_path, test_data_path, train_data_path, val_data_path, train_os_data_path, dev_os_df_path)
 ]
 exp2_dev_data_path, exp2_test_data_path, exp2_train_data_path, exp2_val_data_path, exp2_train_os_data_path, exp2_dev_os_df_path = exp2_fold_paths
+
+
+cost_path = f"results/exp2/{RERUN_TAG}/llm_fine_tuning/computational_cost.csv"
+log_history_dir = f"results/exp2/{RERUN_TAG}/llm_fine_tuning/log_history"
+
+
+class GpuMonitor:
+    """Samples power draw and utilization of the GPU used by this process with NVML in the background,
+    and reads the GPU's cumulative energy counter for the energy used"""
+
+    def __init__(self, interval_s=2):
+        self.interval_s = interval_s
+        self.samples = []
+        self.handle = None
+        self.start_energy_mj = None
+        self.end_energy_mj = None
+
+    def _find_handle(self):
+        # CUDA_VISIBLE_DEVICES may not follow NVML's device order, so match the GPU running this process first
+        for i in range(pynvml.nvmlDeviceGetCount()):
+            handle = pynvml.nvmlDeviceGetHandleByIndex(i)
+            if any(p.pid == os.getpid() for p in pynvml.nvmlDeviceGetComputeRunningProcesses(handle)):
+                return handle
+        return pynvml.nvmlDeviceGetHandleByIndex(int(os.environ.get("CUDA_VISIBLE_DEVICES", "0").split(",")[0]))
+
+    def _read_energy_mj(self):
+        try:
+            return pynvml.nvmlDeviceGetTotalEnergyConsumption(self.handle)
+        except pynvml.NVMLError:
+            return None
+
+    def __enter__(self):
+        self.start = time.perf_counter()
+        try:
+            pynvml.nvmlInit()
+            self.handle = self._find_handle()
+        except (pynvml.NVMLError, ValueError) as error:
+            print(f"NVML unavailable ({error}), GPU power/utilization will not be recorded")
+            return self
+        self.start_energy_mj = self._read_energy_mj()
+        self.stop_event = threading.Event()
+        self.thread = threading.Thread(target=self._sample, daemon=True)
+        self.thread.start()
+        return self
+
+    def _sample(self):
+        while not self.stop_event.is_set():
+            try:
+                power_w = pynvml.nvmlDeviceGetPowerUsage(self.handle) / 1000
+                utilization = pynvml.nvmlDeviceGetUtilizationRates(self.handle).gpu
+                self.samples.append((power_w, utilization))
+            except pynvml.NVMLError:
+                pass
+            self.stop_event.wait(self.interval_s)
+
+    def __exit__(self, *exc):
+        self.duration_s = time.perf_counter() - self.start
+        if self.handle is not None:
+            self.stop_event.set()
+            self.thread.join(timeout=10)
+            self.end_energy_mj = self._read_energy_mj()
+        return False
+
+    def summary(self, prefix):
+        powers = [p for p, _ in self.samples]
+        utilizations = [u for _, u in self.samples]
+        avg_power_w = float(np.mean(powers)) if powers else float('nan')
+        if self.start_energy_mj is not None and self.end_energy_mj is not None:
+            energy_kwh = (self.end_energy_mj - self.start_energy_mj) / 3.6e9
+        else:
+            energy_kwh = avg_power_w * self.duration_s / 3.6e6
+        return {
+            f'{prefix}_avg_gpu_power_w': round(avg_power_w, 1),
+            f'{prefix}_max_gpu_power_w': round(max(powers), 1) if powers else float('nan'),
+            f'{prefix}_gpu_energy_kwh': round(energy_kwh, 4),
+            f'{prefix}_avg_gpu_utilization_pct': round(float(np.mean(utilizations)), 1) if utilizations else float('nan'),
+            f'{prefix}_n_gpu_samples': len(powers),
+        }
+
+
+def get_dir_size_mb(path, prefix=''):
+    if path is None or not os.path.isdir(path):
+        return float('nan')
+    return round(sum(os.path.getsize(os.path.join(path, f)) for f in os.listdir(path) if f.startswith(prefix)) / 1024 ** 2, 2)
+
+
+def get_peak_gpu_memory_gb():
+    if not torch.cuda.is_available():
+        return 0, 0
+    return round(torch.cuda.max_memory_allocated() / 1024 ** 3, 2), round(torch.cuda.max_memory_reserved() / 1024 ** 3, 2)
 
 
 def prepare_exp2_folds(run):
@@ -114,6 +208,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
     print(f"\n\nClass Weight: {class_weights}")
 
     ### Model Load ###
+    model_load_start = time.perf_counter()
     quantization_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type='nf4',
@@ -141,6 +236,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
 
     model = prepare_model_for_kbit_training(model)
     model = get_peft_model(model, lora_config)
+    model_load_s = time.perf_counter() - model_load_start
 
     ### Get Tokenizer ###
     tokenizer = AutoTokenizer.from_pretrained(model_name, add_prefix_space=True)
@@ -200,7 +296,15 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
     print(tokenized_data['dev'])
     print(tokenized_data['test'])
 
-    train_result = trainer.train()
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
+    train_start = time.perf_counter()
+
+    with GpuMonitor() as train_gpu_monitor:
+        train_result = trainer.train()
+
+    train_wall_s = time.perf_counter() - train_start
+    train_peak_allocated_gb, train_peak_reserved_gb = get_peak_gpu_memory_gb()
 
     separator_print("TRAIN RESULT")
     print(train_result)
@@ -263,7 +367,100 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
 
     model.eval()
 
-    y_pred, y_confidence, y_probability = generate_predictions(model, test_df, bs, max_length)
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+        torch.cuda.reset_peak_memory_stats()
+    inference_start = time.perf_counter()
+
+    with GpuMonitor() as inference_gpu_monitor:
+        y_pred, y_confidence, y_probability = generate_predictions(model, test_df, bs, max_length)
+
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
+    inference_wall_s = time.perf_counter() - inference_start
+    inference_peak_allocated_gb, inference_peak_reserved_gb = get_peak_gpu_memory_gb()
+
+    ### Computational Cost ###
+    # train_runtime includes the per-epoch evaluation on the test set, so the pure training time is reported separately
+    eval_runtimes = [log['eval_runtime'] for log in trainer.state.log_history if 'eval_runtime' in log]
+    train_runtime_s = train_result.metrics.get('train_runtime', train_wall_s)
+    n_trainable_params, n_total_params = model.get_nb_trainable_parameters()
+
+    # Token usage: content tokens (no padding) vs. tokens fed to the model (with padding)
+    def count_untruncated_tokens(texts):
+        return [len(ids) for ids in tokenizer(texts, truncation=False)['input_ids']]
+
+    train_token_lengths = count_untruncated_tokens(dev_df['text'].tolist())
+    test_token_lengths = count_untruncated_tokens(test_df['text'].tolist())
+
+    n_train_tokens = sum(min(n, max_length) for n in train_token_lengths)
+    n_train_tokens_padded = sum(len(ids) for ids in tokenized_data['dev']['input_ids'])
+    n_test_tokens = sum(min(n, max_length) for n in test_token_lengths)
+    n_eval_tokens_padded = sum(len(ids) for ids in tokenized_data['test']['input_ids'])
+    # generate_predictions pads each batch to its longest comment
+    n_inference_tokens_padded = sum(
+        max(min(n, max_length) for n in test_token_lengths[i:i + bs]) * len(test_token_lengths[i:i + bs])
+        for i in range(0, len(test_token_lengths), bs)
+    )
+
+    cost_row = {
+        'run': run,
+        'model_name': model_name,
+        'batch_size': bs,
+        'epoch': e,
+        'learning_rate': lr,
+        'hostname': socket.gethostname(),
+        'gpu_name': torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu',
+        'n_train_comments': len(dev_df),
+        'n_train_steps': train_result.global_step,
+        'n_trainable_params': n_trainable_params,
+        'n_total_params': n_total_params,
+        'train_runtime_s': round(train_runtime_s, 2),
+        'eval_runtime_total_s': round(sum(eval_runtimes), 2),
+        'train_only_runtime_s': round(train_runtime_s - sum(eval_runtimes), 2),
+        'train_wall_s': round(train_wall_s, 2),
+        'train_peak_gpu_allocated_gb': train_peak_allocated_gb,
+        'train_peak_gpu_reserved_gb': train_peak_reserved_gb,
+        **train_gpu_monitor.summary('train'),
+        'model_load_s': round(model_load_s, 2),
+        'adapter_size_mb': get_dir_size_mb(save_loc, prefix='adapter_model'),
+        'saved_model_dir_size_mb': get_dir_size_mb(save_loc),
+        'max_length': max_length,
+        'n_truncated_train_comments': sum(n > max_length for n in train_token_lengths),
+        'n_train_tokens_per_epoch': n_train_tokens,
+        'n_train_tokens_padded_per_epoch': n_train_tokens_padded,
+        'n_train_tokens_total': n_train_tokens * e,
+        'n_train_tokens_padded_total': n_train_tokens_padded * e,
+        'n_epoch_evals': len(eval_runtimes),
+        'n_eval_tokens_total': n_test_tokens * len(eval_runtimes),
+        'n_eval_tokens_padded_total': n_eval_tokens_padded * len(eval_runtimes),
+        'n_test_comments': len(test_df),
+        'n_truncated_test_comments': sum(n > max_length for n in test_token_lengths),
+        'n_test_tokens': n_test_tokens,
+        'n_inference_tokens_padded': n_inference_tokens_padded,
+        'inference_tokens_per_s': round(n_test_tokens / inference_wall_s, 2),
+        'inference_wall_s': round(inference_wall_s, 2),
+        'inference_s_per_comment': round(inference_wall_s / len(test_df), 4),
+        'inference_peak_gpu_allocated_gb': inference_peak_allocated_gb,
+        'inference_peak_gpu_reserved_gb': inference_peak_reserved_gb,
+        **inference_gpu_monitor.summary('inference'),
+    }
+
+    separator_print("COMPUTATIONAL COST")
+    print(cost_row)
+
+    if not os.path.isfile(cost_path):
+        append_row_to_csv(cost_path, list(cost_row.keys()))
+    append_row_to_csv(cost_path, list(cost_row.values()))
+    print(f"\nComputational cost saved to {cost_path}\n")
+
+    # Per-epoch loss, eval metrics and runtimes
+    os.makedirs(log_history_dir, exist_ok=True)
+    log_history_path = os.path.join(log_history_dir, f"fold_{run}__BS_{bs}__E_{e}__LR_{lr}.json")
+    with open(log_history_path, 'w') as f:
+        json.dump({'best_model_checkpoint': trainer.state.best_model_checkpoint, 'log_history': trainer.state.log_history}, f, indent=2)
+    print(f"Training log history saved to {log_history_path}\n")
+
     return y_pred, y_confidence, y_probability
 
 
