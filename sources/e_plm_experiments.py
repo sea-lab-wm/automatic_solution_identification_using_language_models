@@ -198,7 +198,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     append_row_to_csv(result_path, result)
     print(f"results appended to: {result_path}")
 
-    test_df = test_df.copy()
+    test_df = test_df.drop(columns=['bert_embedding', 'gpt_embedding', 'llama_embedding'], errors='ignore')
 
     test_df[model_name + f"_{'os' if oversample else 'nos'}_prediction"] = y_pred
     test_df[model_name + f"_{'os' if oversample else 'nos'}_confidence"] = y_confidence
@@ -217,7 +217,7 @@ def evaluate_model_plm(run, mod, result_path, oversample=True, best_config={}):
     print(f"Confidence predictions saved to: {confidence_prediction_path}")
 
 def dl_experiment(exp_config, res_path, run_best_model):
-    runs = range(1)
+    runs = range(1, 10)
 
     result = ["run", "oversample", "batch_size", "epoch", "learning_Rate", "model_name", "accuracy", "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
     if not os.path.exists(res_path):
@@ -238,5 +238,5 @@ def dl_experiment(exp_config, res_path, run_best_model):
 
 if __name__ == "__main__":
     exp_config = get_experiment_config()
-    # prepare_data(mapped_comment_data, train_test_comment_data)
+    prepare_data(mapped_comment_data, train_test_comment_data)
     dl_experiment(exp_config, comment_data_plm_result_exp2, run_best_model=True)
