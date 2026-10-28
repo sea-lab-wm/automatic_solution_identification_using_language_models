@@ -1,0 +1,10 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793161320.803843 4134250 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Current Date & Time: 2026-10-28 00:22:04
+Random seed set as 42
+Traceback (most recent call last):
+  File "/home/msun12/project/automatic_solution_identification_using_language_models/sources/h_llm_finetuned_eval.py", line 211, in <module>
+    XLSX_COL: r[XLSX_COL],
+              ~^^^^^^^^^^
+TypeError: tuple indices must be integers or slices, not str

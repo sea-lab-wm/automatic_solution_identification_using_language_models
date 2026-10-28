@@ -1,0 +1,13 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793162650.304380 4148282 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Current Date & Time: 2026-10-28 00:44:14
+Random seed set as 42
+--------------------------------------------------
+
+Run 0: 24 mismatched instances
+
+--------------------------------------------------
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:06,  2.05s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:04<00:04,  2.09s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:06<00:02,  2.08s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.35s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.62s/it]
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.

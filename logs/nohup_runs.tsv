@@ -1,0 +1,2 @@
+start_time	pid (session/wrapper)	python_pid	gpu	command	log_file	purpose	status
+2026-10-28 00:44:03	4148280	4148282	0	CUDA_VISIBLE_DEVICES=0 python3 sources/h_llm_finetuned_eval.py	logs/llama_exp2_reinference_261028004403.log	EXP2 LLM re-inference of 159 xlsx mismatches (folds 0-4, MAX_ATTEMPTS=3)	killed by user request 2026-10-28 00:51 (no attempt completed)
