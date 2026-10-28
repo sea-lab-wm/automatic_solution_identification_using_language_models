@@ -13,7 +13,8 @@ wandb/debug-internal.log
 wandb/debug.log
 wandb/latest-run
 /.idea/*
-EMSE_Revision_Tasks.pdf
+EMSE_Revision_Tasks*
+2511.06501v2.pdf
 AGENTS.md
 dataset/solution_identification_data/temporal_folds/*
 /GITHUB_PUSH_EXCLUSIONS.md
