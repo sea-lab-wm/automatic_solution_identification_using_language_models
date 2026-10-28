@@ -3,7 +3,9 @@ import pandas as pd
 import torch
 import os
 
-from utils import append_row_to_csv, calculate_results, get_experiment_config, prepare_data, print_current_time, set_llm_seed
+import json
+
+from utils import append_row_to_csv, calculate_results, get_experiment_config, prepare_data, print_current_time, process_run, set_llm_seed
 
 from utils import dev_data_path, test_data_path, train_data_path, val_data_path, train_os_data_path, dev_os_df_path, mapped_comment_data, train_test_comment_data, comment_data_llama_prediction_exp2
 
@@ -11,6 +13,31 @@ from utils import dev_data_path, test_data_path, train_data_path, val_data_path,
 
 # Sub-folder for this rerun so the earlier outputs, models, results and predictions are kept
 RERUN_TAG = os.environ.get("RERUN_TAG", "rerun_eval_loss")
+
+# EXP2-only folds built from labeled_comment_data.csv + train_test_split.json, kept apart from the shared
+# folds/ (rebuilt with embeddings, where dropna() loses a comment and creation_time/comment_id are missing)
+exp2_folds_dir = 'dataset/solution_identification_data/folds_exp2/<run>'
+exp2_fold_paths = [
+    f'{exp2_folds_dir}/{os.path.basename(p)}'
+    for p in (dev_data_path, test_data_path, train_data_path, val_data_path, train_os_data_path, dev_os_df_path)
+]
+exp2_dev_data_path, exp2_test_data_path, exp2_train_data_path, exp2_val_data_path, exp2_train_os_data_path, exp2_dev_os_df_path = exp2_fold_paths
+
+
+def prepare_exp2_folds(run):
+    if all(os.path.exists(p.replace('<run>', f'{run}')) for p in exp2_fold_paths):
+        return
+    data = pd.read_csv(mapped_comment_data)
+    with open(train_test_comment_data, 'r') as f:
+        indexes = json.load(f)
+    process_run(run, data, indexes, exp2_fold_paths)
+
+    # The folds must match train_test_split.json (fold <run> == "run<run + 1>")
+    for split, path in (('train', exp2_dev_data_path), ('test', exp2_test_data_path)):
+        expected = [(d['issue_id'], d['text_id']) for d in indexes[f'run{run + 1}'][split]]
+        actual = list(pd.read_csv(path.replace('<run>', f'{run}'))[['issue_id', 'text_id']].itertuples(index=False, name=None))
+        if expected != actual:
+            raise ValueError(f"Fold {run} {split} split does not match {train_test_comment_data}")
 
 torch.cuda.empty_cache()
 import torch.nn.functional as F
@@ -244,12 +271,12 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
     exp_config = get_experiment_config()
     
     ### Data Retrieve ###
-    dev_df = pd.read_csv(dev_data_path.replace('<run>', f'{run}'))
-    test_df = pd.read_csv(test_data_path.replace('<run>', f'{run}'))
-    train_df = pd.read_csv(train_data_path.replace('<run>', f'{run}'))
-    val_df = pd.read_csv(val_data_path.replace('<run>', f'{run}'))
-    train_df_os = pd.read_csv(train_os_data_path.replace('<run>', f'{run}'))
-    dev_df_os = pd.read_csv(dev_os_df_path.replace('<run>', f'{run}'))
+    dev_df = pd.read_csv(exp2_dev_data_path.replace('<run>', f'{run}'))
+    test_df = pd.read_csv(exp2_test_data_path.replace('<run>', f'{run}'))
+    train_df = pd.read_csv(exp2_train_data_path.replace('<run>', f'{run}'))
+    val_df = pd.read_csv(exp2_val_data_path.replace('<run>', f'{run}'))
+    train_df_os = pd.read_csv(exp2_train_os_data_path.replace('<run>', f'{run}'))
+    dev_df_os = pd.read_csv(exp2_dev_os_df_path.replace('<run>', f'{run}'))
 
     model_name = mod['model_name']
     print(f"\n\n\nEvaluating Model: {model_name}\n\n\n")
@@ -417,6 +444,7 @@ if __name__ == "__main__":
     append_row_to_csv(res_path, result)
 
     for run in runs:
+        prepare_exp2_folds(run)
         for model in exp_config['llm_model']:
             pred_path = f"results/predictions/exp2/{RERUN_TAG}/llm/folds/{run}/"
             llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
