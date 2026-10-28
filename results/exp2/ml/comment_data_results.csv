@@ -1,0 +1,11 @@
+preprocess,embedding,oversampling,model,run,accuracy,precision,recall,f1,TP,FP,TN,FN,param
+none,gpt,False,SVC,0,88.090349,60.824742,74.683544,67.045455,59,38,370,20,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,1,88.911704,62.626263,78.481013,69.662921,62,37,371,17,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,2,89.938398,65.625,79.746835,72.0,63,33,375,16,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,3,88.911704,62.886598,77.21519,69.318182,61,36,372,18,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,4,88.911704,65.060241,68.35443,66.666667,54,29,379,25,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,5,89.117043,68.055556,62.025316,64.900662,49,23,385,30,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'poly'}"
+none,gpt,False,SVC,6,87.242798,63.934426,49.367089,55.714286,39,22,385,40,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'poly'}"
+none,gpt,False,SVC,7,87.860082,63.013699,58.974359,60.927152,46,27,381,32,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'poly'}"
+none,gpt,False,SVC,8,89.300412,63.829787,76.923077,69.767442,60,34,374,18,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
+none,gpt,False,SVC,9,86.419753,56.190476,74.683544,64.130435,59,46,361,20,"{'C': 1.0, 'class_weight': 'balanced', 'kernel': 'rbf'}"
