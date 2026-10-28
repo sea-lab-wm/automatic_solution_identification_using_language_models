@@ -1,0 +1,79 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: llama-exp2-7
+  namespace: msun12
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 345600
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsUser: 261171
+        runAsGroup: 1042
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchFields:
+                  - key: metadata.name
+                    operator: In
+                    values:
+                      - gu08.sciclone.wm.edu
+
+      containers:
+        - name: training
+          image: python:3.12.3-bookworm
+          workingDir: /
+          command: ["/bin/bash", "-ec"]
+          args:
+            - |
+              set -o pipefail
+              source /scratch/venvs/llama-exp2/bin/activate
+              cd /workspace/projects/automatic_solution_identification_using_language_models
+
+              python -c "import torch; print('GPU:', torch.cuda.get_device_name(0)); assert torch.cuda.is_available()"
+
+              mkdir -p logs
+              timestamp=$(date +%y%m%d%H%M%S)
+
+              python -u sources/h_llm_fine_tuning_experiments_EXP2.py 2>&1 | tee logs/llama_exp2_7_${timestamp}.log
+
+          env:
+            - name: RUN_ID
+              value: "7"
+            - name: HF_HOME
+              value: /scratch/hf_cache
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: huggingface-token
+                  key: token
+
+          resources:
+            requests:
+              cpu: "4"
+              memory: "16Gi"
+              nvidia.com/gpu: 1
+            limits:
+              cpu: "8"
+              memory: "32Gi"
+              nvidia.com/gpu: 1
+
+          volumeMounts:
+            - name: home
+              mountPath: /workspace
+            - name: scratch
+              mountPath: /scratch
+
+      volumes:
+        - name: home
+          nfs:
+            server: comet
+            path: /sciclone/home/msun12
+        - name: scratch
+          nfs:
+            server: scr10
+            path: /sciclone/scr10/msun12

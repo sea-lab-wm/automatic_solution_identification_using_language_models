@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: llama-venv-setup
+  namespace: msun12
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 14400
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsUser: 261171
+        runAsGroup: 1042
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchFields:
+                  - key: metadata.name
+                    operator: In
+                    values:
+                      - gu07.sciclone.wm.edu
+
+      containers:
+        - name: setup
+          image: python:3.12.3-bookworm
+          workingDir: /
+          command: ["/bin/bash", "-ec"]
+          args:
+            - |
+              python --version
+              python -m venv /scratch/venvs/llama-exp2
+              /scratch/venvs/llama-exp2/bin/python -m pip install --upgrade pip
+              /scratch/venvs/llama-exp2/bin/python -m pip install -r /workspace/projects/automatic_solution_identification_using_language_models/requirements.txt
+              /scratch/venvs/llama-exp2/bin/python -m pip check
+              echo "Environment setup completed"
+
+          env:
+            - name: PIP_CACHE_DIR
+              value: /scratch/pip_cache
+
+          resources:
+            requests:
+              cpu: "2"
+              memory: "8Gi"
+              nvidia.com/gpu: 1
+            limits:
+              cpu: "4"
+              memory: "16Gi"
+              nvidia.com/gpu: 1
+
+          volumeMounts:
+            - name: home
+              mountPath: /workspace
+            - name: scratch
+              mountPath: /scratch
+
+      volumes:
+        - name: home
+          nfs:
+            server: comet
+            path: /sciclone/home/msun12
+        - name: scratch
+          nfs:
+            server: scr10
+            path: /sciclone/scr10/msun12
