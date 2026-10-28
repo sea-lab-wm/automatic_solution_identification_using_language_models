@@ -9,6 +9,9 @@ from utils import dev_data_path, test_data_path, train_data_path, val_data_path,
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
+# Sub-folder for this rerun so the earlier outputs, models, results and predictions are kept
+RERUN_TAG = os.environ.get("RERUN_TAG", "rerun_eval_loss")
+
 torch.cuda.empty_cache()
 import torch.nn.functional as F
 
@@ -139,7 +142,7 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
     # )   
 
     training_args = TrainingArguments(
-        output_dir=f'output/exp2/{run}',
+        output_dir=f'output/exp2/{RERUN_TAG}/{run}',
         learning_rate=lr,
         per_device_train_batch_size=bs,
         per_device_eval_batch_size=bs,
@@ -150,8 +153,8 @@ def train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, bs, l
         save_strategy='epoch',
         load_best_model_at_end=True,
         # report_to="wandb",
-        metric_for_best_model='f1_score',
-        greater_is_better=True,
+        # metric_for_best_model='f1_score',
+        # greater_is_better=True,
         report_to='none',
     )
 
@@ -292,7 +295,7 @@ def llama_experiments(run, mod, result_path, prediction_path, oversample=True, h
 
     separator_print(f"Run: {run}, Oversample: {oversample}, Batch Size: {BS}, Epoch: {E}, Learning Rate: {LR}")
 
-    model_save_path = f"models/exp2/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
+    model_save_path = f"models/exp2/{RERUN_TAG}/llm/{run}/{model_name.replace(' ', '_')}__BS_{BS}__E_{E}__LR_{LR}"
     y_pred, y_confidence, y_probability = train_evaluate_llm(run, model_name, dev_df, train_df, val_df, test_df, BS, LR, E, save_loc=model_save_path)
     FN, FP, TN, TP, accuracy, f1, precision, recall = calculate_results(y_pred, test_df[target_column])
 
@@ -407,7 +410,7 @@ if __name__ == "__main__":
 
     target_column = 'label'
 
-    res_path = f"results/exp2/llm_fine_tuning/comment_data_results.csv"
+    res_path = f"results/exp2/{RERUN_TAG}/llm_fine_tuning/comment_data_results.csv"
     result = ["run", "oversample", "batch_size", "epoch", "initial_learning_Rate", "model_name", "accuracy",
                 "precision", "recall", "f1", "TP", "FP", "TN", "FN"]
 
@@ -415,7 +418,7 @@ if __name__ == "__main__":
 
     for run in runs:
         for model in exp_config['llm_model']:
-            pred_path = comment_data_llama_prediction_exp2.replace("<run>", f'{run}')
+            pred_path = f"results/predictions/exp2/{RERUN_TAG}/llm/folds/{run}/"
             llama_experiments(run, model, res_path, pred_path, hyperparam_tuning=False)
 
     print_current_time()
