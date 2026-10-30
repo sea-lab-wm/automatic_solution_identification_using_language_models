@@ -257,10 +257,16 @@ def process_run(run, data, indexes, paths):
     
     os.makedirs(os.path.dirname(dev_data_path.replace('<run>', f'{run}')), exist_ok=True)
 
+    print(f"\n\nSaving data for run {run}...")
+
     dev_df.to_csv(dev_data_path.replace('<run>', f'{run}'), index=False)
     test_df.to_csv(test_data_path.replace('<run>', f'{run}'), index=False)
+
+    print(f"saved dev and test data for run {run}.")
     train_df.to_csv(train_data_path.replace('<run>', f'{run}'), index=False)
     val_df.to_csv(val_data_path.replace('<run>', f'{run}'), index=False)
+
+    print(f"saved dev, test, train and val data for run {run}.")
     train_df_os.to_csv(train_os_data_path.replace('<run>', f'{run}'), index=False)
     dev_df_os.to_csv(dev_os_df_path.replace('<run>', f'{run}'), index=False)
 
@@ -287,8 +293,10 @@ def prepare_data(runs, data_path, index_path):
 
     try:
         with Pool() as pool:
+            print(f"Starting parallel processing for {len(runs)} runs...")
             pool.starmap(process_run, process_args)
     except (PermissionError, OSError):
+        print("Parallel processing failed due to system limitations. Falling back to sequential processing.")
         for args in process_args:
             process_run(*args)
 

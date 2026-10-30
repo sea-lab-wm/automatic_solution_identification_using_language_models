@@ -1,0 +1,192 @@
+{
+  "eval_run": [
+    10
+  ],
+  "folds": {
+    "start": 1,
+    "end": 2
+  },
+  "preprocess" : [
+    "none"
+  ],
+  "embedding" : [
+    "gpt"
+  ],
+  "model_type" : [
+    "base"
+  ],
+  "oversampling": [
+    false
+  ],
+  "models": [
+    {
+      "model_name": "SVC",
+      "params": {
+        "C": [10, 1.0, 0.01],
+        "kernel": ["poly", "rbf", "sigmoid"],
+        "class_weight": [null, "balanced"]
+      }
+    }
+  ],
+  "lm_model": [
+    {
+      "model_name": "roberta-base",
+      "params": {
+        "batch_size": [32, 16],
+        "learning_rate": [1e-5, 2e-5, 3e-5],
+        "epoch": [5, 10]
+      }
+    }
+  ],
+  "llm_model":[
+    {
+      "model_name": "meta-llama/Meta-Llama-3-8B",
+      "params": {
+        "batch_size": [8, 16],
+        "learning_rate": [1e-5],
+        "epoch": [3, 5]
+      }
+    }
+  ],
+  "llm_model_conf": {
+    "model_name": "meta-llama/Meta-Llama-3-8B",
+    "params": {
+      "batch_size": 8,
+      "learning_rate": 1e-5,
+      "epoch": 5,
+      "oversample": true
+    }
+  },
+  "best_model_config": {
+    "0": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 32, "learning_rate": 3e-5, "epoch": 10}
+      }
+    },
+    "1": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 2e-5, "epoch": 5}
+      }
+    },
+    "2": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 10}
+      }
+    },
+    "3": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 10}
+      }
+    },
+    "4": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 3e-5, "epoch": 5}
+      }
+    },
+    "5": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 1e-5, "epoch": 5}
+      }
+    },
+    "6": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 32, "learning_rate": 1e-5, "epoch": 10}
+      }
+    },
+    "7": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "poly"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 2e-5, "epoch": 5}
+      }
+    },
+    "8": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 16, "learning_rate": 1e-5, "epoch": 10}
+      }
+    },
+    "9": {
+      "SVC":	{
+        "preprocess": "none",
+        "embedding": "gpt",
+        "oversampling": false,
+        "config": {"C": 1.0, "class_weight": "balanced", "kernel": "rbf"}
+      },
+      "roberta-base": {
+        "model_name": "roberta-base",
+        "oversampling": true,
+        "config": {"batch_size": 32, "learning_rate": 2e-5, "epoch": 5}
+      }
+    }
+  }
+}

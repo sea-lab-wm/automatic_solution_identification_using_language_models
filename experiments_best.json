@@ -7,16 +7,16 @@
     "end": 2
   },
   "preprocess" : [
-    "none"
+    "none", "all"
   ],
   "embedding" : [
-    "gpt"
+    "bert", "llama", "gpt", "tfidf"
   ],
   "model_type" : [
     "base"
   ],
   "oversampling": [
-    false
+    false, true
   ],
   "models": [
     {
