@@ -20,3 +20,7 @@ dataset/solution_identification_data/temporal_folds/*
 /GITHUB_PUSH_EXCLUSIONS.md
 dataset/embedding_data/actual_comment_data_with_embeddings_temporal.csv
 session_handsoff.md
+submission/
+logs/
+nohup.out
+*.log
