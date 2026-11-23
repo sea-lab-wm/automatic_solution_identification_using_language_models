@@ -14,7 +14,7 @@ The package contains the dataset, the source code, the configurations, the predi
 | RQ1: ML models with LM embeddings (Table 4) | `sources/b_*`, `sources/c_*`, `sources/d_mlm_experiments.py`, `experiments_table4.json`, `results/ml/`, `results/rerun-ml-table4/` |
 | RQ2: Prompting (Table 5) | `sources/f_*`, `sources/g_*`, `prompting/`, `results/llm_prompting/` |
 | RQ3: Fine-tuning (Table 6) | `sources/e_plm_experiments.py`, `sources/h_llm_fine_tuning_experiments.py`, `experiments_best.json`, `results/plm/`, `results/llm_fine_tuning/` |
-| RQ4: Ensembles (Table 7) | `results_analysis/ensembled_models.xlsx` |
+| RQ4: Ensembles (Table 7) | `results_analysis/ensembled_models.xlsx`, `results_analysis/complexity_analysis.md` |
 | RQ5: Issue types and problem categories | `results_analysis/issue_type_and_category_analysis.xlsx` |
 | RQ6-RQ7: Qualitative analysis of the errors | `results_analysis/create_venn_diagram.py`, `results_analysis/select_random_sample.py`, `results_analysis/compute_agreement_index.py` |
 | Temporal evaluation (Section 4.7, Tables 8-9) | `sources/i_temporal_experiment.py`, `sources/temp/add_datetime_to_labeled_data.py`, `dataset/solution_identification_data/temporal_folds/`, `results/temporal-results/`, `results/predictions/temporal-prediction/`, `results_analysis/compare_temporal_with_old_predictions.py`, `results_analysis/temporal_vs_old_fold_results_common_pairs.py` |
@@ -70,6 +70,7 @@ Scripts for data preparation, training, and evaluation, run in this order:
 
 ### `results_analysis/`
 - `ensembled_models.xlsx`: per-comment predictions of the best configuration of the 12 models and of the 47 ensembles, and the ensemble results (RQ4).
+- `complexity_analysis.md`: time complexity of training and inference of svm, RoBERTa, Llama-3 ft, and their ensemble, and the cost of the ensemble relative to each model.
 - `issue_type_and_category_analysis.xlsx`: results of the 12 best models per issue type and problem category (RQ5).
 - `create_venn_diagram.py`: overlap of the false positives and false negatives of svm, RoBERTa, and Llama-3 ft.
 - `select_random_sample.py`: random sample of misclassified comments for the qualitative analysis (RQ6-RQ7).
