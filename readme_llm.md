@@ -1,4 +1,0 @@
-- python3.10 -m venv venv #Create Environment
-- source venv/bin/activate #Activate Environment
-- pip install -r requirements.txt #Install dependent packages
-- python -m spacy download en_core_web_trf
