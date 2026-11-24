@@ -1,0 +1,35 @@
+\ref{rq:embed} & \svcs: \embllama vs. \embtfidf & \textbf{+0.254} & $-$0.032 & \textbf{+0.162} \\
+ & \lrs: \embllama vs. \embtfidf & \textbf{+0.187} & $-$0.039 & \textbf{+0.117} \\
+ & \knns: \embllama vs. \embtfidf & \textbf{+0.216} & \textbf{+0.411} & \textbf{+0.463} \\
+ & \rfrs: \embllama vs. \embtfidf & \textbf{+0.210} & \textbf{$-$0.321} & \textbf{$-$0.158} \\
+ & \dtrees: \embllama vs. \embtfidf & \textbf{$-$0.156} & +0.018 & \textbf{$-$0.098} \\
+ & \gnbs: \embllama vs. \embtfidf & $-$0.023 & \textbf{+0.132} & $-$0.002 \\
+ & \svcs: \embgpt vs. \embtfidf & \textbf{+0.273} & +0.016 & \textbf{+0.195} \\
+ & Average of the six models: \embllama vs. \embtfidf & \textbf{+0.115} & +0.028 & \textbf{+0.081} \\
+ & Average of the six models: \embllama vs. \embgpt & +0.018 & +0.003 & \textbf{+0.051} \\
+ & \svcs vs. \lrs & \textbf{+0.079} & \textbf{$-$0.057} & \textbf{+0.026} \\
+\midrule
+\ref{rq:prompt} & CoT vs. ZS & +0.008 & $-$0.014 & +0.003 \\
+ & CoT vs. FS & \textbf{+0.021} & \textbf{$-$0.043} & +0.005 \\
+ & ZS: with vs. without issue description & \textbf{$-$0.050} & \textbf{+0.053} & \textbf{$-$0.031} \\
+ & FS: with vs. without issue description & \textbf{$-$0.049} & \textbf{+0.045} & \textbf{$-$0.035} \\
+ & CoT: with vs. without issue description & \textbf{$-$0.036} & \textbf{$-$0.055} & \textbf{$-$0.044} \\
+ & Prompted \llama (CoT) vs. \svcs & \textbf{$-$0.215} & $-$0.014 & \textbf{$-$0.147} \\
+\midrule
+\ref{rq:finetune} & \rbert vs. \bert & $-$0.016 & \textbf{+0.063} & +0.024 \\
+ & \rbert vs. \xlnet & \textbf{+0.058} & $-$0.001 & \textbf{+0.031} \\
+ & \rbert vs. \dbert & $-$0.007 & \textbf{+0.071} & \textbf{+0.032} \\
+ & \llamaft vs. \rbert & \textbf{$-$0.048} & \textbf{+0.126} & +0.024 \\
+ & \llamaft vs. \svcs & $-$0.004 & \textbf{+0.137} & \textbf{+0.053} \\
+ & \rbert vs. \svcs & \textbf{+0.044} & +0.011 & +0.029 \\
+ & \llamaft vs. prompted \llama & \textbf{+0.211} & \textbf{+0.151} & \textbf{+0.200} \\
+ & \rbert vs. prompted \llama & \textbf{+0.259} & +0.026 & \textbf{+0.176} \\
+\midrule
+\ref{rq:ensemble} & Best ensemble vs. \llamaft & \textbf{+0.077} & \textbf{$-$0.062} & \textbf{+0.021} \\
+\midrule
+Temp. & \rbert vs. \llamaft & \textbf{+0.123} & $-$0.035 & \textbf{+0.061} \\
+ & \rbert vs. \svcs & \textbf{+0.087} & +0.066 & \textbf{+0.078} \\
+ & \llamaft vs. \svcs & $-$0.036 & \textbf{+0.101} & +0.017 \\
+ & \svcs: temporal vs. cross-validation & \textbf{$-$0.084} & \textbf{$-$0.093} & \textbf{$-$0.088} \\
+ & \rbert: temporal vs. cross-validation & \textbf{$-$0.059} & \textbf{$-$0.059} & \textbf{$-$0.059} \\
+ & \llamaft: temporal vs. cross-validation & \textbf{$-$0.131} & \textbf{$-$0.147} & \textbf{$-$0.140} \\

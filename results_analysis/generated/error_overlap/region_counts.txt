@@ -1,0 +1,4 @@
+Region keys are (SVM, RoBERTa, Llama-3_ft) memberships.
+True positives: (1, 0, 0)=17, (0, 1, 0)=14, (0, 0, 1)=71, (1, 1, 0)=22, (1, 0, 1)=64, (0, 1, 1)=76, (1, 1, 1)=449 | totals SVM=552, RoBERTa=561, Llama-3$_{ft}$=660
+False negatives: (1, 0, 0)=76, (0, 1, 0)=64, (0, 0, 1)=22, (1, 1, 0)=71, (1, 0, 1)=14, (0, 1, 1)=17, (1, 1, 1)=75 | totals SVM=236, RoBERTa=227, Llama-3$_{ft}$=128
+False positives: (1, 0, 0)=128, (0, 1, 0)=67, (0, 0, 1)=171, (1, 1, 0)=35, (1, 0, 1)=54, (0, 1, 1)=62, (1, 1, 1)=108 | totals SVM=325, RoBERTa=272, Llama-3$_{ft}$=395

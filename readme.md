@@ -18,6 +18,8 @@ The package contains the dataset, the source code, the configurations, the predi
 | RQ5: Issue types and problem categories | `results_analysis/issue_type_and_category_analysis.xlsx` |
 | RQ6-RQ7: Qualitative analysis of the errors | `results_analysis/create_venn_diagram.py`, `results_analysis/select_random_sample.py`, `results_analysis/compute_agreement_index.py` |
 | Temporal evaluation (Section 4.7, Tables 8-9) | `sources/i_temporal_experiment.py`, `sources/temp/add_datetime_to_labeled_data.py`, `dataset/solution_identification_data/temporal_folds/`, `results/temporal-results/`, `results/predictions/temporal-prediction/`, `results_analysis/compare_temporal_with_old_predictions.py`, `results_analysis/temporal_vs_old_fold_results_common_pairs.py` |
+| Explanations of the findings (Sections 4.1-4.4) | `results_analysis/explain_findings.py`, `results_analysis/plot_error_overlap_venn.py`, `results_analysis/generated/explain_findings/`, `results_analysis/generated/error_overlap/` |
+| Statistical significance (Section 3.6, Table 10) | `results_analysis/significance_tests.py`, `results_analysis/significance_table.py`, `results_analysis/generated/significance_tests/` |
 | RQ8: Transferability study (Section 5, Table 12) | `generalizability/`, `experiments.json` |
 
 ## Directory Structure
@@ -76,6 +78,10 @@ Scripts for data preparation, training, and evaluation, run in this order:
 - `select_random_sample.py`: random sample of misclassified comments for the qualitative analysis (RQ6-RQ7).
 - `compute_agreement_index.py`: inter-rater agreement (Cohen's Kappa and Krippendorff's Alpha) of the qualitative analysis.
 - `compare_temporal_with_old_predictions.py`, `temporal_vs_old_fold_results_common_pairs.py`: comparison of the temporal evaluation with the cross-validation (Tables 8 and 9).
+- `explain_findings.py`: analyses that explain the main findings (Sections 4.1-4.4): the words that distinguish solution comments, including the "Created attachment" text (`1a_*`), the recall per solution code (`1b_*`), class weights vs. Smote (`2_*`), the false positives of prompted Llama-3 on comments with technical content (`3_*`), and the overlap of the errors of the three best models (`4_*`). Outputs and their description in `generated/explain_findings/`.
+- `plot_error_overlap_venn.py`: Venn diagrams of the true positives, false negatives, and false positives of svm, RoBERTa, and Llama-3 ft (Section 4.4). Outputs in `generated/error_overlap/`.
+- `significance_tests.py`: paired cluster bootstrap test over issues (10,000 resamples) for the comparisons of Table 10, with Holm correction within each RQ and metric. `generated/significance_tests/results.csv` has all tests, with the differences, 95% confidence intervals, and raw and Holm-adjusted p-values; `claims.csv` maps each comparison to the claim in the paper. The `wilcoxon_*` columns are a secondary fold-level test that is not reported in the paper. The method is described in `generated/significance_tests/README.md`.
+- `significance_table.py`: generates the rows of Table 10 (`generated/significance_tests/table.tex`) from `results.csv`.
 
 ### `generalizability/`
 Transferability study on 10 Chromium and 10 GnuCash issues (RQ8), with leave-one-issue-out evaluation under three settings: project-specific, cross-project (trained on Mozilla data), and hybrid training.

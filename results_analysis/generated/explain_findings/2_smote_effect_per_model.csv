@@ -1,0 +1,7 @@
+model,class_weights_available,precision_no_smote,precision_smote,recall_no_smote,recall_smote,f1_no_smote,f1_smote
+Decision_Tree,True,0.322,0.371,0.636,0.487,0.427,0.421
+K_Nearest_Neighbors,False,0.515,0.296,0.286,0.65,0.368,0.407
+Logistic_Regression,True,0.471,0.504,0.708,0.543,0.566,0.523
+Naive_Bayes,False,0.291,0.253,0.72,0.656,0.414,0.366
+Random_Forest,True,0.62,0.623,0.324,0.432,0.425,0.511
+SVC,True,0.46,0.555,0.708,0.545,0.558,0.55
